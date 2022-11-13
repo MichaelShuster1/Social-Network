@@ -50,5 +50,8 @@
     <ClInclude Include="hour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

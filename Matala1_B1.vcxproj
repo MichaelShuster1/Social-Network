@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="date.h" />
     <ClInclude Include="hour.h" />
+    <ClInclude Include="list.h" />
     <ClInclude Include="member.h" />
     <ClInclude Include="page.h" />
     <ClInclude Include="status.h" />
