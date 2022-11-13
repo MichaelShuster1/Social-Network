@@ -11,13 +11,7 @@ private:
 
 };
 
-List::List()
-{
-}
 
-List::~List()
-{
-}
 
 #endif // !LIST_H
 
