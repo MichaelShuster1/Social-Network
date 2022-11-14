@@ -71,8 +71,6 @@ void Fan_page::show_all_fans()
 
 
 
-
-
 void Fan_page::showAllStatuses()
 {
 	for (int i = 0; i < num_of_status; i++) {
