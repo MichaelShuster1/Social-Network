@@ -35,7 +35,6 @@ public:
 	void reSizeStatusArr(Status* status_array,int size,int new_size);
 	void copyStatusArr(Status* dest, Status* src);
 	void deleteStatusArr(Status* arr);
-	void show_all_status();
 	void show_all_fans();
 	void showAllStatuses();
 

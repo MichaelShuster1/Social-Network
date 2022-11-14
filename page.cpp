@@ -71,19 +71,11 @@ void Fan_page::show_all_fans()
 
 
 
-void Fan_page::show_all_status()
-{
-	int i;
-	for (i = 0; i < num_of_status; i++)
-	{
-		status_array[i].showStatus();
-	}
-}
+
 
 void Fan_page::showAllStatuses()
 {
 	for (int i = 0; i < num_of_status; i++) {
 		status_array[i].showStatus();
 	}
-}
 }
