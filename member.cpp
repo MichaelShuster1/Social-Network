@@ -19,12 +19,38 @@ void Member::addFriend(Member& _member)
 	numOfFriends++;
 }
 
-void Member::addStatus(Status& _status)
+void Member::add_status(Date& date, Hour& hour, char* text)
 {
-	//Myrealloc(status_array, numOfStatuses+1);
-	status_array[numOfStatuses] = _status;
+	Status temp(date, hour, text);
+	reSizeStatusArr(status_array, numOfStatuses, numOfStatuses + 1);
+	status_array[numOfStatuses] = temp;
 	numOfStatuses++;
 }
+
+
+void Member::reSizeStatusArr(Status* status_array, int size, int new_size)
+{
+	Status* temp = new Status[new_size];
+	copyStatusArr(temp, status_array);
+	deleteStatusArr(status_array);
+	status_array = temp;
+}
+
+void Member::copyStatusArr(Status* dest, Status* src)
+{
+	int i;
+	for (i = 0; i < numOfStatuses; i++)
+	{
+		dest[i] = src[i];
+	}
+}
+
+void Member::deleteStatusArr(Status* arr)
+{
+	delete[] arr;
+}
+
+
 
 void Member::showStatuses()
 {
