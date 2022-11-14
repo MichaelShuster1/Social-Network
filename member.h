@@ -22,11 +22,15 @@ private:
 
 public:
 	Member();
+	Member(const Member& other);
+	~Member();
 	void addFriend(Member& _member);
-	void add_status(Date& date, Hour& hour, char* text);
+	void add_status(Status& status);;
 	void reSizeStatusArr(Status* status_array, int size, int new_size);
+	void reSizeMemberArr(Member* member_array, int size, int new_size);
 	void copyStatusArr(Status* dest, Status* src);
-	void deleteStatusArr(Status* arr);
+	void copyMemberArr(Member* dest, Member* src);
+	void copyPageArr(Fan_page* dest, Fan_page* src);
 	void showStatuses();
 	void showAllFriends();
 	void showName();

@@ -31,10 +31,13 @@ public:
 	~Fan_page();
 	void add_Fan(Member& member);
 	void delete_Fan(Member& member);
-	void add_status(Date& date, Hour& hour, char* text);
+	void add_status(Status& status);
 	void reSizeStatusArr(Status* status_array,int size,int new_size);
 	void copyStatusArr(Status* dest, Status* src);
 	void deleteStatusArr(Status* arr);
+	void reSizeMemberArr(Member* status_array, int size, int new_size);
+	void copyMemberArr(Member* dest, Member* src);
+	void deleteMemberArr(Member* arr);
 	void show_all_fans();
 	void showAllStatuses();
 
