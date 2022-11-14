@@ -26,6 +26,6 @@ Status::Status(const Status& other)
 	text = new char[strlen(other.text)+1];
 	strcpy(text,other.text);
 }
-}
+
 
 

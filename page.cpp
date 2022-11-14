@@ -23,11 +23,10 @@ Fan_page::~Fan_page()
 }
 
 
-void Fan_page::add_status(Date& date, Hour& hour, char* text)
+void Fan_page::add_status(Status& status)
 {
-	Status temp(date, hour, text);
 	reSizeStatusArr(status_array,num_of_status ,num_of_status+1);
-	status_array[num_of_status] = temp;
+	status_array[num_of_status] = status;
 	num_of_status++;                                                                                                                    
 }
 
@@ -36,7 +35,7 @@ void Fan_page::reSizeStatusArr(Status* status_array,int size ,int new_size)
 {
 	Status* temp = new Status[new_size];
 	copyStatusArr(temp, status_array);
-	deleteStatusArr(status_array);
+	delete[] status_array;
 	status_array = temp;
 }
 
@@ -44,18 +43,44 @@ void Fan_page::copyStatusArr(Status* dest, Status* src)
 {
 	int i;
 	for (i = 0; i < num_of_status; i++)
-	{
 		dest[i] = src[i];
-	}
 }
 
-void Fan_page::deleteStatusArr(Status* arr)
+
+
+
+
+void Fan_page::add_Fan(Member& member)
 {
-	delete[] arr;
+	reSizeMemberArr(fans, num_of_fans, num_of_fans + 1);
+	fans[num_of_fans] = member;
+	num_of_fans++;
 }
 
-void Fan_page::add_Member(Member& member)
+
+void Fan_page::reSizeMemberArr(Member* member_array, int size, int new_size)
 {
+	Member* temp = new Member[new_size];
+	copyMemberArr(temp, member_array);
+	delete[] member_array;
+	member_array = temp;
+}
+
+void Fan_page::copyMemberArr(Member* dest, Member* src)
+{
+	int i;
+	for (i = 0; i < num_of_status; i++)
+		dest[i] = src[i];
+}
+
+
+
+
+
+void Fan_page::delete_Fan(Member& member)
+{
+
+
 
 }
 
@@ -64,26 +89,14 @@ void Fan_page::show_all_fans()
 {
 	int i;
 	for (i = 0; i < num_of_fans; i++)
-	{
-		fans[i].showName();
-	}	
+		fans[i].showName();	
 }
 
 
-
-void Fan_page::show_all_status()
-{
-	int i;
-	for (i = 0; i < num_of_status; i++)
-	{
-		status_array[i].showStatus();
-	}
-}
 
 void Fan_page::showAllStatuses()
 {
-	for (int i = 0; i < num_of_status; i++) {
+	for (int i = 0; i < num_of_status; i++)
 		status_array[i].showStatus();
-	}
-}
+
 }
