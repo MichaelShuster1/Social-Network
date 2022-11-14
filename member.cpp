@@ -44,6 +44,33 @@ void Member::addFriend(Member& _member)
 	numOfFriends++;
 }
 
+void Member::shiftBackMemberArr(int index)
+{
+	for (int i = index; i < numOfFriends-1; i++)
+	{
+		friends[i] = friends[i + 1];
+	}
+}
+
+
+void Member::removeFriend(Member& _member)
+{
+	int i = 0;
+	bool found = false;
+	while (found == false)
+	{
+		if (&friends[i] == &_member) 
+			found = true;
+		else
+			i++;
+	}
+
+	shiftBackMemberArr(i);
+	reSizeMemberArr(friends, numOfFriends, numOfFriends-1);
+	numOfFriends--;
+}
+
+
 void Member::add_status(Status& status)
 {
 	reSizeStatusArr(status_array, numOfStatuses, numOfStatuses + 1);
@@ -119,6 +146,13 @@ void linkFriends(Member& mem1, Member& mem2)
 	mem1.addFriend(mem2);
 	mem2.addFriend(mem1);
 }
+
+void unlinkFriends(Member& mem1, Member& mem2)
+{
+	mem1.removeFriend(mem2);
+	mem2.removeFriend(mem1);
+}
+
 
 void Member::showAllStatuses()
 {

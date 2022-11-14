@@ -38,6 +38,7 @@ public:
 	void copyMemberArr(Member* dest, Member* src);
 	void show_all_fans();
 	void showAllStatuses();
+	void shiftBackMemberArr(int index);
 
 };
 

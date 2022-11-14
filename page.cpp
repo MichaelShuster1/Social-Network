@@ -74,14 +74,31 @@ void Fan_page::copyMemberArr(Member* dest, Member* src)
 }
 
 
-
+void Fan_page::shiftBackMemberArr(int index)
+{
+	for (int i = index; i < num_of_fans - 1; i++)
+	{
+		fans[i] = fans[i + 1];
+	}
+}
 
 
 void Fan_page::delete_Fan(Member& member)
 {
+	int i = 0;
+	bool found = false;
+	while (found == false)
+	{
+		if (&fans[i] == &member)
+			found = true;
+		else
+			i++;
+	}
 
-
-
+	shiftBackMemberArr(i);
+	reSizeMemberArr(fans, num_of_fans, num_of_fans - 1);
+	num_of_fans--;
+	}
 }
 
 
