@@ -35,7 +35,7 @@ void Fan_page::reSizeStatusArr(Status* status_array,int size ,int new_size)
 {
 	Status* temp = new Status[new_size];
 	copyStatusArr(temp, status_array);
-	deleteStatusArr(status_array);
+	delete[] status_array;
 	status_array = temp;
 }
 
@@ -47,11 +47,6 @@ void Fan_page::copyStatusArr(Status* dest, Status* src)
 }
 
 
-
-void Fan_page::deleteStatusArr(Status* arr)
-{
-	delete[] arr;
-}
 
 
 
@@ -67,7 +62,7 @@ void Fan_page::reSizeMemberArr(Member* member_array, int size, int new_size)
 {
 	Member* temp = new Member[new_size];
 	copyMemberArr(temp, member_array);
-	deleteMemberArr(member_array);
+	delete[] member_array;
 	member_array = temp;
 }
 
@@ -80,10 +75,6 @@ void Fan_page::copyMemberArr(Member* dest, Member* src)
 
 
 
-void Fan_page::deleteMemberArr(Member* arr)
-{
-	delete[] arr;
-}
 
 
 void Fan_page::delete_Fan(Member& member)
