@@ -27,6 +27,7 @@ public:
 	void showStatuses();
 	void showFriends();
 	void showName();
+	void showAllStatuses();
 };
 
 

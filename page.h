@@ -30,7 +30,7 @@ public:
 	void add_status(char* text);
 	void show_all_status();
 	void show_all_fans();
-	void test();
+	void showAllStatuses();
 
 };
 

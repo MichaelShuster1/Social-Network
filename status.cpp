@@ -18,3 +18,5 @@ void Status::showStatus()
 {
 	cout << text;
 }
+
+

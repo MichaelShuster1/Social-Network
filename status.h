@@ -14,6 +14,7 @@ public:
 	Status(Date& d, Hour& h, char* t);
 	~Status();
 	void showStatus();
+	void showAllStatuses();
 
 private:
 	Date publish_date;

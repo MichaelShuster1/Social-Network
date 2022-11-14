@@ -43,7 +43,9 @@ void Fan_page::show_all_status()
 	}
 }
 
-void Fan_page::test()
+void Fan_page::showAllStatuses()
 {
-	int n;
+	for (int i = 0; i < num_of_status; i++) {
+		status_array[i].showStatus();
+	}
 }

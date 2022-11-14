@@ -53,3 +53,10 @@ void linkFriends(Member& mem1, Member& mem2)
 	mem1.addFriend(mem2);
 	mem2.addFriend(mem1);
 }
+
+void Member::showAllStatuses()
+{
+	for (int i = 0; i < numOfStatuses; i++) {
+		status_array[i].showStatus();
+	}
+}
