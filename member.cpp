@@ -40,9 +40,7 @@ void Member::copyStatusArr(Status* dest, Status* src)
 {
 	int i;
 	for (i = 0; i < numOfStatuses; i++)
-	{
 		dest[i] = src[i];
-	}
 }
 
 void Member::deleteStatusArr(Status* arr)
@@ -55,9 +53,7 @@ void Member::deleteStatusArr(Status* arr)
 void Member::showStatuses()
 {
 	for (int i = 0; i < numOfStatuses; i++)
-	{
 		status_array[i].showStatus();
-	}
 }
 
 void Member::showName()
@@ -68,9 +64,7 @@ void Member::showName()
 void Member::showAllFriends()
 {
 	for (int i = 0; i < numOfFriends; i++)
-	{
 		friends[i].showName();
-	}
 }
 
 

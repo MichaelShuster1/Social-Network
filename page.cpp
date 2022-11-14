@@ -44,9 +44,7 @@ void Fan_page::copyStatusArr(Status* dest, Status* src)
 {
 	int i;
 	for (i = 0; i < num_of_status; i++)
-	{
 		dest[i] = src[i];
-	}
 }
 
 
@@ -79,16 +77,14 @@ void Fan_page::show_all_fans()
 {
 	int i;
 	for (i = 0; i < num_of_fans; i++)
-	{
-		fans[i].showName();
-	}	
+		fans[i].showName();	
 }
 
 
 
 void Fan_page::showAllStatuses()
 {
-	for (int i = 0; i < num_of_status; i++) {
+	for (int i = 0; i < num_of_status; i++)
 		status_array[i].showStatus();
-	}
+
 }
