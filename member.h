@@ -28,7 +28,7 @@ public:
 	void copyStatusArr(Status* dest, Status* src);
 	void deleteStatusArr(Status* arr);
 	void showStatuses();
-	void showFriends();
+	void showAllFriends();
 	void showName();
 	void showAllStatuses();
 };

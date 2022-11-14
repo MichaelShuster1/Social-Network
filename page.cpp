@@ -49,13 +49,28 @@ void Fan_page::copyStatusArr(Status* dest, Status* src)
 	}
 }
 
+
+
 void Fan_page::deleteStatusArr(Status* arr)
 {
 	delete[] arr;
 }
 
-void Fan_page::add_Member(Member& member)
+
+
+void Fan_page::add_Fan(Member& member)
 {
+
+
+
+}
+
+
+
+void Fan_page::delete_Fan(Member& member)
+{
+
+
 
 }
 

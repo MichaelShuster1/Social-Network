@@ -65,7 +65,7 @@ void Member::showName()
 	cout << name;
 }
 
-void Member::showFriends()
+void Member::showAllFriends()
 {
 	for (int i = 0; i < numOfFriends; i++)
 	{

@@ -29,8 +29,8 @@ private:
 public:
 	Fan_page(char* _name);
 	~Fan_page();
-	void add_Member(Member& member);
-	void delete_Member(Member& member);
+	void add_Fan(Member& member);
+	void delete_Fan(Member& member);
 	void add_status(Date& date, Hour& hour, char* text);
 	void reSizeStatusArr(Status* status_array,int size,int new_size);
 	void copyStatusArr(Status* dest, Status* src);
