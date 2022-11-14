@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="date.cpp" />
     <ClCompile Include="hour.cpp" />
-    <ClCompile Include="list.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="member.cpp" />
     <ClCompile Include="page.cpp" />
@@ -150,7 +149,6 @@
   <ItemGroup>
     <ClInclude Include="date.h" />
     <ClInclude Include="hour.h" />
-    <ClInclude Include="list.h" />
     <ClInclude Include="member.h" />
     <ClInclude Include="page.h" />
     <ClInclude Include="status.h" />
