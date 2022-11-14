@@ -98,7 +98,7 @@ void Fan_page::delete_Fan(Member& member)
 	shiftBackMemberArr(i);
 	reSizeMemberArr(fans, num_of_fans, num_of_fans - 1);
 	num_of_fans--;
-	}
+	
 }
 
 
