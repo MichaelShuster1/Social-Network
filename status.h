@@ -12,6 +12,9 @@ class Status
 {
 public:
 	Status(Date& d, Hour& h, char* t);
+	Status() = default;
+	Status(const Status& other);
+	
 	~Status();
 	void showStatus();
 
