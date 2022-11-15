@@ -21,9 +21,9 @@ Member::Member(const Member& other)
 	birth_date = other.birth_date;
 	name = new char[strlen(other.name) + 1];
 	strcpy(name, other.name);
-	copyStatusArr(status_array, other.status_array);
-	copyMemberArr(friends, other.friends);
-	copyPageArr(pages, other.pages);
+	copyStatusArr(status_array, other.status_array,numOfStatuses);
+	copyMemberArr(friends, other.friends,numOfFriends);
+	copyPageArr(pages, other.pages,numOfPages);
 }
 
 
@@ -79,48 +79,55 @@ void Member::add_status(Status& status)
 }
 
 
-void Member::reSizeStatusArr(Status* status_array, int size, int new_size)
+void Member::reSizeStatusArr(Status* status_array, int old_size, int new_size)
 {
 	Status* temp = new Status[new_size];
-	copyStatusArr(temp, status_array);
+	copyStatusArr(temp, status_array,getMin(old_size,new_size));
 	delete[] status_array;
 	status_array = temp;
 }
 
-void Member::reSizeMemberArr(Member* member_array, int size, int new_size)
+void Member::reSizeMemberArr(Member* member_array, int old_size, int new_size)
 {
 	Member* temp = new Member[new_size];
-	copyMemberArr(temp, member_array);
+	copyMemberArr(temp, member_array, getMin(old_size, new_size));
 	delete[] member_array;
 	member_array = temp;
 }
 
 
 
-void Member::copyStatusArr(Status* dest, Status* src)
+void Member::copyStatusArr(Status* dest, Status* src,int size)
 {
 	int i;
-	for (i = 0; i < numOfStatuses; i++)
+	for (i = 0; i < size; i++)
 		dest[i] = src[i];
 }
 
 
-void Member::copyMemberArr(Member* dest, Member* src)
+void Member::copyMemberArr(Member* dest, Member* src,int size)
 {
 	int i;
-	for (i = 0; i < numOfFriends; i++)
+	for (i = 0; i < size; i++)
 		dest[i] = src[i];
 
 }
 
 
-void Member::copyPageArr(Fan_page* dest, Fan_page* src)
+void Member::copyPageArr(Fan_page* dest, Fan_page* src,int size)
 {
 	int i;
-	for (i = 0; i < numOfPages; i++)
+	for (i = 0; i < size; i++)
 		dest[i] = src[i];
 }
 
+
+int Member::getMin(int num1, int num2)
+{
+	if (num1 < num2)
+		return num1;
+	return num2;
+}
 
 
 void Member::showStatuses()

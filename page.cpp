@@ -31,18 +31,25 @@ void Fan_page::add_status(Status& status)
 }
 
 
-void Fan_page::reSizeStatusArr(Status* status_array,int size ,int new_size)
+void Fan_page::reSizeStatusArr(Status* status_array,int old_size ,int new_size)
 {
 	Status* temp = new Status[new_size];
-	copyStatusArr(temp, status_array);
+	copyStatusArr(temp, status_array,getMin(old_size,new_size));
 	delete[] status_array;
 	status_array = temp;
 }
 
-void Fan_page::copyStatusArr(Status* dest, Status* src)
+int Fan_page::getMin(int num1, int num2)
+{
+	if (num1 < num2)
+		return num1;
+	return num2;
+}
+
+void Fan_page::copyStatusArr(Status* dest, Status* src,int size)
 {
 	int i;
-	for (i = 0; i < num_of_status; i++)
+	for (i = 0; i < size; i++)
 		dest[i] = src[i];
 }
 

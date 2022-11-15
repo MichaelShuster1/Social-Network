@@ -32,8 +32,9 @@ public:
 	void add_Fan(Member& member);
 	void delete_Fan(Member& member);
 	void add_status(Status& status);
-	void reSizeStatusArr(Status* status_array,int size,int new_size);
-	void copyStatusArr(Status* dest, Status* src);
+	void reSizeStatusArr(Status* status_array,int old_size,int new_size);
+	int getMin(int num1, int num2);
+	void copyStatusArr(Status* dest, Status* src,int size);
 	void reSizeMemberArr(Member* status_array, int size, int new_size);
 	void copyMemberArr(Member* dest, Member* src);
 	void show_all_fans();
