@@ -33,7 +33,7 @@ Member::~Member()
 {
 	delete[] name;
 	delete[] pages;
-	delete[] friends;
+	freeFriends();
 	delete[] status_array;
 }
 
@@ -41,12 +41,13 @@ Member::~Member()
 void Member::addFriend(Member& _member)
 {
 	reSizeMemberArr(&friends, numOfFriends, numOfFriends + 1);
-	friends[numOfFriends] = _member;
+	*friends[numOfFriends] = _member;
 	numOfFriends++;
 }
 
 void Member::shiftBackMemberArr(int index)
 {
+	free(friends[index]);
 	for (int i = index; i < numOfFriends-1; i++)
 	{
 		friends[i] = friends[i + 1];
@@ -60,7 +61,7 @@ void Member::removeFriend(Member& _member)
 	bool found = false;
 	while (found == false)
 	{
-		if (&friends[i] == &_member) 
+		if (friends[i] == &_member) 
 			found = true;
 		else
 			i++;
@@ -75,7 +76,7 @@ void Member::removeFriend(Member& _member)
 void Member::add_status(const Status& status)
 {
 	reSizeStatusArr(&status_array, numOfStatuses, numOfStatuses + 1);
-	status_array[numOfStatuses] = status;
+	status_array[numOfStatuses].copyStatus(status);
 	numOfStatuses++;
 }
 
@@ -88,9 +89,9 @@ void Member::reSizeStatusArr(Status** status_array, int old_size, int new_size)
 	(*status_array )= temp;
 }
 
-void Member::reSizeMemberArr(Member** member_array, int old_size, int new_size)
+void Member::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
-	Member* temp = new Member[new_size];
+	Member** temp = new Member*[new_size];
 	copyMemberArr(temp, *member_array, getMin(old_size, new_size));
 	delete[] (*member_array);
 	(*member_array) = temp;
@@ -102,11 +103,16 @@ void Member::copyStatusArr(Status* dest, Status* src,int size)
 {
 	int i;
 	for (i = 0; i < size; i++)
-		dest[i] = src[i];
+	{
+		dest[i].copyStatus(src[i]);
+	}
+
+
+	
 }
 
 
-void Member::copyMemberArr(Member* dest, Member* src,int size)
+void Member::copyMemberArr(Member** dest, Member** src,int size)
 {
 	int i;
 	for (i = 0; i < size; i++)
@@ -145,7 +151,7 @@ void Member::showName()
 void Member::showAllFriends()
 {
 	for (int i = 0; i < numOfFriends; i++)
-		friends[i].showName();
+		friends[i]->showName();
 }
 
 
@@ -166,4 +172,15 @@ void Member::showAllStatuses()
 {
 	for (int i = 0; i < numOfStatuses; i++) 
 		status_array[i].showStatus();
+}
+
+
+void Member::freeFriends()
+{
+	for (int i = 0; i < numOfFriends;i++)
+	{
+		delete[] (friends[i]);
+	}
+
+	delete[] friends;
 }

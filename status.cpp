@@ -19,7 +19,7 @@ void Status::showStatus()
 	cout << text;
 }
 
-Status::Status(const Status& other)
+void Status::copyStatus(const Status& other)
 {
 	publish_date = other.publish_date;
 	publish_hour = other.publish_hour;

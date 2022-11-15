@@ -13,7 +13,7 @@ class Status
 public:
 	Status(const Date& d,const Hour& h, const char* t);
 	Status() = default;
-	Status(const Status& other);
+	void copyStatus(const Status& other);
 	
 	~Status();
 	void showStatus();

@@ -14,7 +14,8 @@ void main()
 	Member members_array[3] = { {"dani"},{"avi"},{"beni"}};
 	Fan_page pages_array[3] = { {"page3"},{"page2"},{"page3"} };
 
-	//members_array[0].add_status(status_array[0]); error in run time in the exit from the program
+	members_array[0].add_status(status_array[0]); //error in run time in the exit from the program
+	members_array[0].add_status(status_array[1]);
 
 	while (exit == false)
 	{
