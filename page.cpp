@@ -3,7 +3,7 @@
 
 
 
-Fan_page::Fan_page(char* _name)
+Fan_page::Fan_page(const char* _name)
 {
 	name = new char[strlen(_name) + 1];
 	strcpy(name, _name);
@@ -25,24 +25,31 @@ Fan_page::~Fan_page()
 
 void Fan_page::add_status(Status& status)
 {
-	reSizeStatusArr(status_array,num_of_status ,num_of_status+1);
+	reSizeStatusArr(&status_array,num_of_status ,num_of_status+1);
 	status_array[num_of_status] = status;
 	num_of_status++;                                                                                                                    
 }
 
 
-void Fan_page::reSizeStatusArr(Status* status_array,int size ,int new_size)
+void Fan_page::reSizeStatusArr(Status** status_array,int old_size ,int new_size)
 {
 	Status* temp = new Status[new_size];
-	copyStatusArr(temp, status_array);
-	delete[] status_array;
-	status_array = temp;
+	copyStatusArr(temp, *status_array,getMin(old_size,new_size));
+	delete[] (*status_array);
+	(*status_array) = temp;
 }
 
-void Fan_page::copyStatusArr(Status* dest, Status* src)
+int Fan_page::getMin(int num1, int num2)
+{
+	if (num1 < num2)
+		return num1;
+	return num2;
+}
+
+void Fan_page::copyStatusArr(Status* dest, Status* src,int size)
 {
 	int i;
-	for (i = 0; i < num_of_status; i++)
+	for (i = 0; i < size; i++)
 		dest[i] = src[i];
 }
 
@@ -52,24 +59,24 @@ void Fan_page::copyStatusArr(Status* dest, Status* src)
 
 void Fan_page::add_Fan(Member& member)
 {
-	reSizeMemberArr(fans, num_of_fans, num_of_fans + 1);
+	reSizeMemberArr(&fans, num_of_fans, num_of_fans + 1);
 	fans[num_of_fans] = member;
 	num_of_fans++;
 }
 
 
-void Fan_page::reSizeMemberArr(Member* member_array, int size, int new_size)
+void Fan_page::reSizeMemberArr(Member** member_array, int old_size, int new_size)
 {
 	Member* temp = new Member[new_size];
-	copyMemberArr(temp, member_array);
-	delete[] member_array;
-	member_array = temp;
+	copyMemberArr(temp, *member_array,getMin(old_size,new_size));
+	delete[] (*member_array);
+	(*member_array) = temp;
 }
 
-void Fan_page::copyMemberArr(Member* dest, Member* src)
+void Fan_page::copyMemberArr(Member* dest, Member* src,int size)
 {
 	int i;
-	for (i = 0; i < num_of_status; i++)
+	for (i = 0; i < size; i++)
 		dest[i] = src[i];
 }
 
@@ -96,7 +103,7 @@ void Fan_page::delete_Fan(Member& member)
 	}
 
 	shiftBackMemberArr(i);
-	reSizeMemberArr(fans, num_of_fans, num_of_fans - 1);
+	reSizeMemberArr(&fans, num_of_fans, num_of_fans - 1);
 	num_of_fans--;
 	
 }

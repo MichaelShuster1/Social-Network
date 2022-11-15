@@ -1,6 +1,6 @@
 #include "status.h"
 
-Status::Status(Date& d, Hour& h, char* t)
+Status::Status(const Date& d,const Hour& h,const char* t)
 {
 	publish_date = d;
 	publish_hour = h;
