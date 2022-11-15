@@ -11,7 +11,7 @@ using namespace std;
 class Status
 {
 public:
-	Status(Date& d, Hour& h, char* t);
+	Status(const Date& d,const Hour& h, const char* t);
 	Status() = default;
 	Status(const Status& other);
 	

@@ -3,9 +3,10 @@
 
 
 
-Member::Member()
+Member::Member(const char* _name)
 {
-	name = nullptr;
+	name = new char[strlen(_name) + 1];
+	strcpy(name, _name);
 	status_array = nullptr;
 	pages = nullptr;
 	friends = nullptr;
@@ -39,7 +40,7 @@ Member::~Member()
 
 void Member::addFriend(Member& _member)
 {
-	reSizeMemberArr(friends, numOfFriends, numOfFriends + 1);
+	reSizeMemberArr(&friends, numOfFriends, numOfFriends + 1);
 	friends[numOfFriends] = _member;
 	numOfFriends++;
 }
@@ -66,33 +67,33 @@ void Member::removeFriend(Member& _member)
 	}
 
 	shiftBackMemberArr(i);
-	reSizeMemberArr(friends, numOfFriends, numOfFriends-1);
+	reSizeMemberArr(&friends, numOfFriends, numOfFriends-1);
 	numOfFriends--;
 }
 
 
-void Member::add_status(Status& status)
+void Member::add_status(const Status& status)
 {
-	reSizeStatusArr(status_array, numOfStatuses, numOfStatuses + 1);
+	reSizeStatusArr(&status_array, numOfStatuses, numOfStatuses + 1);
 	status_array[numOfStatuses] = status;
 	numOfStatuses++;
 }
 
 
-void Member::reSizeStatusArr(Status* status_array, int old_size, int new_size)
+void Member::reSizeStatusArr(Status** status_array, int old_size, int new_size)
 {
 	Status* temp = new Status[new_size];
-	copyStatusArr(temp, status_array,getMin(old_size,new_size));
-	delete[] status_array;
-	status_array = temp;
+	copyStatusArr(temp, *status_array,getMin(old_size,new_size));
+	delete[] (*status_array);
+	(*status_array )= temp;
 }
 
-void Member::reSizeMemberArr(Member* member_array, int old_size, int new_size)
+void Member::reSizeMemberArr(Member** member_array, int old_size, int new_size)
 {
 	Member* temp = new Member[new_size];
-	copyMemberArr(temp, member_array, getMin(old_size, new_size));
-	delete[] member_array;
-	member_array = temp;
+	copyMemberArr(temp, *member_array, getMin(old_size, new_size));
+	delete[] (*member_array);
+	(*member_array) = temp;
 }
 
 
@@ -163,7 +164,6 @@ void unlinkFriends(Member& mem1, Member& mem2)
 
 void Member::showAllStatuses()
 {
-	for (int i = 0; i < numOfStatuses; i++) {
+	for (int i = 0; i < numOfStatuses; i++) 
 		status_array[i].showStatus();
-	}
 }
