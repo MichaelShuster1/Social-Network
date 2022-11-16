@@ -39,7 +39,7 @@ Member::~Member()
 {
 	delete[] name;
 	delete[] pages;
-	freeFriends();
+	delete[] friends;
 	delete[] status_array;
 }
 
@@ -47,13 +47,13 @@ Member::~Member()
 void Member::addFriend(Member& _member)
 {
 	reSizeMemberArr(&friends, numOfFriends, numOfFriends + 1);
-	*friends[numOfFriends] = _member;
+	friends[numOfFriends] = &_member;
 	numOfFriends++;
 }
 
 void Member::shiftBackMemberArr(int index)
 {
-	free(friends[index]);
+	
 	for (int i = index; i < numOfFriends-1; i++)
 	{
 		friends[i] = friends[i + 1];
@@ -98,12 +98,8 @@ void Member::reSizeStatusArr(Status** status_array, int old_size, int new_size)
 void Member::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
 	Member** temp = new Member*[new_size];
-
-	for (int i = 0; i < new_size; i++)
-		temp[i] = new Member;
-
 	copyMemberArr(temp, *member_array, getMin(old_size, new_size));
-	freeFriends();
+	delete[] (*member_array);
 	(*member_array) = temp;
 }
 
@@ -179,11 +175,3 @@ void Member::showAllStatuses()
 		status_array[i].showStatus();
 }
 
-
-void Member::freeFriends()
-{
-	for (int i = 0; i < numOfFriends;i++)
-		delete[] (friends[i]);
-
-	delete[] friends;
-}

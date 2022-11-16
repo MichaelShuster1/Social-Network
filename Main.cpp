@@ -1,3 +1,6 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include "member.h"
 #include "page.h"
 
@@ -7,18 +10,12 @@ void main()
 	bool exit = false;
 	int choice;
 
-	int arr[2] = { 1,2 };
-	int** arr2 = new int*[2];
-	arr2[0] = arr; //stupid cpp (its not supposed to work because no memory was all alloacted to the element)
-	arr2[1] = arr + 1; //stupid cpp
-
-
 	//temp
 	Date date_array[2] = { {2022,12,12},{2022,11,12} };
 	Hour hour_array[2] = { {18,20},{19,20} };
 	Status status_array[2] = { {date_array[0],hour_array[0],"hello1"}, {date_array[1],hour_array[1],"hello2"}};
 	Member members_array[3] = { {"dani"},{"avi"},{"beni"}};
-	Fan_page pages_array[3] = { {"page3"},{"page2"},{"page3"} };
+	Fan_page pages_array[3] = { {"page1"},{"page2"},{"page3"} };
 
 	members_array[0].add_status(status_array[0]); 
 	members_array[0].add_status(status_array[1]);
@@ -86,5 +83,5 @@ void main()
 		}
 	}
 
-
+	_CrtDumpMemoryLeaks();
 }

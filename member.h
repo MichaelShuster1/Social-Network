@@ -38,7 +38,6 @@ public:
 	void showAllFriends();
 	void showName();
 	void showAllStatuses();
-	void freeFriends();
 };
 
 

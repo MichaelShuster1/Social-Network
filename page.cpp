@@ -73,8 +73,8 @@ void Fan_page::reSizeMemberArr(Member*** member_array, int old_size, int new_siz
 {
 	Member** temp = new Member*[new_size];
 
-	for (int i = 0; i < new_size; i++)
-		temp[i] = new Member;
+	//for (int i = 0; i < new_size; i++)
+		//temp[i] = new Member;
 
 	copyMemberArr(temp, *member_array,getMin(old_size,new_size));
 	freeFans();
@@ -137,7 +137,12 @@ void Fan_page::showAllStatuses()
 void Fan_page::freeFans()
 {
 	for (int i = 0; i < num_of_fans; i++)
-		delete[](fans[i]);
+	{
+		//fans[i] = nullptr;
+		//delete (fans[i]);
+		
+	}
+		
 
 	delete[] fans;
 }
