@@ -37,7 +37,6 @@ public:
 	void copyStatusArr(Status* dest, Status* src,int size);
 	void reSizeMemberArr(Member*** status_array, int old_size, int new_size);
 	void copyMemberArr(Member** dest, Member** src,int size);
-	void freeFans();
 	void show_all_fans();
 	void showAllStatuses();
 	void shiftBackMemberArr(int index);

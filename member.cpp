@@ -15,7 +15,6 @@ Member::Member(const char* _name)
 	status_array = nullptr;
 	pages = nullptr;
 	friends = nullptr;
-	friends = nullptr;
 	numOfFriends = numOfPages = numOfStatuses = 0;
 }
 
@@ -183,7 +182,7 @@ void Member::showAllStatuses()
 void Member::freeFriends()
 {
 	for (int i = 0; i < numOfFriends;i++)
-		delete[] (friends[i]);
+		delete (friends[i]);
 
 	delete[] friends;
 }

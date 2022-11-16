@@ -1,16 +1,15 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include "member.h"
 #include "page.h"
+
 
 
 void main()
 {
 	bool exit = false;
 	int choice;
-
-	int arr[2] = { 1,2 };
-	int** arr2 = new int*[2];
-	arr2[0] = arr; //stupid cpp (its not supposed to work because no memory was all alloacted to the element)
-	arr2[1] = arr + 1; //stupid cpp
 
 
 	//temp
@@ -86,5 +85,6 @@ void main()
 		}
 	}
 
-
+	_CrtDumpMemoryLeaks();
 }
+

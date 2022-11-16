@@ -1,3 +1,5 @@
+
+
 #include "page.h"
 #include "member.h"
 
@@ -23,7 +25,7 @@ Fan_page::Fan_page(const char* _name)
 Fan_page::~Fan_page()
 {
 	delete[] name;
-	freeFans();
+	delete[] fans;
 	delete[] status_array;
 }
 
@@ -72,12 +74,8 @@ void Fan_page::add_Fan(Member& member)
 void Fan_page::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
 	Member** temp = new Member*[new_size];
-
-	for (int i = 0; i < new_size; i++)
-		temp[i] = new Member;
-
 	copyMemberArr(temp, *member_array,getMin(old_size,new_size));
-	freeFans();
+	delete[] (*member_array);
 	(*member_array) = temp;
 }
 
@@ -113,7 +111,6 @@ void Fan_page::delete_Fan(Member& member)
 	shiftBackMemberArr(i);
 	reSizeMemberArr(&fans, num_of_fans, num_of_fans - 1);
 	num_of_fans--;
-	
 }
 
 
@@ -130,14 +127,7 @@ void Fan_page::showAllStatuses()
 {
 	for (int i = 0; i < num_of_status; i++)
 		status_array[i].showStatus();
-
 }
 
 
-void Fan_page::freeFans()
-{
-	for (int i = 0; i < num_of_fans; i++)
-		delete[](fans[i]);
 
-	delete[] fans;
-}
