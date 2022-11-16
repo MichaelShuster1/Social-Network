@@ -15,7 +15,6 @@ Member::Member(const char* _name)
 	status_array = nullptr;
 	pages = nullptr;
 	friends = nullptr;
-	friends = nullptr;
 	numOfFriends = numOfPages = numOfStatuses = 0;
 }
 
