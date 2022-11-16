@@ -5,8 +5,13 @@
 
 Fan_page::Fan_page(const char* _name)
 {
-	name = new char[strlen(_name) + 1];
-	strcpy(name, _name);
+	if (name != nullptr)
+	{
+		name = new char[strlen(_name) + 1];
+		strcpy(name, _name);
+	}
+	else
+		name = nullptr;
 	num_of_fans = 0;
 	num_of_status = 0;
 	status_array = nullptr;
@@ -18,7 +23,7 @@ Fan_page::Fan_page(const char* _name)
 Fan_page::~Fan_page()
 {
 	delete[] name;
-	delete[] fans;
+	freeFans();
 	delete[] status_array;
 }
 
@@ -39,12 +44,14 @@ void Fan_page::reSizeStatusArr(Status** status_array,int old_size ,int new_size)
 	(*status_array) = temp;
 }
 
+
 int Fan_page::getMin(int num1, int num2)
 {
 	if (num1 < num2)
 		return num1;
 	return num2;
 }
+
 
 void Fan_page::copyStatusArr(Status* dest, Status* src,int size)
 {
@@ -54,26 +61,27 @@ void Fan_page::copyStatusArr(Status* dest, Status* src,int size)
 }
 
 
-
-
-
 void Fan_page::add_Fan(Member& member)
 {
 	reSizeMemberArr(&fans, num_of_fans, num_of_fans + 1);
-	fans[num_of_fans] = member;
+	fans[num_of_fans] = &member;
 	num_of_fans++;
 }
 
 
-void Fan_page::reSizeMemberArr(Member** member_array, int old_size, int new_size)
+void Fan_page::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
-	Member* temp = new Member[new_size];
+	Member** temp = new Member*[new_size];
+
+	for (int i = 0; i < new_size; i++)
+		temp[i] = new Member;
+
 	copyMemberArr(temp, *member_array,getMin(old_size,new_size));
-	delete[] (*member_array);
+	freeFans();
 	(*member_array) = temp;
 }
 
-void Fan_page::copyMemberArr(Member* dest, Member* src,int size)
+void Fan_page::copyMemberArr(Member** dest, Member** src,int size)
 {
 	int i;
 	for (i = 0; i < size; i++)
@@ -96,7 +104,7 @@ void Fan_page::delete_Fan(Member& member)
 	bool found = false;
 	while (found == false)
 	{
-		if (&fans[i] == &member)
+		if (fans[i] == &member)
 			found = true;
 		else
 			i++;
@@ -113,7 +121,7 @@ void Fan_page::show_all_fans()
 {
 	int i;
 	for (i = 0; i < num_of_fans; i++)
-		fans[i].showName();	
+		fans[i]->showName();	
 }
 
 
@@ -123,4 +131,13 @@ void Fan_page::showAllStatuses()
 	for (int i = 0; i < num_of_status; i++)
 		status_array[i].showStatus();
 
+}
+
+
+void Fan_page::freeFans()
+{
+	for (int i = 0; i < num_of_fans; i++)
+		delete[](fans[i]);
+
+	delete[] fans;
 }

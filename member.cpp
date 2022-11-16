@@ -5,10 +5,16 @@
 
 Member::Member(const char* _name)
 {
-	name = new char[strlen(_name) + 1];
-	strcpy(name, _name);
+	if (name != nullptr)
+	{
+		name = new char[strlen(_name) + 1];
+		strcpy(name, _name);
+	}
+	else
+		name = nullptr;
 	status_array = nullptr;
 	pages = nullptr;
+	friends = nullptr;
 	friends = nullptr;
 	numOfFriends = numOfPages = numOfStatuses = 0;
 }
@@ -92,8 +98,12 @@ void Member::reSizeStatusArr(Status** status_array, int old_size, int new_size)
 void Member::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
 	Member** temp = new Member*[new_size];
+
+	for (int i = 0; i < new_size; i++)
+		temp[i] = new Member;
+
 	copyMemberArr(temp, *member_array, getMin(old_size, new_size));
-	delete[] (*member_array);
+	freeFriends();
 	(*member_array) = temp;
 }
 
@@ -103,12 +113,7 @@ void Member::copyStatusArr(Status* dest, Status* src,int size)
 {
 	int i;
 	for (i = 0; i < size; i++)
-	{
 		dest[i].copyStatus(src[i]);
-	}
-
-
-	
 }
 
 
@@ -178,9 +183,7 @@ void Member::showAllStatuses()
 void Member::freeFriends()
 {
 	for (int i = 0; i < numOfFriends;i++)
-	{
 		delete[] (friends[i]);
-	}
 
 	delete[] friends;
 }

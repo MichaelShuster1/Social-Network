@@ -7,6 +7,12 @@ void main()
 	bool exit = false;
 	int choice;
 
+	int arr[2] = { 1,2 };
+	int** arr2 = new int*[2];
+	arr2[0] = arr; //stupid cpp (its not supposed to work because no memory was all alloacted to the element)
+	arr2[1] = arr + 1; //stupid cpp
+
+
 	//temp
 	Date date_array[2] = { {2022,12,12},{2022,11,12} };
 	Hour hour_array[2] = { {18,20},{19,20} };
@@ -14,8 +20,9 @@ void main()
 	Member members_array[3] = { {"dani"},{"avi"},{"beni"}};
 	Fan_page pages_array[3] = { {"page3"},{"page2"},{"page3"} };
 
-	members_array[0].add_status(status_array[0]); //error in run time in the exit from the program
+	members_array[0].add_status(status_array[0]); 
 	members_array[0].add_status(status_array[1]);
+	pages_array[0].add_Fan(members_array[0]); //runtime error in freeing memory
 
 	while (exit == false)
 	{
