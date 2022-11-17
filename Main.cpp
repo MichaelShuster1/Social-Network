@@ -20,7 +20,7 @@ void main()
 
 	members_array[0].add_status(status_array[0]); 
 	members_array[0].add_status(status_array[1]);
-	pages_array[0].add_Fan(members_array[0]); //runtime error in freeing memory
+	pages_array[0].add_Fan(members_array[0]); 
 
 	while (exit == false)
 	{

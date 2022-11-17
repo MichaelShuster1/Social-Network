@@ -121,7 +121,7 @@ void Member::copyMemberArr(Member** dest, Member** src,int size)
 }
 
 
-void Member::copyPageArr(Fan_page* dest, Fan_page* src,int size)
+void Member::copyPageArr(Fan_page** dest, Fan_page** src,int size)
 {
 	int i;
 	for (i = 0; i < size; i++)

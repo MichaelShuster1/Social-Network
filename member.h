@@ -14,7 +14,7 @@ private:
 	char* name;
 	Date birth_date;
 	Status* status_array;
-	Fan_page* pages;
+	Fan_page** pages;
 	Member** friends;
 	int numOfFriends;
 	int numOfStatuses;
@@ -31,7 +31,7 @@ public:
 	void reSizeMemberArr(Member*** member_array, int old_size, int new_size);
 	void copyStatusArr(Status* dest, Status* src,int size);
 	void copyMemberArr(Member** dest, Member** src,int size);
-	void copyPageArr(Fan_page* dest, Fan_page* src,int size);
+	void copyPageArr(Fan_page** dest, Fan_page** src,int size);
 	int getMin(int num1, int num2);
 	void shiftBackMemberArr(int index);
 	void showStatuses();
