@@ -31,7 +31,7 @@ Fan_page::~Fan_page()
 void Fan_page::add_status(Status& status)
 {
 	reSizeStatusArr(&status_array,num_of_status ,num_of_status+1);
-	status_array[num_of_status] = status;
+	status_array[num_of_status].copyStatus(status);
 	num_of_status++;                                                                                                                    
 }
 
@@ -120,11 +120,15 @@ void Fan_page::show_all_fans()
 }
 
 
-
 void Fan_page::showAllStatuses()
 {
 	for (int i = 0; i < num_of_status; i++)
 		status_array[i].showStatus();
+}
+
+void Fan_page::showName()
+{
+	cout << name;
 }
 
 

@@ -85,6 +85,13 @@ void Member::add_status(const Status& status)
 	numOfStatuses++;
 }
 
+void Member::add_page(Fan_page& page)
+{
+	reSizePagesArr(&pages, numOfPages, numOfPages + 1);
+	pages[numOfPages] = &page;
+	numOfPages++;
+}
+
 
 void Member::reSizeStatusArr(Status** status_array, int old_size, int new_size)
 {
@@ -100,6 +107,15 @@ void Member::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 	copyMemberArr(temp, *member_array, getMin(old_size, new_size));
 	delete[] (*member_array);
 	(*member_array) = temp;
+}
+
+
+void Member::reSizePagesArr(Fan_page*** pages_array, int old_size, int new_size)
+{
+	Fan_page** temp = new Fan_page * [new_size];
+	copyPageArr(temp, *pages_array, getMin(old_size, new_size));
+	delete[](*pages_array);
+	(*pages_array) = temp;
 }
 
 
@@ -137,12 +153,6 @@ int Member::getMin(int num1, int num2)
 }
 
 
-void Member::showStatuses()
-{
-	for (int i = 0; i < numOfStatuses; i++)
-		status_array[i].showStatus();
-}
-
 void Member::showName()
 {
 	cout << name;
@@ -151,7 +161,31 @@ void Member::showName()
 void Member::showAllFriends()
 {
 	for (int i = 0; i < numOfFriends; i++)
+	{
 		friends[i]->showName();
+		cout << endl;
+	}
+		
+}
+
+void Member::showAllPages()
+{
+	for (int i = 0; i < numOfPages; i++)
+	{
+		pages[i]->showName();
+		cout << endl;
+	}
+		
+}
+
+void Member::showAllStatuses()
+{
+	for (int i = 0; i < numOfStatuses; i++)
+	{
+		status_array[i].showStatus();
+		cout << endl;
+	}
+		
 }
 
 
@@ -165,12 +199,5 @@ void unlinkFriends(Member& mem1, Member& mem2)
 {
 	mem1.removeFriend(mem2);
 	mem2.removeFriend(mem1);
-}
-
-
-void Member::showAllStatuses()
-{
-	for (int i = 0; i < numOfStatuses; i++) 
-		status_array[i].showStatus();
 }
 

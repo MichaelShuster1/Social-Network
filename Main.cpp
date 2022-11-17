@@ -20,7 +20,13 @@ void main()
 
 	members_array[0].add_status(status_array[0]); 
 	members_array[0].add_status(status_array[1]);
+	pages_array[0].add_status(status_array[0]);
+
 	pages_array[0].add_Fan(members_array[0]); 
+	members_array[0].add_page(pages_array[0]);
+
+	members_array[0].addFriend(members_array[1]);
+	members_array[1].addFriend(members_array[0]);
 
 	while (exit == false)
 	{

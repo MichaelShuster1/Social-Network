@@ -40,6 +40,7 @@ public:
 	void show_all_fans();
 	void showAllStatuses();
 	void shiftBackMemberArr(int index);
+	void showName();
 
 };
 
