@@ -19,6 +19,8 @@ void printAllSysPages(Fan_page*** Pages, int size);
 void printAllRegisteredEntities(Member*** Users, int size_u, Fan_page*** Pages, int size_p);
 int chooseOneMember(Member*** Users, int size);
 int chooseOnePage(Fan_page*** Pages, int size);
+void freeMemberArr(Member** Users, int size);
+void freePageArr(Fan_page** Pages, int size);
 
 
 void main()
@@ -119,6 +121,10 @@ void main()
 		cout << endl;
 	}
 
+	freeMemberArr(System_Members,members_size);
+	freePageArr(System_Pages, pages_size);
+
+
 	_CrtDumpMemoryLeaks();
 }
 
@@ -134,7 +140,7 @@ void reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
 	Member** temp = new Member * [new_size];
 	copyMemberArr(temp, *member_array, new_size);
-	delete[](*member_array);
+	delete[](*member_array); 
 	(*member_array) = temp;
 }
 
@@ -240,5 +246,24 @@ int chooseOnePage(Fan_page*** Pages, int size)
 	cin >> choice;
 	return choice;
 }
+
+
+void freeMemberArr(Member** Users, int size)
+{
+	for (int i = 0; i < size; i++)
+		delete Users[i];
+
+	delete[] Users;
+}
+
+
+void freePageArr(Fan_page** Pages, int size)
+{
+	for (int i = 0; i < size; i++)
+		delete Pages[i];
+
+	delete[]Pages;
+}
+
 
 //void printAllfriendsOrFans()
