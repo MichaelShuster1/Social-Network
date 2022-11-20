@@ -5,7 +5,7 @@
 
 Fan_page::Fan_page(const char* _name)
 {
-	if (name != nullptr)
+	if (_name != nullptr)
 	{
 		name = new char[strlen(_name) + 1];
 		strcpy(name, _name);

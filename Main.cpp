@@ -3,7 +3,22 @@
 #include <crtdbg.h>
 #include "member.h"
 #include "page.h"
+#include <string.h>
+#include <ctime>
 
+const int NAME_LEN = 100;
+
+void copyMemberArr(Member** dest, Member** src, int size);
+void reSizeMemberArr(Member*** member_array, int old_size, int new_size);
+void AddNewUser(Member*** Users, int& size);
+void copyPageArr(Fan_page** dest, Fan_page** src, int size);
+void reSizePagesArr(Fan_page*** page_array, int old_size, int new_size);
+void AddNewPage(Fan_page*** Pages, int& size);
+void printAllSysMembers(Member*** Users, int size);
+void printAllSysPages(Fan_page*** Pages, int size);
+void printAllRegisteredEntities(Member*** Users, int size_u, Fan_page*** Pages, int size_p);
+int chooseOneMember(Member*** Users, int size);
+int chooseOnePage(Fan_page*** Pages, int size);
 
 
 void main()
@@ -28,6 +43,15 @@ void main()
 	members_array[0].addFriend(members_array[1]);
 	members_array[1].addFriend(members_array[0]);
 
+	//temp
+
+
+	Member** System_Members = new Member*;
+	Fan_page** System_Pages = new Fan_page*;
+	int members_size = 0;
+	int pages_size = 0;
+
+
 	while (exit == false)
 	{
 		cout << "1- add a new member"<<endl;
@@ -48,9 +72,11 @@ void main()
 		{
 
 		case 1:
+			AddNewUser(&System_Members,members_size);
 			break;
 
 		case 2:
+			AddNewPage(&System_Pages, pages_size);
 			break;
 
 		case 3:
@@ -75,6 +101,7 @@ void main()
 			break;
 
 		case 10:
+			printAllRegisteredEntities(&System_Members, members_size, &System_Pages, pages_size);
 			break;
 
 		case 11:
@@ -88,7 +115,130 @@ void main()
 		default:
 			break;
 		}
+
+		cout << endl;
 	}
 
 	_CrtDumpMemoryLeaks();
 }
+
+
+void copyMemberArr(Member** dest, Member** src, int size)
+{
+	int i;
+	for (i = 0; i < size; i++)
+		dest[i] = src[i];
+
+}
+void reSizeMemberArr(Member*** member_array, int old_size, int new_size)
+{
+	Member** temp = new Member * [new_size];
+	copyMemberArr(temp, *member_array, new_size);
+	delete[](*member_array);
+	(*member_array) = temp;
+}
+
+void AddNewUser(Member*** Users, int& size)
+{
+	char name[NAME_LEN];
+	cout << "Please enter your full name: ";
+	getchar();
+	cin.getline(name, NAME_LEN);
+	Member* new_user = new Member(name);
+	reSizeMemberArr(Users, size, size + 1);
+	(*Users)[size] = new_user;
+	size++;
+}
+
+void copyPageArr(Fan_page** dest, Fan_page** src, int size)
+{
+	int i;
+	for (i = 0; i < size; i++)
+		dest[i] = src[i];
+
+}
+
+void reSizePagesArr(Fan_page*** page_array, int old_size, int new_size)
+{
+	Fan_page** temp = new Fan_page * [new_size];
+	copyPageArr(temp, *page_array, new_size);
+	delete[](*page_array);
+	(*page_array) = temp;
+}
+
+void AddNewPage(Fan_page*** Pages, int& size)
+{
+	char name[NAME_LEN];
+	cout << "Please enter your fan page's name: ";
+	getchar();
+	cin.getline(name, NAME_LEN);
+	Fan_page* new_page = new Fan_page(name);
+	reSizePagesArr(Pages, size, size + 1);
+	(*Pages)[size] = new_page;
+	size++;
+}
+
+//void AddStatus(Member* user)
+//{
+//	char status[254];
+//	cout << "Please enter your status: ";
+//	getchar();
+//	cin.getline(status, 254);
+//	Status new_status = Status();
+//    time_t curr_time;
+//	curr_time = time(NULL);
+//	char* tm = ctime(&curr_time);
+//}
+
+void printAllSysMembers(Member*** Users, int size)
+{
+	cout << "Members:" << endl;
+	for (int i = 0; i < size; i++)
+	{
+		cout << (i + 1) << ". ";
+		(*Users)[i]->showName();
+		cout << endl;
+	}
+	cout << endl;
+}
+
+void printAllSysPages(Fan_page*** Pages, int size)
+{
+	cout << "Fan pages:" << endl;
+	for (int i = 0; i < size; i++)
+	{
+		cout << (i + 1) << ". ";
+		(*Pages)[i]->showName();
+		cout << endl;
+	}
+	cout << endl;
+}
+
+void printAllRegisteredEntities(Member*** Users, int size_u, Fan_page*** Pages, int size_p)
+{
+	if (size_u > 0) 
+		printAllSysMembers(Users, size_u);
+	if (size_p > 0)
+		printAllSysPages(Pages, size_p);
+	
+}
+
+int chooseOneMember(Member*** Users, int size)
+{
+	int choice;
+	cout << "Please choose a member: ";
+	printAllSysMembers(Users, size);
+	cin >> choice;
+	return choice;
+}
+
+int chooseOnePage(Fan_page*** Pages, int size)
+{
+	int choice;
+	cout << "Please choose a fan page: ";
+	printAllSysPages(Pages, size);
+	cin >> choice;
+	return choice;
+}
+
+//void printAllfriendsOrFans()
