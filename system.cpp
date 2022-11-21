@@ -74,33 +74,33 @@ void AddNewPage(Fan_page*** Pages, int& size)
 //}
 
 
-void printAllSysMembers(Member*** Users, int size)
+void printAllSysMembers(Member** Users, int size)
 {
 	cout << "Members:" << endl;
 	for (int i = 0; i < size; i++)
 	{
 		cout << (i + 1) << ". ";
-		(*Users)[i]->showName();
+		Users[i]->showName();
 		cout << endl;
 	}
 	cout << endl;
 }
 
 
-void printAllSysPages(Fan_page*** Pages, int size)
+void printAllSysPages(Fan_page** Pages, int size)
 {
 	cout << "Fan pages:" << endl;
 	for (int i = 0; i < size; i++)
 	{
 		cout << (i + 1) << ". ";
-		(*Pages)[i]->showName();
+		Pages[i]->showName();
 		cout << endl;
 	}
 	cout << endl;
 }
 
 
-void printAllRegisteredEntities(Member*** Users, int size_u, Fan_page*** Pages, int size_p)
+void printAllRegisteredEntities(Member** Users, int size_u, Fan_page** Pages, int size_p)
 {
 	if (size_u > 0)
 		printAllSysMembers(Users, size_u);
@@ -110,7 +110,7 @@ void printAllRegisteredEntities(Member*** Users, int size_u, Fan_page*** Pages, 
 }
 
 
-int chooseOneMember(Member*** Users, int size)
+int chooseOneMember(Member** Users, int size)
 {
 	int choice;
 	cout << "Please choose a member: ";
@@ -120,7 +120,7 @@ int chooseOneMember(Member*** Users, int size)
 }
 
 
-int chooseOnePage(Fan_page*** Pages, int size)
+int chooseOnePage(Fan_page** Pages, int size)
 {
 	int choice;
 	cout << "Please choose a fan page: ";
