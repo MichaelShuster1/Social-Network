@@ -17,10 +17,12 @@ void main()
 	//temp
 
 
-	Member** System_Members = new Member*;
-	Fan_page** System_Pages = new Fan_page*;
+	Member** System_Members = new Member*[1];
+	Fan_page** System_Pages = new Fan_page*[1];
 	int members_size = 0;
+	int members_physical_size = 1;
 	int pages_size = 0;
+	int pages_physical_size = 1;
 
 
 	while (exit == false)
@@ -35,7 +37,7 @@ void main()
 		cout << "8- add a fan to fan page" << endl;
 		cout << "9- delete a fan from fan page" << endl;
 		cout << "10- show all entities that are registered to the system" << endl;
-		cout << "11- show all friends of a member/show all fands of a fan page" << endl;
+		cout << "11- show all friends of a member/show all friends of a fan page" << endl;
 		cout << "12- exit" << endl;
 		cout << "please enter your choice here:  ";
 		cin >> choice;
@@ -43,11 +45,11 @@ void main()
 		{
 
 		case 1:
-			AddNewUser(&System_Members,members_size);
+			AddNewUser(System_Members,members_size,members_physical_size);
 			break;
 
 		case 2:
-			AddNewPage(&System_Pages, pages_size);
+			AddNewPage(System_Pages, pages_size,pages_physical_size);
 			break;
 
 		case 3:
@@ -60,9 +62,21 @@ void main()
 			break;
 
 		case 6:
+			int index1, index2;
+			cout << "choose the first friend by entering their index number: " << endl;
+			index1 = chooseOneMember(System_Members, members_size);
+			cout << "choose the second friend by entering their index number: " << endl;
+			index2 = chooseOneMember(System_Members, members_size);
+			linkFriends(*System_Members[index1 - 1], *System_Members[index2 - 1]);
 			break;
 
 		case 7:
+			int index1, index2;
+			cout << "choose a user from which you want to unlink a friend: " << endl;
+			index1 = chooseOneMember(System_Members, members_size);
+			cout << "choose the second friend by entering their index number: " << endl;
+			//index2 = System_Members[index1 - 1]->showAllFriends(); // need to change showAllfriends function to return index
+			//unlinkFriends(*System_Members[index1 - 1], System_Members[index1 - 1]); //need to remove the selected friend from each friend, without unlinkFriends function.
 			break;
 
 		case 8:
@@ -76,6 +90,7 @@ void main()
 			break;
 
 		case 11:
+			void printAllfriendsOrFansOfanEntity(Member * *Users, int size_u, Fan_page * *Pages, int size_p);
 			break;
 
 		case 12:

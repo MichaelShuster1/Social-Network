@@ -18,16 +18,23 @@ void reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 }
 
 
-void AddNewUser(Member*** Users, int& size)
+void AddNewUser(Member** Users, int& logic_size,int& phyical_size)
 {
 	char name[NAME_LEN];
+	Member* new_user;
+
 	cout << "Please enter your full name: ";
 	getchar();
 	cin.getline(name, NAME_LEN);
-	Member* new_user = new Member(name);
-	reSizeMemberArr(Users, size, size + 1);
-	(*Users)[size] = new_user;
-	size++;
+	new_user = new Member(name);
+
+	if (logic_size == phyical_size)
+	{
+		phyical_size *= 2;
+		reSizeMemberArr(&Users, logic_size, phyical_size);
+	}
+	(Users)[logic_size] = new_user;
+	logic_size++;
 }
 
 
@@ -48,16 +55,21 @@ void reSizePagesArr(Fan_page*** page_array, int old_size, int new_size)
 }
 
 
-void AddNewPage(Fan_page*** Pages, int& size)
+void AddNewPage(Fan_page** Pages, int& logic_size,int& physical_size)
 {
 	char name[NAME_LEN];
 	cout << "Please enter your fan page's name: ";
 	getchar();
 	cin.getline(name, NAME_LEN);
 	Fan_page* new_page = new Fan_page(name);
-	reSizePagesArr(Pages, size, size + 1);
-	(*Pages)[size] = new_page;
-	size++;
+
+	if (logic_size == physical_size)
+	{
+		physical_size *= 2;
+		reSizePagesArr(&Pages, logic_size, physical_size);
+	}
+	Pages[logic_size] = new_page;
+	logic_size++;
 }
 
 
@@ -113,7 +125,6 @@ void printAllRegisteredEntities(Member** Users, int size_u, Fan_page** Pages, in
 int chooseOneMember(Member** Users, int size)
 {
 	int choice;
-	cout << "Please choose a member: ";
 	printAllSysMembers(Users, size);
 	cin >> choice;
 	return choice;
@@ -123,7 +134,6 @@ int chooseOneMember(Member** Users, int size)
 int chooseOnePage(Fan_page** Pages, int size)
 {
 	int choice;
-	cout << "Please choose a fan page: ";
 	printAllSysPages(Pages, size);
 	cin >> choice;
 	return choice;
@@ -161,4 +171,34 @@ void unlinkFriends(Member& mem1, Member& mem2)
 	mem2.removeFriend(mem1);
 }
 
-//void printAllfriendsOrFans()
+void printAllfriendsOrFansOfanEntity(Member** Users, int size_u, Fan_page** Pages, int size_p)
+{
+	char user_input;
+	int index;
+	cout << "Do you want to choose from members or from fan pages?" << endl << "Enter M for members, or F for fan pages: ";
+	cin >> user_input;
+	if (user_input == 'M')
+	{
+		index = chooseOneMember(Users, size_u);
+		Users[index - 1]->showAllFriends();
+	}
+	else
+	{
+		index = chooseOnePage(Pages, size_p);
+		Pages[index - 1]->show_all_fans();
+	}
+}
+
+
+void linkFanToPage(Member& mem, Fan_page& page)
+{
+	mem.add_page(page);
+	page.add_Fan(mem);
+}
+
+
+void unlinkFanFromPage(Member& mem, Fan_page& page)
+{
+	mem.removePage(page);
+	page.removeFan(mem);
+}

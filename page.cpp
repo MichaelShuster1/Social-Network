@@ -12,10 +12,10 @@ Fan_page::Fan_page(const char* _name)
 	}
 	else
 		name = nullptr;
-	num_of_fans = 0;
-	num_of_status = 0;
-	status_array = nullptr;
-	fans = nullptr;
+	numOfFans = numOfStatus = 0;
+	physical_numOfFans = physical_numOfStatus = 1;
+	status_array = new Status[physical_numOfStatus];
+	fans = new Member*[physical_numOfFans];
 }
 
 
@@ -30,9 +30,13 @@ Fan_page::~Fan_page()
 
 void Fan_page::add_status(Status& status)
 {
-	reSizeStatusArr(&status_array,num_of_status ,num_of_status+1);
-	status_array[num_of_status].copyStatus(status);
-	num_of_status++;                                                                                                                    
+	if (numOfStatus == physical_numOfStatus)
+	{
+		physical_numOfStatus *= 2;
+		reSizeStatusArr(&status_array, numOfStatus,physical_numOfStatus);
+	}
+	status_array[numOfStatus].copyStatus(status);
+	numOfStatus++;
 }
 
 
@@ -63,9 +67,13 @@ void Fan_page::copyStatusArr(Status* dest, Status* src,int size)
 
 void Fan_page::add_Fan(Member& member)
 {
-	reSizeMemberArr(&fans, num_of_fans, num_of_fans + 1);
-	fans[num_of_fans] = &member;
-	num_of_fans++;
+	if(numOfFans==physical_numOfFans)
+	{
+		physical_numOfFans *= 2;
+		reSizeMemberArr(&fans, numOfFans,physical_numOfFans);
+	}
+	fans[numOfFans] = &member;
+	numOfFans++;
 }
 
 
@@ -87,42 +95,36 @@ void Fan_page::copyMemberArr(Member** dest, Member** src,int size)
 
 void Fan_page::shiftBackMemberArr(int index)
 {
-	for (int i = index; i < num_of_fans - 1; i++)
+	for (int i = index; i < numOfFans - 1; i++)
 	{
 		fans[i] = fans[i + 1];
 	}
 }
 
 
-void Fan_page::delete_Fan(Member& member)
+void Fan_page::delete_Fan(Member& member,int index)
 {
-	int i = 0;
-	bool found = false;
-	while (found == false)
-	{
-		if (fans[i] == &member)
-			found = true;
-		else
-			i++;
+	shiftBackMemberArr(index);
+	numOfFans--;
+	if((numOfFans*2)==physical_numOfFans)
+	{ 
+		physical_numOfFans = physical_numOfFans / 2;
+		reSizeMemberArr(&fans, numOfFans,physical_numOfFans);
 	}
-
-	shiftBackMemberArr(i);
-	reSizeMemberArr(&fans, num_of_fans, num_of_fans - 1);
-	num_of_fans--;
 }
 
 
 void Fan_page::show_all_fans()
 {
 	int i;
-	for (i = 0; i < num_of_fans; i++)
+	for (i = 0; i < numOfFans; i++)
 		fans[i]->showName();	
 }
 
 
 void Fan_page::showAllStatuses()
 {
-	for (int i = 0; i < num_of_status; i++)
+	for (int i = 0; i < numOfStatus; i++)
 		status_array[i].showStatus();
 }
 

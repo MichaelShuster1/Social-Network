@@ -12,10 +12,11 @@ Member::Member(const char* _name)
 	}
 	else
 		name = nullptr;
-	status_array = nullptr;
-	pages = nullptr;
-	friends = nullptr;
 	numOfFriends = numOfPages = numOfStatuses = 0;
+	physical_numOfFriends = physical_numOfPages = physical_numOfStatuses = 1;
+	status_array =new Status[physical_numOfStatuses];
+	pages = new Fan_page*[physical_numOfPages];
+	friends = new Member*[physical_numOfFriends];
 }
 
 
@@ -43,12 +44,7 @@ Member::~Member()
 }
 
 
-void Member::addFriend(Member& _member)
-{
-	reSizeMemberArr(&friends, numOfFriends, numOfFriends + 1);
-	friends[numOfFriends] = &_member;
-	numOfFriends++;
-}
+
 
 void Member::shiftBackMemberArr(int index)
 {
@@ -59,6 +55,14 @@ void Member::shiftBackMemberArr(int index)
 	}
 }
 
+void Member::shiftBackPagesArr(int index)
+{
+	
+	for (int i = index; i < numOfPages-1; i++)
+	{
+		pages[i] = pages[i + 1];
+	}
+}
 
 void Member::removeFriend(Member& _member)
 {
@@ -77,17 +81,53 @@ void Member::removeFriend(Member& _member)
 	numOfFriends--;
 }
 
+void Member::removePage(Fan_page& page)
+{
+	int i = 0;
+	bool found = false;
+	while (found == false)
+	{
+		if (pages[i] == &page) 
+			found = true;
+		else
+			i++;
+	}
+
+	shiftBackPagesArr(i);
+	reSizePagesArr(&pages, numOfPages; , numOfPages - 1);
+	numOfPages--;
+}
 
 void Member::add_status(const Status& status)
 {
-	reSizeStatusArr(&status_array, numOfStatuses, numOfStatuses + 1);
+	if(numOfStatuses==physical_numOfStatuses)
+	{
+		physical_numOfStatuses *= 2;
+		reSizeStatusArr(&status_array, numOfStatuses, physical_numOfStatuses);
+	}
 	status_array[numOfStatuses].copyStatus(status);
 	numOfStatuses++;
 }
 
+
+void Member::addFriend(Member& _member)
+{
+	if (numOfFriends == physical_numOfFriends)
+	{
+		physical_numOfFriends *= 2;
+		reSizeMemberArr(&friends, numOfFriends,physical_numOfFriends);
+	}
+	friends[numOfFriends] = &_member;
+	numOfFriends++;
+}
+
 void Member::add_page(Fan_page& page)
 {
-	reSizePagesArr(&pages, numOfPages, numOfPages + 1);
+	if (numOfPages == physical_numOfPages)
+	{
+		physical_numOfPages *= 2;
+		reSizePagesArr(&pages, numOfPages,physical_numOfPages);
+	}
 	pages[numOfPages] = &page;
 	numOfPages++;
 }

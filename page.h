@@ -23,14 +23,16 @@ private:
 	char* name;
 	Member** fans;
 	Status* status_array;
-	int num_of_fans;
-	int num_of_status;
+	int numOfFans;
+	int numOfStatus;
+	int physical_numOfFans;
+	int physical_numOfStatus;
 
 public:
 	Fan_page(const char* _name=nullptr);
 	~Fan_page();
 	void add_Fan(Member& member);
-	void delete_Fan(Member& member);
+	void delete_Fan(Member& member,int index);
 	void add_status(Status& status);
 	void reSizeStatusArr(Status** status_array,int old_size,int new_size);
 	int getMin(int num1, int num2);
