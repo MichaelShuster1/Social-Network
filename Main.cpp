@@ -60,7 +60,6 @@ void main()
 			break;
 
 		case 6:
-			chooseOneMember(&System_Members, members_size);
 			break;
 
 		case 7:
