@@ -145,6 +145,7 @@
     <ClCompile Include="member.cpp" />
     <ClCompile Include="page.cpp" />
     <ClCompile Include="status.cpp" />
+    <ClCompile Include="system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="date.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="member.h" />
     <ClInclude Include="page.h" />
     <ClInclude Include="status.h" />
+    <ClInclude Include="system.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

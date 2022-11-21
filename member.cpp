@@ -189,15 +189,5 @@ void Member::showAllStatuses()
 }
 
 
-void linkFriends(Member& mem1, Member& mem2)
-{
-	mem1.addFriend(mem2);
-	mem2.addFriend(mem1);
-}
 
-void unlinkFriends(Member& mem1, Member& mem2)
-{
-	mem1.removeFriend(mem2);
-	mem2.removeFriend(mem1);
-}
 
