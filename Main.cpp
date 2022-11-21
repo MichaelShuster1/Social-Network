@@ -72,7 +72,7 @@ void main()
 			break;
 
 		case 10:
-			printAllRegisteredEntities(&System_Members, members_size, &System_Pages, pages_size);
+			printAllRegisteredEntities(System_Members, members_size, System_Pages, pages_size);
 			break;
 
 		case 11:
