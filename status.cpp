@@ -32,6 +32,7 @@ Status::Status(const char* _time ,const char* _text)
 Status::~Status()
 {
 	delete[] text;
+	delete[] time;
 }
 
 

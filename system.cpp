@@ -20,13 +20,20 @@ void reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 
 void AddNewUser(Member*** Users, int& logic_size,int& phyical_size)
 {
+	int year, month, day;
 	char name[NAME_LEN];
 	Member* new_user;
 
 	cout << "Please enter your full name: ";
 	getchar();
 	cin.getline(name, NAME_LEN);
-	new_user = new Member(name);
+	cout << "Please enter your bith date in the following formt : dd/mm/yyyy" << endl;
+	cin >> day;
+	getchar();
+	cin >> month;
+	getchar();
+	cin >> year;
+	new_user = new Member(name,Date(year,month,day));
 
 	if (logic_size == phyical_size)
 	{

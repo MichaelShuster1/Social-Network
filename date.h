@@ -9,8 +9,8 @@ private:
 	int day;
 
 public:
-	Date(int y, int m, int d);
-	Date() {};
+	Date(int y=0, int m=0, int d=0);
+	Date(const Date& other);
 };
 
 

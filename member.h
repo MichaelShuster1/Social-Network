@@ -25,7 +25,8 @@ private:
 
 
 public:
-	Member(const char* name=nullptr);
+	Member(const char* _name=nullptr);
+	Member(const char* _name,const Date& date);
 	Member(const Member& other);
 	~Member();
 	void addFriend(Member& _member);
