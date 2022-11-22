@@ -228,6 +228,11 @@ void Member::showAllStatuses()
 		
 }
 
+Member* Member::getMember(int i)
+{
+	return friends[i];
+}
+
 
 
 

@@ -73,9 +73,12 @@ void main()
 		case 7:
 			cout << "choose a user from which you want to unlink a friend: " << endl;
 			index1 = chooseOneMember(System_Members, members_size);
-			cout << "choose the second friend by entering their index number: " << endl;
-			//index2 = System_Members[index1 - 1]->showAllFriends(); // need to change showAllfriends function to return index
-			//unlinkFriends(*System_Members[index1 - 1], System_Members[index1 - 1]); //need to remove the selected friend from each friend, without unlinkFriends function.
+			cout << "choose the friend you want to unlink:  " << endl;
+			System_Members[index1 - 1]->showAllFriends(); 
+			cin >> index2;
+			Member* selected_friend = System_Members[index1 - 1]->getMemberFromFriends(index2 - 1);
+			selected_friend->removeFriend(*System_Members[index1 - 1]);
+			System_Members[index1 - 1]->removeFriend(*selected_friend);
 			break;
 
 		case 8:
