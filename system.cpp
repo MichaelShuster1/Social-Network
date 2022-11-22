@@ -90,7 +90,7 @@ Status createNewStatus()
 	cin.getline(status, 254);
 	curr_time = time(NULL);
 	tm= ctime(&curr_time);
-	return Status(tm, status);
+	return Status(status, tm);
 }
 
 
@@ -136,6 +136,7 @@ int chooseOneMember(Member** Users, int size)
 	printAllSysMembers(Users, size);
 	cout << "Enter the index of the member: ";
 	cin >> choice;
+	cout << endl;
 	return choice;
 }
 
@@ -146,6 +147,7 @@ int chooseOnePage(Fan_page** Pages, int size)
 	printAllSysPages(Pages, size);
 	cout << "Enter the index of the fan page: ";
 	cin >> choice;
+	cout << endl;
 	return choice;
 }
 

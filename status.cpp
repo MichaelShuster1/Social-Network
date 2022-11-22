@@ -8,7 +8,7 @@ Status::Status(const Date& d,const Hour& h,const char* t)
 	strcpy(text, t);
 }
 
-Status::Status(const char* _time ,const char* _text)
+Status::Status(const char* _text, const char* _time)
 {
 	if (_text != nullptr)
 	{
@@ -37,7 +37,8 @@ Status::~Status()
 
 void Status::showStatus()
 {
-	cout << text;
+	cout << text << endl;
+	cout <<"Status publish time: " << time << endl;
 }
 
 void Status::copyStatus(const Status& other)

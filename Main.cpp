@@ -28,30 +28,34 @@ void main()
 	System_Pages[0] = new Fan_page("Music fans");
 	System_Pages[1] = new Fan_page("Gaming fans");
 	System_Pages[2] = new Fan_page("Movies fans");
-	Status status1 = Status("status1", "Mon Jul 16 02:03:55 1987");
-	Status status2 = Status("status2", "Mon Jul 17 02:03:55 1987");
-	Status status3 = Status("status3", "Mon Jul 18 02:03:55 1987");
-	Status status4 = Status("status4", "Mon Jul 19 02:03:55 1987");
-	Status status5 = Status("status5", "Mon Jul 20 02:03:55 1987");
-	Status status6 = Status("status6", "Mon Jul 21 02:03:55 1987");
+	Status status1 = Status("status1", "Mon Jul 16 02:03:55 2021");
+	Status status2 = Status("status2", "Mon Jul 17 02:03:55 2021");
+	Status status3 = Status("status3", "Mon Jul 18 02:03:55 2022");
+	Status status4 = Status("status4", "Mon Jul 19 02:03:55 2022");
+	Status status5 = Status("status5", "Mon Jul 20 02:03:55 2022");
+	Status status6 = Status("status6", "Mon Jul 21 02:03:55 2022");
 	System_Members[0]->add_status(status1);
 	System_Members[0]->add_status(status2);
 	System_Members[1]->add_status(status3);
 	System_Members[1]->add_status(status4);
 	System_Members[2]->add_status(status5);
 	System_Members[2]->add_status(status6);
-	Status status7 = Status("status1", "Mon Jul 16 02:03:55 2000");
-	Status status8 = Status("status2", "Mon Jul 17 02:03:55 2001");
-	Status status9 = Status("status3", "Mon Jul 18 02:03:55 2002");
-	Status status10 = Status("status4", "Mon Jul 19 02:03:55 2003");
-	Status status11 = Status("status5", "Mon Jul 20 02:03:55 2004");
-	Status status12 = Status("status6", "Mon Jul 21 02:03:55 2005");
+	Status status7 = Status("status7", "Mon Jul 16 02:03:55 2019");
+	Status status8 = Status("status8", "Mon Jul 17 02:03:55 2019");
+	Status status9 = Status("status9", "Mon Jul 18 02:03:55 2020");
+	Status status10 = Status("status10", "Mon Jul 19 02:03:55 2020");
+	Status status11 = Status("status11", "Mon Jul 20 02:03:55 2021");
+	Status status12 = Status("status12", "Mon Jul 21 02:03:55 2022");
 	System_Pages[0]->add_status(status7);
 	System_Pages[0]->add_status(status8);
 	System_Pages[1]->add_status(status9);
 	System_Pages[1]->add_status(status10);
 	System_Pages[2]->add_status(status11);
 	System_Pages[2]->add_status(status12);
+	System_Pages[0]->add_Fan(*System_Members[0]);
+	System_Pages[1]->add_Fan(*System_Members[1]);
+	linkFriends(*System_Members[0], *System_Members[1]);
+	linkFriends(*System_Members[1], *System_Members[2]);
 
 
 
@@ -115,12 +119,12 @@ void main()
 			switch (choice2)
 			{
 			case 1:
-				cout << "choose a user to which you want to add a new status: " << endl;
+				cout << "choose a user to see their statuses " << endl;
 				index1 = chooseOneMember(System_Members, members_size);
 				System_Members[index1 - 1]->showAllStatuses();
 				break;
 			case 2:
-				cout << "choose a page to which you want to add a new status: " << endl;
+				cout << "choose a page to see its statuses: " << endl;
 				index1 = chooseOnePage(System_Pages, pages_size);
 				System_Pages[index1 - 1]->showAllStatuses();
 				break;
