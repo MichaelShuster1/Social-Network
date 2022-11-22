@@ -11,11 +11,6 @@ void main()
 	int choice;
 	int choice2;
 
-	//temp
-	Date date_array[2] = { {2022,12,12},{2022,11,12} };
-	Hour hour_array[2] = { {18,20},{19,20} };
-	Status status_array[2] = { {date_array[0],hour_array[0],"hello1"}, {date_array[1],hour_array[1],"hello2"}};
-	//temp
 
 
 	Member** System_Members = new Member*[3];
@@ -103,7 +98,7 @@ void main()
 				break;
 			case 2:
 				cout << "choose a page to which you want to add a new status: " << endl;
-				index1 = chooseOnePage(System_Pages, members_size);
+				index1 = chooseOnePage(System_Pages, pages_size);
 				System_Pages[index1 - 1]->add_status(createNewStatus());
 				break;
 
@@ -113,9 +108,32 @@ void main()
 			break;
 
 		case 4:
+			cout << "enter 1 to choose a member" << endl;
+			cout << "enter 2 to choose a fan page" << endl;
+			cout << "please enter your choice here:  ";
+			cin >> choice2;
+			switch (choice2)
+			{
+			case 1:
+				cout << "choose a user to which you want to add a new status: " << endl;
+				index1 = chooseOneMember(System_Members, members_size);
+				System_Members[index1 - 1]->showAllStatuses();
+				break;
+			case 2:
+				cout << "choose a page to which you want to add a new status: " << endl;
+				index1 = chooseOnePage(System_Pages, pages_size);
+				System_Pages[index1 - 1]->showAllStatuses();
+				break;
+
+			default:
+				break;
+			}
 			break;
 
 		case 5:
+			cout << "choose a member by entering their index number: " << endl;
+			index1 = chooseOneMember(System_Members, members_size);
+			System_Members[index1 - 1]->showAllFriendsTenStatuses();
 			break;
 
 		case 6:

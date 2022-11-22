@@ -228,6 +228,29 @@ void Member::showAllStatuses()
 		
 }
 
+void Member::showTenRecentStatuses()
+{
+	for (int i = numOfStatuses - 1; i >= numOfStatuses - 10 && i >= 0; i--)
+	{
+		status_array[i].showStatus();
+		cout << endl;
+	}
+
+}
+
+void Member::showAllFriendsTenStatuses()
+{
+	for (int i = 0; i < numOfFriends; i++)
+	{
+		friends[i]->showName();
+		cout << "'s ten recent statuses: " << endl;
+		friends[i]->showTenRecentStatuses();
+		cout << endl;
+	}
+
+}
+
+
 Member* Member::getMemberFromFriends(int i)
 {
 	return friends[i];
