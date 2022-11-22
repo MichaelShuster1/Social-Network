@@ -15,18 +15,18 @@ void main()
 
 	Member** System_Members = new Member*[3];
 	Fan_page** System_Pages = new Fan_page*[3];
-	int members_size = 0;
-	int members_physical_size = 1;
-	int pages_size = 0;
-	int pages_physical_size = 1;
+	int members_size = 3;
+	int members_physical_size = 3;
+	int pages_size = 3;
+	int pages_physical_size = 3;
 	int index1, index2;
 	Member* selected_friend;
 
 
 	
-	System_Members[0] = new Member("Avi Cohen");
-	System_Members[1] = new Member("Yossi Levi");
-	System_Members[2] = new Member("Israel Israeli");
+	System_Members[0] = new Member("Avi Cohen",Date(14,7,1998));
+	System_Members[1] = new Member("Yossi Levi", Date(15, 8, 2000));
+	System_Members[2] = new Member("Israel Israeli", Date(7, 5, 1999));
 	System_Pages[0] = new Fan_page("Music fans");
 	System_Pages[1] = new Fan_page("Gaming fans");
 	System_Pages[2] = new Fan_page("Movies fans");
