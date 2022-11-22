@@ -25,6 +25,7 @@ void main()
 	int pages_size = 0;
 	int pages_physical_size = 1;
 	int index1, index2;
+	Member* selected_friend;
 
 
 	while (exit == false)
@@ -97,17 +98,29 @@ void main()
 			cout << "choose the friend you want to unlink:  " << endl;
 			System_Members[index1 - 1]->showAllFriends(); 
 			cin >> index2;
-			/*
-			Member* selected_friend = System_Members[index1 - 1]->getMemberFromFriends(index2 - 1);
+			selected_friend = System_Members[index1 - 1]->getMemberFromFriends(index2 - 1);
 			selected_friend->removeFriend(*System_Members[index1 - 1]);
 			System_Members[index1 - 1]->removeFriend(*selected_friend);
 			*/
 			break;
 
 		case 8:
+			cout << "choose the memeber you wish to add to a fan page: " << endl;
+			index1 = chooseOneMember(System_Members, members_size);
+			cout << "choose the fan page you want to add the member as a fan to: " << endl;
+			index2 = chooseOnePage(System_Pages, pages_size);
+			linkFanToPage(*System_Members[index1 - 1], *System_Pages[index2 - 1]);
 			break;
 
 		case 9:
+			cout << "choose a fan page from which you want to unlink a fan: " << endl;
+			index1 = chooseOnePage(System_Pages, pages_size);
+			cout << "choose the fan you want to unlink:  " << endl;
+			System_Pages[index1 - 1]->show_all_fans();
+			cin >> index2;
+			selected_friend = System_Pages[index1 - 1]->getfanFromFans(index2 - 1);
+			selected_friend->removePage(*System_Pages[index1 - 1]);
+			System_Pages[index1 - 1]->delete_Fan(*selected_friend, index2 - 1);
 			break;
 
 		case 10:
@@ -115,7 +128,8 @@ void main()
 			break;
 
 		case 11:
-			//void printAllfriendsOrFansOfanEntity(Member * *Users, int size_u, Fan_page * *Pages, int size_p);
+			printAllfriendsOrFansOfanEntity(System_Members, members_size, System_Pages, pages_size);
+			cout << "choose the friend by entering their index number: ";
 			break;
 
 		case 12:

@@ -134,6 +134,7 @@ int chooseOneMember(Member** Users, int size)
 {
 	int choice;
 	printAllSysMembers(Users, size);
+	cout << "Enter the index of the member: ";
 	cin >> choice;
 	return choice;
 }
@@ -143,6 +144,7 @@ int chooseOnePage(Fan_page** Pages, int size)
 {
 	int choice;
 	printAllSysPages(Pages, size);
+	cout << "Enter the index of the fan page: ";
 	cin >> choice;
 	return choice;
 }
@@ -181,18 +183,24 @@ void unlinkFriends(Member& mem1, Member& mem2)
 
 void printAllfriendsOrFansOfanEntity(Member** Users, int size_u, Fan_page** Pages, int size_p)
 {
-	char user_input;
+	int user_input;
 	int index;
-	cout << "Do you want to choose from members or from fan pages?" << endl << "Enter M for members, or F for fan pages: ";
+	cout << "Do you want to choose from members or from fan pages?" << endl << "Enter 1 for members, or 2 for fan pages: ";
 	cin >> user_input;
-	if (user_input == 'M')
+	if (user_input == 1)
 	{
 		index = chooseOneMember(Users, size_u);
+		cout << endl;
+		Users[index - 1]->showName();
+		cout << " friends are:" << endl;
 		Users[index - 1]->showAllFriends();
 	}
 	else
 	{
 		index = chooseOnePage(Pages, size_p);
+		cout << endl;
+		Pages[index - 1]->showName();
+		cout << " fans are:" << endl;
 		Pages[index - 1]->show_all_fans();
 	}
 }

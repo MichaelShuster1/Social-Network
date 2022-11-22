@@ -133,5 +133,10 @@ void Fan_page::showName()
 	cout << name;
 }
 
+Member* Fan_page::getfanFromFans(int i)
+{
+	return fans[i];
+}
+
 
 

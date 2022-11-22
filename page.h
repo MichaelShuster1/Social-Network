@@ -43,6 +43,7 @@ public:
 	void showAllStatuses();
 	void shiftBackMemberArr(int index);
 	void showName();
+	Member* getfanFromFans(int i);
 
 };
 
