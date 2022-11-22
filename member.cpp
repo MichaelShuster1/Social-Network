@@ -94,7 +94,7 @@ void Member::removePage(Fan_page& page)
 	}
 
 	shiftBackPagesArr(i);
-	reSizePagesArr(&pages, numOfPages; , numOfPages - 1);
+	reSizePagesArr(&pages, numOfPages , numOfPages - 1);
 	numOfPages--;
 }
 

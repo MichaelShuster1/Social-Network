@@ -23,6 +23,7 @@ void main()
 	int members_physical_size = 1;
 	int pages_size = 0;
 	int pages_physical_size = 1;
+	int index1, index2;
 
 
 	while (exit == false)
@@ -45,11 +46,11 @@ void main()
 		{
 
 		case 1:
-			AddNewUser(System_Members,members_size,members_physical_size);
+			AddNewUser(&System_Members,members_size,members_physical_size);
 			break;
 
 		case 2:
-			AddNewPage(System_Pages, pages_size,pages_physical_size);
+			AddNewPage(&System_Pages, pages_size,pages_physical_size);
 			break;
 
 		case 3:
@@ -62,7 +63,6 @@ void main()
 			break;
 
 		case 6:
-			int index1, index2;
 			cout << "choose the first friend by entering their index number: " << endl;
 			index1 = chooseOneMember(System_Members, members_size);
 			cout << "choose the second friend by entering their index number: " << endl;
@@ -71,7 +71,6 @@ void main()
 			break;
 
 		case 7:
-			int index1, index2;
 			cout << "choose a user from which you want to unlink a friend: " << endl;
 			index1 = chooseOneMember(System_Members, members_size);
 			cout << "choose the second friend by entering their index number: " << endl;
@@ -90,7 +89,7 @@ void main()
 			break;
 
 		case 11:
-			void printAllfriendsOrFansOfanEntity(Member * *Users, int size_u, Fan_page * *Pages, int size_p);
+			//void printAllfriendsOrFansOfanEntity(Member * *Users, int size_u, Fan_page * *Pages, int size_p);
 			break;
 
 		case 12:

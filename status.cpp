@@ -8,6 +8,17 @@ Status::Status(const Date& d,const Hour& h,const char* t)
 	strcpy(text, t);
 }
 
+Status::Status(const char* t)
+{
+	if (t != nullptr)
+	{
+		t = new char[strlen(t) + 1];
+		strcpy(text, t);
+	}
+	else
+		text = nullptr;
+}
+
 Status::~Status()
 {
 	delete[] text;

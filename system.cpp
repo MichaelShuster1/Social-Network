@@ -12,13 +12,13 @@ void copyMemberArr(Member** dest, Member** src, int size)
 void reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
 	Member** temp = new Member * [new_size];
-	copyMemberArr(temp, *member_array, new_size);
+	copyMemberArr(temp, *member_array, getMin(old_size,new_size));
 	delete[](*member_array);
 	(*member_array) = temp;
 }
 
 
-void AddNewUser(Member** Users, int& logic_size,int& phyical_size)
+void AddNewUser(Member*** Users, int& logic_size,int& phyical_size)
 {
 	char name[NAME_LEN];
 	Member* new_user;
@@ -31,9 +31,9 @@ void AddNewUser(Member** Users, int& logic_size,int& phyical_size)
 	if (logic_size == phyical_size)
 	{
 		phyical_size *= 2;
-		reSizeMemberArr(&Users, logic_size, phyical_size);
+		reSizeMemberArr(Users, logic_size, phyical_size);
 	}
-	(Users)[logic_size] = new_user;
+	(*Users)[logic_size] = new_user;
 	logic_size++;
 }
 
@@ -49,13 +49,20 @@ void copyPageArr(Fan_page** dest, Fan_page** src, int size)
 void reSizePagesArr(Fan_page*** page_array, int old_size, int new_size)
 {
 	Fan_page** temp = new Fan_page * [new_size];
-	copyPageArr(temp, *page_array, new_size);
+	copyPageArr(temp, *page_array, getMin(old_size,new_size));
 	delete[](*page_array);
 	(*page_array) = temp;
 }
 
 
-void AddNewPage(Fan_page** Pages, int& logic_size,int& physical_size)
+int getMin(int num1, int num2)
+{
+	if (num1 < num2)
+		return num1;
+	return num2;
+}
+
+void AddNewPage(Fan_page*** Pages, int& logic_size,int& physical_size)
 {
 	char name[NAME_LEN];
 	cout << "Please enter your fan page's name: ";
@@ -66,9 +73,9 @@ void AddNewPage(Fan_page** Pages, int& logic_size,int& physical_size)
 	if (logic_size == physical_size)
 	{
 		physical_size *= 2;
-		reSizePagesArr(&Pages, logic_size, physical_size);
+		reSizePagesArr(Pages, logic_size, physical_size);
 	}
-	Pages[logic_size] = new_page;
+	(*Pages)[logic_size] = new_page;
 	logic_size++;
 }
 
@@ -200,5 +207,5 @@ void linkFanToPage(Member& mem, Fan_page& page)
 void unlinkFanFromPage(Member& mem, Fan_page& page)
 {
 	mem.removePage(page);
-	page.removeFan(mem);
+	//page.removeFan(mem);
 }
