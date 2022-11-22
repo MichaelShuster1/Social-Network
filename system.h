@@ -27,6 +27,7 @@ void unlinkFriends(Member& mem1, Member& mem2);
 void printAllfriendsOrFansOfanEntity(Member** Users, int size_u, Fan_page** Pages, int size_p);
 void linkFanToPage(Member& mem, Fan_page& page);
 void unlinkFanFromPage(Member& mem, Fan_page& page);
+Status createNewStatus();
 
 
 #endif // !SYSTEM_H

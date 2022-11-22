@@ -80,17 +80,18 @@ void AddNewPage(Fan_page*** Pages, int& logic_size,int& physical_size)
 }
 
 
-//void AddStatus(Member* user)
-//{
-//	char status[254];
-//	cout << "Please enter your status: ";
-//	getchar();
-//	cin.getline(status, 254);
-//	Status new_status = Status();
-//    time_t curr_time;
-//	curr_time = time(NULL);
-//	char* tm = ctime(&curr_time);
-//}
+Status createNewStatus()
+{
+	char status[254];
+	time_t curr_time;
+	char* tm;
+	cout << "Please enter your status: ";
+	getchar();
+	cin.getline(status, 254);
+	curr_time = time(NULL);
+	tm= ctime(&curr_time);
+	return Status(tm, status);
+}
 
 
 void printAllSysMembers(Member** Users, int size)

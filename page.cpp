@@ -28,7 +28,7 @@ Fan_page::~Fan_page()
 }
 
 
-void Fan_page::add_status(Status& status)
+void Fan_page::add_status(const Status& status)
 {
 	if (numOfStatus == physical_numOfStatus)
 	{

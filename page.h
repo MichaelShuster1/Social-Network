@@ -33,7 +33,7 @@ public:
 	~Fan_page();
 	void add_Fan(Member& member);
 	void delete_Fan(Member& member,int index);
-	void add_status(Status& status);
+	void add_status(const Status& status);
 	void reSizeStatusArr(Status** status_array,int old_size,int new_size);
 	int getMin(int num1, int num2);
 	void copyStatusArr(Status* dest, Status* src,int size);

@@ -8,16 +8,26 @@ Status::Status(const Date& d,const Hour& h,const char* t)
 	strcpy(text, t);
 }
 
-Status::Status(const char* t)
+Status::Status(const char* _time ,const char* _text)
 {
-	if (t != nullptr)
+	if (_text != nullptr)
 	{
-		t = new char[strlen(t) + 1];
-		strcpy(text, t);
+		text = new char[strlen(_text) + 1];
+		strcpy(text, _text);
 	}
 	else
 		text = nullptr;
+
+	if (_time != nullptr)
+	{
+		time= new char[strlen(_time) + 1];
+		strcpy(time, _time);
+	}
+	else
+		time = nullptr;
 }
+
+
 
 Status::~Status()
 {
@@ -36,6 +46,8 @@ void Status::copyStatus(const Status& other)
 	publish_hour = other.publish_hour;
 	text = new char[strlen(other.text)+1];
 	strcpy(text,other.text);
+	time = new char[strlen(other.time) + 1];
+	strcpy(time,other.time);
 }
 
 

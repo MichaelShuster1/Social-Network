@@ -9,6 +9,7 @@ void main()
 {
 	bool exit = false;
 	int choice;
+	int choice2;
 
 	//temp
 	Date date_array[2] = { {2022,12,12},{2022,11,12} };
@@ -54,6 +55,26 @@ void main()
 			break;
 
 		case 3:
+			cout << "enter 1 to add new status for a member" << endl;
+			cout << "enter 2 to add new status for a fan page" << endl;
+			cout << "please enter your choice here:  ";
+			cin >> choice2;
+			switch (choice2)
+			{
+			case 1:
+				cout << "choose a user to which you want to add a new status: " << endl;
+				index1 = chooseOneMember(System_Members, members_size);
+				System_Members[index1 - 1]->add_status(createNewStatus());
+				break;
+			case 2:
+				cout << "choose a page to which you want to add a new status: " << endl;
+				index1 = chooseOnePage(System_Pages, members_size);
+				System_Pages[index1 - 1]->add_status(createNewStatus());
+				break;
+
+			default:
+				break;
+			}
 			break;
 
 		case 4:
@@ -76,9 +97,11 @@ void main()
 			cout << "choose the friend you want to unlink:  " << endl;
 			System_Members[index1 - 1]->showAllFriends(); 
 			cin >> index2;
+			/*
 			Member* selected_friend = System_Members[index1 - 1]->getMemberFromFriends(index2 - 1);
 			selected_friend->removeFriend(*System_Members[index1 - 1]);
 			System_Members[index1 - 1]->removeFriend(*selected_friend);
+			*/
 			break;
 
 		case 8:
