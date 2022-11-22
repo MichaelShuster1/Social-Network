@@ -46,7 +46,7 @@ public:
 	void showAllStatuses();
 	void showAllPages();
 	void showName();
-	Member* getMemberFromFriends(int i)
+	Member* getMemberFromFriends(int i);
 };
 
 

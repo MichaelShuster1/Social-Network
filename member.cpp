@@ -228,7 +228,7 @@ void Member::showAllStatuses()
 		
 }
 
-Member* Member::getMember(int i)
+Member* Member::getMemberFromFriends(int i)
 {
 	return friends[i];
 }
