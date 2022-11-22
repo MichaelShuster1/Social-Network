@@ -52,8 +52,8 @@ void main()
 	System_Pages[1]->add_status(status10);
 	System_Pages[2]->add_status(status11);
 	System_Pages[2]->add_status(status12);
-	System_Pages[0]->add_Fan(*System_Members[0]);
-	System_Pages[1]->add_Fan(*System_Members[1]);
+	linkFanToPage(*System_Members[0] ,* System_Pages[0]);
+	linkFanToPage(*System_Members[1], *System_Pages[1]);
 	linkFriends(*System_Members[0], *System_Members[1]);
 	linkFriends(*System_Members[1], *System_Members[2]);
 
