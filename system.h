@@ -35,6 +35,8 @@ void linkFriendship(Member** System_Members, int members_size);
 void unLinkFriendship(Member** System_Members, int members_size);
 void addFanToAFanPage(Member** System_Members, int members_size, Fan_page** System_Pages, int pages_size);
 void removeAFanFromAFanPage(Fan_page** System_Pages, int pages_size);
+void printMenu();
+void createHardcodedEntities(Member** System_Members, Fan_page** System_Pages);
 
 
 #endif // !SYSTEM_H
