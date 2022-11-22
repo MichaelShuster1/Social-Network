@@ -28,6 +28,13 @@ void printAllfriendsOrFansOfanEntity(Member** Users, int size_u, Fan_page** Page
 void linkFanToPage(Member& mem, Fan_page& page);
 void unlinkFanFromPage(Member& mem, Fan_page& page);
 Status createNewStatus();
+void addNewStatusToFanPageOrMember(Member** System_Members, int members_size, Fan_page** System_Pages, int pages_size);
+void showAllStatusesOfAFanPageOrMember(Member** System_Members, int members_size, Fan_page** System_Pages, int pages_size);
+void ShowTenLatestStatusesOfEachFriend(Member** System_Members, int members_size);
+void linkFriendship(Member** System_Members, int members_size);
+void unLinkFriendship(Member** System_Members, int members_size);
+void addFanToAFanPage(Member** System_Members, int members_size, Fan_page** System_Pages, int pages_size);
+void removeAFanFromAFanPage(Fan_page** System_Pages, int pages_size);
 
 
 #endif // !SYSTEM_H

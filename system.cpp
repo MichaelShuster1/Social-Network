@@ -227,3 +227,115 @@ void unlinkFanFromPage(Member& mem, Fan_page& page)
 	mem.removePage(page);
 	//page.removeFan(mem);
 }
+
+void addNewStatusToFanPageOrMember(Member** System_Members, int members_size, Fan_page** System_Pages,int pages_size)
+{
+	int choice,index;
+
+	cout << "enter 1 to add new status for a member" << endl;
+	cout << "enter 2 to add new status for a fan page" << endl;
+	cout << "please enter your choice here:  ";
+	cin >> choice;
+	switch (choice)
+	{
+	case 1:
+		cout << "choose a user to which you want to add a new status: " << endl;
+		index = chooseOneMember(System_Members, members_size);
+		System_Members[index - 1]->add_status(createNewStatus());
+		break;
+	case 2:
+		cout << "choose a page to which you want to add a new status: " << endl;
+		index = chooseOnePage(System_Pages, pages_size);
+		System_Pages[index - 1]->add_status(createNewStatus());
+		break;
+
+	default:
+		break;
+	}
+}
+
+void showAllStatusesOfAFanPageOrMember(Member** System_Members, int members_size, Fan_page** System_Pages, int pages_size)
+{
+	int choice, index;
+
+	cout << "enter 1 to choose a member" << endl;
+	cout << "enter 2 to choose a fan page" << endl;
+	cout << "please enter your choice here:  ";
+	cin >> choice;
+	switch (choice)
+	{
+	case 1:
+		cout << "choose a user to see their statuses " << endl;
+		index = chooseOneMember(System_Members, members_size);
+		System_Members[index - 1]->showAllStatuses();
+		break;
+	case 2:
+		cout << "choose a page to see its statuses: " << endl;
+		index = chooseOnePage(System_Pages, pages_size);
+		System_Pages[index - 1]->showAllStatuses();
+		break;
+
+	default:
+		break;
+	}
+}
+
+void ShowTenLatestStatusesOfEachFriend(Member** System_Members, int members_size)
+{
+	int index;
+
+	cout << "choose a member by entering their index number: " << endl;
+	index = chooseOneMember(System_Members, members_size);
+	System_Members[index - 1]->showAllFriendsTenStatuses();
+}
+
+void linkFriendship(Member** System_Members, int members_size)
+{
+	int index1,index2;
+
+	cout << "choose the first friend by entering their index number: " << endl;
+	index1 = chooseOneMember(System_Members, members_size);
+	cout << "choose the second friend by entering their index number: " << endl;
+	index2 = chooseOneMember(System_Members, members_size);
+	linkFriends(*System_Members[index1 - 1], *System_Members[index2 - 1]);
+}
+
+void unLinkFriendship(Member** System_Members, int members_size)
+{
+	int index1, index2;
+	Member* selected_friend;
+
+	cout << "choose a user from which you want to unlink a friend: " << endl;
+	index1 = chooseOneMember(System_Members, members_size);
+	cout << "choose the friend you want to unlink: " << endl;
+	System_Members[index1 - 1]->showAllFriends();
+	cin >> index2;
+	selected_friend = System_Members[index1 - 1]->getMemberFromFriends(index2 - 1);
+	selected_friend->removeFriend(*System_Members[index1 - 1]);
+	System_Members[index1 - 1]->removeFriend(*selected_friend);
+}
+
+void addFanToAFanPage(Member** System_Members, int members_size, Fan_page** System_Pages, int pages_size)
+{
+	int index1, index2;
+	cout << "choose the fan page you want to add a member as a fan to : " << endl;
+	index1 = chooseOnePage(System_Pages, pages_size);
+	cout << "choose the memeber you wish to add to a fan page: " << endl;
+	index2 = chooseOneMember(System_Members, members_size);
+	linkFanToPage(*System_Members[index2 - 1], *System_Pages[index1 - 1]);
+}
+
+void removeAFanFromAFanPage(Fan_page** System_Pages, int pages_size)
+{
+	int index1, index2;
+	Member* selected_friend;
+
+	cout << "choose a fan page from which you want to unlink a fan: " << endl;
+	index1 = chooseOnePage(System_Pages, pages_size);
+	cout << "choose the fan you want to unlink:  " << endl;
+	System_Pages[index1 - 1]->show_all_fans();
+	cin >> index2;
+	selected_friend = System_Pages[index1 - 1]->getfanFromFans(index2 - 1);
+	selected_friend->removePage(*System_Pages[index1 - 1]);
+	System_Pages[index1 - 1]->delete_Fan(*selected_friend, index2 - 1);
+}
