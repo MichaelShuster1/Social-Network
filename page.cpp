@@ -61,7 +61,7 @@ void Fan_page::copyStatusArr(Status* dest, Status* src,int size)
 {
 	int i;
 	for (i = 0; i < size; i++)
-		dest[i] = src[i];
+		dest[i].copyStatus(src[i]);
 }
 
 

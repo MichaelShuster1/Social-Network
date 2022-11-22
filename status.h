@@ -12,7 +12,7 @@ class Status
 {
 public:
 	Status(const Date& d,const Hour& h, const char* t);
-	Status(const char* _time=nullptr, const char* _text=nullptr);
+	Status(const char* _text = nullptr, const char* _time=nullptr);
 	void copyStatus(const Status& other);
 	
 	~Status();
