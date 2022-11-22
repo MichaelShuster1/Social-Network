@@ -18,6 +18,12 @@ Fan_page::Fan_page(const char* _name)
 	fans = new Member*[physical_numOfFans];
 }
 
+Fan_page::Fan_page()
+{
+	name = nullptr;
+	status_array = nullptr;
+	fans = nullptr;
+}
 
 
 Fan_page::~Fan_page()

@@ -29,7 +29,8 @@ private:
 	int physical_numOfStatus;
 
 public:
-	Fan_page(const char* _name=nullptr);
+	Fan_page(const char* _name);
+	Fan_page();
 	~Fan_page();
 	void add_Fan(Member& member);
 	void delete_Fan(Member& member,int index);

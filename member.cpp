@@ -3,20 +3,12 @@
 
 
 
-Member::Member(const char* _name)
+Member::Member()
 {
-	if (_name != nullptr)
-	{
-		name = new char[strlen(_name) + 1];
-		strcpy(name, _name);
-	}
-	else
-		name = nullptr;
-	numOfFriends = numOfPages = numOfStatuses = 0;
-	physical_numOfFriends = physical_numOfPages = physical_numOfStatuses = 1;
-	status_array =new Status[physical_numOfStatuses];
-	pages = new Fan_page*[physical_numOfPages];
-	friends = new Member*[physical_numOfFriends];
+	name = nullptr;
+	status_array =nullptr;
+	pages = nullptr;
+	friends = nullptr;
 }
 
 Member::Member(const char* _name, const Date& date):birth_date(date)

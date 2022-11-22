@@ -15,13 +15,15 @@ void main()
 
 	Member** System_Members = new Member*[3];
 	Fan_page** System_Pages = new Fan_page*[3];
-	int members_size = 3;
-	int members_physical_size = 3;
-	int pages_size = 3;
-	int pages_physical_size = 3;
+	int members_size = 0;
+	int members_physical_size = 1;
+	int pages_size = 0;
+	int pages_physical_size = 1;
 	int index1, index2;
 	Member* selected_friend;
 
+
+	
 	System_Members[0] = new Member("Avi Cohen");
 	System_Members[1] = new Member("Yossi Levi");
 	System_Members[2] = new Member("Israel Israeli");
