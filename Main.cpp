@@ -18,14 +18,48 @@ void main()
 	//temp
 
 
-	Member** System_Members = new Member*[1];
-	Fan_page** System_Pages = new Fan_page*[1];
-	int members_size = 0;
-	int members_physical_size = 1;
-	int pages_size = 0;
-	int pages_physical_size = 1;
+	Member** System_Members = new Member*[3];
+	Fan_page** System_Pages = new Fan_page*[3];
+	int members_size = 3;
+	int members_physical_size = 3;
+	int pages_size = 3;
+	int pages_physical_size = 3;
 	int index1, index2;
 	Member* selected_friend;
+
+	System_Members[0] = new Member("Avi Cohen");
+	System_Members[1] = new Member("Yossi Levi");
+	System_Members[2] = new Member("Israel Israeli");
+	System_Pages[0] = new Fan_page("Music fans");
+	System_Pages[1] = new Fan_page("Gaming fans");
+	System_Pages[2] = new Fan_page("Movies fans");
+	Status status1 = Status("status1", "Mon Jul 16 02:03:55 1987");
+	Status status2 = Status("status2", "Mon Jul 17 02:03:55 1987");
+	Status status3 = Status("status3", "Mon Jul 18 02:03:55 1987");
+	Status status4 = Status("status4", "Mon Jul 19 02:03:55 1987");
+	Status status5 = Status("status5", "Mon Jul 20 02:03:55 1987");
+	Status status6 = Status("status6", "Mon Jul 21 02:03:55 1987");
+	System_Members[0]->add_status(status1);
+	System_Members[0]->add_status(status2);
+	System_Members[1]->add_status(status3);
+	System_Members[1]->add_status(status4);
+	System_Members[2]->add_status(status5);
+	System_Members[2]->add_status(status6);
+	Status status7 = Status("status1", "Mon Jul 16 02:03:55 2000");
+	Status status8 = Status("status2", "Mon Jul 17 02:03:55 2001");
+	Status status9 = Status("status3", "Mon Jul 18 02:03:55 2002");
+	Status status10 = Status("status4", "Mon Jul 19 02:03:55 2003");
+	Status status11 = Status("status5", "Mon Jul 20 02:03:55 2004");
+	Status status12 = Status("status6", "Mon Jul 21 02:03:55 2005");
+	System_Pages[0]->add_status(status7);
+	System_Pages[0]->add_status(status8);
+	System_Pages[1]->add_status(status9);
+	System_Pages[1]->add_status(status10);
+	System_Pages[2]->add_status(status11);
+	System_Pages[2]->add_status(status12);
+
+
+
 
 
 	while (exit == false)
@@ -101,15 +135,14 @@ void main()
 			selected_friend = System_Members[index1 - 1]->getMemberFromFriends(index2 - 1);
 			selected_friend->removeFriend(*System_Members[index1 - 1]);
 			System_Members[index1 - 1]->removeFriend(*selected_friend);
-			*/
 			break;
 
 		case 8:
+			cout << "choose the fan page you want to add a member as a fan to : " << endl;
+			index1 = chooseOnePage(System_Pages, pages_size);
 			cout << "choose the memeber you wish to add to a fan page: " << endl;
-			index1 = chooseOneMember(System_Members, members_size);
-			cout << "choose the fan page you want to add the member as a fan to: " << endl;
-			index2 = chooseOnePage(System_Pages, pages_size);
-			linkFanToPage(*System_Members[index1 - 1], *System_Pages[index2 - 1]);
+			index2 = chooseOneMember(System_Members, members_size);
+			linkFanToPage(*System_Members[index2 - 1], *System_Pages[index1 - 1]);
 			break;
 
 		case 9:
