@@ -13,7 +13,7 @@ class Member
 private:
 	char* name;
 	Date birth_date;
-	Status* status_array;
+	Status** status_array;
 	Fan_page** pages;
 	Member** friends;
 	int numOfFriends;
@@ -27,17 +27,17 @@ private:
 public:
 	Member();
 	Member(const char* _name,const Date& date);
-	Member(const Member& other);
+	Member(const Member& other) = delete;
 	~Member();
 	void addFriend(Member& _member);
-	void add_status(const Status& status);
+	void add_status(Status& status);
 	void add_page(Fan_page& page);
 	void removeFriend(Member& _member);
 	void removePage(Fan_page& page);
-	void reSizeStatusArr(Status** status_array, int old_size, int new_size);
+	void reSizeStatusArr(Status*** status_array, int old_size, int new_size);
 	void reSizeMemberArr(Member*** member_array, int old_size, int new_size);
 	void reSizePagesArr(Fan_page*** pages_array, int old_size, int new_size);
-	void copyStatusArr(Status* dest, Status* src,int size);
+	void copyStatusArr(Status** dest, Status** src,int size);
 	void copyMemberArr(Member** dest, Member** src,int size);
 	void copyPageArr(Fan_page** dest, Fan_page** src,int size);
 	int getMin(int num1, int num2);

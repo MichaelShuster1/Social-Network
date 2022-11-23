@@ -22,9 +22,9 @@ class Fan_page
 private:
 	char* name;
 	Member** fans;
-	Status* status_array;
+	Status** status_array;
 	int numOfFans;
-	int numOfStatus;
+	int numOfStatuses;
 	int physical_numOfFans;
 	int physical_numOfStatus;
 
@@ -34,10 +34,10 @@ public:
 	~Fan_page();
 	void add_Fan(Member& member);
 	void delete_Fan(Member& member,int index);
-	void add_status(const Status& status);
-	void reSizeStatusArr(Status** status_array,int old_size,int new_size);
+	void add_status(Status& status);
+	void reSizeStatusArr(Status** *status_array,int old_size,int new_size);
 	int getMin(int num1, int num2);
-	void copyStatusArr(Status* dest, Status* src,int size);
+	void copyStatusArr(Status** dest, Status** src,int size);
 	void reSizeMemberArr(Member*** status_array, int old_size, int new_size);
 	void copyMemberArr(Member** dest, Member** src,int size);
 	void show_all_fans();

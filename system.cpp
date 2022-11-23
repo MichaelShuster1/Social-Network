@@ -115,6 +115,7 @@ void AddNewPage(Fan_page*** Pages, int& logic_size,int& physical_size)
 	logic_size++;
 }
 
+
 bool checkIfExistNamePage(Fan_page** System_pages, char* name, int size)
 {
 	for (int i = 0; i < size; i++)
@@ -126,17 +127,21 @@ bool checkIfExistNamePage(Fan_page** System_pages, char* name, int size)
 }
 
 
-Status createNewStatus()
+Status* createNewStatus()
 {
-	char status[254];
-	time_t curr_time;
+	char text[254];
 	char* tm;
+	time_t curr_time;
+	Status* newStatus;
+
 	cout << "Please enter your status: ";
 	getchar();
-	cin.getline(status, 254);
+	cin.getline(text, 254);
 	curr_time = time(NULL);
 	tm= ctime(&curr_time);
-	return Status(status, tm);
+
+	newStatus = new Status(text, tm);
+	return newStatus;
 }
 
 
@@ -270,6 +275,7 @@ void unlinkFanFromPage(Member& mem, Fan_page& page)
 void addNewStatusToFanPageOrMember(Member** System_Members, int members_size, Fan_page** System_Pages,int pages_size)
 {
 	int choice,index;
+	Status* newStatus;
 
 	cout << "enter 1 to add new status for a member" << endl;
 	cout << "enter 2 to add new status for a fan page" << endl;
@@ -280,12 +286,14 @@ void addNewStatusToFanPageOrMember(Member** System_Members, int members_size, Fa
 	case 1:
 		cout << "choose a user to which you want to add a new status: " << endl;
 		index = chooseOneMember(System_Members, members_size);
-		System_Members[index - 1]->add_status(createNewStatus());
+		newStatus = createNewStatus();
+		System_Members[index - 1]->add_status(*newStatus);
 		break;
 	case 2:
 		cout << "choose a page to which you want to add a new status: " << endl;
 		index = chooseOnePage(System_Pages, pages_size);
-		System_Pages[index - 1]->add_status(createNewStatus());
+		newStatus = createNewStatus();
+		System_Pages[index - 1]->add_status(*newStatus);
 		break;
 
 	default:
@@ -404,30 +412,30 @@ void createHardcodedEntities(Member** System_Members, Fan_page** System_Pages)
 	System_Pages[0] = new Fan_page("Music fans");
 	System_Pages[1] = new Fan_page("Gaming fans");
 	System_Pages[2] = new Fan_page("Movies fans");
-	Status status1 = Status("status1", "Mon Jul 16 02:03:55 2021");
-	Status status2 = Status("status2", "Mon Jul 17 02:03:55 2021");
-	Status status3 = Status("status3", "Mon Jul 18 02:03:55 2022");
-	Status status4 = Status("status4", "Mon Jul 19 02:03:55 2022");
-	Status status5 = Status("status5", "Mon Jul 20 02:03:55 2022");
-	Status status6 = Status("status6", "Mon Jul 21 02:03:55 2022");
-	System_Members[0]->add_status(status1);
-	System_Members[0]->add_status(status2);
-	System_Members[1]->add_status(status3);
-	System_Members[1]->add_status(status4);
-	System_Members[2]->add_status(status5);
-	System_Members[2]->add_status(status6);
-	Status status7 = Status("status7", "Mon Jul 16 02:03:55 2019");
-	Status status8 = Status("status8", "Mon Jul 17 02:03:55 2019");
-	Status status9 = Status("status9", "Mon Jul 18 02:03:55 2020");
-	Status status10 = Status("status10", "Mon Jul 19 02:03:55 2020");
-	Status status11 = Status("status11", "Mon Jul 20 02:03:55 2021");
-	Status status12 = Status("status12", "Mon Jul 21 02:03:55 2022");
-	System_Pages[0]->add_status(status7);
-	System_Pages[0]->add_status(status8);
-	System_Pages[1]->add_status(status9);
-	System_Pages[1]->add_status(status10);
-	System_Pages[2]->add_status(status11);
-	System_Pages[2]->add_status(status12);
+	Status* status1 = new Status("status1", "Mon Jul 16 02:03:55 2021");
+	Status* status2 = new Status("status2", "Mon Jul 17 02:03:55 2021");
+	Status* status3 = new Status("status3", "Mon Jul 18 02:03:55 2022");
+	Status* status4 = new Status("status4", "Mon Jul 19 02:03:55 2022");
+	Status* status5 = new Status("status5", "Mon Jul 20 02:03:55 2022");
+	Status* status6 = new Status("status6", "Mon Jul 21 02:03:55 2022");
+	System_Members[0]->add_status(*status1);
+	System_Members[0]->add_status(*status2);
+	System_Members[1]->add_status(*status3);
+	System_Members[1]->add_status(*status4);
+	System_Members[2]->add_status(*status5);
+	System_Members[2]->add_status(*status6);
+	Status* status7 = new Status("status7", "Mon Jul 16 02:03:55 2019");
+	Status* status8 = new Status("status8", "Mon Jul 17 02:03:55 2019");
+	Status* status9 = new Status("status9", "Mon Jul 18 02:03:55 2020");
+	Status* status10 = new Status("status10", "Mon Jul 19 02:03:55 2020");
+	Status* status11 = new Status("status11", "Mon Jul 20 02:03:55 2021");
+	Status* status12 = new Status("status12", "Mon Jul 21 02:03:55 2022");
+	System_Pages[0]->add_status(*status7);
+	System_Pages[0]->add_status(*status8);
+	System_Pages[1]->add_status(*status9);
+	System_Pages[1]->add_status(*status10);
+	System_Pages[2]->add_status(*status11);
+	System_Pages[2]->add_status(*status12);
 	linkFanToPage(*System_Members[0], *System_Pages[0]);
 	linkFanToPage(*System_Members[1], *System_Pages[1]);
 	linkFriends(*System_Members[0], *System_Members[1]);

@@ -18,32 +18,23 @@ Member::Member(const char* _name, const Date& date):birth_date(date)
 	strcpy(name, _name);
 	numOfFriends = numOfPages = numOfStatuses = 0;
 	physical_numOfFriends = physical_numOfPages = physical_numOfStatuses = 1;
-	status_array = new Status[physical_numOfStatuses];
-	pages = new Fan_page * [physical_numOfPages];
-	friends = new Member * [physical_numOfFriends];
+	status_array = new Status *[physical_numOfStatuses];
+	pages = new Fan_page *[physical_numOfPages];
+	friends = new Member *[physical_numOfFriends];
 }
 
 
-Member::Member(const Member& other)
-{
-	numOfFriends = other.numOfFriends;
-	numOfPages = other.numOfPages;
-	numOfStatuses = other.numOfStatuses;
-	birth_date = other.birth_date;
-	name = new char[strlen(other.name) + 1];
-	strcpy(name, other.name);
-	copyStatusArr(status_array, other.status_array,numOfStatuses);
-	copyMemberArr(friends, other.friends,numOfFriends);
-	copyPageArr(pages, other.pages,numOfPages);
-}
+
 
 
 Member::~Member()
 {
+	for (int i = 0; i < numOfStatuses; i++)
+		delete status_array[i];
+	delete[] status_array;
 	delete[] name;
 	delete[] pages;
 	delete[] friends;
-	delete[] status_array;
 }
 
 
@@ -102,14 +93,14 @@ void Member::removePage(Fan_page& page)
 	numOfPages--;
 }
 
-void Member::add_status(const Status& status)
+void Member::add_status(Status& status)
 {
 	if(numOfStatuses==physical_numOfStatuses)
 	{
 		physical_numOfStatuses *= 2;
 		reSizeStatusArr(&status_array, numOfStatuses, physical_numOfStatuses);
 	}
-	status_array[numOfStatuses].copyStatus(status);
+	status_array[numOfStatuses]=&status;
 	numOfStatuses++;
 }
 
@@ -125,6 +116,7 @@ void Member::addFriend(Member& _member)
 	numOfFriends++;
 }
 
+
 void Member::add_page(Fan_page& page)
 {
 	if (numOfPages == physical_numOfPages)
@@ -137,13 +129,14 @@ void Member::add_page(Fan_page& page)
 }
 
 
-void Member::reSizeStatusArr(Status** status_array, int old_size, int new_size)
+void Member::reSizeStatusArr(Status*** status_array, int old_size, int new_size)
 {
-	Status* temp = new Status[new_size];
+	Status** temp = new Status*[new_size];
 	copyStatusArr(temp, *status_array,getMin(old_size,new_size));
 	delete[] (*status_array);
 	(*status_array )= temp;
 }
+
 
 void Member::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
@@ -164,11 +157,11 @@ void Member::reSizePagesArr(Fan_page*** pages_array, int old_size, int new_size)
 
 
 
-void Member::copyStatusArr(Status* dest, Status* src,int size)
+void Member::copyStatusArr(Status** dest, Status** src,int size)
 {
 	int i;
 	for (i = 0; i < size; i++)
-		dest[i].copyStatus(src[i]);
+		dest[i] = src[i];
 }
 
 
@@ -226,7 +219,7 @@ void Member::showAllStatuses()
 {
 	for (int i = 0; i < numOfStatuses; i++)
 	{
-		status_array[i].showStatus();
+		status_array[i]->showStatus();
 		cout << endl;
 	}
 		
@@ -236,7 +229,7 @@ void Member::showTenRecentStatuses()
 {
 	for (int i = numOfStatuses - 1; i >= numOfStatuses - 10 && i >= 0; i--)
 	{
-		status_array[i].showStatus();
+		status_array[i]->showStatus();
 		cout << endl;
 	}
 
