@@ -50,6 +50,7 @@ public:
 	void showTenRecentStatuses();
 	void showAllFriendsTenStatuses();
 	Member* getMemberFromFriends(int i);
+	char* getName();
 };
 
 

@@ -145,4 +145,7 @@ Member* Fan_page::getfanFromFans(int i)
 }
 
 
-
+char* Fan_page::getName()
+{
+	return name;
+}

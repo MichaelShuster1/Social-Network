@@ -12,28 +12,37 @@ void copyMemberArr(Member** dest, Member** src, int size)
 void reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
 	Member** temp = new Member * [new_size];
-	copyMemberArr(temp, *member_array, getMin(old_size,new_size));
+	copyMemberArr(temp, *member_array, getMin(old_size, new_size));
 	delete[](*member_array);
 	(*member_array) = temp;
 }
 
 
-void AddNewUser(Member*** Users, int& logic_size,int& phyical_size)
+void AddNewUser(Member*** Users, int& logic_size, int& phyical_size)
 {
 	int year, month, day;
 	char name[NAME_LEN];
 	Member* new_user;
 
-	cout << "Please enter your full name: ";
+	cout << "Please enter the name of the new user: ";
 	getchar();
 	cin.getline(name, NAME_LEN);
-	cout << "Please enter your bith date in the following formt : dd/mm/yyyy" << endl;
+	while (checkIfExistNameUser(*Users, name, logic_size) == true)
+	{
+		cout << "the name is already taken!"<<endl;
+		cout << "Please enter the name of the new user: ";
+		cin.getline(name, NAME_LEN);
+	}
+
+	
+
+	cout << "Please enter the user's bith date in the following formt : dd/mm/yyyy" << endl;
 	cin >> day;
 	getchar();
 	cin >> month;
 	getchar();
 	cin >> year;
-	new_user = new Member(name,Date(year,month,day));
+	new_user = new Member(name, Date(year, month, day));
 
 	if (logic_size == phyical_size)
 	{
@@ -44,6 +53,16 @@ void AddNewUser(Member*** Users, int& logic_size,int& phyical_size)
 	logic_size++;
 }
 
+
+bool checkIfExistNameUser(Member** System_Members, char* name, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		if ( strcmp(name, System_Members[i]->getName()) == 0 )  
+			return true;
+	}
+	return false;
+}
 
 void copyPageArr(Fan_page** dest, Fan_page** src, int size)
 {
@@ -72,10 +91,20 @@ int getMin(int num1, int num2)
 void AddNewPage(Fan_page*** Pages, int& logic_size,int& physical_size)
 {
 	char name[NAME_LEN];
-	cout << "Please enter your fan page's name: ";
+	Fan_page* new_page;
+
+	cout << "Please enter the name of the new page: ";
 	getchar();
 	cin.getline(name, NAME_LEN);
-	Fan_page* new_page = new Fan_page(name);
+	while (checkIfExistNamePage(*Pages, name, logic_size) == true)
+	{
+		cout << "the name is already taken!" << endl;
+		cout << "Please enter the name of the new page: ";
+		cin.getline(name, NAME_LEN);
+	}
+
+
+	new_page = new Fan_page(name);
 
 	if (logic_size == physical_size)
 	{
@@ -84,6 +113,16 @@ void AddNewPage(Fan_page*** Pages, int& logic_size,int& physical_size)
 	}
 	(*Pages)[logic_size] = new_page;
 	logic_size++;
+}
+
+bool checkIfExistNamePage(Fan_page** System_pages, char* name, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		if (strcmp(name, System_pages[i]->getName()) == 0)
+			return true;
+	}
+	return false;
 }
 
 

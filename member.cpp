@@ -11,6 +11,7 @@ Member::Member()
 	friends = nullptr;
 }
 
+
 Member::Member(const char* _name, const Date& date):birth_date(date)
 {
 	name = new char[strlen(_name) + 1];
@@ -21,6 +22,7 @@ Member::Member(const char* _name, const Date& date):birth_date(date)
 	pages = new Fan_page * [physical_numOfPages];
 	friends = new Member * [physical_numOfFriends];
 }
+
 
 Member::Member(const Member& other)
 {
@@ -36,7 +38,6 @@ Member::Member(const Member& other)
 }
 
 
-
 Member::~Member()
 {
 	delete[] name;
@@ -44,8 +45,6 @@ Member::~Member()
 	delete[] friends;
 	delete[] status_array;
 }
-
-
 
 
 void Member::shiftBackMemberArr(int index)
@@ -57,6 +56,7 @@ void Member::shiftBackMemberArr(int index)
 	}
 }
 
+
 void Member::shiftBackPagesArr(int index)
 {
 	
@@ -65,6 +65,7 @@ void Member::shiftBackPagesArr(int index)
 		pages[i] = pages[i + 1];
 	}
 }
+
 
 void Member::removeFriend(Member& _member)
 {
@@ -82,6 +83,7 @@ void Member::removeFriend(Member& _member)
 	reSizeMemberArr(&friends, numOfFriends, numOfFriends-1);
 	numOfFriends--;
 }
+
 
 void Member::removePage(Fan_page& page)
 {
@@ -256,6 +258,13 @@ void Member::showAllFriendsTenStatuses()
 Member* Member::getMemberFromFriends(int i)
 {
 	return friends[i];
+}
+
+
+
+char* Member::getName()
+{
+	return name;
 }
 
 
