@@ -222,7 +222,9 @@ void Member::showAllStatuses()
 		status_array[i]->showStatus();
 		cout << endl;
 	}
-		
+	
+	if (numOfStatuses == 0)
+		cout << "the member: " << name << " has no statuses" << endl;
 }
 
 void Member::showTenRecentStatuses()

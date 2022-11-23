@@ -133,7 +133,13 @@ void Fan_page::show_all_fans()
 void Fan_page::showAllStatuses()
 {
 	for (int i = 0; i < numOfStatuses; i++)
+	{
 		status_array[i]->showStatus();
+		cout << endl;
+	}
+
+	if (numOfStatuses == 0)
+		cout << "the page: " << name << " has no statuses" << endl;
 }
 
 void Fan_page::showName()
