@@ -118,7 +118,7 @@ void System::showAllStatusesOfAFanPage(int index)
 
 void System::ShowTenLatestStatusesOfEachFriend(int index)
 {
-	system_members[index]->showTenRecentStatuses();
+	system_members[index]->showAllFriendsTenStatuses();
 }
 
 

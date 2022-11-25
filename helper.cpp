@@ -115,7 +115,7 @@ void printAllFriendsOrFansEntity(System& system)
 	case 2:
 		index = chooseOnePage(system);
 		cout << endl;
-		system.printPageName(index = 1);
+		system.printPageName(index -1);
 		cout << "'s fans are:" << endl;
 		system.printAllFandsOfPage(index - 1);
 		break;
@@ -154,7 +154,7 @@ void addNewStatusToFanPageOrMember(System& system)
 		cout << "choose a page to which you want to add a new status: " << endl;
 		index = chooseOnePage(system);
 		newStatus = createNewStatus();
-		system.addNewStatusToFanPage(newStatus, index = 1);
+		system.addNewStatusToFanPage(newStatus, index - 1);
 		break;
 
 	default:
@@ -295,11 +295,11 @@ bool processChoice(System& system,int choice)
 
 	case 4:
 		showAllStatusesOfAFanPageOrMember(system);
-
 		break;
 
 	case 5:
 		ShowTenStatusesOfEachFriend(system);
+		break;
 
 	case 6:
 		linkFriendshipInSystem(system);
@@ -323,7 +323,6 @@ bool processChoice(System& system,int choice)
 
 	case 11:
 		printAllFriendsOrFansEntity(system);
-		cout << "choose the friend by entering their index number: ";
 		break;
 
 	case 12:
