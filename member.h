@@ -52,7 +52,7 @@ public:
 	Member* getMemberFromFriends(int i);
 	char* getName();
 	int getFriendsSize();
-	int getNumOfPages();
+	int getPagesSize();
 	Fan_page* getPageFromPages(int i);
 };
 

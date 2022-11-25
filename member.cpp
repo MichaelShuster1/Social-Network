@@ -300,7 +300,7 @@ int Member::getFriendsSize()
 	return numOfFriends;
 }
 
-int Member::getNumOfPages()
+int Member::getPagesSize()
 {
 	return numOfPages;
 }

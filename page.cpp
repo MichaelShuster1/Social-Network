@@ -83,7 +83,7 @@ void Fan_page::add_Fan(Member& member)
 	fans[numOfFans] = &member;
 	numOfFans++;
 
-	int index = member.getNumOfPages();
+	int index = member.getFriendsSize();
 	if (this != member.getPageFromPages(index - 1));
 	{
 		member.add_page(*this);
@@ -126,7 +126,7 @@ void Fan_page::delete_Fan(Member& member,int index)
 		reSizeMemberArr(&fans, numOfFans,physical_numOfFans);
 	}
 
-	int index1 = member.getNumOfPages();
+	int index1 = member.getPagesSize();
 	if (this == member.getPageFromPages(index1 - 1));
 	{
 		member.removePage(*this);

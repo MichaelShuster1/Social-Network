@@ -47,7 +47,6 @@ public:
 	char* getName();
 	int getFansSize();
 	Member* getfanFromFans(int i);
-	int getFansSize();
 
 };
 
