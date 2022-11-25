@@ -17,6 +17,8 @@ void main()
 	int pages_size = 3;
 	int pages_physical_size = 3;
 
+	createHardcodedEntities(System_Members, System_Pages);
+
 
 	while (exit == false)
 	{
