@@ -51,7 +51,10 @@ public:
 	void createHardcodedEntities();
 	void freeMemberArr();
 	void freePageArr();
-
+	int getMembersSize();
+	int getPagesSize();
+	int getFriendsSizeOfAMember(int index);
+	int getFansSizeofAPage(int index);
 };
 
 

@@ -126,7 +126,13 @@ void Fan_page::show_all_fans()
 {
 	int i;
 	for (i = 0; i < numOfFans; i++)
-		fans[i]->showName();	
+	{
+		cout << i + 1 << ". ";
+		fans[i]->showName();
+		cout << endl;
+	}
+	if(numOfFans==0)
+		cout << "the page: " << name << " has no fans" << endl;
 }
 
 
@@ -156,4 +162,9 @@ Member* Fan_page::getfanFromFans(int i)
 char* Fan_page::getName()
 {
 	return name;
+}
+
+int Fan_page::getFansSize()
+{
+	return numOfFans;
 }

@@ -204,16 +204,22 @@ void Member::showAllFriends()
 		cout << endl;
 	}
 		
+	if(numOfFriends==0)
+		cout << name << " has no friends" << endl;
+		
 }
 
 void Member::showAllPages()
 {
+
 	for (int i = 0; i < numOfPages; i++)
 	{
 		pages[i]->showName();
 		cout << endl;
 	}
-		
+	if(numOfPages==0)
+		cout << name << " has no pages that he follows" << endl;
+
 }
 
 void Member::showAllStatuses()
@@ -225,7 +231,7 @@ void Member::showAllStatuses()
 	}
 	
 	if (numOfStatuses == 0)
-		cout << "the member: " << name << " has no statuses" << endl;
+		cout <<name << " has no statuses" << endl;
 }
 
 void Member::showTenRecentStatuses()
@@ -261,6 +267,11 @@ Member* Member::getMemberFromFriends(int i)
 char* Member::getName()
 {
 	return name;
+}
+
+int Member::getFriendsSize()
+{
+	return numOfFriends;
 }
 
 

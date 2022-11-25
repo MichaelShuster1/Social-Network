@@ -51,6 +51,7 @@ public:
 	void showAllFriendsTenStatuses();
 	Member* getMemberFromFriends(int i);
 	char* getName();
+	int getFriendsSize();
 };
 
 
