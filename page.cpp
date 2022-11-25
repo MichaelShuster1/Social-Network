@@ -83,11 +83,16 @@ void Fan_page::add_Fan(Member& member)
 	fans[numOfFans] = &member;
 	numOfFans++;
 
-	int index = member.getFriendsSize();
-	if (this != member.getPageFromPages(index - 1));
+	int index = member.getPagesSize();
+	if (index != 0)
 	{
-		member.add_page(*this);
+		if (this != member.getPageFromPages(index - 1))
+		{
+			member.add_page(*this);
+		}
 	}
+	else
+		member.add_page(*this);
 }
 
 
@@ -126,8 +131,7 @@ void Fan_page::delete_Fan(Member& member,int index)
 		reSizeMemberArr(&fans, numOfFans,physical_numOfFans);
 	}
 
-	int index1 = member.getPagesSize();
-	if (this == member.getPageFromPages(index1 - 1));
+	if (member.getPageIndexFromPages(*this) != -1)
 	{
 		member.removePage(*this);
 	}
@@ -179,4 +183,22 @@ char* Fan_page::getName()
 int Fan_page::getFansSize()
 {
 	return numOfFans;
+}
+
+int Fan_page::getfanIndexFromFans(Member& member)
+{
+	int i = 0;
+	bool found = false;
+	while (i < numOfFans && found == false)
+	{
+		if (fans[i] == &member)
+			found = true;
+
+		i++;
+	}
+
+	if (found == true)
+		return i-1;
+	else
+		return -1;
 }

@@ -123,6 +123,7 @@ void System::ShowTenLatestStatusesOfEachFriend(int index)
 
 void System::linkFriends(int index1, int index2)
 {
+
 	system_members[index1]->addFriend(*(system_members[index2]));
 	//system_members[index2]->addFriend(*(system_members[index1]));
 }
@@ -295,6 +296,29 @@ int System::getPagesSize()
 	return pages_size;
 }
 
+bool System::areFriendsCheck(int index1, int index2)
+{
+	int friends_size = system_members[index1]->getFriendsSize();
+	for (int i = 0; i <friends_size; i++)
+	{
+		if (system_members[index2] == system_members[index1]->getMemberFromFriends(i))
+			return true;
+	}
+
+	return false;
+}
+
+bool System::isFanCheck(int index1, int index2)
+{
+	int fans_size = system_pages[index1]->getFansSize();
+	for (int i = 0; i < fans_size; i++)
+	{
+		if (system_members[index2] == system_pages[index1]->getfanFromFans(i))
+			return true;
+	}
+
+	return false;
+}
 
 
 

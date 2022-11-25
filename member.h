@@ -54,6 +54,8 @@ public:
 	int getFriendsSize();
 	int getPagesSize();
 	Fan_page* getPageFromPages(int i);
+	int getPageIndexFromPages(Fan_page& member);
+	int getFriendIndexFromFriends(Member& member);
 };
 
 

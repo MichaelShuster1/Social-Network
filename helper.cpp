@@ -17,7 +17,7 @@ void addNewUserToSystem(System& system)
 	}
 
 
-	cout << "Please enter the user's bith date in the following formt : dd/mm/yyyy" << endl;
+	cout << "Please enter the user's birth date in the following formt : dd/mm/yyyy" << endl;
 	cin >> day;
 	getchar();
 	cin >> month;
@@ -60,6 +60,13 @@ Status* createNewStatus()
 	cout << "Please enter your status: ";
 	getchar();
 	cin.getline(text, 254);
+	while (strlen(text) == 0)
+	{
+		cout << "You cant add an empty status!";
+		cout << "Please enter your status: ";
+		getchar();
+		cin.getline(text, 254);
+	}
 	curr_time = time(NULL);
 	tm = ctime(&curr_time);
 
@@ -224,11 +231,34 @@ void ShowTenStatusesOfEachFriend(System& system)
 void linkFriendshipInSystem(System& system)
 {
 	int index1, index2;
+	bool inputcheck = false;
 
 	cout << "choose the first friend by entering their index number: " << endl;
 	index1 = chooseOneMember(system);
 	cout << "choose the second friend by entering their index number: " << endl;
 	index2 = chooseOneMember(system);
+
+	while (inputcheck == false)
+	{
+		if (index1 == index2) {
+			cout << "You cant link a friendship with yourself!" << endl <<"Try again." <<endl;
+		}
+		else if (system.areFriendsCheck(index1 - 1, index2 - 1))
+		{
+			cout << "The users you chose are already linked!" << endl << "Try again." << endl;
+		}
+		else
+			inputcheck = true;
+
+		if (inputcheck == false)
+		{
+			cout << "choose the first friend by entering their index number: " << endl;
+			index1 = chooseOneMember(system);
+			cout << "choose the second friend by entering their index number: " << endl;
+			index2 = chooseOneMember(system);
+		}
+	}
+
 	system.linkFriends(index1 - 1, index2 - 1);
 }
 
@@ -276,11 +306,31 @@ int chooseOneFriendOfAMember(System& system,int index)
 
 void addFanToPageInSystem(System& system)
 {
+	bool inputcheck = false;
 	int index1, index2;
 	cout << "choose the fan page you want to add a member as a fan to : " << endl;
 	index1 = chooseOnePage(system);
 	cout << "choose the memeber you wish to add to a fan page: " << endl;
 	index2 = chooseOneMember(system);
+
+	while (inputcheck == false)
+	{
+		if (system.isFanCheck(index1 - 1, index2 - 1))
+		{
+			cout << "The user you chose is already a fan of this page!" << endl << "Try again." << endl;
+		}
+		else
+			inputcheck = true;
+
+		if (inputcheck == false)
+		{
+			cout << "choose the fan page you want to add a member as a fan to : " << endl;
+			index1 = chooseOnePage(system);
+			cout << "choose the memeber you wish to add to a fan page: " << endl;
+			index2 = chooseOneMember(system);
+		}
+	}
+
 	system.addFanToAPage(index2 - 1, index1 - 1);
 }
 
@@ -316,6 +366,8 @@ int chooseOneFanOfAPage(System& system,int index)
 			cout << "Enter your choice here: ";
 			cin >> choice;
 		}
+
+		return choice;
 	}
 	else
 	{
