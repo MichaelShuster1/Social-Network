@@ -219,13 +219,9 @@ void unLinkFriendshipInSystem(System& system)
 	cout << "choose a user from which you want to unlink a friend: " << endl;
 	index1 = chooseOneMember(system);
 	cout << "choose the friend you want to unlink: " << endl;
-	/*
-	System_Members[index1 - 1]->showAllFriends();
+	system.printAllFriendsOfMember(index1 - 1);
 	cin >> index2;
-	selected_friend = System_Members[index1 - 1]->getMemberFromFriends(index2 - 1);
-	selected_friend->removeFriend(*System_Members[index1 - 1]);
-	System_Members[index1 - 1]->removeFriend(*selected_friend);
-	*/
+	system.unLinkFriends(index1 - 1, index2 - 1);
 }
 
 
@@ -248,13 +244,9 @@ void removeFanFromPageInSystem(System& system)
 	cout << "choose a fan page from which you want to unlink a fan: " << endl;
 	index1 = chooseOnePage(system);
 	cout << "choose the fan you want to unlink:  " << endl;
-	/*
-	System_Pages[index1 - 1]->show_all_fans();
+	system.printAllFandsOfPage(index1 - 1);
 	cin >> index2;
-	selected_friend = System_Pages[index1 - 1]->getfanFromFans(index2 - 1);
-	selected_friend->removePage(*System_Pages[index1 - 1]);
-	System_Pages[index1 - 1]->delete_Fan(*selected_friend, index2 - 1);
-	*/
+	system.removeFanFromAFanPage(index1 - 1, index2 - 1);
 }
 
 void printMenu()

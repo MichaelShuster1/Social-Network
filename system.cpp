@@ -131,7 +131,10 @@ void System::linkFriends(int index1, int index2)
 
 void System::unLinkFriends(int index1, int index2)
 {
-
+	Member* selected_friend;
+	selected_friend = system_members[index1]->getMemberFromFriends(index2);
+	selected_friend->removeFriend(*system_members[index1]);
+	system_members[index1]->removeFriend(*selected_friend);
 }
 
 
@@ -143,8 +146,10 @@ void System::addFanToAPage(int index1, int index2)
 
 void System::removeFanFromAFanPage(int index1, int index2)
 {
-
-
+	Member* selected_friend;
+	selected_friend = system_pages[index1]->getfanFromFans(index2);
+	selected_friend->removePage(*system_pages[index1 - 1]);
+	system_pages[index1]->delete_Fan(*selected_friend, index2);
 }
 
 void System::printMemberName(int index)
@@ -208,12 +213,6 @@ void System::createHardcodedEntities()
 	linkFriends(0, 1);
 	linkFriends(1, 2);
 
-	/*
-	linkFanToPage(*System_Members[0], *System_Pages[0]);
-	linkFanToPage(*System_Members[1], *System_Pages[1]);
-	linkFriends(*System_Members[0], *System_Members[1]);
-	linkFriends(*System_Members[1], *System_Members[2]);
-	*/
 }
 
 void System::copyMemberArr(Member** dest, Member** src, int size)
