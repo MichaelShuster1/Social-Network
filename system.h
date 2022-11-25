@@ -35,7 +35,6 @@ public:
 	void unLinkFriends(int index1, int index2); //not working for the meantime
 	void addFanToAPage(int index1,int index2);
 	void removeFanFromAFanPage(int index1,int index2);  //not working for the meantime
-	void printAllRegisteredEntities();
 	void printAllFriendsOfMember(int index);
 	void printAllFandsOfPage(int index);
 	bool checkIfExistNameUser(char* name);
