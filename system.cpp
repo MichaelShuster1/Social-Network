@@ -1,5 +1,166 @@
 #include "system.h"
 
+
+
+System::System()
+{
+	members_size = 3;
+	pages_size = 3;
+	members_physical_size = 3;
+	pages_physical_size = 3;
+	system_members = new Member * [members_physical_size];
+	system_pages = new Fan_page * [pages_physical_size];
+	createHardcodedEntities(system_members, system_pages);
+}
+
+
+System::~System()
+{
+	freeMemberArr(system_members, members_size);
+	freePageArr(system_pages, pages_size);
+}
+
+
+void System::addNewUser(Member* new_user)
+{
+	if (members_size == members_physical_size)
+	{
+		members_physical_size *= 2;
+		reSizeMemberArr(&system_members,members_size, members_physical_size);
+	}
+	system_members[members_size] = new_user;
+	members_size++;
+
+}
+
+bool System::checkIfExistNameUser(char* name)
+{
+	for (int i = 0; i < members_size; i++)
+	{
+		if (strcmp(name, system_members[i]->getName()) == 0)
+			return true;
+	}
+	return false;
+}
+
+void System::addNewPage(Fan_page* new_page)
+{
+	if (pages_size == pages_physical_size)
+	{
+		pages_physical_size *= 2;
+		reSizePagesArr(&system_pages, pages_size, pages_physical_size);
+	}
+	system_pages[pages_size] = new_page;
+	pages_size++;
+}
+
+
+bool System::checkIfExistNamePage(char* name)
+{
+	for (int i = 0; i < pages_size; i++)
+	{
+		if (strcmp(name, system_pages[i]->getName()) == 0)
+			return true;
+	}
+	return false;
+}
+
+void System::addNewStatusToMember(Status* new_status,int index)
+{
+	system_members[index]->add_status(*new_status);
+}
+
+
+void System::printAllSystemMembers()
+{
+	cout << "Members:" << endl;
+	for (int i = 0; i < members_size; i++)
+	{
+		cout << (i + 1) << ". ";
+		system_members[i]->showName();
+		cout << endl;
+	}
+	cout << endl;
+}
+
+
+void System::printAllSystemPages()
+{
+	cout << "Fan pages:" << endl;
+	for (int i = 0; i < pages_size; i++)
+	{
+		cout << (i + 1) << ". ";
+		system_pages[i]->showName();
+		cout << endl;
+	}
+	cout << endl;
+}
+
+
+void System::addNewStatusToFanPage(Status* new_status, int index)
+{
+	system_pages[index]->add_status(*new_status);
+}
+
+
+
+
+void System::showAllStatusesOfAMember(int index)
+{
+	system_members[index]->showAllStatuses();
+}
+
+void System::showAllStatusesOfAFanPage(int index)
+{
+	system_pages[index]->showAllStatuses();
+}
+
+
+void System::ShowTenLatestStatusesOfEachFriend(int index)
+{
+	system_members[index]->showTenRecentStatuses();
+}
+
+
+
+void System::linkFriends(int index1, int index2)
+{
+	system_members[index1]->addFriend(*(system_members[index2]));
+	system_members[index2]->addFriend(*(system_members[index1]));
+}
+
+
+void System::addFanToAPage(int index1, int index2)
+{
+	system_members[index1]->add_page(*(system_pages[index2]));
+	system_pages[index2]->add_Fan(*(system_members[index1]));
+}
+
+
+void System::printMemberName(int index)
+{
+	system_members[index]->showName();
+}
+
+
+void System::printPageName(int index)
+{
+	system_pages[index]->showName();
+}
+
+
+void System::printAllFriendsOfMember(int index)
+{
+	system_members[index]->showAllFriends();
+}
+
+
+void System::printAllFandsOfPage(int index)
+{
+	system_pages[index]->show_all_fans();
+}
+
+
 void copyMemberArr(Member** dest, Member** src, int size)
 {
 	int i;
@@ -18,7 +179,7 @@ void reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 }
 
 
-void AddNewUser(Member*** Users, int& logic_size, int& phyical_size)
+void addNewUserToSystem(System& system)
 {
 	int year, month, day;
 	char name[NAME_LEN];
@@ -27,14 +188,13 @@ void AddNewUser(Member*** Users, int& logic_size, int& phyical_size)
 	cout << "Please enter the name of the new user: ";
 	getchar();
 	cin.getline(name, NAME_LEN);
-	while (checkIfExistNameUser(*Users, name, logic_size) == true)
+	while (system.checkIfExistNameUser(name) == true)
 	{
 		cout << "the name is already taken!"<<endl;
 		cout << "Please enter the name of the new user: ";
 		cin.getline(name, NAME_LEN);
 	}
 
-	
 
 	cout << "Please enter the user's bith date in the following formt : dd/mm/yyyy" << endl;
 	cin >> day;
@@ -43,26 +203,9 @@ void AddNewUser(Member*** Users, int& logic_size, int& phyical_size)
 	getchar();
 	cin >> year;
 	new_user = new Member(name, Date(year, month, day));
-
-	if (logic_size == phyical_size)
-	{
-		phyical_size *= 2;
-		reSizeMemberArr(Users, logic_size, phyical_size);
-	}
-	(*Users)[logic_size] = new_user;
-	logic_size++;
+	system.addNewUser(new_user);
 }
 
-
-bool checkIfExistNameUser(Member** System_Members, char* name, int size)
-{
-	for (int i = 0; i < size; i++)
-	{
-		if ( strcmp(name, System_Members[i]->getName()) == 0 )  
-			return true;
-	}
-	return false;
-}
 
 void copyPageArr(Fan_page** dest, Fan_page** src, int size)
 {
@@ -88,7 +231,7 @@ int getMin(int num1, int num2)
 	return num2;
 }
 
-void AddNewPage(Fan_page*** Pages, int& logic_size,int& physical_size)
+void addNewPageToSystem(System& system)
 {
 	char name[NAME_LEN];
 	Fan_page* new_page;
@@ -96,7 +239,7 @@ void AddNewPage(Fan_page*** Pages, int& logic_size,int& physical_size)
 	cout << "Please enter the name of the new page: ";
 	getchar();
 	cin.getline(name, NAME_LEN);
-	while (checkIfExistNamePage(*Pages, name, logic_size) == true)
+	while (system.checkIfExistNamePage(name) == true)
 	{
 		cout << "the name is already taken!" << endl;
 		cout << "Please enter the name of the new page: ";
@@ -105,26 +248,9 @@ void AddNewPage(Fan_page*** Pages, int& logic_size,int& physical_size)
 
 
 	new_page = new Fan_page(name);
-
-	if (logic_size == physical_size)
-	{
-		physical_size *= 2;
-		reSizePagesArr(Pages, logic_size, physical_size);
-	}
-	(*Pages)[logic_size] = new_page;
-	logic_size++;
+	system.addNewPage(new_page);
 }
 
-
-bool checkIfExistNamePage(Fan_page** System_pages, char* name, int size)
-{
-	for (int i = 0; i < size; i++)
-	{
-		if (strcmp(name, System_pages[i]->getName()) == 0)
-			return true;
-	}
-	return false;
-}
 
 
 Status* createNewStatus()
@@ -171,20 +297,17 @@ void printAllSysPages(Fan_page** Pages, int size)
 }
 
 
-void printAllRegisteredEntities(Member** Users, int size_u, Fan_page** Pages, int size_p)
+void printAllRegisteredEntitiesInSystem(System& system)
 {
-	if (size_u > 0)
-		printAllSysMembers(Users, size_u);
-	if (size_p > 0)
-		printAllSysPages(Pages, size_p);
-
+	system.printAllSystemMembers();
+	system.printAllSystemPages();
 }
 
 
-int chooseOneMember(Member** Users, int size)
+int chooseOneMember(System& system)
 {
 	int choice;
-	printAllSysMembers(Users, size);
+	system.printAllSystemMembers();
 	cout << "Enter the index of the member: ";
 	cin >> choice;
 	cout << endl;
@@ -192,10 +315,10 @@ int chooseOneMember(Member** Users, int size)
 }
 
 
-int chooseOnePage(Fan_page** Pages, int size)
+int chooseOnePage(System& system)
 {
 	int choice;
-	printAllSysPages(Pages, size);
+	system.printAllSystemPages();
 	cout << "Enter the index of the fan page: ";
 	cin >> choice;
 	cout << endl;
@@ -234,27 +357,30 @@ void unlinkFriends(Member& mem1, Member& mem2)
 	mem2.removeFriend(mem1);
 }
 
-void printAllfriendsOrFansOfanEntity(Member** Users, int size_u, Fan_page** Pages, int size_p)
+void printAllFriendsOrFansEntity(System& system)
 {
 	int user_input;
 	int index;
 	cout << "Do you want to choose from members or from fan pages?" << endl << "Enter 1 for members, or 2 for fan pages: ";
 	cin >> user_input;
-	if (user_input == 1)
+	switch (user_input)
 	{
-		index = chooseOneMember(Users, size_u);
+	case 1:
+		index = chooseOneMember(system);
 		cout << endl;
-		Users[index - 1]->showName();
-		cout << " friends are:" << endl;
-		Users[index - 1]->showAllFriends();
-	}
-	else
-	{
-		index = chooseOnePage(Pages, size_p);
+		system.printMemberName(index - 1);
+		cout << "'s friends are:" << endl;
+		system.printAllFriendsOfMember(index - 1);
+		break;
+	case 2:
+		index = chooseOnePage(system);
 		cout << endl;
-		Pages[index - 1]->showName();
-		cout << " fans are:" << endl;
-		Pages[index - 1]->show_all_fans();
+		system.printPageName(index = 1);
+		cout << "'s fans are:" << endl;
+		system.printAllFandsOfPage(index - 1);
+		break;
+	default:
+		break;
 	}
 }
 
@@ -272,7 +398,7 @@ void unlinkFanFromPage(Member& mem, Fan_page& page)
 	//page.removeFan(mem);
 }
 
-void addNewStatusToFanPageOrMember(Member** System_Members, int members_size, Fan_page** System_Pages,int pages_size)
+void addNewStatusToFanPageOrMember(System& system)
 {
 	int choice,index;
 	Status* newStatus;
@@ -285,15 +411,15 @@ void addNewStatusToFanPageOrMember(Member** System_Members, int members_size, Fa
 	{
 	case 1:
 		cout << "choose a user to which you want to add a new status: " << endl;
-		index = chooseOneMember(System_Members, members_size);
+		index = chooseOneMember(system);
 		newStatus = createNewStatus();
-		System_Members[index - 1]->add_status(*newStatus);
+		system.addNewStatusToMember(newStatus, index-1);
 		break;
 	case 2:
 		cout << "choose a page to which you want to add a new status: " << endl;
-		index = chooseOnePage(System_Pages, pages_size);
+		index = chooseOnePage(system);
 		newStatus = createNewStatus();
-		System_Pages[index - 1]->add_status(*newStatus);
+		system.addNewStatusToFanPage(newStatus, index = 1);
 		break;
 
 	default:
@@ -301,7 +427,7 @@ void addNewStatusToFanPageOrMember(Member** System_Members, int members_size, Fa
 	}
 }
 
-void showAllStatusesOfAFanPageOrMember(Member** System_Members, int members_size, Fan_page** System_Pages, int pages_size)
+void showAllStatusesOfAFanPageOrMember(System& system)
 {
 	int choice, index;
 
@@ -313,13 +439,13 @@ void showAllStatusesOfAFanPageOrMember(Member** System_Members, int members_size
 	{
 	case 1:
 		cout << "choose a user to see their statuses " << endl;
-		index = chooseOneMember(System_Members, members_size);
-		System_Members[index - 1]->showAllStatuses();
+		index = chooseOneMember(system);
+		system.showAllStatusesOfAMember(index - 1);
 		break;
 	case 2:
 		cout << "choose a page to see its statuses: " << endl;
-		index = chooseOnePage(System_Pages, pages_size);
-		System_Pages[index - 1]->showAllStatuses();
+		index = chooseOnePage(system);
+		system.showAllStatusesOfAFanPage(index - 1);
 		break;
 
 	default:
@@ -327,64 +453,69 @@ void showAllStatusesOfAFanPageOrMember(Member** System_Members, int members_size
 	}
 }
 
-void ShowTenLatestStatusesOfEachFriend(Member** System_Members, int members_size)
+void ShowTenStatusesOfEachFriend(System& system)
 {
 	int index;
-
 	cout << "choose a member by entering their index number: " << endl;
-	index = chooseOneMember(System_Members, members_size);
-	System_Members[index - 1]->showAllFriendsTenStatuses();
+	index = chooseOneMember(system);
+	system.ShowTenLatestStatusesOfEachFriend(index-1);
 }
 
-void linkFriendship(Member** System_Members, int members_size)
+void linkFriendshipInSystem(System& system)
 {
 	int index1,index2;
 
 	cout << "choose the first friend by entering their index number: " << endl;
-	index1 = chooseOneMember(System_Members, members_size);
+	index1 = chooseOneMember(system);
 	cout << "choose the second friend by entering their index number: " << endl;
-	index2 = chooseOneMember(System_Members, members_size);
-	linkFriends(*System_Members[index1 - 1], *System_Members[index2 - 1]);
+	index2 = chooseOneMember(system);
+	system.linkFriends(index1 - 1, index2 - 1);
 }
 
-void unLinkFriendship(Member** System_Members, int members_size)
+void unLinkFriendshipInSystem(System& system)
 {
 	int index1, index2;
 	Member* selected_friend;
 
 	cout << "choose a user from which you want to unlink a friend: " << endl;
-	index1 = chooseOneMember(System_Members, members_size);
+	index1 = chooseOneMember(system);
 	cout << "choose the friend you want to unlink: " << endl;
+	/*
 	System_Members[index1 - 1]->showAllFriends();
 	cin >> index2;
 	selected_friend = System_Members[index1 - 1]->getMemberFromFriends(index2 - 1);
 	selected_friend->removeFriend(*System_Members[index1 - 1]);
 	System_Members[index1 - 1]->removeFriend(*selected_friend);
+	*/
 }
 
-void addFanToAFanPage(Member** System_Members, int members_size, Fan_page** System_Pages, int pages_size)
+
+void addFanToPageInSystem(System& system)
 {
 	int index1, index2;
 	cout << "choose the fan page you want to add a member as a fan to : " << endl;
-	index1 = chooseOnePage(System_Pages, pages_size);
+	index1 = chooseOnePage(system);
 	cout << "choose the memeber you wish to add to a fan page: " << endl;
-	index2 = chooseOneMember(System_Members, members_size);
-	linkFanToPage(*System_Members[index2 - 1], *System_Pages[index1 - 1]);
+	index2 = chooseOneMember(system);
+	system.addFanToAPage(index2 - 1, index1 - 1);
 }
 
-void removeAFanFromAFanPage(Fan_page** System_Pages, int pages_size)
+
+void removeFanFromPageInSystem(System& system)
 {
 	int index1, index2;
 	Member* selected_friend;
 
 	cout << "choose a fan page from which you want to unlink a fan: " << endl;
-	index1 = chooseOnePage(System_Pages, pages_size);
+	index1 = chooseOnePage(system);
 	cout << "choose the fan you want to unlink:  " << endl;
+	/*
 	System_Pages[index1 - 1]->show_all_fans();
 	cin >> index2;
 	selected_friend = System_Pages[index1 - 1]->getfanFromFans(index2 - 1);
 	selected_friend->removePage(*System_Pages[index1 - 1]);
 	System_Pages[index1 - 1]->delete_Fan(*selected_friend, index2 - 1);
+	*/
 }
 
 void printMenu()
@@ -399,7 +530,7 @@ void printMenu()
 	cout << "8- add a fan to fan page" << endl;
 	cout << "9- delete a fan from fan page" << endl;
 	cout << "10- show all entities that are registered to the system" << endl;
-	cout << "11- show all friends of a member/show all friends of a fan page" << endl;
+	cout << "11- show all friends of a member/show all fans of a fan page" << endl;
 	cout << "12- exit" << endl;
 	cout << "please enter your choice here:  ";
 }

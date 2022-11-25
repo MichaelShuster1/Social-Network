@@ -10,14 +10,18 @@ void main()
 	bool exit = false;
 	int choice;
 
+	System system;
+
+	/*
 	Member** System_Members = new Member*[3];
 	Fan_page** System_Pages = new Fan_page*[3];
 	int members_size = 3;
 	int members_physical_size = 3;
 	int pages_size = 3;
 	int pages_physical_size = 3;
-
 	createHardcodedEntities(System_Members, System_Pages);
+	*/
+
 	while (exit == false)
 	{
 		printMenu();
@@ -26,47 +30,47 @@ void main()
 		{
 
 		case 1:
-			AddNewUser(&System_Members,members_size,members_physical_size);
+			addNewUserToSystem(system);
 			break;
 
 		case 2:
-			AddNewPage(&System_Pages, pages_size,pages_physical_size);
+			addNewPageToSystem(system);
 			break;
 
 		case 3:
-			addNewStatusToFanPageOrMember(System_Members, members_size, System_Pages, pages_size);
+			addNewStatusToFanPageOrMember(system);
 			break;
 
 		case 4:
-			showAllStatusesOfAFanPageOrMember(System_Members, members_size, System_Pages, pages_size);
+			showAllStatusesOfAFanPageOrMember(system);
 
 			break;
 
 		case 5:
-			ShowTenLatestStatusesOfEachFriend(System_Members, members_size);
+			ShowTenStatusesOfEachFriend(system);
 
 		case 6:
-			linkFriendship(System_Members, members_size);
+			linkFriendshipInSystem(system);
 			break;
 
 		case 7:
-			unLinkFriendship(System_Members, members_size);
+			unLinkFriendshipInSystem(system);
 			break;
 
 		case 8:
-			addFanToAFanPage(System_Members, members_size, System_Pages, pages_size);
+			addFanToPageInSystem(system);
 			break;
 
 		case 9:
-			removeAFanFromAFanPage(System_Pages, pages_size);
+			removeFanFromPageInSystem(system);
 			break;
 
 		case 10:
-			printAllRegisteredEntities(System_Members, members_size, System_Pages, pages_size);
+			printAllRegisteredEntitiesInSystem(system);
 			break;
 
 		case 11:
-			printAllfriendsOrFansOfanEntity(System_Members, members_size, System_Pages, pages_size);
+			printAllFriendsOrFansEntity(system);
 			cout << "choose the friend by entering their index number: ";
 			break;
 
@@ -82,8 +86,10 @@ void main()
 		cout << endl;
 	}
 
+	/*
 	freeMemberArr(System_Members,members_size);
 	freePageArr(System_Pages, pages_size);
+	*/
 
 
 	_CrtDumpMemoryLeaks();
