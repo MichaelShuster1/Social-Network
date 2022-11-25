@@ -199,6 +199,7 @@ void Member::showAllFriends()
 {
 	for (int i = 0; i < numOfFriends; i++)
 	{
+		cout << i + 1 << ". ";
 		friends[i]->showName();
 		cout << endl;
 	}
