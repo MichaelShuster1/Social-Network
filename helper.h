@@ -16,9 +16,9 @@ void addNewStatusToFanPageOrMember(System& system);
 void showAllStatusesOfAFanPageOrMember(System& system);
 void ShowTenStatusesOfEachFriend(System& system);
 void linkFriendshipInSystem(System& system);
-void unLinkFriendshipInSystem(System& system); //not working for the meantime
+void unLinkFriendshipInSystem(System& system); 
 void addFanToPageInSystem(System& system);
-void removeFanFromPageInSystem(System& system); //not working for the meantime
+void removeFanFromPageInSystem(System& system); 
 void printMenu();
 bool processChoice(System& system, int choice);
 
