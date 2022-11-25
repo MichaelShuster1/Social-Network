@@ -32,9 +32,9 @@ public:
 	void showAllStatusesOfAMember(int index);
 	void ShowTenLatestStatusesOfEachFriend(int index);
 	void linkFriends(int index1,int index2);
-	void unLinkFriends(int index1, int index2); //not working for the meantime
+	void unLinkFriends(int index1, int index2); 
 	void addFanToAPage(int index1,int index2);
-	void removeFanFromAFanPage(int index1,int index2);  //not working for the meantime
+	void removeFanFromAFanPage(int index1,int index2);  
 	void printAllFriendsOfMember(int index);
 	void printAllFandsOfPage(int index);
 	bool checkIfExistNameUser(char* name);
@@ -51,7 +51,10 @@ public:
 	void createHardcodedEntities();
 	void freeMemberArr();
 	void freePageArr();
-
+	int getMembersSize();
+	int getPagesSize();
+	int getFriendsSizeOfAMember(int index);
+	int getFansSizeofAPage(int index);
 };
 
 

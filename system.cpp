@@ -73,27 +73,25 @@ void System::addNewStatusToMember(Status* new_status,int index)
 
 void System::printAllSystemMembers()
 {
-	cout << "Members:" << endl;
+	cout << "the Members:" << endl;
 	for (int i = 0; i < members_size; i++)
 	{
 		cout << (i + 1) << ". ";
 		system_members[i]->showName();
 		cout << endl;
 	}
-	cout << endl;
 }
 
 
 void System::printAllSystemPages()
 {
-	cout << "Fan pages:" << endl;
+	cout << "the Fan pages:" << endl;
 	for (int i = 0; i < pages_size; i++)
 	{
 		cout << (i + 1) << ". ";
 		system_pages[i]->showName();
 		cout << endl;
 	}
-	cout << endl;
 }
 
 
@@ -258,6 +256,16 @@ int System::getMin(int num1, int num2)
 	return num2;
 }
 
+int System::getFriendsSizeOfAMember(int index)
+{
+	return system_members[index]->getFriendsSize();
+}
+
+int System::getFansSizeofAPage(int index)
+{
+	return system_pages[index]->getFansSize();
+}
+
 
 void System::freeMemberArr()
 {
@@ -274,6 +282,17 @@ void System::freePageArr()
 		delete system_pages[i];
 
 	delete[]system_pages;
+}
+
+
+int System::getMembersSize()
+{
+	return members_size;
+}
+
+int System::getPagesSize()
+{
+	return pages_size;
 }
 
 

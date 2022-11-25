@@ -78,10 +78,24 @@ void printAllRegisteredEntitiesInSystem(System& system)
 int chooseOneMember(System& system)
 {
 	int choice;
+	int size = system.getMembersSize();
+	
+
+	cout << "please choose the index of the member: "<<endl;
 	system.printAllSystemMembers();
-	cout << "Enter the index of the member: ";
+	cout << "Enter your choice here: ";
 	cin >> choice;
-	cout << endl;
+
+	while ( !(1<=choice && choice<=size) )
+	{
+		cout << "error: your choice needs to be a number between 1 and " << size << endl;
+		cout << "please choose the index of the member: "<<endl;
+		system.printAllSystemMembers();
+		cout << "Enter your choice here: ";
+		cin >> choice;
+
+	}
+
 	return choice;
 }
 
@@ -89,10 +103,22 @@ int chooseOneMember(System& system)
 int chooseOnePage(System& system)
 {
 	int choice;
+	int size = system.getPagesSize();
+
+	cout << "Enter the index of the fan page: " << endl;
 	system.printAllSystemPages();
-	cout << "Enter the index of the fan page: ";
+	cout << "Enter your choice here: ";
 	cin >> choice;
-	cout << endl;
+
+	while (!(1 <= choice && choice <= size))
+	{
+		cout << "error: your choice needs to be a number between 1 and " << size << endl;
+		cout << "Enter the index of the fan page: " << endl;
+		system.printAllSystemPages();
+		cout << "Enter your choice here: ";
+		cin >> choice;
+	}
+
 	return choice;
 }
 
@@ -126,11 +152,7 @@ void printAllFriendsOrFansEntity(System& system)
 
 
 
-void unlinkFanFromPage(Member& mem, Fan_page& page)
-{
-	mem.removePage(page);
-	//page.removeFan(mem);
-}
+
 
 
 void addNewStatusToFanPageOrMember(System& system)
@@ -215,13 +237,40 @@ void unLinkFriendshipInSystem(System& system)
 {
 	int index1, index2;
 	Member* selected_friend;
-
+	
 	cout << "choose a user from which you want to unlink a friend: " << endl;
 	index1 = chooseOneMember(system);
-	cout << "choose the friend you want to unlink: " << endl;
-	system.printAllFriendsOfMember(index1 - 1);
-	cin >> index2;
-	system.unLinkFriends(index1 - 1, index2 - 1);
+	index2 = chooseOneFriendOfAMember(system,index1 - 1);
+	if(index2!=-1)
+		system.unLinkFriends(index1 - 1, index2 - 1);
+}
+
+int chooseOneFriendOfAMember(System& system,int index)
+{
+	int choice, size = system.getFriendsSizeOfAMember(index);
+	if (size != 0)
+	{
+		cout << "choose the friend you want to unlink: " << endl;
+		system.printAllFriendsOfMember(index);
+		cout << "Enter your choice here: ";
+		cin >> choice;
+
+		while (!(1 <= choice && choice <= size))
+		{
+			cout << "error: your choice needs to be a number between 1 and " << size << endl;
+			cout << "choose the friend you want to unlink: " << endl;
+			system.printAllFriendsOfMember(index);
+			cout << "Enter your choice here: ";
+			cin >> choice;
+		}
+
+	}
+	else
+	{
+		cout << "the user you chose has no friends to unlink from" << endl;
+		return -1;
+	}
+
 }
 
 
@@ -243,10 +292,37 @@ void removeFanFromPageInSystem(System& system)
 
 	cout << "choose a fan page from which you want to unlink a fan: " << endl;
 	index1 = chooseOnePage(system);
-	cout << "choose the fan you want to unlink:  " << endl;
-	system.printAllFandsOfPage(index1 - 1);
-	cin >> index2;
-	system.removeFanFromAFanPage(index1 - 1, index2 - 1);
+	index2 = chooseOneFanOfAPage(system, index1 - 1);
+	if(index2!=-1)
+		system.removeFanFromAFanPage(index1 - 1, index2 - 1);
+}
+
+
+int chooseOneFanOfAPage(System& system,int index)
+{
+	int choice, size = system.getFansSizeofAPage(index);
+	if (size != 0)
+	{
+		cout << "choose the fan you want to unlink:  " << endl;
+		system.printAllFandsOfPage(index);
+		cout << "Enter your choice here: ";
+		cin >> choice;
+
+		while (!(1 <= choice && choice <= size))
+		{
+			cout << "error: your choice needs to be a number between 1 and " << size << endl;
+			cout << "choose the fan you want to unlink:  " << endl;
+			system.printAllFandsOfPage(index);
+			cout << "Enter your choice here: ";
+			cin >> choice;
+		}
+	}
+	else
+	{
+		cout << "the page you chose dont have fans to delete" << endl;
+		return -1;
+	}
+
 }
 
 void printMenu()
@@ -323,6 +399,7 @@ bool processChoice(System& system,int choice)
 		break;
 
 	default:
+		cout << "please choose a number from 1 to 12 only"<< endl;
 		break;
 	}
 	return exit;

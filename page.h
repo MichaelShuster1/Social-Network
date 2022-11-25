@@ -45,6 +45,7 @@ public:
 	void shiftBackMemberArr(int index);
 	void showName();
 	char* getName();
+	int getFansSize();
 	Member* getfanFromFans(int i);
 	int getFansSize();
 
