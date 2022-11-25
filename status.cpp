@@ -42,6 +42,8 @@ void Status::showStatus()
 	cout <<"Status publish time: " << time << endl;
 }
 
+
+
 void Status::copyStatus(const Status& other)
 {
 	publish_date = other.publish_date;

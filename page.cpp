@@ -12,9 +12,9 @@ Fan_page::Fan_page(const char* _name)
 	}
 	else
 		name = nullptr;
-	numOfFans = numOfStatus = 0;
+	numOfFans = numOfStatuses = 0;
 	physical_numOfFans = physical_numOfStatus = 1;
-	status_array = new Status[physical_numOfStatus];
+	status_array = new Status*[physical_numOfStatus];
 	fans = new Member*[physical_numOfFans];
 }
 
@@ -28,27 +28,29 @@ Fan_page::Fan_page()
 
 Fan_page::~Fan_page()
 {
+	for (int i = 0; i < numOfStatuses; i++)
+		delete status_array[i];
+	delete[] status_array;
 	delete[] name;
 	delete[] fans;
-	delete[] status_array;
 }
 
 
-void Fan_page::add_status(const Status& status)
+void Fan_page::add_status(Status& status)
 {
-	if (numOfStatus == physical_numOfStatus)
+	if (numOfStatuses == physical_numOfStatus)
 	{
 		physical_numOfStatus *= 2;
-		reSizeStatusArr(&status_array, numOfStatus,physical_numOfStatus);
+		reSizeStatusArr(&status_array, numOfStatuses,physical_numOfStatus);
 	}
-	status_array[numOfStatus].copyStatus(status);
-	numOfStatus++;
+	status_array[numOfStatuses]=&status;
+	numOfStatuses++;
 }
 
 
-void Fan_page::reSizeStatusArr(Status** status_array,int old_size ,int new_size)
+void Fan_page::reSizeStatusArr(Status*** status_array,int old_size ,int new_size)
 {
-	Status* temp = new Status[new_size];
+	Status** temp = new Status*[new_size];
 	copyStatusArr(temp, *status_array,getMin(old_size,new_size));
 	delete[] (*status_array);
 	(*status_array) = temp;
@@ -63,11 +65,11 @@ int Fan_page::getMin(int num1, int num2)
 }
 
 
-void Fan_page::copyStatusArr(Status* dest, Status* src,int size)
+void Fan_page::copyStatusArr(Status** dest, Status** src,int size)
 {
 	int i;
 	for (i = 0; i < size; i++)
-		dest[i].copyStatus(src[i]);
+		dest[i]=src[i];
 }
 
 
@@ -130,8 +132,14 @@ void Fan_page::show_all_fans()
 
 void Fan_page::showAllStatuses()
 {
-	for (int i = 0; i < numOfStatus; i++)
-		status_array[i].showStatus();
+	for (int i = 0; i < numOfStatuses; i++)
+	{
+		status_array[i]->showStatus();
+		cout << endl;
+	}
+
+	if (numOfStatuses == 0)
+		cout << "the page: " << name << " has no statuses" << endl;
 }
 
 void Fan_page::showName()
@@ -145,4 +153,7 @@ Member* Fan_page::getfanFromFans(int i)
 }
 
 
-
+char* Fan_page::getName()
+{
+	return name;
+}
