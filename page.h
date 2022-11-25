@@ -46,6 +46,7 @@ public:
 	void showName();
 	char* getName();
 	Member* getfanFromFans(int i);
+	int getFansSize();
 
 };
 

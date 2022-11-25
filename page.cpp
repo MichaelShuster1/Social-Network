@@ -82,6 +82,12 @@ void Fan_page::add_Fan(Member& member)
 	}
 	fans[numOfFans] = &member;
 	numOfFans++;
+
+	int index = member.getNumOfPages();
+	if (this != member.getPageFromPages(index - 1));
+	{
+		member.add_page(*this);
+	}
 }
 
 
@@ -119,6 +125,12 @@ void Fan_page::delete_Fan(Member& member,int index)
 		physical_numOfFans = physical_numOfFans / 2;
 		reSizeMemberArr(&fans, numOfFans,physical_numOfFans);
 	}
+
+	int index1 = member.getNumOfPages();
+	if (this == member.getPageFromPages(index1 - 1));
+	{
+		member.removePage(*this);
+	}
 }
 
 
@@ -126,7 +138,11 @@ void Fan_page::show_all_fans()
 {
 	int i;
 	for (i = 0; i < numOfFans; i++)
-		fans[i]->showName();	
+	{
+		cout << i - 1 << ". ";
+		fans[i]->showName();
+		cout << endl;
+	}
 }
 
 
@@ -139,7 +155,7 @@ void Fan_page::showAllStatuses()
 	}
 
 	if (numOfStatuses == 0)
-		cout << "the page: " << name << " has no statuses" << endl;
+		cout << "the page " << name << " has no statuses" << endl;
 }
 
 void Fan_page::showName()
@@ -156,4 +172,9 @@ Member* Fan_page::getfanFromFans(int i)
 char* Fan_page::getName()
 {
 	return name;
+}
+
+int Fan_page::getFansSize()
+{
+	return numOfFans;
 }
