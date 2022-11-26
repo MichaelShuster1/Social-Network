@@ -293,9 +293,7 @@ int chooseOneFriendOfAMember(System& system,int index)
 			cout << "Enter your choice here: ";
 			cin >> choice;
 		}
-
 		return choice;
-
 	}
 	else
 	{

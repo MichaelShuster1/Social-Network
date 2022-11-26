@@ -1,12 +1,5 @@
 #include "status.h"
 
-Status::Status(const Date& d,const Hour& h,const char* t)
-{
-	publish_date = d;
-	publish_hour = h;
-	text = new char[strlen(t) + 1];
-	strcpy(text, t);
-}
 
 Status::Status(const char* _text, const char* _time)
 {
@@ -28,7 +21,6 @@ Status::Status(const char* _text, const char* _time)
 }
 
 
-
 Status::~Status()
 {
 	delete[] text;
@@ -36,23 +28,12 @@ Status::~Status()
 }
 
 
-void Status::showStatus()
+void Status::showStatus() const
 {
 	cout << text << endl;
 	cout <<"Status publish time: " << time << endl;
 }
 
-
-
-void Status::copyStatus(const Status& other)
-{
-	publish_date = other.publish_date;
-	publish_hour = other.publish_hour;
-	text = new char[strlen(other.text)+1];
-	strcpy(text,other.text);
-	time = new char[strlen(other.time) + 1];
-	strcpy(time,other.time);
-}
 
 
 

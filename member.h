@@ -43,19 +43,19 @@ public:
 	int getMin(int num1, int num2);
 	void shiftBackMemberArr(int index);
 	void shiftBackPagesArr(int index);
-	void showAllFriends();
-	void showAllStatuses();
-	void showAllPages();
-	void showName();
-	void showTenRecentStatuses();
-	void showAllFriendsTenStatuses();
+	void showAllFriends() const ;
+	void showAllStatuses() const;
+	void showAllPages() const;
+	void showName() const ;
+	void showTenRecentStatuses() const ;
+	void showAllFriendsTenStatuses()const ;
 	Member* getMemberFromFriends(int i);
-	char* getName();
-	int getFriendsSize();
-	int getPagesSize();
+	const char* getName() const;
+	int getFriendsSize() const;
+	int getPagesSize() const;
 	Fan_page* getPageFromPages(int i);
-	int getPageIndexFromPages(Fan_page& member);
-	int getFriendIndexFromFriends(Member& member);
+	int getPageIndexFromPages(Fan_page& member) const;
+	int getFriendIndexFromFriends(Member& member) const ;
 };
 
 

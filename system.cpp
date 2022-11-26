@@ -1,3 +1,6 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include "system.h"
 
 
@@ -18,6 +21,7 @@ System::~System()
 {
 	freeMemberArr();
 	freePageArr();
+	_CrtDumpMemoryLeaks();
 }
 
 
@@ -71,7 +75,7 @@ void System::addNewStatusToMember(Status* new_status,int index)
 }
 
 
-void System::printAllSystemMembers()
+void System::printAllSystemMembers() const
 {
 	cout << "the Members:" << endl;
 	for (int i = 0; i < members_size; i++)
@@ -83,7 +87,7 @@ void System::printAllSystemMembers()
 }
 
 
-void System::printAllSystemPages()
+void System::printAllSystemPages() const
 {
 	cout << "the Fan pages:" << endl;
 	for (int i = 0; i < pages_size; i++)
@@ -103,18 +107,18 @@ void System::addNewStatusToFanPage(Status* new_status, int index)
 
 
 
-void System::showAllStatusesOfAMember(int index)
+void System::showAllStatusesOfAMember(int index) const
 {
 	system_members[index]->showAllStatuses();
 }
 
-void System::showAllStatusesOfAFanPage(int index)
+void System::showAllStatusesOfAFanPage(int index) const
 {
-	system_pages[index]->showAllStatuses();
+	system_pages[index]->showAllStatuses(); 
 }
 
 
-void System::ShowTenLatestStatusesOfEachFriend(int index)
+void System::ShowTenLatestStatusesOfEachFriend(int index) const
 {
 	system_members[index]->showAllFriendsTenStatuses();
 }
@@ -151,25 +155,25 @@ void System::removeFanFromAFanPage(int index1, int index2)
 	//system_pages[index1]->delete_Fan(*selected_friend, index2);
 }
 
-void System::printMemberName(int index)
+void System::printMemberName(int index) const
 {
 	system_members[index]->showName();
 }
 
 
-void System::printPageName(int index)
+void System::printPageName(int index) const
 {
 	system_pages[index]->showName();
 }
 
 
-void System::printAllFriendsOfMember(int index)
+void System::printAllFriendsOfMember(int index) const
 {
 	system_members[index]->showAllFriends();
 }
 
 
-void System::printAllFandsOfPage(int index)
+void System::printAllFandsOfPage(int index) const
 {
 	system_pages[index]->show_all_fans();
 }
@@ -211,7 +215,6 @@ void System::createHardcodedEntities()
 	addFanToAPage(1, 1);
 	linkFriends(0, 1);
 	linkFriends(1, 2);
-
 }
 
 void System::copyMemberArr(Member** dest, Member** src, int size)
@@ -250,19 +253,19 @@ void System::reSizePagesArr(Fan_page*** page_array, int old_size, int new_size)
 }
 
 
-int System::getMin(int num1, int num2)
+int System::getMin(int num1, int num2) const
 {
 	if (num1 < num2)
 		return num1;
 	return num2;
 }
 
-int System::getFriendsSizeOfAMember(int index)
+int System::getFriendsSizeOfAMember(int index) const
 {
 	return system_members[index]->getFriendsSize();
 }
 
-int System::getFansSizeofAPage(int index)
+int System::getFansSizeofAPage(int index) const
 {
 	return system_pages[index]->getFansSize();
 }
@@ -282,16 +285,16 @@ void System::freePageArr()
 	for (int i = 0; i < pages_size; i++)
 		delete system_pages[i];
 
-	delete[]system_pages;
+	delete[] system_pages;
 }
 
 
-int System::getMembersSize()
+int System::getMembersSize() const
 {
 	return members_size;
 }
 
-int System::getPagesSize()
+int System::getPagesSize() const
 {
 	return pages_size;
 }
