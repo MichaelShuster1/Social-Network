@@ -224,6 +224,25 @@ void ShowTenStatusesOfEachFriend(System& system)
 void linkFriendshipInSystem(System& system)
 {
 	int index1, index2;
+	bool inputcheck = false;
+
+	cout << "choose the first friend by entering their index number: " << endl;
+	index1 = chooseOneMember(system);
+	cout << "choose the second friend by entering their index number: " << endl;
+	index2 = chooseOneMember(system);
+
+	while (inputcheck == false)
+	{
+		if (index1 == index2) 
+		{
+			cout << "You cant link a friendship with yourself!" << endl <<"Try again." <<endl;
+		}
+		else if (system.areFriendsCheck(index1 - 1, index2 - 1))
+		{
+			cout << "The users you chose are already linked!" << endl << "Try again." << endl;
+		}
+		else
+			inputcheck = true;
 
 	cout << "choose the first friend by entering their index number: " << endl;
 	index1 = chooseOneMember(system);
