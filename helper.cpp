@@ -294,6 +294,8 @@ int chooseOneFriendOfAMember(System& system,int index)
 			cin >> choice;
 		}
 
+		return choice;
+
 	}
 	else
 	{
