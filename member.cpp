@@ -73,6 +73,12 @@ void Member::removeFriend(Member& _member)
 	shiftBackMemberArr(i);
 	reSizeMemberArr(&friends, numOfFriends, numOfFriends-1);
 	numOfFriends--;
+
+	if (_member.getFriendIndexFromFriends(*this) != -1)
+	{
+		_member.removeFriend(*this);
+	}
+
 }
 
 
@@ -91,6 +97,12 @@ void Member::removePage(Fan_page& page)
 	shiftBackPagesArr(i);
 	reSizePagesArr(&pages, numOfPages , numOfPages - 1);
 	numOfPages--;
+
+	int index = page.getfanIndexFromFans(*this);
+	if (index != -1);
+	{
+		page.delete_Fan(*this, index);
+	}
 }
 
 void Member::add_status(Status& status)
@@ -114,6 +126,17 @@ void Member::addFriend(Member& _member)
 	}
 	friends[numOfFriends] = &_member;
 	numOfFriends++;
+
+	int index = _member.getFriendsSize();;
+	if (index != 0)
+	{
+		if (this != _member.getMemberFromFriends(index - 1))
+		{
+			_member.addFriend(*this);
+		}
+	}
+	else
+		_member.addFriend(*this);
 }
 
 
@@ -126,6 +149,20 @@ void Member::add_page(Fan_page& page)
 	}
 	pages[numOfPages] = &page;
 	numOfPages++;
+
+	int index = page.getFansSize();
+	if (index != 0)
+	{
+		if (this != page.getfanFromFans(index - 1))
+		{
+			page.add_Fan(*this);
+		}
+	}
+	else
+	{
+		page.add_Fan(*this);
+	}
+
 }
 
 
@@ -274,7 +311,49 @@ int Member::getFriendsSize()
 	return numOfFriends;
 }
 
+int Member::getPagesSize()
+{
+	return numOfPages;
+}
 
 
+Fan_page* Member::getPageFromPages(int i)
+{
+	return pages[i];
+}
 
+int Member::getPageIndexFromPages(Fan_page& page)
+{
+	int i = 0;
+	bool found = false;
+	while (i < numOfPages && found == false)
+	{
+		if (pages[i] == &page)
+			found = true;
 
+		i++;
+	}
+
+	if (found == true)
+		return i - 1;
+	else
+		return -1;
+}
+
+int Member::getFriendIndexFromFriends(Member& member)
+{
+	int i = 0;
+	bool found = false;
+	while (i < numOfFriends && found == false)
+	{
+		if (friends[i] == &member)
+			found = true;
+
+		i++;
+	}
+
+	if (found == true)
+		return i - 1;
+	else
+		return -1;
+}

@@ -55,6 +55,8 @@ public:
 	int getPagesSize();
 	int getFriendsSizeOfAMember(int index);
 	int getFansSizeofAPage(int index);
+	bool areFriendsCheck(int index1, int index2);
+	bool isFanCheck(int index1, int index2);
 };
 
 
