@@ -57,7 +57,7 @@ void Fan_page::reSizeStatusArr(Status*** status_array,int old_size ,int new_size
 }
 
 
-int Fan_page::getMin(int num1, int num2)
+int Fan_page::getMin(int num1, int num2) const
 {
 	if (num1 < num2)
 		return num1;
@@ -124,12 +124,14 @@ void Fan_page::shiftBackMemberArr(int index)
 void Fan_page::delete_Fan(Member& member,int index)
 {
 	shiftBackMemberArr(index);
-	numOfFans--;
+	/*
 	if((numOfFans*2)==physical_numOfFans)
 	{ 
 		physical_numOfFans = physical_numOfFans / 2;
 		reSizeMemberArr(&fans, numOfFans,physical_numOfFans);
 	}
+	*/
+	numOfFans--;
 
 	if (member.getPageIndexFromPages(*this) != -1)
 	{
@@ -138,7 +140,7 @@ void Fan_page::delete_Fan(Member& member,int index)
 }
 
 
-void Fan_page::show_all_fans()
+void Fan_page::show_all_fans() const
 {
 	int i;
 	for (i = 0; i < numOfFans; i++)
@@ -152,8 +154,8 @@ void Fan_page::show_all_fans()
 }
 
 
-void Fan_page::showAllStatuses()
-{
+void Fan_page::showAllStatuses() const
+{ 
 	for (int i = 0; i < numOfStatuses; i++)
 	{
 		status_array[i]->showStatus();
@@ -164,28 +166,28 @@ void Fan_page::showAllStatuses()
 		cout << "the page " << name << " has no statuses" << endl;
 }
 
-void Fan_page::showName()
+void Fan_page::showName() const
 {
 	cout << name;
 }
 
-Member* Fan_page::getfanFromFans(int i)
+Member* Fan_page::getfanFromFans(int i) 
 {
 	return fans[i];
 }
 
 
-char* Fan_page::getName()
+const char* Fan_page::getName() const
 {
 	return name;
 }
 
-int Fan_page::getFansSize()
+int Fan_page::getFansSize() const
 {
 	return numOfFans;
 }
 
-int Fan_page::getfanIndexFromFans(Member& member)
+int Fan_page::getfanIndexFromFans(Member& member) const
 {
 	int i = 0;
 	bool found = false;

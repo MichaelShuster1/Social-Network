@@ -10,18 +10,17 @@ using namespace std;
 
 class Status
 {
-public:
-	Status(const char* _text = nullptr, const char* _time=nullptr);
-	void copyStatus(const Status& other);
-	
-	~Status();
-	void showStatus();
-
 private:
 	Date publish_date;
 	Hour publish_hour;
 	char* time;
 	char* text;
+
+public:
+	Status(const char* _text = nullptr, const char* _time=nullptr);
+	~Status();
+	void showStatus() const;
+
 };
 
 

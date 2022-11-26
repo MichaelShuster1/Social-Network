@@ -71,11 +71,13 @@ void Member::removeFriend(Member& _member)
 	}
 
 	shiftBackMemberArr(i);
+	/*
 	if ( !(numOfFriends==1 && i==0) )
 	{
 		physical_numOfFriends = physical_numOfFriends - 1;
 		reSizeMemberArr(&friends, numOfFriends, physical_numOfFriends);
 	}
+	*/
 	numOfFriends--;
 
 
@@ -101,11 +103,13 @@ void Member::removePage(Fan_page& page)
 
 
 	shiftBackPagesArr(i);
+	/*
 	if ( !(numOfPages == 1 && i == 0) )
 	{
 		physical_numOfPages = physical_numOfPages - 1;
 		reSizePagesArr(&pages, numOfPages, physical_numOfPages);
 	}
+	*/
 	numOfPages--;
 
 	int index = page.getfanIndexFromFans(*this);
@@ -237,12 +241,12 @@ int Member::getMin(int num1, int num2)
 }
 
 
-void Member::showName()
+void Member::showName() const
 {
 	cout << name;
 }
 
-void Member::showAllFriends()
+void Member::showAllFriends() const
 {
 	for (int i = 0; i < numOfFriends; i++)
 	{
@@ -256,7 +260,7 @@ void Member::showAllFriends()
 		
 }
 
-void Member::showAllPages()
+void Member::showAllPages() const
 {
 
 	for (int i = 0; i < numOfPages; i++)
@@ -269,7 +273,7 @@ void Member::showAllPages()
 
 }
 
-void Member::showAllStatuses()
+void Member::showAllStatuses() const
 {
 	for (int i = 0; i < numOfStatuses; i++)
 	{
@@ -281,7 +285,7 @@ void Member::showAllStatuses()
 		cout <<name << " has no statuses" << endl;
 }
 
-void Member::showTenRecentStatuses()
+void Member::showTenRecentStatuses() const
 {
 	for (int i = numOfStatuses - 1; i >= numOfStatuses - 10 && i >= 0; i--)
 	{
@@ -291,7 +295,7 @@ void Member::showTenRecentStatuses()
 
 }
 
-void Member::showAllFriendsTenStatuses()
+void Member::showAllFriendsTenStatuses() const
 {
 	for (int i = 0; i < numOfFriends; i++)
 	{
@@ -311,17 +315,17 @@ Member* Member::getMemberFromFriends(int i)
 
 
 
-char* Member::getName()
+const char* Member::getName() const
 {
 	return name;
 }
 
-int Member::getFriendsSize()
+int Member::getFriendsSize() const
 {
 	return numOfFriends;
 }
 
-int Member::getPagesSize()
+int Member::getPagesSize() const
 {
 	return numOfPages;
 }
@@ -332,7 +336,7 @@ Fan_page* Member::getPageFromPages(int i)
 	return pages[i];
 }
 
-int Member::getPageIndexFromPages(Fan_page& page)
+int Member::getPageIndexFromPages(Fan_page& page) const
 {
 	int i = 0;
 	bool found = false;
@@ -350,7 +354,7 @@ int Member::getPageIndexFromPages(Fan_page& page)
 		return -1;
 }
 
-int Member::getFriendIndexFromFriends(Member& member)
+int Member::getFriendIndexFromFriends(Member& member) const
 {
 	int i = 0;
 	bool found = false;

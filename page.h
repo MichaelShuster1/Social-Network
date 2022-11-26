@@ -31,23 +31,24 @@ private:
 public:
 	Fan_page(const char* _name);
 	Fan_page();
+	Fan_page(const Fan_page& other) = delete;
 	~Fan_page();
 	void add_Fan(Member& member);
 	void delete_Fan(Member& member,int index);
 	void add_status(Status& status);
 	void reSizeStatusArr(Status** *status_array,int old_size,int new_size);
-	int getMin(int num1, int num2);
+	int getMin(int num1, int num2) const;
 	void copyStatusArr(Status** dest, Status** src,int size);
 	void reSizeMemberArr(Member*** status_array, int old_size, int new_size);
 	void copyMemberArr(Member** dest, Member** src,int size);
-	void show_all_fans();
-	void showAllStatuses();
+	void show_all_fans() const;
+	void showAllStatuses() const;
 	void shiftBackMemberArr(int index);
-	void showName();
-	char* getName();
-	int getFansSize();
+	void showName() const;
+	const char* getName() const;
+	int getFansSize() const ;
 	Member* getfanFromFans(int i);
-	int getfanIndexFromFans(Member& member);
+	int getfanIndexFromFans(Member& member) const;
 
 };
 
