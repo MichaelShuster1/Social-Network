@@ -71,8 +71,13 @@ void Member::removeFriend(Member& _member)
 	}
 
 	shiftBackMemberArr(i);
-	reSizeMemberArr(&friends, numOfFriends, numOfFriends-1);
+	if ( !(numOfFriends==1 && i==0) )
+	{
+		physical_numOfFriends = physical_numOfFriends - 1;
+		reSizeMemberArr(&friends, numOfFriends, physical_numOfFriends);
+	}
 	numOfFriends--;
+
 
 	if (_member.getFriendIndexFromFriends(*this) != -1)
 	{
@@ -94,8 +99,13 @@ void Member::removePage(Fan_page& page)
 			i++;
 	}
 
+
 	shiftBackPagesArr(i);
-	reSizePagesArr(&pages, numOfPages , numOfPages - 1);
+	if ( !(numOfPages == 1 && i == 0) )
+	{
+		physical_numOfPages = physical_numOfPages - 1;
+		reSizePagesArr(&pages, numOfPages, physical_numOfPages);
+	}
 	numOfPages--;
 
 	int index = page.getfanIndexFromFans(*this);

@@ -1,3 +1,6 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include "system.h"
 
 
@@ -18,6 +21,7 @@ System::~System()
 {
 	freeMemberArr();
 	freePageArr();
+	_CrtDumpMemoryLeaks();
 }
 
 
@@ -211,7 +215,6 @@ void System::createHardcodedEntities()
 	addFanToAPage(1, 1);
 	linkFriends(0, 1);
 	linkFriends(1, 2);
-
 }
 
 void System::copyMemberArr(Member** dest, Member** src, int size)
@@ -282,7 +285,7 @@ void System::freePageArr()
 	for (int i = 0; i < pages_size; i++)
 		delete system_pages[i];
 
-	delete[]system_pages;
+	delete[] system_pages;
 }
 
 

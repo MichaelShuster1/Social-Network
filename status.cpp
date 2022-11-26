@@ -1,12 +1,6 @@
 #include "status.h"
 
-Status::Status(const Date& d,const Hour& h,const char* t)
-{
-	publish_date = d;
-	publish_hour = h;
-	text = new char[strlen(t) + 1];
-	strcpy(text, t);
-}
+
 
 Status::Status(const char* _text, const char* _time)
 {
