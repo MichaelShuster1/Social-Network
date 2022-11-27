@@ -22,6 +22,7 @@ void addFanToPageInSystem(System& system);
 void removeFanFromPageInSystem(System& system); 
 void printMenu();
 bool processChoice(System& system, int choice);
+int chooseOneLinkOption(System& system,int index);
 
 #endif // !HELPER
 

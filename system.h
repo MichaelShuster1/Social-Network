@@ -57,6 +57,8 @@ public:
 	int getFansSizeofAPage(int index) const;
 	bool areFriendsCheck(int index1, int index2);
 	bool isFanCheck(int index1, int index2);
+	int printLinkOptions(int index);
+	int findLinkOption(int index1, int index2);
 };
 
 

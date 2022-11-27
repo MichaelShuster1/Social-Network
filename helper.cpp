@@ -228,6 +228,41 @@ void ShowTenStatusesOfEachFriend(System& system)
 }
 
 
+//void linkFriendshipInSystem(System& system)
+//{
+//	int index1, index2;
+//	bool inputcheck = false;
+//
+//	cout << "choose the first friend by entering their index number: " << endl;
+//	index1 = chooseOneMember(system);
+//	cout << "choose the second friend by entering their index number: " << endl;
+//	index2 = chooseOneMember(system);
+//
+//	while (inputcheck == false)
+//	{
+//		if (index1 == index2) {
+//			cout << "You cant link a friendship with yourself!" << endl <<"Try again." <<endl;
+//		}
+//		else if (system.areFriendsCheck(index1 - 1, index2 - 1))
+//		{
+//			cout << "The users you chose are already linked!" << endl << "Try again." << endl;
+//		}
+//		else
+//			inputcheck = true;
+//
+//		if (inputcheck == false)
+//		{
+//			cout << "choose the first friend by entering their index number: " << endl;
+//			index1 = chooseOneMember(system);
+//			cout << "choose the second friend by entering their index number: " << endl;
+//			index2 = chooseOneMember(system);
+//		}
+//	}
+//
+//	system.linkFriends(index1 - 1, index2 - 1);
+//}
+
+
 void linkFriendshipInSystem(System& system)
 {
 	int index1, index2;
@@ -236,32 +271,46 @@ void linkFriendshipInSystem(System& system)
 	cout << "choose the first friend by entering their index number: " << endl;
 	index1 = chooseOneMember(system);
 	cout << "choose the second friend by entering their index number: " << endl;
-	index2 = chooseOneMember(system);
-
-	while (inputcheck == false)
+	index2 = chooseOneLinkOption(system, index1 - 1);
+	if (index2 != -1)
 	{
-		if (index1 == index2) {
-			cout << "You cant link a friendship with yourself!" << endl <<"Try again." <<endl;
-		}
-		else if (system.areFriendsCheck(index1 - 1, index2 - 1))
-		{
-			cout << "The users you chose are already linked!" << endl << "Try again." << endl;
-		}
-		else
-			inputcheck = true;
-
-		if (inputcheck == false)
-		{
-			cout << "choose the first friend by entering their index number: " << endl;
-			index1 = chooseOneMember(system);
-			cout << "choose the second friend by entering their index number: " << endl;
-			index2 = chooseOneMember(system);
-		}
+		index2 = system.findLinkOption(index1 - 1, index2);
+		system.linkFriends(index1 - 1, index2);
 	}
 
-	system.linkFriends(index1 - 1, index2 - 1);
 }
 
+int chooseOneLinkOption(System& system,int index)
+{
+	int choice;
+	int size;
+	size = system.printLinkOptions(index);
+	if (size != 0)
+	{
+
+		cout << "please choose the index of the member: " << endl;
+		cout << "Enter your choice here: ";
+		cin >> choice;
+
+		while (!(1 <= choice && choice <= size))
+		{
+			cout << "error: your choice needs to be a number between 1 and " << size << endl;
+			cout << "please choose the index of the member: " << endl;
+			system.printLinkOptions(index);
+			cout << "Enter your choice here: ";
+			cin >> choice;
+
+		}
+
+		return choice;
+	}
+	else
+	{
+		cout << "This member doesnt have any link option!" << endl;
+		return -1;
+	}
+
+}
 
 void unLinkFriendshipInSystem(System& system)
 {
