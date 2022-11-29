@@ -92,7 +92,7 @@ int System::printLinkOptions(int index)
 	cout << "the Members:" << endl;
 	for (int i = 0; i < members_size; i++)
 	{
-		if ((index != i)  && ((*this).areFriendsCheck(index,i) == false))
+		if ((index != i)  && (areFriendsCheck(index,i) == false))
 		{
 			cout << (numofoptions + 1) << ". ";
 			system_members[i]->showName();
@@ -110,7 +110,7 @@ int System::findLinkOption(int index1, int index2)
 
 	while (notfriends < index2)
 	{
-		if ((index1 != i) && ((*this).areFriendsCheck(index1, i) == false))
+		if ((index1 != i) && (areFriendsCheck(index1, i) == false))
 		{
 			notfriends++;
 		}
