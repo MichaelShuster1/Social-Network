@@ -96,23 +96,23 @@ int chooseOneMember(System& system)
 {
 	int choice;
 	int size = system.getMembersSize();
-	
+	bool validInput;
 
-	cout << "please choose the index of the member: "<<endl;
-	system.printAllSystemMembers();
-	cout << "Enter your choice here: ";
-	cin >> choice;
-
-	while ( !(1<=choice && choice<=size) )
+	do
 	{
-		cout << "error: your choice needs to be a number between 1 and " << size << endl;
-		cout << "please choose the index of the member: "<<endl;
+		cout << "please choose the index of the member: " << endl;
 		system.printAllSystemMembers();
 		cout << "Enter your choice here: ";
 		cin >> choice;
-
-	}
-
+		if (1 <= choice && choice <= size)
+			validInput = true;
+		else
+		{
+			cout << "error: your choice needs to be a number between 1 and " << size << endl;
+			validInput = false;
+		}
+	} while (validInput == false);
+	
 	return choice;
 }
 
@@ -121,20 +121,22 @@ int chooseOnePage(System& system)
 {
 	int choice;
 	int size = system.getPagesSize();
+	bool validInput;
 
-	cout << "Enter the index of the fan page: " << endl;
-	system.printAllSystemPages();
-	cout << "Enter your choice here: ";
-	cin >> choice;
-
-	while (!(1 <= choice && choice <= size))
+	do
 	{
-		cout << "error: your choice needs to be a number between 1 and " << size << endl;
 		cout << "Enter the index of the fan page: " << endl;
 		system.printAllSystemPages();
 		cout << "Enter your choice here: ";
 		cin >> choice;
-	}
+		if (1 <= choice && choice <= size)
+			validInput = true;
+		else
+		{
+			cout << "error: your choice needs to be a number between 1 and " << size << endl;
+			validInput = false;
+		}
+	} while (validInput == false);
 
 	return choice;
 }
@@ -242,7 +244,9 @@ void ShowTenStatusesOfEachFriend(System& system)
 void linkFriendshipInSystem(System& system)
 {
 	int index1, index2;
-	bool inputcheck = false;
+	char choice;
+	bool validInput = false;
+	bool exit = false;
 
 	do
 	{
@@ -252,9 +256,18 @@ void linkFriendshipInSystem(System& system)
 		cin >> index1;
 		getchar();
 		cin >> index2;
-	} 
-	while (checkValidInput(system, index1, index2) == false);
-	system.linkFriends(index1 - 1, index2-1);
+		validInput = checkValidInput(system, index1, index2);
+		if (!validInput)
+		{
+			cout << "do you wish to try again?[y/n]: ";
+			cin >> choice;
+			if (choice == 'n')
+				exit = true;
+		}
+
+	} while (!validInput && !exit);
+	if(!exit)
+		system.linkFriends(index1 - 1, index2-1);
 }
 
 bool checkValidInput(System& system,int index1, int index2)
@@ -302,21 +315,24 @@ void unLinkFriendshipInSystem(System& system)
 int chooseOneFriendOfAMember(System& system,int index)
 {
 	int choice, size = system.getFriendsSizeOfAMember(index);
+	bool validInput;
 	if (size != 0)
 	{
-		cout << "choose the friend you want to unlink: " << endl;
-		system.printAllFriendsOfMember(index);
-		cout << "Enter your choice here: ";
-		cin >> choice;
-
-		while (!(1 <= choice && choice <= size))
+		do
 		{
-			cout << "error: your choice needs to be a number between 1 and " << size << endl;
 			cout << "choose the friend you want to unlink: " << endl;
 			system.printAllFriendsOfMember(index);
 			cout << "Enter your choice here: ";
 			cin >> choice;
-		}
+			if (1 <= choice && choice <= size)
+				validInput = true;
+			else
+			{
+				cout << "error: your choice needs to be a number between 1 and " << size << endl;
+				validInput = false;
+			}
+		} while (validInput == false);
+
 		return choice;
 	}
 	else
@@ -330,32 +346,33 @@ int chooseOneFriendOfAMember(System& system,int index)
 
 void addFanToPageInSystem(System& system)
 {
-	bool inputcheck = false;
+	bool validInput , exit = false;
+	char choice;
 	int index1, index2;
-	cout << "choose the fan page you want to add a member as a fan to : " << endl;
-	index1 = chooseOnePage(system);
-	cout << "choose the memeber you wish to add to a fan page: " << endl;
-	index2 = chooseOneMember(system);
 
-	while (inputcheck == false)
+	do
 	{
+		cout << "choose the fan page you want to add a member as a fan to : " << endl;
+		index1 = chooseOnePage(system);
+		cout << "choose the memeber you wish to add to a fan page: " << endl;
+		index2 = chooseOneMember(system);
 		if (system.isFanCheck(index1 - 1, index2 - 1))
 		{
-			cout << "The user you chose is already a fan of this page!" << endl << "Try again." << endl;
+			cout << "error:The user you chose is already a fan of this page!" <<endl;
+			validInput = false;
 		}
 		else
-			inputcheck = true;
-
-		if (inputcheck == false)
+			validInput = true;
+		if (!validInput)
 		{
-			cout << "choose the fan page you want to add a member as a fan to : " << endl;
-			index1 = chooseOnePage(system);
-			cout << "choose the memeber you wish to add to a fan page: " << endl;
-			index2 = chooseOneMember(system);
+			cout << "do you wish to try again [y/n]:";
+			cin >> choice;
+			if (choice == 'n')
+				exit = true;
 		}
-	}
-
-	system.addFanToAPage(index2 - 1, index1 - 1);
+	} while (!validInput && !exit);
+	if (!exit)
+		system.addFanToAPage(index2 - 1, index1 - 1);	
 }
 
 
@@ -375,22 +392,23 @@ void removeFanFromPageInSystem(System& system)
 int chooseOneFanOfAPage(System& system,int index)
 {
 	int choice, size = system.getFansSizeofAPage(index);
+	bool validInput;
 	if (size != 0)
 	{
-		cout << "choose the fan you want to unlink:  " << endl;
-		system.printAllFandsOfPage(index);
-		cout << "Enter your choice here: ";
-		cin >> choice;
-
-		while (!(1 <= choice && choice <= size))
+		do
 		{
-			cout << "error: your choice needs to be a number between 1 and " << size << endl;
 			cout << "choose the fan you want to unlink:  " << endl;
 			system.printAllFandsOfPage(index);
 			cout << "Enter your choice here: ";
 			cin >> choice;
-		}
-
+			if (1 <= choice && choice <= size)
+				validInput = true;
+			else
+			{
+				cout << "error: your choice needs to be a number between 1 and " << size << endl;
+				validInput = false;
+			}
+		} while (validInput == false);
 		return choice;
 	}
 	else
