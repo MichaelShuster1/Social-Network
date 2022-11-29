@@ -5,6 +5,7 @@ void addNewUserToSystem(System& system)
 {
 	int year, month, day;
 	char name[NAME_LEN];
+	bool valid_date = false;
 	Member* new_user;
 
 	cout << "Please enter the name of the new user: ";
@@ -17,13 +18,21 @@ void addNewUserToSystem(System& system)
 		cin.getline(name, NAME_LEN);
 	}
 
+	while(valid_date == false)
+	{
+		cout << "Please enter the user's birth date in the following format : dd/mm/yyyy" << endl;
+		cin >> day;
+		getchar();
+		cin >> month;
+		getchar();
+		cin >> year;
+		if (day > 31 || day < 1 || month > 12 || month < 1 || year > CURRENT_YEAR || year < 1900) 
+			cout << "Incorrect birth date" << endl;
+		else
+			valid_date = true;
+	}
 
-	cout << "Please enter the user's birth date in the following formt : dd/mm/yyyy" << endl;
-	cin >> day;
-	getchar();
-	cin >> month;
-	getchar();
-	cin >> year;
+
 	new_user = new Member(name, Date(year, month, day));
 	system.addNewUser(new_user);
 }
@@ -53,20 +62,20 @@ void addNewPageToSystem(System& system)
 
 Status* createNewStatus()
 {
-	char text[254];
+	char text[STATUS_LEN];
 	char* tm;
 	time_t curr_time;
 	Status* newStatus;
 
 	cout << "Please enter your status: ";
 	getchar();
-	cin.getline(text, 254);
+	cin.getline(text, STATUS_LEN);
 	while (strlen(text) == 0)
 	{
 		cout << "You cant add an empty status!";
 		cout << "Please enter your status: ";
 		getchar();
-		cin.getline(text, 254);
+		cin.getline(text, STATUS_LEN);
 	}
 	curr_time = time(NULL);
 	tm = ctime(&curr_time);

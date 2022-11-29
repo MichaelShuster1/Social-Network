@@ -7,6 +7,8 @@
 #include <ctime>
 
 const int NAME_LEN = 100;
+const int STATUS_LEN = 254;
+const int CURRENT_YEAR = 2022;
 
 
 class System

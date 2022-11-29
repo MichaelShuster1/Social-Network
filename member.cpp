@@ -283,6 +283,9 @@ void Member::showTenRecentStatuses() const
 
 void Member::showAllFriendsTenStatuses() const
 {
+
+	showName();
+	cout << "s friends latest 10 statuses:" << endl;
 	for (int i = 0; i < numOfFriends; i++)
 	{
 		friends[i]->showName();
