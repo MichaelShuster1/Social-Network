@@ -28,10 +28,10 @@ public:
 	void add_Fan(Member& member);//adds the given member as a fan to this page
 	void delete_Fan(Member& member,int index); //delete the given member from the this page and vice versa
 	void add_status(Status& status); //adds the given status to this page
-	void reSizeStatusArr(Status***status_array,int old_size,int new_size); //change the size of the given arr to new size
+	void reSizeStatusArr(Status***status_array,int old_size,int new_size); //changes the size of the given arr to new size
 	int getMin(int num1, int num2) const; //gets the minimum number between num1 and num2
 	void copyStatusArr(Status** dest, Status** src,int size); //duplicates the values of src arr to dest arr
-	void reSizeMemberArr(Member*** member_array, int old_size, int new_size); //change the size of the given arr to new size
+	void reSizeMemberArr(Member*** member_array, int old_size, int new_size); //changes the size of the given arr to new size
 	void copyMemberArr(Member** dest, Member** src,int size); //duplicates the values of src arr to dest arr
 	void show_all_fans() const; //shows all the fans of this page
 	void showAllStatuses() const; //shows all the statuses of this page
