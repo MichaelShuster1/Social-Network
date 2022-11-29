@@ -21,44 +21,44 @@ private:
 	int pages_physical_size;
 
 public:
-	System();
-	~System();
-	System(const System& other) = delete;
-	void addNewUser(Member* new_user);
-	void addNewPage(Fan_page* new_page);
-	void addNewStatusToFanPage(Status* new_status,int index);
-	void addNewStatusToMember(Status* new_status,int index);
-	void showAllStatusesOfAFanPage(int index) const;
-	void showAllStatusesOfAMember(int index) const;
-	void ShowTenLatestStatusesOfEachFriend(int index) const;
-	void linkFriends(int index1,int index2);
-	void unLinkFriends(int index1, int index2); 
-	void addFanToAPage(int index1,int index2);
-	void removeFanFromAFanPage(int index1,int index2);  
-	void printAllFriendsOfMember(int index) const;
-	void printAllFandsOfPage(int index) const;
-	bool checkIfExistNameUser(char* name);
-	bool checkIfExistNamePage(char* name);
-	void printAllSystemMembers() const;
-	void printAllSystemPages() const;
-	void printMemberName(int index) const;
-	void printPageName(int index) const ;
-	void copyPageArr(Fan_page** dest, Fan_page** src, int size);
-	void reSizePagesArr(Fan_page*** page_array, int old_size, int new_size);
-	void copyMemberArr(Member** dest, Member** src, int size);
-	void reSizeMemberArr(Member*** member_array, int old_size, int new_size);
-	int  getMin(int num1, int num2) const;
-	void createHardcodedEntities();
-	void freeMemberArr();
-	void freePageArr();
-	int getMembersSize() const;
-	int getPagesSize() const;
-	int getFriendsSizeOfAMember(int index) const;
-	int getFansSizeofAPage(int index) const;
-	bool areFriendsCheck(int index1, int index2);
-	bool isFanCheck(int index1, int index2);
-	int printLinkOptions(int index);
-	int findLinkOption(int index1, int index2);
+	System();//system class c'tor
+	~System();//system class d'tor
+	System(const System& other) = delete;//system class copy c'tor disable
+	void addNewUser(Member* new_user);//adds the given member to the system
+	void addNewPage(Fan_page* new_page);// adds the given fan page to the system
+	void addNewStatusToFanPage(Status* new_status,int index);//adds the given status to a fan page located in the 'index' index in system pages
+	void addNewStatusToMember(Status* new_status,int index);//adds the given status to a member located in the 'index' index in system members
+	void showAllStatusesOfAFanPage(int index) const;//prints all statuses of a fan page
+	void showAllStatusesOfAMember(int index) const;//prints all statuses of a member
+	void ShowTenLatestStatusesOfEachFriend(int index) const;//// prints 10 last statuses of each friend of the member located in the 'index' index in system members
+	void linkFriends(int index1,int index2);//add the member in 'index1' in system members to the friends of the member in 'index2' and vice versa
+	void unLinkFriends(int index1, int index2);//remove the member in 'index1' in system members from the friends of the member in 'index2' and vice versa
+	void addFanToAPage(int index1,int index2);//add the member in 'index2' in system members to the fans array of the fan page in 'index1'
+	void removeFanFromAFanPage(int index1,int index2); //remove the member in 'index2' in system members from the fans array of the fan page in 'index1'
+	void printAllFriendsOfMember(int index) const;//print all friends of the member located  in the 'index' index is system members
+	void printAllFandsOfPage(int index) const;//prints all the fans of the page located in the 'index' index in system pages
+	bool checkIfExistNameUser(char* name);//check if there is a member with the given name in the system
+	bool checkIfExistNamePage(char* name);//check if there is a fan page with the given name in the system
+	void printAllSystemMembers() const;//prints all the members in the system
+	void printAllSystemPages() const;//prints all the pages in the system
+	void printMemberName(int index) const;//prints the name of the member located in the 'index' index in system members
+	void printPageName(int index) const ;//prints the name of the fan page located in the 'index' index in system pages
+	void copyPageArr(Fan_page** dest, Fan_page** src, int size);//copies the src array into the dest array (Page)
+	void reSizePagesArr(Fan_page*** page_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Fan_page)
+	void copyMemberArr(Member** dest, Member** src, int size);//copies the src array into the dest array (Member)
+	void reSizeMemberArr(Member*** member_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Member)
+	int  getMin(int num1, int num2) const;//return the minimum of 2 numbers
+	void createHardcodedEntities();//adds hardcoded members, fan pages, statuses and friendship/fans connections to the system
+	void freeMemberArr();//free allocated memory of the members array
+	void freePageArr();//free allocated memory of fan pages array
+	int getMembersSize() const;//returs the size of the members array
+	int getPagesSize() const;//return the size of the fan pages array
+	int getFriendsSizeOfAMember(int index) const;//return the size of the friends array of the member located in the 'index' index in system members
+	int getFansSizeofAPage(int index) const;//return the size of the fans array of the fan page located in the 'index' index in the system pages
+	bool areFriendsCheck(int index1, int index2);//checks if the members located in 'index1' and 'index2' in system members ara friends
+	bool isFanCheck(int index1, int index2);//checks if the member located in the 'index2' index in system members is a fan of the page located in 'index1' index in system pages
+	int printLinkOptions(int index);//prints the relevant linking option for a member
+	int findLinkOption(int index1, int index2);//return the index of the selected link option
 };
 
 
