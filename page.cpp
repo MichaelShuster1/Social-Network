@@ -124,13 +124,6 @@ void Fan_page::shiftBackMemberArr(int index)
 void Fan_page::delete_Fan(Member& member,int index)
 {
 	shiftBackMemberArr(index);
-	/*
-	if((numOfFans*2)==physical_numOfFans)
-	{ 
-		physical_numOfFans = physical_numOfFans / 2;
-		reSizeMemberArr(&fans, numOfFans,physical_numOfFans);
-	}
-	*/
 	numOfFans--;
 
 	if (member.getPageIndexFromPages(*this) != -1)

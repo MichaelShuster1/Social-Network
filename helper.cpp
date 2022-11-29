@@ -276,40 +276,6 @@ bool checkValidInput(System& system,int index1, int index2)
 	return isVaild;
 }
 
-/*
-int chooseOneLinkOption(System& system,int index)
-{
-	int choice;
-	int size;
-	size = system.printLinkOptions(index);
-	if (size != 0)
-	{
-
-		cout << "please choose the index of the member: " << endl;
-		cout << "Enter your choice here: ";
-		cin >> choice;
-
-		while (!(1 <= choice && choice <= size))
-		{
-			cout << "error: your choice needs to be a number between 1 and " << size << endl;
-			cout << "please choose the index of the member: " << endl;
-			system.printLinkOptions(index);
-			cout << "Enter your choice here: ";
-			cin >> choice;
-
-		}
-
-		return choice;
-	}
-	else
-	{
-		cout << "This member doesnt have any link option!" << endl;
-		return -1;
-	}
-
-}
-*/
-
 
 void unLinkFriendshipInSystem(System& system)
 {

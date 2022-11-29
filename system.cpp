@@ -161,9 +161,7 @@ void System::ShowTenLatestStatusesOfEachFriend(int index) const
 
 void System::linkFriends(int index1, int index2)
 {
-
 	system_members[index1]->addFriend(*(system_members[index2]));
-	//system_members[index2]->addFriend(*(system_members[index1]));
 }
 
 void System::unLinkFriends(int index1, int index2)
@@ -171,14 +169,12 @@ void System::unLinkFriends(int index1, int index2)
 	Member* selected_friend;
 	selected_friend = system_members[index1]->getMemberFromFriends(index2);
 	selected_friend->removeFriend(*system_members[index1]);
-	//system_members[index1]->removeFriend(*selected_friend);
 }
 
 
 void System::addFanToAPage(int index1, int index2)
 {
 	system_members[index1]->add_page(*(system_pages[index2]));
-	//system_pages[index2]->add_Fan(*(system_members[index1]));
 }
 
 void System::removeFanFromAFanPage(int index1, int index2)
@@ -186,7 +182,6 @@ void System::removeFanFromAFanPage(int index1, int index2)
 	Member* selected_friend;
 	selected_friend = system_pages[index1]->getfanFromFans(index2);
 	selected_friend->removePage(*system_pages[index1]);
-	//system_pages[index1]->delete_Fan(*selected_friend, index2);
 }
 
 void System::printMemberName(int index) const
