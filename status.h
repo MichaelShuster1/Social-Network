@@ -6,13 +6,11 @@
 #include <iostream>
 using namespace std;
 #include "date.h"
-#include "hour.h"
 
 class Status
 {
 private:
 	Date publish_date;
-	Hour publish_hour;
 	char* time;
 	char* text;
 
