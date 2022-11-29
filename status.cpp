@@ -1,5 +1,5 @@
 #include "status.h"
-
+using namespace std;
 
 Status::Status(const char* _text, const char* _time)
 {

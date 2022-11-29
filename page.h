@@ -3,14 +3,7 @@
 
 #include <iostream>
 #include <string.h>
-
-
 #include "date.h"
-
-
-
-using namespace std;
-#pragma warning(disable: 4996)
 
 
 class Member;
