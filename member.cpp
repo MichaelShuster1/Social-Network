@@ -1,6 +1,6 @@
 #include "member.h"
 #include "page.h"
-
+using namespace std;
 
 
 Member::Member()

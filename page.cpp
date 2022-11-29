@@ -1,6 +1,6 @@
 #include "page.h"
 #include "member.h"
-
+using namespace std;
 
 
 Fan_page::Fan_page(const char* _name)

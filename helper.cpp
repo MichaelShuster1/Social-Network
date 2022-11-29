@@ -1,4 +1,5 @@
 #include "helper.h"
+using namespace std;
 
 void addNewUserToSystem(System& system)
 {

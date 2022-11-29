@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 #include "system.h"
-
+using namespace std;
 
 
 System::System()
