@@ -139,12 +139,11 @@ void System::addNewStatusToFanPage(Status* new_status, int index)
 }
 
 
-
-
 void System::showAllStatusesOfAMember(int index) const
 {
 	system_members[index]->showAllStatuses();
 }
+
 
 void System::showAllStatusesOfAFanPage(int index) const
 {
@@ -158,11 +157,11 @@ void System::ShowTenLatestStatusesOfEachFriend(int index) const
 }
 
 
-
 void System::linkFriends(int index1, int index2)
 {
 	system_members[index1]->addFriend(*(system_members[index2]));
 }
+
 
 void System::unLinkFriends(int index1, int index2)
 {
@@ -176,6 +175,7 @@ void System::addFanToAPage(int index1, int index2)
 {
 	system_members[index1]->add_page(*(system_pages[index2]));
 }
+
 
 void System::removeFanFromAFanPage(int index1, int index2)
 {

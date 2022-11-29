@@ -273,7 +273,7 @@ void Member::showAllStatuses() const
 
 void Member::showTenRecentStatuses() const
 {
-	for (int i = numOfStatuses - 1; i >= numOfStatuses - 10 && i >= 0; i--)
+	for (int i = numOfStatuses - 1; (i >= numOfStatuses - 10) && (i >= 0); i--)
 	{
 		status_array[i]->showStatus();
 		cout << endl;
