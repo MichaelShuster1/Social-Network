@@ -9,8 +9,8 @@ private:
 	int day;
 
 public:
-	Date(int y=0, int m=0, int d=0);
-	Date(const Date& other);
+	Date(int y=0, int m=0, int d=0); //default c'tor
+	Date(const Date& other); //copy c'tor
 };
 
 
