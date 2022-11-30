@@ -143,32 +143,52 @@ int chooseOnePage(System& system)
 }
 
 
+void choosePagesOrMembers(System& system, int& index, int& choice)
+{
+	while (!(choice == 1 || choice == 2))
+	{
+		cout << "enter 1 to choose a member" << endl;
+		cout << "enter 2 to choose a fan page" << endl;
+		cout << "please enter your choice here:  ";
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			index = chooseOneMember(system);
+			cout << endl;
+			break;
+		case 2:
+			index = chooseOnePage(system);
+			cout << endl;
+			break;
+		default:
+			cout << "error:your choice needs to be the number 1 or 2 only!,please try again" << endl;
+			break;
+		}
+	}
+}
+
+
 void printAllFriendsOrFansEntity(System& system)
 {
-	int user_input;
+	int choice;
 	int index;
-	cout << "Do you want to choose from members or from fan pages?" << endl << "Enter 1 for members, or 2 for fan pages: ";
-	cin >> user_input;
-	switch (user_input)
+
+
+	choosePagesOrMembers(system, index, choice);
+	switch (choice)
 	{
 	case 1:
-		index = chooseOneMember(system);
-		cout << endl;
 		system.printAllFriendsOfMember(index - 1);
 		break;
 	case 2:
-		index = chooseOnePage(system);
-		cout << endl;
 		system.printAllFandsOfPage(index - 1);
 		break;
 	default:
 		break;
 	}
+
 }
-
-
-
-
 
 
 void addNewStatusToFanPageOrMember(System& system)
@@ -176,25 +196,16 @@ void addNewStatusToFanPageOrMember(System& system)
 	int choice, index;
 	Status* newStatus;
 
-	cout << "enter 1 to add new status for a member" << endl;
-	cout << "enter 2 to add new status for a fan page" << endl;
-	cout << "please enter your choice here:  ";
-	cin >> choice;
+	choosePagesOrMembers(system, index, choice);
+	newStatus = createNewStatus();
 	switch (choice)
 	{
 	case 1:
-		cout << "choose a user to which you want to add a new status: " << endl;
-		index = chooseOneMember(system);
-		newStatus = createNewStatus();
 		system.addNewStatusToMember(newStatus, index - 1);
 		break;
 	case 2:
-		cout << "choose a page to which you want to add a new status: " << endl;
-		index = chooseOnePage(system);
-		newStatus = createNewStatus();
 		system.addNewStatusToFanPage(newStatus, index - 1);
 		break;
-
 	default:
 		break;
 	}
@@ -205,26 +216,19 @@ void showAllStatusesOfAFanPageOrMember(System& system)
 {
 	int choice, index;
 
-	cout << "enter 1 to choose a member" << endl;
-	cout << "enter 2 to choose a fan page" << endl;
-	cout << "please enter your choice here:  ";
-	cin >> choice;
+	choosePagesOrMembers(system, index, choice);
 	switch (choice)
 	{
 	case 1:
-		cout << "choose a user to see their statuses " << endl;
-		index = chooseOneMember(system);
 		system.showAllStatusesOfAMember(index - 1);
 		break;
 	case 2:
-		cout << "choose a page to see its statuses: " << endl;
-		index = chooseOnePage(system);
 		system.showAllStatusesOfAFanPage(index - 1);
 		break;
-
 	default:
 		break;
 	}
+
 }
 
 
