@@ -24,12 +24,12 @@ private:
 	int physical_numOfPages;
 
 
-	void reSizeStatusArr(Status*** status_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Status)
-	void reSizeMemberArr(Member*** member_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Member)
-	void reSizePagesArr(Fan_page*** pages_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Fan_page)
-	void copyStatusArr(Status** dest, Status** src, int size);//copies the src array into the dest array (Status)
-	void copyMemberArr(Member** dest, Member** src, int size);//copies the src array into the dest array (Member)
-	void copyPageArr(Fan_page** dest, Fan_page** src, int size);//copies the src array into the dest array (Page)
+	void reSizeStatusArr();//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Status)
+	void reSizeFriendsArr();//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Member)
+	void reSizePagesArr();//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Fan_page)
+	void copyStatusArr(Status** dest);//copies the src array into the dest array (Status)
+	void copyFriendsArr(Member** dest);//copies the src array into the dest array (Member)
+	void copyPageArr(Fan_page** dest);//copies the src array into the dest array (Page)
 	void shiftBackMemberArr(int index);//moves each cell of the array one index backwards from the 'index' index (Member)
 	void shiftBackPagesArr(int index);//moves each cell of the array one index backwards from the 'index' index (Fan_page)
 

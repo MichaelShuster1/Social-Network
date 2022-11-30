@@ -20,10 +20,10 @@ private:
 	int physical_numOfFans;
 	int physical_numOfStatus;
 
-	void reSizeStatusArr(Status*** status_array, int old_size, int new_size); //changes the size of the given arr to new size
-	void copyStatusArr(Status** dest, Status** src, int size); //duplicates the values of src arr to dest arr
-	void reSizeMemberArr(Member*** member_array, int old_size, int new_size); //changes the size of the given arr to new size
-	void copyMemberArr(Member** dest, Member** src, int size); //duplicates the values of src arr to dest arr
+	void reSizeStatusArr(); //changes the size of the given arr to new size
+	void copyStatusArr(Status** dest); //duplicates the values of src arr to dest arr
+	void reSizeFansArr(); //changes the size of the given arr to new size
+	void copyFansArr(Member** dest); //duplicates the values of src arr to dest arr
 	void shiftBackMemberArr(int index); //deletes the element in index place in the fans arr
 
 public:

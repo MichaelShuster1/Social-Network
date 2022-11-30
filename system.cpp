@@ -30,7 +30,7 @@ void System::addNewUser(Member* new_user)
 	if (members_size == members_physical_size)
 	{
 		members_physical_size *= 2;
-		reSizeMemberArr(&system_members,members_size, members_physical_size);
+		reSizeMemberArr();
 	}
 	system_members[members_size] = new_user;
 	members_size++;
@@ -54,7 +54,7 @@ void System::addNewPage(Fan_page* new_page)
 	if (pages_size == pages_physical_size)
 	{
 		pages_physical_size *= 2;
-		reSizePagesArr(&system_pages, pages_size, pages_physical_size);
+		reSizePagesArr();
 	}
 	system_pages[pages_size] = new_page;
 	pages_size++;
@@ -203,39 +203,39 @@ void System::createHardcodedEntities()
 	linkFriends(1, 2);
 }
 
-void System::copyMemberArr(Member** dest, Member** src, int size)
+void System::copyMemberArr(Member** dest)
 {
 	int i;
-	for (i = 0; i < size; i++)
-		dest[i] = src[i];
+	for (i = 0; i < members_size; i++)
+		dest[i] = system_members[i];
 
 }
 
 
-void System::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
+void System::reSizeMemberArr()
 {
-	Member** temp = new Member * [new_size];
-	copyMemberArr(temp, *member_array, old_size);
-	delete[](*member_array);
-	(*member_array) = temp;
+	Member** temp = new Member * [members_physical_size];
+	copyMemberArr(temp);
+	delete[] system_members;
+	system_members = temp;
 }
 
 
-void System::copyPageArr(Fan_page** dest, Fan_page** src, int size)
+void System::copyPageArr(Fan_page** dest)
 {
 	int i;
-	for (i = 0; i < size; i++)
-		dest[i] = src[i];
+	for (i = 0; i < pages_size; i++)
+		dest[i] = system_pages[i];
 
 }
 
 
-void System::reSizePagesArr(Fan_page*** page_array, int old_size, int new_size)
+void System::reSizePagesArr()
 {
-	Fan_page** temp = new Fan_page * [new_size];
-	copyPageArr(temp, *page_array, old_size);
-	delete[](*page_array);
-	(*page_array) = temp;
+	Fan_page** temp = new Fan_page * [pages_physical_size];
+	copyPageArr(temp);
+	delete[] system_pages;
+	system_pages = temp;
 }
 
 
