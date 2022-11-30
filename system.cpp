@@ -73,7 +73,7 @@ bool System::checkIfExistNamePage(char* name)
 
 void System::addNewStatusToMember(Status* new_status,int index)
 {
-	system_members[index]->add_status(*new_status);
+	system_members[index]->addStatus(*new_status);
 }
 
 
@@ -103,7 +103,7 @@ void System::printAllSystemPages() const
 
 void System::addNewStatusToFanPage(Status* new_status, int index)
 {
-	system_pages[index]->add_status(*new_status);
+	system_pages[index]->addStatus(*new_status);
 }
 
 
@@ -141,7 +141,7 @@ void System::unLinkFriends(int index1, int index2)
 
 void System::addFanToAPage(int index1, int index2)
 {
-	system_members[index1]->add_page(*(system_pages[index2]));
+	system_members[index1]->addPage(*(system_pages[index2]));
 }
 
 
@@ -179,24 +179,24 @@ void System::createHardcodedEntities()
 	Status* status4 = new Status("status4", "Mon Jul 19 02:03:55 2022");
 	Status* status5 = new Status("status5", "Mon Jul 20 02:03:55 2022");
 	Status* status6 = new Status("status6", "Mon Jul 21 02:03:55 2022");
-	system_members[0]->add_status(*status1);
-	system_members[0]->add_status(*status2);
-	system_members[1]->add_status(*status3);
-	system_members[1]->add_status(*status4);
-	system_members[2]->add_status(*status5);
-	system_members[2]->add_status(*status6);
+	system_members[0]->addStatus(*status1);
+	system_members[0]->addStatus(*status2);
+	system_members[1]->addStatus(*status3);
+	system_members[1]->addStatus(*status4);
+	system_members[2]->addStatus(*status5);
+	system_members[2]->addStatus(*status6);
 	Status* status7 = new Status("status7", "Mon Jul 16 02:03:55 2019");
 	Status* status8 = new Status("status8", "Mon Jul 17 02:03:55 2019");
 	Status* status9 = new Status("status9", "Mon Jul 18 02:03:55 2020");
 	Status* status10 = new Status("status10", "Mon Jul 19 02:03:55 2020");
 	Status* status11 = new Status("status11", "Mon Jul 20 02:03:55 2021");
 	Status* status12 = new Status("status12", "Mon Jul 21 02:03:55 2022");
-	system_pages[0]->add_status(*status7);
-	system_pages[0]->add_status(*status8);
-	system_pages[1]->add_status(*status9);
-	system_pages[1]->add_status(*status10);
-	system_pages[2]->add_status(*status11);
-	system_pages[2]->add_status(*status12);
+	system_pages[0]->addStatus(*status7);
+	system_pages[0]->addStatus(*status8);
+	system_pages[1]->addStatus(*status9);
+	system_pages[1]->addStatus(*status10);
+	system_pages[2]->addStatus(*status11);
+	system_pages[2]->addStatus(*status12);
 	addFanToAPage(0, 0);
 	addFanToAPage(1, 1);
 	linkFriends(0, 1);
@@ -215,7 +215,7 @@ void System::copyMemberArr(Member** dest, Member** src, int size)
 void System::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
 	Member** temp = new Member * [new_size];
-	copyMemberArr(temp, *member_array, getMin(old_size, new_size));
+	copyMemberArr(temp, *member_array, old_size);
 	delete[](*member_array);
 	(*member_array) = temp;
 }
@@ -233,18 +233,12 @@ void System::copyPageArr(Fan_page** dest, Fan_page** src, int size)
 void System::reSizePagesArr(Fan_page*** page_array, int old_size, int new_size)
 {
 	Fan_page** temp = new Fan_page * [new_size];
-	copyPageArr(temp, *page_array, getMin(old_size, new_size));
+	copyPageArr(temp, *page_array, old_size);
 	delete[](*page_array);
 	(*page_array) = temp;
 }
 
 
-int System::getMin(int num1, int num2) const
-{
-	if (num1 < num2)
-		return num1;
-	return num2;
-}
 
 int System::getFriendsSizeOfAMember(int index) const
 {

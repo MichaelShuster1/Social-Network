@@ -24,25 +24,25 @@ private:
 	int physical_numOfPages;
 
 
+	void reSizeStatusArr(Status*** status_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Status)
+	void reSizeMemberArr(Member*** member_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Member)
+	void reSizePagesArr(Fan_page*** pages_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Fan_page)
+	void copyStatusArr(Status** dest, Status** src, int size);//copies the src array into the dest array (Status)
+	void copyMemberArr(Member** dest, Member** src, int size);//copies the src array into the dest array (Member)
+	void copyPageArr(Fan_page** dest, Fan_page** src, int size);//copies the src array into the dest array (Page)
+	void shiftBackMemberArr(int index);//moves each cell of the array one index backwards from the 'index' index (Member)
+	void shiftBackPagesArr(int index);//moves each cell of the array one index backwards from the 'index' index (Fan_page)
+
 public:
 	Member();
 	Member(const char* _name,const Date& date);
 	Member(const Member& other) = delete;
 	~Member();
 	void addFriend(Member& _member);//adds a user to the members friends array
-	void add_status(Status& status);//adds a status to the members status array
-	void add_page(Fan_page& page);//adds a fan page to the members fan pages array
+	void addStatus(Status& status);//adds a status to the members status array
+	void addPage(Fan_page& page);//adds a fan page to the members fan pages array
 	void removeFriend(Member& _member);//removes a user from the members friends array
 	void removePage(Fan_page& page);//removes a page fom the users fan page array
-	void reSizeStatusArr(Status*** status_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Status)
-	void reSizeMemberArr(Member*** member_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Member)
-	void reSizePagesArr(Fan_page*** pages_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Fan_page)
-	void copyStatusArr(Status** dest, Status** src,int size);//copies the src array into the dest array (Status)
-	void copyMemberArr(Member** dest, Member** src,int size);//copies the src array into the dest array (Member)
-	void copyPageArr(Fan_page** dest, Fan_page** src,int size);//copies the src array into the dest array (Page)
-	int getMin(int num1, int num2);//returns the minimum of 2 numbers
-	void shiftBackMemberArr(int index);//moves each cell of the array one index backwards from the 'index' index (Member)
-	void shiftBackPagesArr(int index);//moves each cell of the array one index backwards from the 'index' index (Fan_page)
 	void showAllFriends() const ;//prints all friends of a member
 	void showAllStatuses() const;//prints all statuses of a member
 	void showName() const ;//prints members name

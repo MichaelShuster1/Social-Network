@@ -20,22 +20,22 @@ private:
 	int physical_numOfFans;
 	int physical_numOfStatus;
 
+	void reSizeStatusArr(Status*** status_array, int old_size, int new_size); //changes the size of the given arr to new size
+	void copyStatusArr(Status** dest, Status** src, int size); //duplicates the values of src arr to dest arr
+	void reSizeMemberArr(Member*** member_array, int old_size, int new_size); //changes the size of the given arr to new size
+	void copyMemberArr(Member** dest, Member** src, int size); //duplicates the values of src arr to dest arr
+	void shiftBackMemberArr(int index); //deletes the element in index place in the fans arr
+
 public:
 	Fan_page(const char* _name); //c'tor
 	Fan_page(); //default c'tor
 	Fan_page(const Fan_page& other) = delete;
 	~Fan_page(); //d'tor
-	void add_Fan(Member& member);//adds the given member as a fan to this page
-	void delete_Fan(Member& member,int index); //delete the given member from the this page and vice versa
-	void add_status(Status& status); //adds the given status to this page
-	void reSizeStatusArr(Status***status_array,int old_size,int new_size); //changes the size of the given arr to new size
-	int getMin(int num1, int num2) const; //gets the minimum number between num1 and num2
-	void copyStatusArr(Status** dest, Status** src,int size); //duplicates the values of src arr to dest arr
-	void reSizeMemberArr(Member*** member_array, int old_size, int new_size); //changes the size of the given arr to new size
-	void copyMemberArr(Member** dest, Member** src,int size); //duplicates the values of src arr to dest arr
+	void addFan(Member& member);//adds the given member as a fan to this page
+	void deleteFan(Member& member,int index); //delete the given member from the this page and vice versa
+	void addStatus(Status& status); //adds the given status to this page
 	void showAllFans() const; //shows all the fans of this page
 	void showAllStatuses() const; //shows all the statuses of this page
-	void shiftBackMemberArr(int index); //deletes the element in index place in the fans arr
 	void showName() const; //shows the name of this page
 	const char* getName() const; //returns the name of this page
 	int getFansSize() const ; //returns the number of fans of this page

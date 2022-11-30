@@ -101,11 +101,11 @@ void Member::removePage(Fan_page& page)
 	int index = page.getfanIndexFromFans(*this);
 	if (index != -1);
 	{
-		page.delete_Fan(*this, index);
+		page.deleteFan(*this, index);
 	}
 }
 
-void Member::add_status(Status& status)
+void Member::addStatus(Status& status)
 {
 	if(numOfStatuses==physical_numOfStatuses)
 	{
@@ -127,7 +127,7 @@ void Member::addFriend(Member& _member)
 	friends[numOfFriends] = &_member;
 	numOfFriends++;
 
-	int index = _member.getFriendsSize();;
+	int index = _member.getFriendsSize();
 	if (index != 0)
 	{
 		if (this != _member.getMemberFromFriends(index - 1))
@@ -140,7 +140,7 @@ void Member::addFriend(Member& _member)
 }
 
 
-void Member::add_page(Fan_page& page)
+void Member::addPage(Fan_page& page)
 {
 	if (numOfPages == physical_numOfPages)
 	{
@@ -155,12 +155,12 @@ void Member::add_page(Fan_page& page)
 	{
 		if (this != page.getfanFromFans(index - 1))
 		{
-			page.add_Fan(*this);
+			page.addFan(*this);
 		}
 	}
 	else
 	{
-		page.add_Fan(*this);
+		page.addFan(*this);
 	}
 
 }
@@ -169,7 +169,7 @@ void Member::add_page(Fan_page& page)
 void Member::reSizeStatusArr(Status*** status_array, int old_size, int new_size)
 {
 	Status** temp = new Status*[new_size];
-	copyStatusArr(temp, *status_array,getMin(old_size,new_size));
+	copyStatusArr(temp, *status_array,old_size);
 	delete[] (*status_array);
 	(*status_array )= temp;
 }
@@ -178,7 +178,7 @@ void Member::reSizeStatusArr(Status*** status_array, int old_size, int new_size)
 void Member::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 {
 	Member** temp = new Member*[new_size];
-	copyMemberArr(temp, *member_array, getMin(old_size, new_size));
+	copyMemberArr(temp, *member_array, old_size);
 	delete[] (*member_array);
 	(*member_array) = temp;
 }
@@ -187,7 +187,7 @@ void Member::reSizeMemberArr(Member*** member_array, int old_size, int new_size)
 void Member::reSizePagesArr(Fan_page*** pages_array, int old_size, int new_size)
 {
 	Fan_page** temp = new Fan_page * [new_size];
-	copyPageArr(temp, *pages_array, getMin(old_size, new_size));
+	copyPageArr(temp, *pages_array, old_size);
 	delete[](*pages_array);
 	(*pages_array) = temp;
 }
@@ -216,14 +216,6 @@ void Member::copyPageArr(Fan_page** dest, Fan_page** src,int size)
 	int i;
 	for (i = 0; i < size; i++)
 		dest[i] = src[i];
-}
-
-
-int Member::getMin(int num1, int num2)
-{
-	if (num1 < num2)
-		return num1;
-	return num2;
 }
 
 
@@ -264,6 +256,7 @@ void Member::showAllStatuses() const
 		cout <<name << " has no statuses" << endl;
 }
 
+
 void Member::showTenRecentStatuses() const
 {
 	for (int i = numOfStatuses - 1; (i >= numOfStatuses - 10) && (i >= 0); i--)
@@ -273,6 +266,7 @@ void Member::showTenRecentStatuses() const
 	}
 
 }
+
 
 void Member::showAllFriendsTenStatuses() const
 {
@@ -323,6 +317,7 @@ Fan_page* Member::getPageFromPages(int i)
 	return pages[i];
 }
 
+
 int Member::getPageIndexFromPages(Fan_page& page) const
 {
 	int i = 0;
@@ -340,6 +335,8 @@ int Member::getPageIndexFromPages(Fan_page& page) const
 	else
 		return -1;
 }
+
+
 
 int Member::getFriendIndexFromFriends(Member& member) const
 {

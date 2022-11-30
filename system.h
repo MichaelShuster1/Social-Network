@@ -22,6 +22,16 @@ private:
 	int pages_size;
 	int pages_physical_size;
 
+
+
+	void createHardcodedEntities();//adds hardcoded members, fan pages, statuses and friendship/fans connections to the system
+	void freeMemberArr();//free allocated memory of the members array
+	void freePageArr();//free allocated memory of fan pages array
+	void copyPageArr(Fan_page** dest, Fan_page** src, int size);//copies the src array into the dest array (Page)
+	void reSizePagesArr(Fan_page*** page_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Fan_page)
+	void copyMemberArr(Member** dest, Member** src, int size);//copies the src array into the dest array (Member)
+	void reSizeMemberArr(Member*** member_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Member)
+
 public:
 	System();//system class c'tor
 	~System();//system class d'tor
@@ -43,14 +53,6 @@ public:
 	bool checkIfExistNamePage(char* name);//check if there is a fan page with the given name in the system
 	void printAllSystemMembers() const;//prints all the members in the system
 	void printAllSystemPages() const;//prints all the pages in the system
-	void copyPageArr(Fan_page** dest, Fan_page** src, int size);//copies the src array into the dest array (Page)
-	void reSizePagesArr(Fan_page*** page_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Fan_page)
-	void copyMemberArr(Member** dest, Member** src, int size);//copies the src array into the dest array (Member)
-	void reSizeMemberArr(Member*** member_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Member)
-	int  getMin(int num1, int num2) const;//return the minimum of 2 numbers
-	void createHardcodedEntities();//adds hardcoded members, fan pages, statuses and friendship/fans connections to the system
-	void freeMemberArr();//free allocated memory of the members array
-	void freePageArr();//free allocated memory of fan pages array
 	int getMembersSize() const;//returs the size of the members array
 	int getPagesSize() const;//return the size of the fan pages array
 	int getFriendsSizeOfAMember(int index) const;//return the size of the friends array of the member located in the 'index' index in system members
