@@ -275,6 +275,7 @@ void Member::showAllFriendsTenStatuses() const
 	if (numOfFriends > 0)
 	{
 		cout <<name<< "'s friends latest 10 statuses:" << endl;
+		cout << endl;
 		for (int i = 0; i < numOfFriends; i++)
 		{
 			friends[i]->showName();

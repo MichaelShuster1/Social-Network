@@ -79,7 +79,7 @@ void System::addNewStatusToMember(Status* new_status,int index)
 
 void System::printAllSystemMembers() const
 {
-	cout << "the Members:" << endl;
+	cout << "The members:" << endl;
 	for (int i = 0; i < members_size; i++)
 	{
 		cout << (i + 1) << ". ";
@@ -91,7 +91,7 @@ void System::printAllSystemMembers() const
 
 void System::printAllSystemPages() const
 {
-	cout << "the Fan pages:" << endl;
+	cout << "The fan pages:" << endl;
 	for (int i = 0; i < pages_size; i++)
 	{
 		cout << (i + 1) << ". ";
@@ -109,12 +109,16 @@ void System::addNewStatusToFanPage(Status* new_status, int index)
 
 void System::showAllStatusesOfAMember(int index) const
 {
+	system_members[index]->showName();
+	cout << "'s statuses are:" << endl;
 	system_members[index]->showAllStatuses();
 }
 
 
 void System::showAllStatusesOfAFanPage(int index) const
 {
+	system_pages[index]->showName();
+	cout << "'s statuses are:" << endl;
 	system_pages[index]->showAllStatuses(); 
 }
 

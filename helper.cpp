@@ -88,6 +88,7 @@ Status* createNewStatus()
 void printAllRegisteredEntitiesInSystem(System& system)
 {
 	system.printAllSystemMembers();
+	cout << endl;
 	system.printAllSystemPages();
 }
 
@@ -255,10 +256,15 @@ void linkFriendshipInSystem(System& system)
 		validInput = checkValidInput(system, index1, index2);
 		if (!validInput)
 		{
-			cout << "do you wish to try again?[y/n]: ";
-			cin >> choice;
-			if (choice == 'n')
-				exit = true;
+			do {
+			    cout << "do you wish to try again?[y/n]: ";
+			    cin >> choice;
+			
+				if (choice == 'n')
+					exit = true;
+				else if (choice != 'y')
+					cout << "Invalid input, please enter y or n" << endl;
+			} while (choice != 'n' && choice != 'y');
 		}
 
 	} while (!validInput && !exit);
@@ -275,12 +281,12 @@ bool checkValidInput(System& system,int index1, int index2)
 	{
 		if (index1 == index2)
 		{
-			cout << "error: you cant link a member with himself!,please try again" << endl;
+			cout << "error: you cant link a member with himself!" << endl;
 			isVaild = false;
 		}
 		else if (system.areFriendsCheck(index1 - 1, index2 - 1))
 		{
-			cout << "error: the members you chose are already linked!, please try again" << endl;
+			cout << "error: the members you chose are already linked!" << endl;
 			isVaild = false;
 		}
 	}
@@ -361,10 +367,14 @@ void addFanToPageInSystem(System& system)
 			validInput = true;
 		if (!validInput)
 		{
-			cout << "do you wish to try again [y/n]:";
-			cin >> choice;
-			if (choice == 'n')
-				exit = true;
+			do {
+				cout << "do you wish to try again [y/n]:";
+				cin >> choice;
+				if (choice == 'n')
+					exit = true;
+				else if (choice != 'y')
+					cout << "Invalid input, please enter y or n" << endl;
+			} while (choice != 'n' && choice != 'y');
 		}
 	} while (!validInput && !exit);
 	if (!exit)
