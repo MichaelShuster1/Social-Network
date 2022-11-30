@@ -197,7 +197,17 @@ void addNewStatusToFanPageOrMember(System& system)
 
 	choosePagesOrMembers(system, index, choice);
 	newStatus = createNewStatus();
-	system.addNewStatusToMember(newStatus, index - 1);
+	switch (choice)
+	{
+	case 1:
+		system.addNewStatusToMember(newStatus, index - 1);
+		break;
+	case 2:
+		system.addNewStatusToFanPage(newStatus, index - 1);
+		break;
+	default:
+		break;
+	}
 }
 
 
