@@ -140,7 +140,7 @@ void Fan_page::showAllFans() const
 		}
 	}
 	else
-		cout << "the page: " << name << " has no fans" << endl;
+		cout << "The page: " << name << " has no fans" << endl;
 }
 
 
