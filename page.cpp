@@ -133,16 +133,19 @@ void Fan_page::delete_Fan(Member& member,int index)
 }
 
 
-void Fan_page::show_all_fans() const
+void Fan_page::showAllFans() const
 {
-	int i;
-	for (i = 0; i < numOfFans; i++)
+	if (numOfFans > 0)
 	{
-		cout << i + 1 << ". ";
-		fans[i]->showName();
-		cout << endl;
+		cout << name << "'s fans are: " << endl;
+		for (int i = 0; i < numOfFans; i++)
+		{
+			cout << i + 1 << ". ";
+			fans[i]->showName();
+			cout << endl;
+		}
 	}
-	if(numOfFans==0)
+	else
 		cout << "the page: " << name << " has no fans" << endl;
 }
 

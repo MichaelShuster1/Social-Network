@@ -232,32 +232,25 @@ void Member::showName() const
 	cout << name;
 }
 
+
 void Member::showAllFriends() const
 {
-	for (int i = 0; i < numOfFriends; i++)
+
+	if (numOfFriends > 0)
 	{
-		cout << i + 1 << ". ";
-		friends[i]->showName();
-		cout << endl;
-	}
-		
-	if(numOfFriends==0)
+		cout << name << "'s friends are:" << endl;
+		for (int i = 0; i < numOfFriends; i++)
+		{
+			cout << i + 1 << ". ";
+			friends[i]->showName();
+			cout << endl;
+		}
+	}	
+	else
 		cout << name << " has no friends" << endl;
 		
 }
 
-void Member::showAllPages() const
-{
-
-	for (int i = 0; i < numOfPages; i++)
-	{
-		pages[i]->showName();
-		cout << endl;
-	}
-	if(numOfPages==0)
-		cout << name << " has no pages that he follows" << endl;
-
-}
 
 void Member::showAllStatuses() const
 {
@@ -283,15 +276,20 @@ void Member::showTenRecentStatuses() const
 
 void Member::showAllFriendsTenStatuses() const
 {
-
-	showName();
-	cout << "s friends latest 10 statuses:" << endl;
-	for (int i = 0; i < numOfFriends; i++)
+	if (numOfFriends > 0)
 	{
-		friends[i]->showName();
-		cout << "'s ten recent statuses: " << endl;
-		friends[i]->showTenRecentStatuses();
-		cout << endl;
+		cout <<name<< "'s friends latest 10 statuses:" << endl;
+		for (int i = 0; i < numOfFriends; i++)
+		{
+			friends[i]->showName();
+			cout << "'s ten recent statuses: " << endl;
+			friends[i]->showTenRecentStatuses();
+			cout << endl;
+		}
+	}
+	else
+	{
+		cout << name << " has no friends"<<endl;
 	}
 
 }

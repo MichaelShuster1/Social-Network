@@ -37,6 +37,7 @@ void System::addNewUser(Member* new_user)
 
 }
 
+
 bool System::checkIfExistNameUser(char* name)
 {
 	for (int i = 0; i < members_size; i++)
@@ -46,6 +47,7 @@ bool System::checkIfExistNameUser(char* name)
 	}
 	return false;
 }
+
 
 void System::addNewPage(Fan_page* new_page)
 {
@@ -86,40 +88,6 @@ void System::printAllSystemMembers() const
 	}
 }
 
-int System::printLinkOptions(int index)
-{
-	int numofoptions = 0;
-	cout << "the Members:" << endl;
-	for (int i = 0; i < members_size; i++)
-	{
-		if ((index != i)  && (areFriendsCheck(index,i) == false))
-		{
-			cout << (numofoptions + 1) << ". ";
-			system_members[i]->showName();
-			cout << endl;
-			numofoptions++;
-		}
-	}
-
-	return numofoptions;
-}
-
-int System::findLinkOption(int index1, int index2)
-{
-	int notfriends = 0, i = 0;
-
-	while (notfriends < index2)
-	{
-		if ((index1 != i) && (areFriendsCheck(index1, i) == false))
-		{
-			notfriends++;
-		}
-
-		i++;
-	}
-
-	return i - 1;
-}
 
 void System::printAllSystemPages() const
 {
@@ -184,17 +152,6 @@ void System::removeFanFromAFanPage(int index1, int index2)
 	selected_friend->removePage(*system_pages[index1]);
 }
 
-void System::printMemberName(int index) const
-{
-	system_members[index]->showName();
-}
-
-
-void System::printPageName(int index) const
-{
-	system_pages[index]->showName();
-}
-
 
 void System::printAllFriendsOfMember(int index) const
 {
@@ -204,7 +161,7 @@ void System::printAllFriendsOfMember(int index) const
 
 void System::printAllFandsOfPage(int index) const
 {
-	system_pages[index]->show_all_fans();
+	system_pages[index]->showAllFans();
 }
 
 

@@ -33,7 +33,7 @@ public:
 	void copyStatusArr(Status** dest, Status** src,int size); //duplicates the values of src arr to dest arr
 	void reSizeMemberArr(Member*** member_array, int old_size, int new_size); //changes the size of the given arr to new size
 	void copyMemberArr(Member** dest, Member** src,int size); //duplicates the values of src arr to dest arr
-	void show_all_fans() const; //shows all the fans of this page
+	void showAllFans() const; //shows all the fans of this page
 	void showAllStatuses() const; //shows all the statuses of this page
 	void shiftBackMemberArr(int index); //deletes the element in index place in the fans arr
 	void showName() const; //shows the name of this page

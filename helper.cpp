@@ -153,15 +153,11 @@ void printAllFriendsOrFansEntity(System& system)
 	case 1:
 		index = chooseOneMember(system);
 		cout << endl;
-		system.printMemberName(index - 1);
-		cout << "'s friends are:" << endl;
 		system.printAllFriendsOfMember(index - 1);
 		break;
 	case 2:
 		index = chooseOnePage(system);
 		cout << endl;
-		system.printPageName(index -1);
-		cout << "'s fans are:" << endl;
 		system.printAllFandsOfPage(index - 1);
 		break;
 	default:
@@ -421,6 +417,7 @@ int chooseOneFanOfAPage(System& system,int index)
 
 void printMenu()
 {
+	cout << "welcome to the system's menu ,please select an action" << endl;
 	cout << "1- add a new member" << endl;
 	cout << "2- add a new fan page" << endl;
 	cout << "3- add a new status for a member/fan page" << endl;

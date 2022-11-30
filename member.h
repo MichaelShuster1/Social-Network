@@ -45,7 +45,6 @@ public:
 	void shiftBackPagesArr(int index);//moves each cell of the array one index backwards from the 'index' index (Fan_page)
 	void showAllFriends() const ;//prints all friends of a member
 	void showAllStatuses() const;//prints all statuses of a member
-	void showAllPages() const;// print all oages of a member
 	void showName() const ;//prints members name
 	void showTenRecentStatuses() const ;// prints the last 10 statuses of the member
 	void showAllFriendsTenStatuses()const ;// prints 10 last statuses of each friend of the member

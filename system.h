@@ -43,8 +43,6 @@ public:
 	bool checkIfExistNamePage(char* name);//check if there is a fan page with the given name in the system
 	void printAllSystemMembers() const;//prints all the members in the system
 	void printAllSystemPages() const;//prints all the pages in the system
-	void printMemberName(int index) const;//prints the name of the member located in the 'index' index in system members
-	void printPageName(int index) const ;//prints the name of the fan page located in the 'index' index in system pages
 	void copyPageArr(Fan_page** dest, Fan_page** src, int size);//copies the src array into the dest array (Page)
 	void reSizePagesArr(Fan_page*** page_array, int old_size, int new_size);//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Fan_page)
 	void copyMemberArr(Member** dest, Member** src, int size);//copies the src array into the dest array (Member)
@@ -59,8 +57,6 @@ public:
 	int getFansSizeofAPage(int index) const;//return the size of the fans array of the fan page located in the 'index' index in the system pages
 	bool areFriendsCheck(int index1, int index2);//checks if the members located in 'index1' and 'index2' in system members ara friends
 	bool isFanCheck(int index1, int index2);//checks if the member located in the 'index2' index in system members is a fan of the page located in 'index1' index in system pages
-	int printLinkOptions(int index);//prints the relevant linking option for a member
-	int findLinkOption(int index1, int index2);//return the index of the selected link option
 };
 
 
