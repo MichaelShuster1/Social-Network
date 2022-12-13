@@ -56,6 +56,7 @@ public:
 	Fan_page* getPageFromPages(int i);//return the 'i' page from the pages array
 	int getPageIndexFromPages(Fan_page& page) const;// return the index of the given page in the pages array of the member
 	int getFriendIndexFromFriends(Member& member) const ;// return the index of the given member from the friends array of the member
+	bool operator>(const Member& member) const;
 };
 
 

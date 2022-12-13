@@ -383,3 +383,10 @@ int Member::getFriendIndexFromFriends(Member& member) const
 	else
 		return -1;
 }
+
+bool Member::operator>(const Member& member) const
+{
+	if (numOfFriends > member.numOfFriends)
+		return true;
+	return false;
+}

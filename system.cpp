@@ -14,6 +14,7 @@ System::System()
 	system_members = new Member * [members_physical_size];
 	system_pages = new Fan_page * [pages_physical_size];
 	createHardcodedEntities();
+
 }
 
 
