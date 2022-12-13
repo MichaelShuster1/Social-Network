@@ -17,6 +17,8 @@ public:
 	Status(const char* _text = nullptr, const char* _time=nullptr); //default c'tor
 	~Status(); //d'tor
 	void showStatus() const; //shows the text and time of this status
+	bool operator==(const Status& status) const;
+	bool operator!=(const Status& status) const;
 
 };
 

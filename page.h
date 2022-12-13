@@ -31,7 +31,8 @@ public:
 	Fan_page(); //default c'tor
 	Fan_page(const Fan_page& other) = delete;
 	~Fan_page(); //d'tor
-	void addFan(Member& member);//adds the given member as a fan to this page
+	//void addFan(Member& member);adds the given member as a fan to this page
+	void operator+=(Member& member);
 	void deleteFan(Member& member,int index); //delete the given member from the this page and vice versa
 	void addStatus(Status& status); //adds the given status to this page
 	void showAllFans() const; //shows all the fans of this page

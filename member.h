@@ -38,7 +38,8 @@ public:
 	Member(const char* _name,const Date& date);
 	Member(const Member& other) = delete;
 	~Member();
-	void addFriend(Member& _member);//adds a user to the members friends array
+	//void addFriend(Member& _member); adds a user to the members friends array
+	void operator+=(Member& _member);
 	void addStatus(Status& status);//adds a status to the members status array
 	void addPage(Fan_page& page);//adds a fan page to the members fan pages array
 	void removeFriend(Member& _member);//removes a user from the members friends array
