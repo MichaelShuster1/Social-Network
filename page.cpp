@@ -66,7 +66,7 @@ void Fan_page::copyStatusArr(Status** dest)
 		dest[i]=status_array[i];
 }
 
-
+/*
 void Fan_page::addFan(Member& member)
 {
 	if(numOfFans==physical_numOfFans)
@@ -88,7 +88,29 @@ void Fan_page::addFan(Member& member)
 	else
 		member.addPage(*this);
 }
+*/
 
+void Fan_page::operator+=(Member& member)
+{
+	if (numOfFans == physical_numOfFans)
+	{
+		physical_numOfFans *= 2;
+		reSizeFansArr();
+	}
+	fans[numOfFans] = &member;
+	numOfFans++;
+
+	int index = member.getPagesSize();
+	if (index != 0)
+	{
+		if (this != member.getPageFromPages(index - 1))
+		{
+			member.addPage(*this);
+		}
+	}
+	else
+		member.addPage(*this);
+}
 
 void Fan_page::reSizeFansArr()
 {

@@ -36,4 +36,15 @@ void Status::showStatus() const
 
 
 
+bool Status::operator==(const Status& status) const
+{
+	bool res=false;
+	if (strcmp(text, status.text) == 0)
+		res = true;
+	return res;  
+}
 
+bool Status::operator!=(const Status& status) const
+{
+	return !(*this == status);
+}

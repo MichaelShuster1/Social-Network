@@ -116,7 +116,7 @@ void Member::addStatus(Status& status)
 	numOfStatuses++;
 }
 
-
+/*
 void Member::addFriend(Member& _member)
 {
 	if (numOfFriends == physical_numOfFriends)
@@ -138,6 +138,31 @@ void Member::addFriend(Member& _member)
 	else
 		_member.addFriend(*this);
 }
+*/
+
+void Member::operator+=(Member& _member)
+{
+	if (numOfFriends == physical_numOfFriends)
+	{
+		physical_numOfFriends *= 2;
+		reSizeFriendsArr();
+	}
+	friends[numOfFriends] = &_member;
+	numOfFriends++;
+
+	int index = _member.getFriendsSize();
+	if (index != 0)
+	{
+		if (this != _member.getMemberFromFriends(index - 1))
+		{
+			_member+=(*this);
+		}
+	}
+	else
+		_member+=(*this);
+
+
+}
 
 
 void Member::addPage(Fan_page& page)
@@ -155,12 +180,12 @@ void Member::addPage(Fan_page& page)
 	{
 		if (this != page.getfanFromFans(index - 1))
 		{
-			page.addFan(*this);
+			page+=(*this);
 		}
 	}
 	else
 	{
-		page.addFan(*this);
+		page+=(*this);
 	}
 
 }
