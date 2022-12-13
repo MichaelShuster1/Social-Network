@@ -41,6 +41,7 @@ public:
 	int getFansSize() const ; //returns the number of fans of this page
 	Member* getfanFromFans(int i); //returns the fan in the i'nd place in the fans arr of this page
 	int getfanIndexFromFans(Member& member) const; //returns the index of the given member in the fans arr of this page
+	bool operator>(const Fan_page& member) const;
 
 };
 

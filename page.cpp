@@ -194,3 +194,10 @@ int Fan_page::getfanIndexFromFans(Member& member) const
 	else
 		return -1;
 }
+
+bool Fan_page::operator>(const Fan_page& page) const
+{
+	if (numOfFans > page.numOfFans)
+		return true;
+	return false;
+}
