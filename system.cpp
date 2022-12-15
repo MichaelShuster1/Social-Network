@@ -9,10 +9,9 @@ System::System()
 {
 	members_size = 3;
 	pages_size = 3;
+	system_pages.reserve(3);
 	members_physical_size = 3;
-	pages_physical_size = 3;
 	system_members = new Member * [members_physical_size];
-	system_pages = new Fan_page * [pages_physical_size];
 	createHardcodedEntities();
 
 }
@@ -21,7 +20,7 @@ System::System()
 System::~System()
 {
 	freeMemberArr();
-	freePageArr();
+	//freePageArr();
 	_CrtDumpMemoryLeaks();
 }
 
@@ -50,23 +49,25 @@ bool System::checkIfExistNameUser(char* name)
 }
 
 
-void System::addNewPage(Fan_page* new_page)
+void System::addNewPage(const Fan_page& new_page) throw(const char*)
 {
-	if (pages_size == pages_physical_size)
+	if ( checkIfExistNamePage(new_page.getName()) )
 	{
-		pages_physical_size *= 2;
-		reSizePagesArr();
+		throw "the name is already taken!";
 	}
-	system_pages[pages_size] = new_page;
+	if (system_pages.size() == system_pages.capacity())
+		system_pages.reserve(system_pages.capacity() * 2);
+
+	system_pages.push_back(new_page);
 	pages_size++;
 }
 
 
-bool System::checkIfExistNamePage(char* name)
+bool System::checkIfExistNamePage(const char* name)
 {
 	for (int i = 0; i < pages_size; i++)
 	{
-		if (strcmp(name, system_pages[i]->getName()) == 0)
+		if (strcmp(name, system_pages[i].getName()) == 0)
 			return true;
 	}
 	return false;
@@ -96,7 +97,7 @@ void System::printAllSystemPages() const
 	for (int i = 0; i < pages_size; i++)
 	{
 		cout << (i + 1) << ". ";
-		system_pages[i]->showName();
+		system_pages[i].showName();
 		cout << endl;
 	}
 }
@@ -104,7 +105,7 @@ void System::printAllSystemPages() const
 
 void System::addNewStatusToFanPage(Status* new_status, int index)
 {
-	system_pages[index]->addStatus(*new_status);
+	system_pages[index].addStatus(*new_status);
 }
 
 
@@ -118,9 +119,9 @@ void System::showAllStatusesOfAMember(int index) const
 
 void System::showAllStatusesOfAFanPage(int index) const
 {
-	system_pages[index]->showName();
+	system_pages[index].showName();
 	cout << "'s statuses are:" << endl;
-	system_pages[index]->showAllStatuses(); 
+	system_pages[index].showAllStatuses(); 
 }
 
 
@@ -148,15 +149,15 @@ void System::unLinkFriends(int index1, int index2)
 void System::addFanToAPage(int index1, int index2)
 {
 	//system_members[index1]->addPage(*(system_pages[index2]));
-	(*(system_pages[index2])+=(*system_members[index1]));
+	system_pages[index2]+=(*system_members[index1]);
 }
 
 
 void System::removeFanFromAFanPage(int index1, int index2)
 {
 	Member* selected_friend;
-	selected_friend = system_pages[index1]->getfanFromFans(index2);
-	selected_friend->removePage(*system_pages[index1]);
+	selected_friend = system_pages[index1].getfanFromFans(index2);
+	selected_friend->removePage(system_pages[index1]);
 }
 
 
@@ -168,7 +169,7 @@ void System::printAllFriendsOfMember(int index) const
 
 void System::printAllFandsOfPage(int index) const
 {
-	system_pages[index]->showAllFans();
+	system_pages[index].showAllFans();
 }
 
 
@@ -177,9 +178,9 @@ void System::createHardcodedEntities()
 	system_members[0] = new Member("Avi Cohen", Date(1990, 10, 22));
 	system_members[1] = new Member("Yossi Levi", Date(1995, 1, 10));
 	system_members[2] = new Member("Israel Israeli", Date(2000, 2, 28));
-	system_pages[0] = new Fan_page("Music fans");
-	system_pages[1] = new Fan_page("Gaming fans");
-	system_pages[2] = new Fan_page("Movies fans");
+	system_pages.push_back(Fan_page("Music fans"));
+	system_pages.push_back(Fan_page("Gaming fans"));
+	system_pages.push_back(Fan_page("Movies fans"));
 	Status* status1 = new Status("status1", "Mon Jul 16 02:03:55 2021");
 	Status* status2 = new Status("status2", "Mon Jul 17 02:03:55 2021");
 	Status* status3 = new Status("status3", "Mon Jul 18 02:03:55 2022");
@@ -198,12 +199,12 @@ void System::createHardcodedEntities()
 	Status* status10 = new Status("status10", "Mon Jul 19 02:03:55 2020");
 	Status* status11 = new Status("status11", "Mon Jul 20 02:03:55 2021");
 	Status* status12 = new Status("status12", "Mon Jul 21 02:03:55 2022");
-	system_pages[0]->addStatus(*status7);
-	system_pages[0]->addStatus(*status8);
-	system_pages[1]->addStatus(*status9);
-	system_pages[1]->addStatus(*status10);
-	system_pages[2]->addStatus(*status11);
-	system_pages[2]->addStatus(*status12);
+	system_pages[0].addStatus(*status7);
+	system_pages[0].addStatus(*status8);
+	system_pages[1].addStatus(*status9);
+	system_pages[1].addStatus(*status10);
+	system_pages[2].addStatus(*status11);
+	system_pages[2].addStatus(*status12);
 	addFanToAPage(0, 0);
 	addFanToAPage(1, 1);
 	linkFriends(0, 1);
@@ -228,6 +229,7 @@ void System::reSizeMemberArr()
 }
 
 
+/*
 void System::copyPageArr(Fan_page** dest)
 {
 	int i;
@@ -244,6 +246,7 @@ void System::reSizePagesArr()
 	delete[] system_pages;
 	system_pages = temp;
 }
+*/
 
 
 
@@ -254,7 +257,7 @@ int System::getFriendsSizeOfAMember(int index) const
 
 int System::getFansSizeofAPage(int index) const
 {
-	return system_pages[index]->getFansSize();
+	return system_pages[index].getFansSize();
 }
 
 
@@ -266,7 +269,7 @@ void System::freeMemberArr()
 	delete[] system_members;
 }
 
-
+/*
 void System::freePageArr()
 {
 	for (int i = 0; i < pages_size; i++)
@@ -274,6 +277,7 @@ void System::freePageArr()
 
 	delete[] system_pages;
 }
+*/
 
 
 int System::getMembersSize() const
@@ -300,10 +304,10 @@ bool System::areFriendsCheck(int index1, int index2)
 
 bool System::isFanCheck(int index1, int index2)
 {
-	int fans_size = system_pages[index1]->getFansSize();
+	int fans_size = system_pages[index1].getFansSize();
 	for (int i = 0; i < fans_size; i++)
 	{
-		if (system_members[index2] == system_pages[index1]->getfanFromFans(i))
+		if (system_members[index2] == system_pages[index1].getfanFromFans(i))
 			return true;
 	}
 

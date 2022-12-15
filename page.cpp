@@ -44,7 +44,8 @@ void Fan_page::addStatus(Status& status)
 {
 	if (status_array.size() ==status_array.capacity())
 		status_array.reserve(status_array.capacity() * 2);
-	status_array.push_back(&status);
+
+	status_array.push_back(new Status(status));
 	numOfStatuses++;
 }
 
@@ -94,7 +95,8 @@ void Fan_page::addFan(Member& member)
 
 void Fan_page::operator+=(Member& member)
 {
-
+	if (fans.size() == fans.capacity())
+		fans.reserve(fans.capacity() * 2);
 	fans.push_back(&member);
 	numOfFans++;
 

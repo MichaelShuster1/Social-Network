@@ -20,6 +20,24 @@ Status::Status(const char* _text, const char* _time)
 		time = nullptr;
 }
 
+Status::Status(const Status& other)
+{
+	if (other.text != nullptr)
+	{
+		text = new char[strlen(other.text) + 1];
+		strcpy(text, other.text);
+	}
+	else
+		text = nullptr;
+
+	if (other.time != nullptr)
+	{
+		time = new char[strlen(other.time) + 1];
+		strcpy(time, other.time);
+	}
+	else
+		time = nullptr;
+}
 
 Status::~Status()
 {

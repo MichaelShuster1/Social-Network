@@ -42,8 +42,25 @@ void addNewUserToSystem(System& system)
 void addNewPageToSystem(System& system)
 {
 	char name[NAME_LEN];
-	Fan_page* new_page;
+	bool isValidData = false;
+	
 
+	cin.ignore();
+	while (!isValidData)
+	{
+		cout << "Please enter the name of the new page: ";
+		cin.getline(name, NAME_LEN);
+		try 
+		{
+			system.addNewPage(Fan_page(name));
+			isValidData = true;
+		}
+		catch (const char* msg)
+		{
+			cout << msg << endl;
+		}
+	}
+	/*
 	cout << "Please enter the name of the new page: ";
 	getchar();
 	cin.getline(name, NAME_LEN);
@@ -53,10 +70,10 @@ void addNewPageToSystem(System& system)
 		cout << "Please enter the name of the new page: ";
 		cin.getline(name, NAME_LEN);
 	}
+	*/
 
 
-	new_page = new Fan_page(name);
-	system.addNewPage(new_page);
+	
 }
 
 
