@@ -60,7 +60,7 @@ void addNewPageToSystem(System& system)
 }
 
 
-Status* createNewStatus()
+Status createNewStatus()
 {
 	char text[STATUS_LEN];
 	char* tm;
@@ -80,8 +80,7 @@ Status* createNewStatus()
 	curr_time = time(NULL);
 	tm = ctime(&curr_time);
 
-	newStatus = new Status(text, tm);
-	return newStatus;
+	return Status(text, tm);
 }
 
 
@@ -194,17 +193,17 @@ void printAllFriendsOrFansEntity(System& system)
 void addNewStatusToFanPageOrMember(System& system)
 {
 	int choice, index;
-	Status* newStatus;
+	Status newStatus;
 
 	choosePagesOrMembers(system, index, choice);
 	newStatus = createNewStatus();
 	switch (choice)
 	{
 	case 1:
-		system.addNewStatusToMember(newStatus, index - 1);
+		system.addNewStatusToMember(&newStatus, index - 1);
 		break;
 	case 2:
-		system.addNewStatusToFanPage(newStatus, index - 1);
+		system.addNewStatusToFanPage(&newStatus, index - 1);
 		break;
 	default:
 		break;

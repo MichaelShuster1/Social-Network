@@ -20,6 +20,25 @@ Status::Status(const char* _text, const char* _time)
 		time = nullptr;
 }
 
+Status::Status(Status&& other)
+{
+	this->text = other.text;
+	other.text = nullptr;
+	this->time = other.time;
+	other.time = nullptr;
+}
+
+Status::Status(const Status& other)
+{
+	text = strdup(other.text);
+	time = strdup(other.time);
+}
+
+void Status::operator=(const Status& status)
+{
+	text = strdup(status.text);
+	time = strdup(status.time);
+}
 
 Status::~Status()
 {

@@ -2,76 +2,104 @@
 #include "page.h"
 using namespace std;
 
+//
+//Member::Member()
+//{
+//	name = nullptr;
+//	/*status_array =nullptr;*/
+//	/*pages = nullptr;
+//	friends = nullptr;*/
+//}
 
-Member::Member()
+
+Member::Member(const string _name, const Date& date):birth_date(date)
 {
-	name = nullptr;
-	status_array =nullptr;
-	pages = nullptr;
-	friends = nullptr;
+	/*name = new char[strlen(_name) + 1];
+	strcpy(name, _name);*/
+	name = _name;
+	/*numOfFriends = numOfPages = numOfStatuses = 0;
+	physical_numOfFriends = physical_numOfPages = physical_numOfStatuses = 1;*/
+	/*status_array = new Status *[physical_numOfStatuses];*/
+
+	/*pages = new Fan_page *[physical_numOfPages];
+	friends = new Member *[physical_numOfFriends];*/
 }
 
 
-Member::Member(const char* _name, const Date& date):birth_date(date)
+Member::Member(const Member& other):birth_date(other.birth_date)
 {
-	name = new char[strlen(_name) + 1];
-	strcpy(name, _name);
-	numOfFriends = numOfPages = numOfStatuses = 0;
-	physical_numOfFriends = physical_numOfPages = physical_numOfStatuses = 1;
-	status_array = new Status *[physical_numOfStatuses];
-	pages = new Fan_page *[physical_numOfPages];
-	friends = new Member *[physical_numOfFriends];
+	this->name = other.name;
+	this->friends = other.friends;
+	this->pages = other.pages;
+	this->statuses = other.statuses;
 }
 
-
-
+Member::Member(Member&& other) noexcept(true)
+{
+	this->name = move(other.name);
+	this->birth_date = other.birth_date;
+	this->friends = move(other.friends);
+	this->pages = move(other.pages);
+	this->statuses = move(other.statuses);
+}
 
 
 Member::~Member()
 {
+	int numOfStatuses = statuses.size();
 	for (int i = 0; i < numOfStatuses; i++)
-		delete status_array[i];
-	delete[] status_array;
-	delete[] name;
+		delete statuses[i];
+	//delete[] status_array;
+	/*delete name;
 	delete[] pages;
-	delete[] friends;
+	delete[] friends;*/
 }
 
+//
+//void Member::shiftBackMemberArr(int index)
+//{
+//	
+//	for (int i = index; i < numOfFriends-1; i++)
+//	{
+//		friends[i] = friends[i + 1];
+//	}
+//}
 
-void Member::shiftBackMemberArr(int index)
-{
-	
-	for (int i = index; i < numOfFriends-1; i++)
-	{
-		friends[i] = friends[i + 1];
-	}
-}
-
-
-void Member::shiftBackPagesArr(int index)
-{
-	
-	for (int i = index; i < numOfPages-1; i++)
-	{
-		pages[i] = pages[i + 1];
-	}
-}
+//
+//void Member::shiftBackPagesArr(int index)
+//{
+//	
+//	for (int i = index; i < numOfPages-1; i++)
+//	{
+//		pages[i] = pages[i + 1];
+//	}
+//}
 
 
 void Member::removeFriend(Member& _member)
 {
-	int i = 0;
+	//int i = 0;
 	bool found = false;
+	vector<Member*>::iterator itr = friends.begin();
 	while (found == false)
 	{
-		if (friends[i] == &_member) 
+		if (*itr == &_member)
 			found = true;
 		else
-			i++;
+			++itr;
 	}
+	friends.erase(itr);
 
-	shiftBackMemberArr(i);
-	numOfFriends--;
+	//while (found == false)
+	//{
+	//	if (friends[i] == &_member) 
+	//		found = true;
+	//	else
+	//		i++;
+	//}
+
+	/*shiftBackMemberArr(i);
+	numOfFriends--;*/
 
 
 	if (_member.getFriendIndexFromFriends(*this) != -1)
@@ -84,19 +112,28 @@ void Member::removeFriend(Member& _member)
 
 void Member::removePage(Fan_page& page)
 {
-	int i = 0;
+	/*int i = 0;*/
 	bool found = false;
+	vector<Fan_page*>::iterator itr = pages.begin();
 	while (found == false)
+	{
+		if (*itr == &page)
+			found = true;
+		else
+			++itr;
+	}
+	pages.erase(itr);
+	/*while (found == false)
 	{
 		if (pages[i] == &page) 
 			found = true;
 		else
 			i++;
-	}
+	}*/
 
 
-	shiftBackPagesArr(i);
-	numOfPages--;
+	/*shiftBackPagesArr(i);
+	numOfPages--;*/
 
 	int index = page.getfanIndexFromFans(*this);
 	if (index != -1);
@@ -107,13 +144,18 @@ void Member::removePage(Fan_page& page)
 
 void Member::addStatus(Status& status)
 {
-	if(numOfStatuses==physical_numOfStatuses)
+	if (statuses.size() == statuses.capacity())
+	{
+		statuses.reserve(statuses.capacity() * 2);
+	}
+	statuses.push_back(new Status(status));
+	/*if(numOfStatuses==physical_numOfStatuses)
 	{
 		physical_numOfStatuses *= 2;
 		reSizeStatusArr();
 	}
 	status_array[numOfStatuses]=&status;
-	numOfStatuses++;
+	numOfStatuses++;*/
 }
 
 /*
@@ -142,13 +184,22 @@ void Member::addFriend(Member& _member)
 
 void Member::operator+=(Member& _member)
 {
-	if (numOfFriends == physical_numOfFriends)
+	if (friends.size() == friends.capacity())
+	{
+		friends.reserve(friends.capacity() * 2);
+	}
+	/*if (numOfFriends == physical_numOfFriends)
 	{
 		physical_numOfFriends *= 2;
 		reSizeFriendsArr();
 	}
+
 	friends[numOfFriends] = &_member;
 	numOfFriends++;
+	*/
+
+	friends.push_back(&_member);
+
 
 	int index = _member.getFriendsSize();
 	if (index != 0)
@@ -167,13 +218,19 @@ void Member::operator+=(Member& _member)
 
 void Member::addPage(Fan_page& page)
 {
-	if (numOfPages == physical_numOfPages)
+	if (pages.size() == pages.capacity())
+	{
+		pages.reserve(pages.capacity() * 2);
+	}
+	/*if (numOfPages == physical_numOfPages)
 	{
 		physical_numOfPages *= 2;
 		reSizePagesArr();
-	}
+	
 	pages[numOfPages] = &page;
 	numOfPages++;
+	}*/
+	pages.push_back(&page);
 
 	int index = page.getFansSize();
 	if (index != 0)
@@ -191,59 +248,59 @@ void Member::addPage(Fan_page& page)
 }
 
 
-
-void Member::reSizeStatusArr()
-{
-	Status** temp = new Status * [physical_numOfStatuses];
-	copyStatusArr(temp);
-	delete[] status_array;
-	status_array= temp;
-}
-
-
+//
+//void Member::reSizeStatusArr()
+//{
+//	Status** temp = new Status * [physical_numOfStatuses];
+//	copyStatusArr(temp);
+//	delete[] status_array;
+//	status_array= temp;
+//}
 
 
-void Member::reSizeFriendsArr()
-{
-	Member** temp = new Member * [physical_numOfFriends];
-	copyFriendsArr(temp);
-	delete[] friends;
-	friends = temp;
-}
 
+//
+//void Member::reSizeFriendsArr()
+//{
+//	Member** temp = new Member * [physical_numOfFriends];
+//	copyFriendsArr(temp);
+//	delete[] friends;
+//	friends = temp;
+//}
+//
+//
+//void Member::reSizePagesArr()
+//{
+//	Fan_page** temp = new Fan_page * [physical_numOfPages];
+//	copyPageArr(temp);
+//	delete[]pages;
+//	pages = temp;
+//}
 
-void Member::reSizePagesArr()
-{
-	Fan_page** temp = new Fan_page * [physical_numOfPages];
-	copyPageArr(temp);
-	delete[]pages;
-	pages = temp;
-}
+//
+//void Member::copyStatusArr(Status** dest)
+//{
+//	int i;
+//	for (i = 0; i < numOfStatuses; i++)
+//		dest[i] = status_array[i];
+//}
 
-
-void Member::copyStatusArr(Status** dest)
-{
-	int i;
-	for (i = 0; i < numOfStatuses; i++)
-		dest[i] = status_array[i];
-}
-
-
-void Member::copyFriendsArr(Member** dest)
-{
-	int i;
-	for (i = 0; i < numOfFriends; i++)
-		dest[i] = friends[i];
-
-}
-
-
-void Member::copyPageArr(Fan_page** dest)
-{
-	int i;
-	for (i = 0; i < numOfPages; i++)
-		dest[i] = pages[i];
-}
+//
+//void Member::copyFriendsArr(Member** dest)
+//{
+//	int i;
+//	for (i = 0; i < numOfFriends; i++)
+//		dest[i] = friends[i];
+//
+//}
+//
+//
+//void Member::copyPageArr(Fan_page** dest)
+//{
+//	int i;
+//	for (i = 0; i < numOfPages; i++)
+//		dest[i] = pages[i];
+//}
 
 
 void Member::showName() const
@@ -254,7 +311,7 @@ void Member::showName() const
 
 void Member::showAllFriends() const
 {
-
+	int numOfFriends = getFriendsSize();
 	if (numOfFriends > 0)
 	{
 		cout << name << "'s friends are:" << endl;
@@ -273,9 +330,10 @@ void Member::showAllFriends() const
 
 void Member::showAllStatuses() const
 {
+	int numOfStatuses = statuses.size();
 	for (int i = 0; i < numOfStatuses; i++)
 	{
-		status_array[i]->showStatus();
+		statuses[i]->showStatus();
 		cout << endl;
 	}
 	
@@ -286,9 +344,10 @@ void Member::showAllStatuses() const
 
 void Member::showTenRecentStatuses() const
 {
+	int numOfStatuses = statuses.size();
 	for (int i = numOfStatuses - 1; (i >= numOfStatuses - 10) && (i >= 0); i--)
 	{
-		status_array[i]->showStatus();
+		statuses[i]->showStatus();
 		cout << endl;
 	}
 
@@ -297,6 +356,7 @@ void Member::showTenRecentStatuses() const
 
 void Member::showAllFriendsTenStatuses() const
 {
+	int numOfFriends = getFriendsSize();
 	if (numOfFriends > 0)
 	{
 		cout <<name<< "'s friends latest 10 statuses:" << endl;
@@ -324,19 +384,19 @@ Member* Member::getMemberFromFriends(int i)
 
 
 
-const char* Member::getName() const
+const string Member::getName() const
 {
 	return name;
 }
 
 int Member::getFriendsSize() const
 {
-	return numOfFriends;
+	return friends.size();
 }
 
 int Member::getPagesSize() const
 {
-	return numOfPages;
+	return pages.size();
 }
 
 
@@ -348,6 +408,7 @@ Fan_page* Member::getPageFromPages(int i)
 
 int Member::getPageIndexFromPages(Fan_page& page) const
 {
+	int numOfPages = pages.size();
 	int i = 0;
 	bool found = false;
 	while (i < numOfPages && found == false)
@@ -368,6 +429,7 @@ int Member::getPageIndexFromPages(Fan_page& page) const
 
 int Member::getFriendIndexFromFriends(Member& member) const
 {
+	int numOfFriends = getFriendsSize();
 	int i = 0;
 	bool found = false;
 	while (i < numOfFriends && found == false)
@@ -386,7 +448,7 @@ int Member::getFriendIndexFromFriends(Member& member) const
 
 bool Member::operator>(const Member& member) const
 {
-	if (numOfFriends > member.numOfFriends)
+	if (getFriendsSize() > member.getFriendsSize())
 		return true;
 	return false;
 }
