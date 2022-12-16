@@ -6,10 +6,8 @@ void main()
 {
 	bool exit = false;
 	int choice;
-	
 
 	System system;
-
 
 	while (exit == false)
 	{

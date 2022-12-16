@@ -3,8 +3,10 @@
 
 
 
-Fan_page::Fan_page(const string& name)
+Fan_page::Fan_page(const string& name) throw(const char*)
 {
+	if (name.size() == 0)
+		throw "error: the name of the new page is empty!";
 	this->name = name;
 }
 

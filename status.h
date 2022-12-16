@@ -4,18 +4,21 @@
 #pragma warning(disable: 4996)
 
 #include <iostream>
+#include <string>
 #include "date.h"
+
+using namespace std;
 
 class Status
 {
 private:
-	char* time;
-	char* text;
+	string time;
+	string text;
+
 
 public:
-	Status(const char* _text = nullptr, const char* _time=nullptr); //default c'tor
+	Status(string text, string time); //default c'tor
 	Status(const Status& other);
-	~Status(); //d'tor
 	void showStatus() const; //shows the text and time of this status
 	bool operator==(const Status& status) const;
 	bool operator!=(const Status& status) const;

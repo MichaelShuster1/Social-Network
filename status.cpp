@@ -1,49 +1,18 @@
 #include "status.h"
-using namespace std;
 
-Status::Status(const char* _text, const char* _time)
+
+Status::Status(string text, string time)
 {
-	if (_text != nullptr)
-	{
-		text = new char[strlen(_text) + 1];
-		strcpy(text, _text);
-	}
-	else
-		text = nullptr;
-
-	if (_time != nullptr)
-	{
-		time= new char[strlen(_time) + 1];
-		strcpy(time, _time);
-	}
-	else
-		time = nullptr;
+	this->text = text;
+	this->time = time;
 }
 
 Status::Status(const Status& other)
 {
-	if (other.text != nullptr)
-	{
-		text = new char[strlen(other.text) + 1];
-		strcpy(text, other.text);
-	}
-	else
-		text = nullptr;
-
-	if (other.time != nullptr)
-	{
-		time = new char[strlen(other.time) + 1];
-		strcpy(time, other.time);
-	}
-	else
-		time = nullptr;
+	text = other.text;
+	time = other.time;
 }
 
-Status::~Status()
-{
-	delete[] text;
-	delete[] time;
-}
 
 
 void Status::showStatus() const
@@ -57,7 +26,7 @@ void Status::showStatus() const
 bool Status::operator==(const Status& status) const
 {
 	bool res=false;
-	if (strcmp(text, status.text) == 0)
+	if (text == status.text)
 		res = true;
 	return res;  
 }
