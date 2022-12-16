@@ -12,7 +12,7 @@ int chooseOneFriendOfAMember(System& system,int index);//chooses one friend of t
 int chooseOnePage(System& system); //chooses one page from the already existing pages in system
 int chooseOneFanOfAPage(System& system, int index); //chooses one fan of the given page in system
 void printAllFriendsOrFansEntity(System& system); //prints all friends or fans of the system
-Status* createNewStatus(); //creates new status and returns it
+Status createNewStatus(); //creates new status and returns it
 void addNewStatusToFanPageOrMember(System& system);//adds new status to a given fan or member in system
 void showAllStatusesOfAFanPageOrMember(System& system);//shows all statuses of a given page or mebmer in system
 void ShowTenStatusesOfEachFriend(System& system); //Shows all the last 10 statuses of the user's friends

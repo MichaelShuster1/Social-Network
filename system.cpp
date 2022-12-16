@@ -8,7 +8,6 @@ using namespace std;
 System::System()
 {
 	members_size = 3;
-	pages_size = 3;
 	system_pages.reserve(3);
 	members_physical_size = 3;
 	system_members = new Member * [members_physical_size];
@@ -20,7 +19,6 @@ System::System()
 System::~System()
 {
 	freeMemberArr();
-	//freePageArr();
 	_CrtDumpMemoryLeaks();
 }
 
@@ -59,12 +57,12 @@ void System::addNewPage(const Fan_page& new_page) throw(const char*)
 		system_pages.reserve(system_pages.capacity() * 2);
 
 	system_pages.push_back(new_page);
-	pages_size++;
 }
 
 
 bool System::checkIfExistNamePage(const char* name)
 {
+	int pages_size = system_pages.size();
 	for (int i = 0; i < pages_size; i++)
 	{
 		if (strcmp(name, system_pages[i].getName()) == 0)
@@ -73,9 +71,9 @@ bool System::checkIfExistNamePage(const char* name)
 	return false;
 }
 
-void System::addNewStatusToMember(Status* new_status,int index)
+void System::addNewStatusToMember(Status& new_status,int index)
 {
-	system_members[index]->addStatus(*new_status);
+	system_members[index]->addStatus(new_status);
 }
 
 
@@ -93,6 +91,7 @@ void System::printAllSystemMembers() const
 
 void System::printAllSystemPages() const
 {
+	int pages_size = system_pages.size();
 	cout << "The fan pages:" << endl;
 	for (int i = 0; i < pages_size; i++)
 	{
@@ -103,9 +102,9 @@ void System::printAllSystemPages() const
 }
 
 
-void System::addNewStatusToFanPage(Status* new_status, int index)
+void System::addNewStatusToFanPage(Status& new_status, int index)
 {
-	system_pages[index].addStatus(*new_status);
+	system_pages[index].addStatus(new_status);
 }
 
 
@@ -133,7 +132,6 @@ void System::ShowTenLatestStatusesOfEachFriend(int index) const
 
 void System::linkFriends(int index1, int index2)
 {
-	//system_members[index1]->addFriend(*(system_members[index2]));
 	(*system_members[index1])+=(*(system_members[index2]));
 }
 
@@ -146,9 +144,12 @@ void System::unLinkFriends(int index1, int index2)
 }
 
 
-void System::addFanToAPage(int index1, int index2)
+void System::addFanToAPage(int index1, int index2) throw(const char*)
 {
-	//system_members[index1]->addPage(*(system_pages[index2]));
+	if (isFanCheck(index1, index2))
+	{
+		throw "error:The user you chose is already a fan of this page!";
+	}
 	system_pages[index2]+=(*system_members[index1]);
 }
 
@@ -229,25 +230,6 @@ void System::reSizeMemberArr()
 }
 
 
-/*
-void System::copyPageArr(Fan_page** dest)
-{
-	int i;
-	for (i = 0; i < pages_size; i++)
-		dest[i] = system_pages[i];
-
-}
-
-
-void System::reSizePagesArr()
-{
-	Fan_page** temp = new Fan_page * [pages_physical_size];
-	copyPageArr(temp);
-	delete[] system_pages;
-	system_pages = temp;
-}
-*/
-
 
 
 int System::getFriendsSizeOfAMember(int index) const
@@ -269,16 +251,6 @@ void System::freeMemberArr()
 	delete[] system_members;
 }
 
-/*
-void System::freePageArr()
-{
-	for (int i = 0; i < pages_size; i++)
-		delete system_pages[i];
-
-	delete[] system_pages;
-}
-*/
-
 
 int System::getMembersSize() const
 {
@@ -287,7 +259,7 @@ int System::getMembersSize() const
 
 int System::getPagesSize() const
 {
-	return pages_size;
+	return system_pages.size();
 }
 
 bool System::areFriendsCheck(int index1, int index2)

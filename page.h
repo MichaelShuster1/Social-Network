@@ -15,29 +15,15 @@ class Status;
 class Fan_page
 {
 private:
-	//char* name;
 	string name;
-	//Member** fans;
 	vector<Member*>fans;
-	//Status** status_array;
-	vector<Status*>status_array;
-	int numOfFans;
-	int numOfStatuses;
-
-	/*
-	void reSizeStatusArr(); //changes the size of the given arr to new size
-	void copyStatusArr(Status** dest); //duplicates the values of src arr to dest arr
-	void reSizeFansArr(); //changes the size of the given arr to new size
-	void copyFansArr(Member** dest); //duplicates the values of src arr to dest arr
-	*/
-	void shiftBackMemberArr(int index); //deletes the element in index place in the fans arr
+	vector<Status*>statuses;
 
 public:
 	Fan_page(const string& name); //c'tor
 	Fan_page(const Fan_page& other);
-	Fan_page(Fan_page&& other);
+	Fan_page(Fan_page&& other) noexcept(true);
 	~Fan_page(); //d'tor
-	//void addFan(Member& member);adds the given member as a fan to this page
 	void operator+=(Member& member);//adds the given member as a fan to this page
 	void deleteFan(Member& member,int index); //delete the given member from the this page and vice versa
 	void addStatus(Status& status); //adds the given status to this page

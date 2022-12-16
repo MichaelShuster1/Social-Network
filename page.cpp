@@ -6,7 +6,6 @@
 Fan_page::Fan_page(const string& name)
 {
 	this->name = name;
-	numOfFans = numOfStatuses = 0;
 }
 
 
@@ -14,91 +13,41 @@ Fan_page::Fan_page(const string& name)
 Fan_page::Fan_page(const Fan_page& other)
 {
 	fans = other.fans;
-	status_array = other.status_array;
+	statuses = other.statuses;
 	name = other.name;
-	numOfFans = other.numOfFans;
-	numOfStatuses = other.numOfStatuses;
 }
 
 
-Fan_page::Fan_page(Fan_page&& other)
+Fan_page::Fan_page(Fan_page&& other) noexcept(true)
 {
-	fans = other.fans;
-	status_array = other.status_array;
-	name = other.name;
-	numOfFans = other.numOfFans;
-	numOfStatuses = other.numOfStatuses;
-	other.numOfFans = 0;
-	other.numOfStatuses = 0;
+	fans = move(other.fans);
+	statuses = move(other.statuses);
+	name = move(other.name);
 }
 
 
 Fan_page::~Fan_page()
 {
+	int numOfStatuses = statuses.size();
 	for (int i = 0; i < numOfStatuses; i++)
-		delete status_array[i];
+		delete statuses[i];
 }
 
 
 void Fan_page::addStatus(Status& status)
 {
-	if (status_array.size() ==status_array.capacity())
-		status_array.reserve(status_array.capacity() * 2);
+	if (statuses.size() == statuses.capacity())
+		statuses.reserve(statuses.capacity() * 2);
 
-	status_array.push_back(new Status(status));
-	numOfStatuses++;
+	statuses.push_back(new Status(status));
 }
 
-/*
-void Fan_page::reSizeStatusArr()
-{
-	Status** temp = new Status*[physical_numOfStatus];
-	copyStatusArr(temp);
-	delete[] status_array;
-	status_array = temp;
-}
-
-
-
-
-
-void Fan_page::copyStatusArr(Status** dest)
-{
-	int i;
-	for (i = 0; i < numOfStatuses; i++)
-		dest[i]=status_array[i];
-}
-
-
-void Fan_page::addFan(Member& member)
-{
-	if(numOfFans==physical_numOfFans)
-	{
-		physical_numOfFans *= 2;
-		reSizeFansArr();
-	}
-	fans[numOfFans] = &member;
-	numOfFans++;
-
-	int index = member.getPagesSize();
-	if (index != 0)
-	{
-		if (this != member.getPageFromPages(index - 1))
-		{
-			member.addPage(*this);
-		}
-	}
-	else
-		member.addPage(*this);
-}
-*/
 
 void Fan_page::operator+=(Member& member)
 {
 	if (fans.size() == fans.capacity())
 		fans.reserve(fans.capacity() * 2);
 	fans.push_back(&member);
-	numOfFans++;
 
 	int index = member.getPagesSize();
 	if (index != 0)
@@ -112,37 +61,14 @@ void Fan_page::operator+=(Member& member)
 		member.addPage(*this);
 }
 
-/*
-void Fan_page::reSizeFansArr()
-{
-	Member** temp = new Member*[physical_numOfFans];
-	copyFansArr(temp);
-	delete[] fans;
-	fans = temp;
-}
 
-void Fan_page::copyFansArr(Member** dest)
-{
-	int i;
-	for (i = 0; i < numOfFans; i++)
-		dest[i] = fans[i];
-}
-*/
-
-
-void Fan_page::shiftBackMemberArr(int index)
-{
-	for (int i = index; i < numOfFans - 1; i++)
-	{
-		fans[i] = fans[i + 1];
-	}
-}
 
 
 void Fan_page::deleteFan(Member& member,int index)
 {
-	shiftBackMemberArr(index);
-	numOfFans--;
+
+	swap(fans[index], fans[fans.size() - 1]);
+	fans.pop_back();
 
 	if (member.getPageIndexFromPages(*this) != -1)
 	{
@@ -153,6 +79,7 @@ void Fan_page::deleteFan(Member& member,int index)
 
 void Fan_page::showAllFans() const
 {
+	int numOfFans = fans.size();
 	if (numOfFans > 0)
 	{
 		cout << name << "'s fans are: " << endl;
@@ -170,9 +97,10 @@ void Fan_page::showAllFans() const
 
 void Fan_page::showAllStatuses() const
 { 
+	int numOfStatuses = statuses.size();
 	for (int i = 0; i < numOfStatuses; i++)
 	{
-		status_array[i]->showStatus();
+		statuses[i]->showStatus();
 		cout << endl;
 	}
 
@@ -198,12 +126,12 @@ const char* Fan_page::getName() const
 
 int Fan_page::getFansSize() const
 {
-	return numOfFans;
+	return fans.size();
 }
 
 int Fan_page::getfanIndexFromFans(Member& member) const
 {
-	int i = 0;
+	int i = 0,numOfFans=fans.size();
 	bool found = false;
 	while (i < numOfFans && found == false)
 	{
@@ -221,7 +149,7 @@ int Fan_page::getfanIndexFromFans(Member& member) const
 
 bool Fan_page::operator>(const Fan_page& page) const
 {
-	if (numOfFans > page.numOfFans)
+	if (fans.size() > page.fans.size())
 		return true;
 	return false;
 }
