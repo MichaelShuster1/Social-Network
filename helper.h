@@ -2,7 +2,7 @@
 #define HELPER
 
 #include "system.h"
-
+#include <string>
 
 void addNewUserToSystem(System& system); //creates new user and adds him to the system
 void addNewPageToSystem(System& system); //creates new page and adds him to the system

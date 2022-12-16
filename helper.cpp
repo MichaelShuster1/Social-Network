@@ -42,21 +42,24 @@ void addNewUserToSystem(System& system)
 void addNewPageToSystem(System& system)
 {
 	char name[NAME_LEN];
-	Fan_page* new_page;
+	bool isValidData = false;
+	
 
-	cout << "Please enter the name of the new page: ";
-	getchar();
-	cin.getline(name, NAME_LEN);
-	while (system.checkIfExistNamePage(name) == true)
+	cin.ignore();
+	while (!isValidData)
 	{
-		cout << "the name is already taken!" << endl;
 		cout << "Please enter the name of the new page: ";
 		cin.getline(name, NAME_LEN);
-	}
-
-
-	new_page = new Fan_page(name);
-	system.addNewPage(new_page);
+		try 
+		{
+			system.addNewPage(Fan_page(name));
+			isValidData = true;
+		}
+		catch (const char* msg)
+		{
+			cout << msg << endl;
+		}
+	}	
 }
 
 
@@ -65,16 +68,15 @@ Status createNewStatus()
 	char text[STATUS_LEN];
 	char* tm;
 	time_t curr_time;
-	Status* newStatus;
 
 	cout << "Please enter your status: ";
-	getchar();
+	cin.ignore();
 	cin.getline(text, STATUS_LEN);
 	while (strlen(text) == 0)
 	{
 		cout << "You cant add an empty status!";
 		cout << "Please enter your status: ";
-		getchar();
+		cin.ignore();
 		cin.getline(text, STATUS_LEN);
 	}
 	curr_time = time(NULL);
@@ -193,17 +195,16 @@ void printAllFriendsOrFansEntity(System& system)
 void addNewStatusToFanPageOrMember(System& system)
 {
 	int choice, index;
-	Status newStatus;
-
 	choosePagesOrMembers(system, index, choice);
-	newStatus = createNewStatus();
+	Status newStatus(createNewStatus());
 	switch (choice)
 	{
 	case 1:
-		system.addNewStatusToMember(&newStatus, index - 1);
+
+		system.addNewStatusToMember(newStatus, index - 1);
 		break;
 	case 2:
-		system.addNewStatusToFanPage(&newStatus, index - 1);
+		system.addNewStatusToFanPage(newStatus, index - 1);
 		break;
 	default:
 		break;
@@ -351,25 +352,26 @@ int chooseOneFriendOfAMember(System& system,int index)
 
 void addFanToPageInSystem(System& system)
 {
-	bool validInput , exit = false;
+	bool isValidData=false , exit = false;
 	char choice;
 	int index1, index2;
+  
 
-	do
+	while (!isValidData&&!exit)
 	{
 		cout << "choose the fan page you want to add a member as a fan to : " << endl;
 		index1 = chooseOnePage(system);
 		cout << "choose the memeber you wish to add to a fan page: " << endl;
 		index2 = chooseOneMember(system);
-		if (system.isFanCheck(index1 - 1, index2 - 1))
+
+		try
 		{
-			cout << "error:The user you chose is already a fan of this page!" <<endl;
-			validInput = false;
+			system.addFanToAPage(index2 - 1, index1 - 1);
+			isValidData = true;
 		}
-		else
-			validInput = true;
-		if (!validInput)
+		catch (const char* msg)
 		{
+			cout << msg << endl;
 			do {
 				cout << "do you wish to try again [y/n]:";
 				cin >> choice;
@@ -379,9 +381,9 @@ void addFanToPageInSystem(System& system)
 					cout << "Invalid input, please enter y or n" << endl;
 			} while (choice != 'n' && choice != 'y');
 		}
-	} while (!validInput && !exit);
-	if (!exit)
-		system.addFanToAPage(index2 - 1, index1 - 1);	
+
+	}
+
 }
 
 
