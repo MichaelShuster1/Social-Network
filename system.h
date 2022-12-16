@@ -15,23 +15,11 @@ class System
 {
 
 private:
-	Member** system_members;
+
 	vector<Fan_page> system_pages;
-	int members_size;
-	int members_physical_size;
 	vector<Member> system_members;
-	Fan_page** system_pages;
-	/*int members_size;
-	int members_physical_size;*/
-	int pages_size;
-	int pages_physical_size;
-
-
 
 	void createHardcodedEntities();//adds hardcoded members, fan pages, statuses and friendship/fans connections to the system
-	void freeMemberArr();//free allocated memory of the members array
-	void copyMemberArr(Member** dest);//copies the src array into the dest array (Member)
-	void reSizeMemberArr();//adds more dynamic allocated memory to the array by copying the current array into a larger array, and then deleting the current array (Member)
 
 public:
 	System();//system class c'tor

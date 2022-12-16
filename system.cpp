@@ -7,24 +7,14 @@ using namespace std;
 
 System::System()
 {
-	members_size = 3;
 	system_pages.reserve(3);
-	members_physical_size = 3;
-	system_members = new Member * [members_physical_size];
 	system_members.reserve(3);
-	pages_size = 3;
-	/*members_physical_size = 3;*/
-	pages_physical_size = 3;
-	/*system_members = new Member * [members_physical_size];*/
-	system_pages = new Fan_page * [pages_physical_size];
 	createHardcodedEntities();
-
 }
 
 
 System::~System()
 {
-	freeMemberArr();
 	_CrtDumpMemoryLeaks();
 }
 
@@ -36,14 +26,7 @@ void System::addNewUser(Member* new_user)
 		system_members.reserve(system_members.capacity() * 2);
 	}
 	system_members.push_back(*new_user);
-	/*if (members_size == members_physical_size)
-	{
-		members_physical_size *= 2;
-		reSizeMemberArr();
-	}
-	system_members[members_size] = new_user;
-	members_size++;*/
-
+	
 }
 
 
@@ -52,9 +35,7 @@ bool System::checkIfExistNameUser(char* name)
 	int members_size = system_members.size();
 	for (int i = 0; i < members_size; i++)
 	{
-		/*if (strcmp(name, system_members[i]->getName()) == 0)
-			return true;*/
-		if (name == system_members[i].getName())
+		if (strcmp(name,system_members[i].getName()) == 0)
 			return true;
 	}
 	return false;
@@ -87,7 +68,7 @@ bool System::checkIfExistNamePage(const char* name)
 
 void System::addNewStatusToMember(Status& new_status,int index)
 {
-	system_members[index]->addStatus(new_status);
+	system_members[index].addStatus(new_status);
 }
 
 
@@ -147,7 +128,6 @@ void System::ShowTenLatestStatusesOfEachFriend(int index) const
 
 void System::linkFriends(int index1, int index2)
 {
-	//system_members[index1]->addFriend(*(system_members[index2]));
 	(system_members[index1])+=((system_members[index2]));
 }
 
@@ -166,7 +146,7 @@ void System::addFanToAPage(int index1, int index2) throw(const char*)
 	{
 		throw "error:The user you chose is already a fan of this page!";
 	}
-	system_pages[index2]+=(*system_members[index1]);
+	system_pages[index2]+=system_members[index1];
 }
 
 
@@ -195,12 +175,6 @@ void System::createHardcodedEntities()
 	system_members.push_back(Member("Avi Cohen", Date(1990, 10, 22)));
 	system_members.push_back(Member("Yossi Levi", Date(1995, 1, 10)));
 	system_members.push_back(Member("Israel Israeli", Date(2000, 2, 28)));
-	system_pages[0] = new Fan_page("Music fans");
-	system_pages[1] = new Fan_page("Gaming fans");
-	system_pages[2] = new Fan_page("Movies fans");
-	system_members[0] = new Member("Avi Cohen", Date(1990, 10, 22));
-	system_members[1] = new Member("Yossi Levi", Date(1995, 1, 10));
-	system_members[2] = new Member("Israel Israeli", Date(2000, 2, 28));
 	system_pages.push_back(Fan_page("Music fans"));
 	system_pages.push_back(Fan_page("Gaming fans"));
 	system_pages.push_back(Fan_page("Movies fans"));
@@ -233,33 +207,8 @@ void System::createHardcodedEntities()
 	linkFriends(0, 1);
 	linkFriends(1, 2);
 }
-//
-//void System::copyMemberArr(Member** dest)
-//{
-//	int i;
-//	int members_size = system_members.size();
-//	for (i = 0; i < members_size; i++)
-//		dest[i] = system_members[i];
-//
-//}
-//
-//
-//void System::reSizeMemberArr()
-//{
-//	Member** temp = new Member * [members_physical_size];
-//	copyMemberArr(temp);
-//	delete[] system_members;
-//	system_members = temp;
-//}
 
 
-void System::copyPageArr(Fan_page** dest)
-{
-	int i;
-	for (i = 0; i < pages_size; i++)
-		dest[i] = system_pages[i];
-
-}
 
 
 
@@ -273,16 +222,6 @@ int System::getFansSizeofAPage(int index) const
 {
 	return system_pages[index].getFansSize();
 }
-
-//
-//void System::freeMemberArr()
-//{
-//	int members_size = system_members.size();
-//	for (int i = 0; i < members_size; i++)
-//		delete system_members[i];
-//
-//	//delete[] system_members;
-//}
 
 
 int System::getMembersSize() const
@@ -312,7 +251,7 @@ bool System::isFanCheck(int index1, int index2)
 	int fans_size = system_pages[index1].getFansSize();
 	for (int i = 0; i < fans_size; i++)
 	{
-		if (system_members[index2] == system_pages[index1].getfanFromFans(i))
+		if (&system_members[index2] == system_pages[index1].getfanFromFans(i))
 			return true;
 	}
 

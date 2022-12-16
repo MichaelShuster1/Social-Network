@@ -2,27 +2,10 @@
 #include "page.h"
 using namespace std;
 
-//
-//Member::Member()
-//{
-//	name = nullptr;
-//	/*status_array =nullptr;*/
-//	/*pages = nullptr;
-//	friends = nullptr;*/
-//}
-
 
 Member::Member(const string _name, const Date& date):birth_date(date)
 {
-	/*name = new char[strlen(_name) + 1];
-	strcpy(name, _name);*/
 	name = _name;
-	/*numOfFriends = numOfPages = numOfStatuses = 0;
-	physical_numOfFriends = physical_numOfPages = physical_numOfStatuses = 1;*/
-	/*status_array = new Status *[physical_numOfStatuses];*/
-
-	/*pages = new Fan_page *[physical_numOfPages];
-	friends = new Member *[physical_numOfFriends];*/
 }
 
 
@@ -49,31 +32,7 @@ Member::~Member()
 	int numOfStatuses = statuses.size();
 	for (int i = 0; i < numOfStatuses; i++)
 		delete statuses[i];
-	//delete[] status_array;
-	/*delete name;
-	delete[] pages;
-	delete[] friends;*/
 }
-
-//
-//void Member::shiftBackMemberArr(int index)
-//{
-//	
-//	for (int i = index; i < numOfFriends-1; i++)
-//	{
-//		friends[i] = friends[i + 1];
-//	}
-//}
-
-//
-//void Member::shiftBackPagesArr(int index)
-//{
-//	
-//	for (int i = index; i < numOfPages-1; i++)
-//	{
-//		pages[i] = pages[i + 1];
-//	}
-//}
 
 
 void Member::removeFriend(Member& _member)
@@ -149,38 +108,8 @@ void Member::addStatus(Status& status)
 		statuses.reserve(statuses.capacity() * 2);
 	}
 	statuses.push_back(new Status(status));
-	/*if(numOfStatuses==physical_numOfStatuses)
-	{
-		physical_numOfStatuses *= 2;
-		reSizeStatusArr();
-	}
-	status_array[numOfStatuses]=&status;
-	numOfStatuses++;*/
 }
 
-/*
-void Member::addFriend(Member& _member)
-{
-	if (numOfFriends == physical_numOfFriends)
-	{
-		physical_numOfFriends *= 2;
-		reSizeFriendsArr();
-	}
-	friends[numOfFriends] = &_member;
-	numOfFriends++;
-
-	int index = _member.getFriendsSize();
-	if (index != 0)
-	{
-		if (this != _member.getMemberFromFriends(index - 1))
-		{
-			_member.addFriend(*this);
-		}
-	}
-	else
-		_member.addFriend(*this);
-}
-*/
 
 void Member::operator+=(Member& _member)
 {
@@ -188,16 +117,7 @@ void Member::operator+=(Member& _member)
 	{
 		friends.reserve(friends.capacity() * 2);
 	}
-	/*if (numOfFriends == physical_numOfFriends)
-	{
-		physical_numOfFriends *= 2;
-		reSizeFriendsArr();
-	}
-
-	friends[numOfFriends] = &_member;
-	numOfFriends++;
-	*/
-
+	
 	friends.push_back(&_member);
 
 
@@ -222,14 +142,7 @@ void Member::addPage(Fan_page& page)
 	{
 		pages.reserve(pages.capacity() * 2);
 	}
-	/*if (numOfPages == physical_numOfPages)
-	{
-		physical_numOfPages *= 2;
-		reSizePagesArr();
-	
-	pages[numOfPages] = &page;
-	numOfPages++;
-	}*/
+
 	pages.push_back(&page);
 
 	int index = page.getFansSize();
@@ -246,61 +159,6 @@ void Member::addPage(Fan_page& page)
 	}
 
 }
-
-
-//
-//void Member::reSizeStatusArr()
-//{
-//	Status** temp = new Status * [physical_numOfStatuses];
-//	copyStatusArr(temp);
-//	delete[] status_array;
-//	status_array= temp;
-//}
-
-
-
-//
-//void Member::reSizeFriendsArr()
-//{
-//	Member** temp = new Member * [physical_numOfFriends];
-//	copyFriendsArr(temp);
-//	delete[] friends;
-//	friends = temp;
-//}
-//
-//
-//void Member::reSizePagesArr()
-//{
-//	Fan_page** temp = new Fan_page * [physical_numOfPages];
-//	copyPageArr(temp);
-//	delete[]pages;
-//	pages = temp;
-//}
-
-//
-//void Member::copyStatusArr(Status** dest)
-//{
-//	int i;
-//	for (i = 0; i < numOfStatuses; i++)
-//		dest[i] = status_array[i];
-//}
-
-//
-//void Member::copyFriendsArr(Member** dest)
-//{
-//	int i;
-//	for (i = 0; i < numOfFriends; i++)
-//		dest[i] = friends[i];
-//
-//}
-//
-//
-//void Member::copyPageArr(Fan_page** dest)
-//{
-//	int i;
-//	for (i = 0; i < numOfPages; i++)
-//		dest[i] = pages[i];
-//}
 
 
 void Member::showName() const
@@ -384,9 +242,9 @@ Member* Member::getMemberFromFriends(int i)
 
 
 
-const string Member::getName() const
+const char* Member::getName() const
 {
-	return name;
+	return name.c_str();
 }
 
 int Member::getFriendsSize() const
