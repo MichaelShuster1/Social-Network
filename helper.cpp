@@ -6,11 +6,20 @@ void addNewUserToSystem(System& system)
 	int year, month, day;
 	char name[NAME_LEN];
 	bool valid_date = false;
+	bool valid_name = false;
 	Member* new_user;
 
-	cout << "Please enter the name of the new user: ";
-	getchar();
-	cin.getline(name, NAME_LEN);
+	/*cin.ignore();
+	while (!valid_name)
+	{
+		cout << "Please enter the name of the new user: ";
+		cin.getline(name, NAME_LEN);
+		try
+		{
+			
+		}
+
+	}*/
 	while (system.checkIfExistNameUser(name) == true)
 	{
 		cout << "the name is already taken!" << endl;
@@ -35,6 +44,8 @@ void addNewUserToSystem(System& system)
 
 	new_user = new Member(name, Date(year, month, day));
 	system.addNewUser(new_user);
+
+
 }
 
 
