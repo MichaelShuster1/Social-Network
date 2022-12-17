@@ -22,7 +22,6 @@ void addFanToPageInSystem(System& system); //adds a fan to a given page in syste
 void removeFanFromPageInSystem(System& system);  //remvoes a fan from a given page in system
 void printMenu();// prints the menu
 bool processChoice(System& system, int choice); //process the given choice of the user of the system
-bool checkValidInput(System& system, int index1, int index2); //checks if the given indexs are vaild input or not
 void choosePagesOrMembers(System& system, int& index, int& choice);
 
 #endif // !HELPER

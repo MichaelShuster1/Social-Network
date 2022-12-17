@@ -19,18 +19,22 @@ System::~System()
 }
 
 
-void System::addNewUser(Member* new_user)
+void System::addNewUser(Member new_user) throw(const char*)
 {
+	if(checkIfExistNameUser(new_user.getName()))
+	{
+		throw "the name is already taken!";
+	}
 	if (system_members.size() == system_members.capacity())
 	{
 		system_members.reserve(system_members.capacity() * 2);
 	}
-	system_members.push_back(*new_user);
-	
+
+	system_members.push_back(new_user);	
 }
 
 
-bool System::checkIfExistNameUser(char* name)
+bool System::checkIfExistNameUser(const char* name)
 {
 	int members_size = system_members.size();
 	for (int i = 0; i < members_size; i++)
@@ -126,9 +130,15 @@ void System::ShowTenLatestStatusesOfEachFriend(int index) const
 }
 
 
-void System::linkFriends(int index1, int index2)
+void System::linkFriends(int index1, int index2) throw(const char*)
 {
-	(system_members[index1])+=((system_members[index2]));
+	if (index1 == index2)
+		throw "error: you cant link a member with himself!";
+
+	if (areFriendsCheck(index1, index2))
+		throw "error: the members you chose are already linked!";
+	
+	system_members[index1]+=system_members[index2];
 }
 
 
@@ -257,6 +267,4 @@ bool System::isFanCheck(int index1, int index2)
 
 	return false;
 }
-
-
 

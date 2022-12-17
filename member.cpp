@@ -3,8 +3,10 @@
 using namespace std;
 
 
-Member::Member(const string _name, const Date& date):birth_date(date)
+Member::Member(const string _name, const Date& date) throw(const char*):birth_date(date)
 {
+	if (_name.size() == 0)
+		throw "Your name cant be empty!";
 	name = _name;
 }
 
@@ -17,10 +19,9 @@ Member::Member(const Member& other):birth_date(other.birth_date)
 	this->statuses = other.statuses;
 }
 
-Member::Member(Member&& other) noexcept(true)
+Member::Member(Member&& other) noexcept(true) :birth_date(other.birth_date)
 {
 	this->name = move(other.name);
-	this->birth_date = other.birth_date;
 	this->friends = move(other.friends);
 	this->pages = move(other.pages);
 	this->statuses = move(other.statuses);

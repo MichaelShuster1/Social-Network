@@ -18,7 +18,7 @@ private:
 	vector<Member*> friends;
 
 public:
-	Member(const string _name,const Date& date);
+	Member(const string _name,const Date& date)throw(const char*);
 	Member(const Member& other);
 	Member(Member&& other) noexcept(true);
 	~Member();

@@ -7,45 +7,48 @@ void addNewUserToSystem(System& system)
 	char name[NAME_LEN];
 	bool valid_date = false;
 	bool valid_name = false;
-	Member* new_user;
+	bool name_pending = false;
 
-	/*cin.ignore();
-	while (!valid_name)
+	cin.ignore();
+	while (!valid_date || !valid_name)
 	{
-		cout << "Please enter the name of the new user: ";
-		cin.getline(name, NAME_LEN);
+		if (!valid_name && !name_pending)
+		{
+			cout << "Please enter the name of the new user: ";
+			cin.getline(name, NAME_LEN);
+		}
+		if (!valid_date)
+		{
+			cout << "Please enter the user's birth date in the following format : dd/mm/yyyy" << endl;
+			cin >> day;
+			cin.ignore();
+			cin >> month;
+			cin.ignore();
+			cin >> year;
+			cin.ignore();
+		}
 		try
 		{
-			
+			system.addNewUser(Member(name, Date(year, month, day)));
+			valid_date = true;
+			valid_name = true;
+		}
+		catch (const char* msg)
+		{
+			cout << msg << endl;
+			if (!valid_date)
+			{
+				if (strcmp(msg, "Incorrect birth date") == 0)
+					name_pending = true;
+				else
+				{
+					valid_date = true;
+					name_pending = false;
+				}
+			}
 		}
 
-	}*/
-	while (system.checkIfExistNameUser(name) == true)
-	{
-		cout << "the name is already taken!" << endl;
-		cout << "Please enter the name of the new user: ";
-		cin.getline(name, NAME_LEN);
 	}
-
-	while(valid_date == false)
-	{
-		cout << "Please enter the user's birth date in the following format : dd/mm/yyyy" << endl;
-		cin >> day;
-		getchar();
-		cin >> month;
-		getchar();
-		cin >> year;
-		if (day > 31 || day < 1 || month > 12 || month < 1 || year > CURRENT_YEAR || year < 1900) 
-			cout << "Incorrect birth date" << endl;
-		else
-			valid_date = true;
-	}
-
-
-	new_user = new Member(name, Date(year, month, day));
-	system.addNewUser(new_user);
-
-
 }
 
 
@@ -259,6 +262,7 @@ void linkFriendshipInSystem(System& system)
 	char choice;
 	bool validInput = false;
 	bool exit = false;
+	int size = system.getMembersSize();
 
 	do
 	{
@@ -268,52 +272,63 @@ void linkFriendshipInSystem(System& system)
 		cin >> index1;
 		getchar();
 		cin >> index2;
-		validInput = checkValidInput(system, index1, index2);
-		if (!validInput)
+		if ((1 <= index1 && index1 <= size) && (1 <= index2 && index2 <= size))
 		{
-			do {
-			    cout << "do you wish to try again?[y/n]: ";
-			    cin >> choice;
-			
-				if (choice == 'n')
-					exit = true;
-				else if (choice != 'y')
-					cout << "Invalid input, please enter y or n" << endl;
-			} while (choice != 'n' && choice != 'y');
+			try
+			{
+				system.linkFriends(index1 - 1, index2 - 1);
+				validInput = true;
+			}
+			catch (const char* msg)
+			{
+				cout << msg << endl;
+				do {
+					cout << "do you wish to try again?[y/n]: ";
+					cin >> choice;
+
+					if (choice == 'n')
+						exit = true;
+					else if (choice != 'y')
+						cout << "Invalid input, please enter y or n" << endl;
+				} while (choice != 'n' && choice != 'y');
+			}
 		}
+		else
+		{
+			cout << "error: your choices needs to be a number between 1 and " << size << ",please try again" << endl;
+		}
+
 
 	} while (!validInput && !exit);
-	if(!exit)
-		system.linkFriends(index1 - 1, index2-1);
 }
 
-bool checkValidInput(System& system,int index1, int index2)
-{
-	bool isVaild = true;
-	int size = system.getMembersSize();
-
-	if ((1 <= index1 && index1 <= size) && (1 <= index2 && index2 <= size))
-	{
-		if (index1 == index2)
-		{
-			cout << "error: you cant link a member with himself!" << endl;
-			isVaild = false;
-		}
-		else if (system.areFriendsCheck(index1 - 1, index2 - 1))
-		{
-			cout << "error: the members you chose are already linked!" << endl;
-			isVaild = false;
-		}
-	}
-	else
-	{
-		cout << "error: your choices needs to be a number between 1 and " << size << ",please try again" << endl;
-		isVaild = false;
-	}
-		
-
-	return isVaild;
-}
+//bool checkValidInput(System& system,int index1, int index2)
+//{
+//	bool isVaild = true;
+//	int size = system.getMembersSize();
+//
+//	if ((1 <= index1 && index1 <= size) && (1 <= index2 && index2 <= size))
+//	{
+//		if (index1 == index2)
+//		{
+//			cout << "error: you cant link a member with himself!" << endl;
+//			isVaild = false;
+//		}
+//		else if (system.areFriendsCheck(index1 - 1, index2 - 1))
+//		{
+//			cout << "error: the members you chose are already linked!" << endl;
+//			isVaild = false;
+//		}
+//	}
+//	else
+//	{
+//		cout << "error: your choices needs to be a number between 1 and " << size << ",please try again" << endl;
+//		isVaild = false;
+//	}
+//		
+//
+//	return isVaild;
+//}
 
 
 void unLinkFriendshipInSystem(System& system)
