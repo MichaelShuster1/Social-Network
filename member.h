@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 #include "status.h"
+#include "date.h"
 
 class Fan_page;
 

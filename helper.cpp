@@ -77,26 +77,30 @@ void addNewPageToSystem(System& system)
 }
 
 
-Status createNewStatus()
+void createNewStatus(Status** newStatus)
 {
 	char text[STATUS_LEN];
 	char* tm;
 	time_t curr_time;
+	bool isValidData = false;
 
-	cout << "Please enter your status: ";
 	cin.ignore();
-	cin.getline(text, STATUS_LEN);
-	while (strlen(text) == 0)
+	while (!isValidData)
 	{
-		cout << "You cant add an empty status!";
 		cout << "Please enter your status: ";
-		cin.ignore();
 		cin.getline(text, STATUS_LEN);
+		curr_time = time(NULL);
+		tm = ctime(&curr_time);
+		try
+		{
+			*newStatus = new Status(text, tm);
+			isValidData = true;
+		}
+		catch (const char* msg)
+		{
+			cout << msg << endl;
+		}
 	}
-	curr_time = time(NULL);
-	tm = ctime(&curr_time);
-
-	return Status(text, tm);
 }
 
 
@@ -209,20 +213,22 @@ void printAllFriendsOrFansEntity(System& system)
 void addNewStatusToFanPageOrMember(System& system)
 {
 	int choice, index;
+	Status* newStatus;
 	choosePagesOrMembers(system, index, choice);
-	Status newStatus(createNewStatus());
+	createNewStatus(&newStatus);
 	switch (choice)
 	{
 	case 1:
-
-		system.addNewStatusToMember(newStatus, index - 1);
+		
+		system.addNewStatusToMember(*newStatus, index - 1);
 		break;
 	case 2:
-		system.addNewStatusToFanPage(newStatus, index - 1);
+		system.addNewStatusToFanPage(*newStatus, index - 1);
 		break;
 	default:
 		break;
 	}
+	delete newStatus;
 }
 
 

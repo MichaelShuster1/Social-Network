@@ -1,8 +1,7 @@
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
 #include "system.h"
 using namespace std;
+
+
 
 
 System::System()
@@ -188,30 +187,30 @@ void System::createHardcodedEntities()
 	system_pages.push_back(Fan_page("Music fans"));
 	system_pages.push_back(Fan_page("Gaming fans"));
 	system_pages.push_back(Fan_page("Movies fans"));
-	Status* status1 = new Status("status1", "Mon Jul 16 02:03:55 2021");
-	Status* status2 = new Status("status2", "Mon Jul 17 02:03:55 2021");
-	Status* status3 = new Status("status3", "Mon Jul 18 02:03:55 2022");
-	Status* status4 = new Status("status4", "Mon Jul 19 02:03:55 2022");
-	Status* status5 = new Status("status5", "Mon Jul 20 02:03:55 2022");
-	Status* status6 = new Status("status6", "Mon Jul 21 02:03:55 2022");
-	system_members[0].addStatus(*status1);
-	system_members[0].addStatus(*status2);
-	system_members[1].addStatus(*status3);
-	system_members[1].addStatus(*status4);
-	system_members[2].addStatus(*status5);
-	system_members[2].addStatus(*status6);
-	Status* status7 = new Status("status7", "Mon Jul 16 02:03:55 2019");
-	Status* status8 = new Status("status8", "Mon Jul 17 02:03:55 2019");
-	Status* status9 = new Status("status9", "Mon Jul 18 02:03:55 2020");
-	Status* status10 = new Status("status10", "Mon Jul 19 02:03:55 2020");
-	Status* status11 = new Status("status11", "Mon Jul 20 02:03:55 2021");
-	Status* status12 = new Status("status12", "Mon Jul 21 02:03:55 2022");
-	system_pages[0].addStatus(*status7);
-	system_pages[0].addStatus(*status8);
-	system_pages[1].addStatus(*status9);
-	system_pages[1].addStatus(*status10);
-	system_pages[2].addStatus(*status11);
-	system_pages[2].addStatus(*status12);
+	Status status1("status1", "Mon Jul 16 02:03:55 2021");
+	Status status2("status2", "Mon Jul 17 02:03:55 2021");
+	Status status3("status3", "Mon Jul 18 02:03:55 2022");
+	Status status4("status4", "Mon Jul 19 02:03:55 2022");
+	Status status5("status5", "Mon Jul 20 02:03:55 2022");
+	Status status6("status6", "Mon Jul 21 02:03:55 2022");
+	system_members[0].addStatus(status1);
+	system_members[0].addStatus(status2);
+	system_members[1].addStatus(status3);
+	system_members[1].addStatus(status4);
+	system_members[2].addStatus(status5);
+	system_members[2].addStatus(status6);
+	Status status7("status7", "Mon Jul 16 02:03:55 2019");
+	Status status8("status8", "Mon Jul 17 02:03:55 2019");
+	Status status9("status9", "Mon Jul 18 02:03:55 2020");
+	Status status10("status10", "Mon Jul 19 02:03:55 2020");
+	Status status11("status11", "Mon Jul 20 02:03:55 2021");
+	Status status12("status12", "Mon Jul 21 02:03:55 2022");
+	system_pages[0].addStatus(status7);
+	system_pages[0].addStatus(status8);
+	system_pages[1].addStatus(status9);
+	system_pages[1].addStatus(status10);
+	system_pages[2].addStatus(status11);
+	system_pages[2].addStatus(status12);
 	addFanToAPage(0, 0);
 	addFanToAPage(1, 1);
 	linkFriends(0, 1);

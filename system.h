@@ -1,6 +1,17 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
+#define new DBG_NEW
+
+#ifdef _DEBUG
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+#else
+#define DBG_NEW new
+#endif
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include "member.h"
 #include "page.h"
 #include <string.h>
@@ -23,7 +34,6 @@ private:
 
 public:
 	System();//system class c'tor
-	~System();//system class d'tor
 	System(const System& other) = delete;//system class copy c'tor disable
 	void addNewUser(Member new_user) throw(const char*);//adds the given member to the system
 	void addNewPage(const Fan_page& new_page) throw(const char*);// adds the given fan page to the system

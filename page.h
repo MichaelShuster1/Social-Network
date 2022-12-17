@@ -20,7 +20,7 @@ private:
 	vector<Status*>statuses;
 
 public:
-	Fan_page(const string& name); //c'tor
+	Fan_page(const string& name) throw(const char*); //c'tor
 	Fan_page(const Fan_page& other);
 	Fan_page(Fan_page&& other) noexcept(true);
 	~Fan_page(); //d'tor
