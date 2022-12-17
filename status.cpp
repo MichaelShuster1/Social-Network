@@ -1,8 +1,12 @@
 #include "status.h"
 
 
-Status::Status(string text, string time)
+Status::Status(string text, string time) throw(const char*)
 {
+	if (text.size() == 0)
+		throw "You cant add an empty status!";
+	if (time.size() == 0)
+		throw "You cant add a status with empty time!";
 	this->text = text;
 	this->time = time;
 }

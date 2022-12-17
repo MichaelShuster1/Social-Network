@@ -69,6 +69,23 @@ Status createNewStatus()
 	char* tm;
 	time_t curr_time;
 
+	cin.ignore();
+	while (true)
+	{
+		cout << "Please enter your status: ";
+		cin.getline(text, STATUS_LEN);
+		curr_time = time(NULL);
+		tm = ctime(&curr_time);
+		try
+		{
+			return Status(text, tm);		
+		}
+		catch (const char* msg)
+		{
+			cout << msg << endl;
+		}
+	}
+	/*
 	cout << "Please enter your status: ";
 	cin.ignore();
 	cin.getline(text, STATUS_LEN);
@@ -81,8 +98,8 @@ Status createNewStatus()
 	}
 	curr_time = time(NULL);
 	tm = ctime(&curr_time);
+	*/
 
-	return Status(text, tm);
 }
 
 

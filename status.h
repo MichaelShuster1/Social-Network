@@ -5,7 +5,6 @@
 
 #include <iostream>
 #include <string>
-#include "date.h"
 
 using namespace std;
 
@@ -17,7 +16,7 @@ private:
 
 
 public:
-	Status(string text, string time); //default c'tor
+	Status(string text, string time) throw(const char*); //default c'tor
 	Status(const Status& other);
 	void showStatus() const; //shows the text and time of this status
 	bool operator==(const Status& status) const;
