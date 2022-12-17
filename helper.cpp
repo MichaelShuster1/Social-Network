@@ -87,21 +87,6 @@ void createNewStatus(Status** newStatus)
 			cout << msg << endl;
 		}
 	}
-	/*
-	cout << "Please enter your status: ";
-	cin.ignore();
-	cin.getline(text, STATUS_LEN);
-	while (strlen(text) == 0)
-	{
-		cout << "You cant add an empty status!";
-		cout << "Please enter your status: ";
-		cin.ignore();
-		cin.getline(text, STATUS_LEN);
-	}
-	curr_time = time(NULL);
-	tm = ctime(&curr_time);
-	*/
-
 }
 
 
