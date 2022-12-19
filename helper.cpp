@@ -4,7 +4,6 @@ using namespace std;
 void addNewUserToSystem(System& system)
 {
 	int year, month, day;
-	//char name[NAME_LEN];
 	string name;
 	bool valid_date = false;
 	bool valid_name = false;
@@ -16,7 +15,6 @@ void addNewUserToSystem(System& system)
 		if (!valid_name && !name_pending)
 		{
 			cout << "Please enter the name of the new user: ";
-			//cin.getline(name, NAME_LEN);
 			getline(cin, name);
 		}
 		if (!valid_date)
@@ -57,7 +55,6 @@ void addNewUserToSystem(System& system)
 
 void addNewPageToSystem(System& system)
 {
-	//char name[NAME_LEN];
 	string name;
 	bool isValidData = false;
 	
@@ -66,7 +63,6 @@ void addNewPageToSystem(System& system)
 	while (!isValidData)
 	{
 		cout << "Please enter the name of the new page: ";
-		//cin.getline(name, NAME_LEN);
 		getline(cin, name);
 		try 
 		{
@@ -83,8 +79,6 @@ void addNewPageToSystem(System& system)
 
 void createNewStatus(Status** newStatus)
 {
-	//char text[STATUS_LEN];
-	//char* tm;
 	string text;
 	string tm;
 	time_t curr_time;
@@ -94,7 +88,6 @@ void createNewStatus(Status** newStatus)
 	while (!isValidData)
 	{
 		cout << "Please enter your status: ";
-		//cin.getline(text, STATUS_LEN);
 		getline(cin, text);
 		curr_time = time(NULL);
 		tm = ctime(&curr_time);
