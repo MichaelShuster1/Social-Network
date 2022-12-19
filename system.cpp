@@ -2,19 +2,11 @@
 using namespace std;
 
 
-
-
 System::System()
 {
-	system_pages.reserve(3);
-	system_members.reserve(3);
+	system_pages.reserve(FIRST_SIZE);
+	system_members.reserve(FIRST_SIZE);
 	createHardcodedEntities();
-}
-
-
-System::~System()
-{
-	_CrtDumpMemoryLeaks();
 }
 
 
@@ -26,7 +18,7 @@ void System::addNewUser(Member new_user) throw(const char*)
 	}
 	if (system_members.size() == system_members.capacity())
 	{
-		system_members.reserve(system_members.capacity() * 2);
+		system_members.reserve(system_members.capacity() * INCREASE_RATE);
 	}
 
 	system_members.push_back(new_user);	
@@ -52,7 +44,7 @@ void System::addNewPage(const Fan_page& new_page) throw(const char*)
 		throw "the name is already taken!";
 	}
 	if (system_pages.size() == system_pages.capacity())
-		system_pages.reserve(system_pages.capacity() * 2);
+		system_pages.reserve(system_pages.capacity() * INCREASE_RATE);
 
 	system_pages.push_back(new_page);
 }

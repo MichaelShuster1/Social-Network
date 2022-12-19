@@ -8,6 +8,8 @@
 
 using namespace std;
 
+const int EMPTY = 0;
+
 class Status
 {
 private:

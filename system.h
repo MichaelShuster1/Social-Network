@@ -19,6 +19,7 @@
 
 const int NAME_LEN = 100;
 const int STATUS_LEN = 254;
+const int FIRST_SIZE = 3;
 
 
 

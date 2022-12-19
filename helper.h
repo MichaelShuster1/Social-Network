@@ -4,6 +4,23 @@
 #include "system.h"
 #include <string>
 
+const int MEMBER = 1;
+const int FAN_PAGE = 2;
+const int NO = 'n';
+const int YES = 'y';
+const int ADD_NEW_USER = 1;
+const int ADD_NEW_PAGE = 2;
+const int ADD_NEW_STATUS = 3;
+const int SHOW_ALL_STATUSES = 4;
+const int SHOW_TEN_STATUSES = 5;
+const int LINK_FRIENDS = 6;
+const int UNLINK_FRIENDS = 7;
+const int ADD_FAN = 8;
+const int REMOVE_FAN = 9;
+const int PRINT_ALL_ENTITIES = 10;
+const int PRINT_ALL_FANS_FRIENDS = 11;
+const int EXIT = 12;
+
 void addNewUserToSystem(System& system); //creates new user and adds him to the system
 void addNewPageToSystem(System& system); //creates new page and adds him to the system
 void printAllRegisteredEntitiesInSystem(System& system); //prints all the registered entities in system

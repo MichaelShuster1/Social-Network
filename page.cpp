@@ -5,7 +5,7 @@
 
 Fan_page::Fan_page(const string& name) throw(const char*)
 {
-	if (name.size() == 0)
+	if (name.size() == EMPTY)
 		throw "error: the name of the new page is empty!";
 	this->name = name;
 }
@@ -39,7 +39,7 @@ Fan_page::~Fan_page()
 void Fan_page::addStatus(Status& status)
 {
 	if (statuses.size() == statuses.capacity())
-		statuses.reserve(statuses.capacity() * 2);
+		statuses.reserve(statuses.capacity() * INCREASE_RATE);
 
 	statuses.push_back(new Status(status));
 }
@@ -48,7 +48,7 @@ void Fan_page::addStatus(Status& status)
 void Fan_page::operator+=(Member& member)
 {
 	if (fans.size() == fans.capacity())
-		fans.reserve(fans.capacity() * 2);
+		fans.reserve(fans.capacity() * INCREASE_RATE);
 	fans.push_back(&member);
 
 	int index = member.getPagesSize();
@@ -72,7 +72,7 @@ void Fan_page::deleteFan(Member& member,int index)
 	swap(fans[index], fans[fans.size() - 1]);
 	fans.pop_back();
 
-	if (member.getPageIndexFromPages(*this) != -1)
+	if (member.getPageIndexFromPages(*this) != NOT_FOUND)
 	{
 		member.removePage(*this);
 	}
@@ -82,7 +82,7 @@ void Fan_page::deleteFan(Member& member,int index)
 void Fan_page::showAllFans() const
 {
 	int numOfFans = fans.size();
-	if (numOfFans > 0)
+	if (numOfFans != EMPTY)
 	{
 		cout << name << "'s fans are: " << endl;
 		for (int i = 0; i < numOfFans; i++)
@@ -106,7 +106,7 @@ void Fan_page::showAllStatuses() const
 		cout << endl;
 	}
 
-	if (numOfStatuses == 0)
+	if (numOfStatuses == EMPTY)
 		cout << "the page " << name << " has no statuses" << endl;
 }
 
@@ -146,7 +146,7 @@ int Fan_page::getfanIndexFromFans(Member& member) const
 	if (found == true)
 		return i-1;
 	else
-		return -1;
+		return NOT_FOUND;
 }
 
 bool Fan_page::operator>(const Fan_page& page) const

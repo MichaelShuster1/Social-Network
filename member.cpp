@@ -5,7 +5,7 @@ using namespace std;
 
 Member::Member(const string _name, const Date& date) throw(const char*):birth_date(date)
 {
-	if (_name.size() == 0)
+	if (_name.size() == EMPTY)
 		throw "Your name cant be empty!";
 	name = _name;
 }
@@ -62,7 +62,7 @@ void Member::removeFriend(Member& _member)
 	numOfFriends--;*/
 
 
-	if (_member.getFriendIndexFromFriends(*this) != -1)
+	if (_member.getFriendIndexFromFriends(*this) != NOT_FOUND)
 	{
 		_member.removeFriend(*this);
 	}
@@ -96,7 +96,7 @@ void Member::removePage(Fan_page& page)
 	numOfPages--;*/
 
 	int index = page.getfanIndexFromFans(*this);
-	if (index != -1);
+	if (index != NOT_FOUND);
 	{
 		page.deleteFan(*this, index);
 	}
@@ -106,7 +106,7 @@ void Member::addStatus(Status& status)
 {
 	if (statuses.size() == statuses.capacity())
 	{
-		statuses.reserve(statuses.capacity() * 2);
+		statuses.reserve(statuses.capacity() * INCREASE_RATE);
 	}
 	statuses.push_back(new Status(status));
 }
@@ -116,7 +116,7 @@ void Member::operator+=(Member& _member)
 {
 	if (friends.size() == friends.capacity())
 	{
-		friends.reserve(friends.capacity() * 2);
+		friends.reserve(friends.capacity() * INCREASE_RATE);
 	}
 	
 	friends.push_back(&_member);
@@ -141,13 +141,13 @@ void Member::addPage(Fan_page& page)
 {
 	if (pages.size() == pages.capacity())
 	{
-		pages.reserve(pages.capacity() * 2);
+		pages.reserve(pages.capacity() * INCREASE_RATE);
 	}
 
 	pages.push_back(&page);
 
 	int index = page.getFansSize();
-	if (index != 0)
+	if (index != EMPTY)
 	{
 		if (this != page.getfanFromFans(index - 1))
 		{
@@ -171,7 +171,7 @@ void Member::showName() const
 void Member::showAllFriends() const
 {
 	int numOfFriends = getFriendsSize();
-	if (numOfFriends > 0)
+	if (numOfFriends != EMPTY)
 	{
 		cout << name << "'s friends are:" << endl;
 		for (int i = 0; i < numOfFriends; i++)
@@ -196,7 +196,7 @@ void Member::showAllStatuses() const
 		cout << endl;
 	}
 	
-	if (numOfStatuses == 0)
+	if (numOfStatuses == EMPTY)
 		cout <<name << " has no statuses" << endl;
 }
 
@@ -204,7 +204,7 @@ void Member::showAllStatuses() const
 void Member::showTenRecentStatuses() const
 {
 	int numOfStatuses = statuses.size();
-	for (int i = numOfStatuses - 1; (i >= numOfStatuses - 10) && (i >= 0); i--)
+	for (int i = numOfStatuses - 1; (i >= numOfStatuses - RANGE) && (i >= 0); i--)
 	{
 		statuses[i]->showStatus();
 		cout << endl;
@@ -216,7 +216,7 @@ void Member::showTenRecentStatuses() const
 void Member::showAllFriendsTenStatuses() const
 {
 	int numOfFriends = getFriendsSize();
-	if (numOfFriends > 0)
+	if (numOfFriends != EMPTY)
 	{
 		cout <<name<< "'s friends latest 10 statuses:" << endl;
 		cout << endl;
@@ -281,7 +281,7 @@ int Member::getPageIndexFromPages(Fan_page& page) const
 	if (found == true)
 		return i - 1;
 	else
-		return -1;
+		return NOT_FOUND;
 }
 
 
@@ -302,7 +302,7 @@ int Member::getFriendIndexFromFriends(Member& member) const
 	if (found == true)
 		return i - 1;
 	else
-		return -1;
+		return NOT_FOUND;
 }
 
 bool Member::operator>(const Member& member) const

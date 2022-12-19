@@ -164,7 +164,7 @@ int chooseOnePage(System& system)
 
 void choosePagesOrMembers(System& system, int& index, int& choice)
 {
-	while (!(choice == 1 || choice == 2))
+	while (!(choice == MEMBER || choice == FAN_PAGE))
 	{
 		cout << "enter 1 to choose a member" << endl;
 		cout << "enter 2 to choose a fan page" << endl;
@@ -172,11 +172,11 @@ void choosePagesOrMembers(System& system, int& index, int& choice)
 		cin >> choice;
 		switch (choice)
 		{
-		case 1:
+		case MEMBER:
 			index = chooseOneMember(system);
 			cout << endl;
 			break;
-		case 2:
+		case FAN_PAGE:
 			index = chooseOnePage(system);
 			cout << endl;
 			break;
@@ -197,10 +197,10 @@ void printAllFriendsOrFansEntity(System& system)
 	choosePagesOrMembers(system, index, choice);
 	switch (choice)
 	{
-	case 1:
+	case MEMBER:
 		system.printAllFriendsOfMember(index - 1);
 		break;
-	case 2:
+	case FAN_PAGE:
 		system.printAllFandsOfPage(index - 1);
 		break;
 	default:
@@ -218,11 +218,11 @@ void addNewStatusToFanPageOrMember(System& system)
 	createNewStatus(&newStatus);
 	switch (choice)
 	{
-	case 1:
+	case MEMBER:
 		
 		system.addNewStatusToMember(*newStatus, index - 1);
 		break;
-	case 2:
+	case FAN_PAGE:
 		system.addNewStatusToFanPage(*newStatus, index - 1);
 		break;
 	default:
@@ -239,10 +239,10 @@ void showAllStatusesOfAFanPageOrMember(System& system)
 	choosePagesOrMembers(system, index, choice);
 	switch (choice)
 	{
-	case 1:
+	case MEMBER:
 		system.showAllStatusesOfAMember(index - 1);
 		break;
-	case 2:
+	case FAN_PAGE:
 		system.showAllStatusesOfAFanPage(index - 1);
 		break;
 	default:
@@ -292,11 +292,11 @@ void linkFriendshipInSystem(System& system)
 					cout << "do you wish to try again?[y/n]: ";
 					cin >> choice;
 
-					if (choice == 'n')
+					if (choice == NO)
 						exit = true;
-					else if (choice != 'y')
+					else if (choice != YES)
 						cout << "Invalid input, please enter y or n" << endl;
-				} while (choice != 'n' && choice != 'y');
+				} while (choice != NO && choice != YES);
 			}
 		}
 		else
@@ -345,7 +345,7 @@ void unLinkFriendshipInSystem(System& system)
 	cout << "choose a user from which you want to unlink a friend: " << endl;
 	index1 = chooseOneMember(system);
 	index2 = chooseOneFriendOfAMember(system,index1 - 1);
-	if(index2!=-1)
+	if(index2 != NOT_FOUND)
 		system.unLinkFriends(index1 - 1, index2 - 1);
 }
 
@@ -354,7 +354,7 @@ int chooseOneFriendOfAMember(System& system,int index)
 {
 	int choice, size = system.getFriendsSizeOfAMember(index);
 	bool validInput;
-	if (size != 0)
+	if (size != EMPTY)
 	{
 		do
 		{
@@ -376,7 +376,7 @@ int chooseOneFriendOfAMember(System& system,int index)
 	else
 	{
 		cout << "the user you chose has no friends to unlink from" << endl;
-		return -1;
+		return NOT_FOUND;
 	}
 
 }
@@ -407,11 +407,11 @@ void addFanToPageInSystem(System& system)
 			do {
 				cout << "do you wish to try again [y/n]:";
 				cin >> choice;
-				if (choice == 'n')
+				if (choice == NO)
 					exit = true;
-				else if (choice != 'y')
+				else if (choice != YES)
 					cout << "Invalid input, please enter y or n" << endl;
-			} while (choice != 'n' && choice != 'y');
+			} while (choice != NO && choice != YES);
 		}
 
 	}
@@ -427,7 +427,7 @@ void removeFanFromPageInSystem(System& system)
 	cout << "choose a fan page from which you want to unlink a fan: " << endl;
 	index1 = chooseOnePage(system);
 	index2 = chooseOneFanOfAPage(system, index1 - 1);
-	if(index2!=-1)
+	if(index2!= NOT_FOUND)
 		system.removeFanFromAFanPage(index1 - 1, index2 - 1);
 }
 
@@ -436,7 +436,7 @@ int chooseOneFanOfAPage(System& system,int index)
 {
 	int choice, size = system.getFansSizeofAPage(index);
 	bool validInput;
-	if (size != 0)
+	if (size != EMPTY)
 	{
 		do
 		{
@@ -457,7 +457,7 @@ int chooseOneFanOfAPage(System& system,int index)
 	else
 	{
 		cout << "the page you chose dont have fans to delete" << endl;
-		return -1;
+		return NOT_FOUND;
 	}
 
 }
@@ -487,51 +487,51 @@ bool processChoice(System& system,int choice)
 	switch (choice)
 	{
 
-	case 1:
+	case ADD_NEW_USER:
 		addNewUserToSystem(system);
 		break;
 
-	case 2:
+	case ADD_NEW_PAGE:
 		addNewPageToSystem(system);
 		break;
 
-	case 3:
+	case ADD_NEW_STATUS:
 		addNewStatusToFanPageOrMember(system);
 		break;
 
-	case 4:
+	case SHOW_ALL_STATUSES:
 		showAllStatusesOfAFanPageOrMember(system);
 		break;
 
-	case 5:
+	case SHOW_TEN_STATUSES:
 		ShowTenStatusesOfEachFriend(system);
 		break;
 
-	case 6:
+	case LINK_FRIENDS:
 		linkFriendshipInSystem(system);
 		break;
 
-	case 7:
+	case UNLINK_FRIENDS:
 		unLinkFriendshipInSystem(system);
 		break;
 
-	case 8:
+	case ADD_FAN:
 		addFanToPageInSystem(system);
 		break;
 
-	case 9:
+	case REMOVE_FAN:
 		removeFanFromPageInSystem(system);
 		break;
 
-	case 10:
+	case PRINT_ALL_ENTITIES:
 		printAllRegisteredEntitiesInSystem(system);
 		break;
 
-	case 11:
+	case PRINT_ALL_FANS_FRIENDS:
 		printAllFriendsOrFansEntity(system);
 		break;
 
-	case 12:
+	case EXIT:
 		exit = true;
 		cout << "good bye" << endl;
 		break;
