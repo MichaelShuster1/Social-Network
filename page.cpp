@@ -28,20 +28,9 @@ Fan_page::Fan_page(Fan_page&& other) noexcept(true)
 }
 
 
-Fan_page::~Fan_page()
-{
-	int numOfStatuses = statuses.size();
-	for (int i = 0; i < numOfStatuses; i++)
-		delete statuses[i];
-}
-
-
 void Fan_page::addStatus(Status& status)
 {
-	if (statuses.size() == statuses.capacity())
-		statuses.reserve(statuses.capacity() * INCREASE_RATE);
-
-	statuses.push_back(new Status(status));
+	statuses.push_back(Status(status));
 }
 
 
@@ -68,8 +57,11 @@ void Fan_page::operator+=(Member& member)
 
 void Fan_page::deleteFan(Member& member,int index)
 {
-
-	swap(fans[index], fans[fans.size() - 1]);
+	auto itrEnd = fans.end();
+	auto itr = fans.begin();
+	advance(itrEnd, -1);
+	advance(itr, index);
+	swap(*itr, *itrEnd);
 	fans.pop_back();
 
 	if (member.getPageIndexFromPages(*this) != NOT_FOUND)
@@ -81,15 +73,17 @@ void Fan_page::deleteFan(Member& member,int index)
 
 void Fan_page::showAllFans() const
 {
-	int numOfFans = fans.size();
+	int numOfFans = fans.size(),i=1;
 	if (numOfFans != EMPTY)
 	{
 		cout << name << "'s fans are: " << endl;
-		for (int i = 0; i < numOfFans; i++)
+		auto itrEnd = fans.end();
+		for (auto itr=fans.begin(); itr!=itrEnd; ++itr)
 		{
-			cout << i + 1 << ". ";
-			fans[i]->showName();
+			cout << i << ". ";
+			(*itr)->showName();
 			cout << endl;
+			i++;
 		}
 	}
 	else
@@ -100,9 +94,10 @@ void Fan_page::showAllFans() const
 void Fan_page::showAllStatuses() const
 { 
 	int numOfStatuses = statuses.size();
-	for (int i = 0; i < numOfStatuses; i++)
+	auto itrEnd = statuses.end();
+	for (auto itr = statuses.begin(); itr!=itrEnd ;++itr)
 	{
-		statuses[i]->showStatus();
+		(*itr).showStatus();
 		cout << endl;
 	}
 
@@ -117,7 +112,9 @@ void Fan_page::showName() const
 
 Member* Fan_page::getfanFromFans(int i) 
 {
-	return fans[i];
+	auto itr= fans.begin();
+	advance(itr, i);
+	return *itr;
 }
 
 
@@ -133,25 +130,35 @@ int Fan_page::getFansSize() const
 
 int Fan_page::getfanIndexFromFans(Member& member) const
 {
-	int i = 0,numOfFans=fans.size();
+	auto itr = fans.begin();
+	auto itrEnd = fans.end();
 	bool found = false;
-	while (i < numOfFans && found == false)
+	int i=0;
+	while (itr!=itrEnd && found == false)
 	{
-		if (fans[i] == &member)
+		if ( (*itr) == &member)
 			found = true;
 
+		++itr;
 		i++;
 	}
-
-	if (found == true)
-		return i-1;
+	if (found)
+		return i - 1;
 	else
 		return NOT_FOUND;
 }
 
+
 bool Fan_page::operator>(const Fan_page& page) const
 {
 	if (fans.size() > page.fans.size())
+		return true;
+	return false;
+}
+
+bool Fan_page::operator>(const Member& member) const
+{
+	if (fans.size() > member.getFriendsSize())
 		return true;
 	return false;
 }
