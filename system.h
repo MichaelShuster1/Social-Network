@@ -36,6 +36,7 @@ private:
 public:
 	System();//system class c'tor
 	System(const System& other) = delete;//system class copy c'tor disable
+	~System();
 	void addNewUser(Member new_user) throw(const char*);//adds the given member to the system
 	void addNewPage(const Fan_page& new_page) throw(const char*);// adds the given fan page to the system
 	void addNewStatusToFanPage(Status& new_status,int index);//adds the given status to a fan page located in the 'index' index in system pages

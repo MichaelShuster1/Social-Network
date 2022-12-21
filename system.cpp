@@ -9,6 +9,17 @@ System::System()
 	createHardcodedEntities();
 }
 
+System::~System()
+{
+	auto itrEnd1 = system_pages.end();
+	auto itrEnd2 = system_members.end();
+
+	for (auto itr = system_pages.begin(); itr != itrEnd1; ++itr)
+		delete (*itr);
+
+	for (auto itr = system_members.begin(); itr != itrEnd2; ++itr)
+		delete (*itr);
+}
 
 void System::addNewUser(Member new_user) throw(const char*)
 {
