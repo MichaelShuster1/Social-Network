@@ -355,3 +355,27 @@ bool Member::operator>(const Fan_page& page) const
 		return true;
 	return false;
 }
+
+
+bool Member::areFriendsCheck(const Member& member) const
+{
+	auto itr = friends.begin();
+	auto itrEnd = friends.end();
+
+	for (; itr != itrEnd; ++itr)
+	{
+		if (&member == (*itr))
+			return true;
+	}
+
+	return false;
+
+	/*int friends_size = system_members[index1].getFriendsSize();
+	for (int i = 0; i < friends_size; i++)
+	{
+		if (&system_members[index2] == (system_members[index1].getMemberFromFriends(i)))
+			return true;
+	}
+
+	return false;*/
+}
