@@ -37,6 +37,7 @@ public:
 	int getfanIndexFromFans(Member& member) const; //returns the index of the given member in the fans arr of this page
 	bool operator>(const Fan_page& page) const;
 	bool operator>(const Member& member) const;
+	bool isFanCheck(const Member& member) const;
 
 };
 

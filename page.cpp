@@ -162,3 +162,15 @@ bool Fan_page::operator>(const Member& member) const
 		return true;
 	return false;
 }
+
+
+bool Fan_page::isFanCheck(const Member& member) const
+{
+	auto itrEnd = fans.end();
+	for (auto itr = fans.begin(); itr != itrEnd; ++itr)
+	{
+		if (&member == (*itr))
+			return true;
+	}
+	return false;
+}
