@@ -49,6 +49,7 @@ public:
 	int getFriendIndexFromFriends(Member& member) const ;// return the index of the given member from the friends array of the member
 	bool operator>(const Member& member) const; // return true if this member have more friends than given member
 	bool operator>(const Fan_page& page) const; // return true if this member have more friends than the number of fans of the given page
+	bool areFriendsCheck(const Member& member) const;
 };
 
 
