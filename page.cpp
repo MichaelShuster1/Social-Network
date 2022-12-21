@@ -143,6 +143,7 @@ int Fan_page::getfanIndexFromFans(Member& member) const
 		i++;
 	}
 
+
 	if (found == true)
 		return i-1;
 	else

@@ -1,6 +1,7 @@
 #ifndef MEMBER_H
 #define MEMBER_H
 #include <vector>
+#include <list>
 #include <string>
 using namespace std;
 #include "status.h"
@@ -20,7 +21,7 @@ class Member
 private:
 	string name;
 	Date birth_date;
-	vector<Status*> statuses;
+	list<Status> statuses;
 	vector<Fan_page*> pages;
 	vector<Member*> friends;
 
@@ -28,7 +29,7 @@ public:
 	Member(const string _name,const Date& date)throw(const char*);
 	Member(const Member& other);
 	Member(Member&& other) noexcept(true);
-	~Member();
+	//~Member();
 	void operator+=(Member& _member); //adds a user to the members friends array
 	void addStatus(Status& status);//adds a status to the members status array
 	void addPage(Fan_page& page);//adds a fan page to the members fan pages array
@@ -46,7 +47,8 @@ public:
 	Fan_page* getPageFromPages(int i);//return the 'i' page from the pages array
 	int getPageIndexFromPages(Fan_page& page) const;// return the index of the given page in the pages array of the member
 	int getFriendIndexFromFriends(Member& member) const ;// return the index of the given member from the friends array of the member
-	bool operator>(const Member& member) const;
+	bool operator>(const Member& member) const; // return true if this member have more friends than given member
+	bool operator>(const Fan_page& page) const; // return true if this member have more friends than the number of fans of the given page
 };
 
 
