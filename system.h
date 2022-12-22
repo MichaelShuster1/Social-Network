@@ -58,8 +58,6 @@ public:
 	int getPagesSize() const;//return the size of the fan pages array
 	int getFriendsSizeOfAMember(int index) const;//return the size of the friends array of the member located in the 'index' index in system members
 	int getFansSizeofAPage(int index) const;//return the size of the fans array of the fan page located in the 'index' index in the system pages
-	bool areFriendsCheck(int index1, int index2);//checks if the members located in 'index1' and 'index2' in system members ara friends
-	bool isFanCheck(int index1, int index2);//checks if the member located in the 'index2' index in system members is a fan of the page located in 'index1' index in system pages
 	vector<Member*>::const_iterator findMember(const string& name) const;
 	vector<Fan_page*>::const_iterator findPage(const string& name) const;
 };  

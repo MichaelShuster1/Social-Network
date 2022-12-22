@@ -364,10 +364,6 @@ void System::createHardcodedEntities()
 }
 
 
-
-
-
-
 int System::getFriendsSizeOfAMember(int index) const
 {
 	auto itr = system_members.begin();
