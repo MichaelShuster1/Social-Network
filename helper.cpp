@@ -112,8 +112,12 @@ void printAllRegisteredEntitiesInSystem(System& system)
 }
 
 
-int chooseOneMember(System& system)
+void chooseOneMember(string& name)
 {
+	cout << "please enter the name of the member: ";
+	cin.ignore();
+	getline(cin, name);
+	/*
 	int choice;
 	int size = system.getMembersSize();
 	bool validInput;
@@ -134,11 +138,16 @@ int chooseOneMember(System& system)
 	} while (validInput == false);
 	
 	return choice;
+	*/
 }
 
 
-int chooseOnePage(System& system)
+void chooseOnePage(string& name)
 {
+	cout << "please enter the name of the page: ";
+	cin.ignore();
+	getline(cin, name);
+	/*
 	int choice;
 	int size = system.getPagesSize();
 	bool validInput;
@@ -159,31 +168,23 @@ int chooseOnePage(System& system)
 	} while (validInput == false);
 
 	return choice;
+	*/
 }
 
 
-void choosePagesOrMembers(System& system, int& index, int& choice)
+void choosePagesOrMembers(int& choice)
 {
-	while (!(choice == MEMBER || choice == FAN_PAGE))
+	bool isValidData = false;
+	while (!isValidData)
 	{
 		cout << "enter 1 to choose a member" << endl;
 		cout << "enter 2 to choose a fan page" << endl;
 		cout << "please enter your choice here:  ";
 		cin >> choice;
-		switch (choice)
-		{
-		case MEMBER:
-			index = chooseOneMember(system);
-			cout << endl;
-			break;
-		case FAN_PAGE:
-			index = chooseOnePage(system);
-			cout << endl;
-			break;
-		default:
+		if (choice == MEMBER || choice == FAN_PAGE)
+			isValidData = true;
+		else
 			cout << "error:your choice needs to be the number 1 or 2 only!,please try again" << endl;
-			break;
-		}
 	}
 }
 
@@ -194,7 +195,7 @@ void printAllFriendsOrFansEntity(System& system)
 	int index;
 
 
-	choosePagesOrMembers(system, index, choice);
+	choosePagesOrMembers(choice);
 	switch (choice)
 	{
 	case MEMBER:
@@ -214,7 +215,7 @@ void addNewStatusToFanPageOrMember(System& system)
 {
 	int choice, index;
 	Status* newStatus;
-	choosePagesOrMembers(system, index, choice);
+	choosePagesOrMembers(choice);
 	createNewStatus(&newStatus);
 	switch (choice)
 	{
@@ -235,15 +236,18 @@ void addNewStatusToFanPageOrMember(System& system)
 void showAllStatusesOfAFanPageOrMember(System& system)
 {
 	int choice, index;
+	string name;
 
-	choosePagesOrMembers(system, index, choice);
+	choosePagesOrMembers(choice);
 	switch (choice)
 	{
 	case MEMBER:
-		system.showAllStatusesOfAMember(index - 1);
+		chooseOneMember(name);
+		system.showAllStatusesOfAMember(name);
 		break;
 	case FAN_PAGE:
-		system.showAllStatusesOfAFanPage(index - 1);
+		chooseOnePage(name);
+		system.showAllStatusesOfAFanPage(name);
 		break;
 	default:
 		break;
@@ -255,8 +259,9 @@ void showAllStatusesOfAFanPageOrMember(System& system)
 void ShowTenStatusesOfEachFriend(System& system)
 {
 	int index;
+	string name;
 	cout << "choose a member by entering their index number: " << endl;
-	index = chooseOneMember(system);
+	chooseOneMember(name);
 	system.ShowTenLatestStatusesOfEachFriend(index - 1);
 }
 

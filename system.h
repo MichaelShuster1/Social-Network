@@ -37,12 +37,12 @@ public:
 	System();//system class c'tor
 	System(const System& other) = delete;//system class copy c'tor disable
 	~System();
-	void addNewUser(Member new_user) throw(const char*);//adds the given member to the system
+	void addNewUser(const Member& new_user) throw(const char*);//adds the given member to the system
 	void addNewPage(const Fan_page& new_page) throw(const char*);// adds the given fan page to the system
 	void addNewStatusToFanPage(Status& new_status,int index);//adds the given status to a fan page located in the 'index' index in system pages
 	void addNewStatusToMember(Status& new_status, int index);//adds the given status to a member located in the 'index' index in system members
-	void showAllStatusesOfAFanPage(int index) const;//prints all statuses of a fan page
-	void showAllStatusesOfAMember(int index) const;//prints all statuses of a member
+	void showAllStatusesOfAFanPage(const string& name) const;//prints all statuses of a fan page
+	void showAllStatusesOfAMember(const string& name) const;//prints all statuses of a member
 	void ShowTenLatestStatusesOfEachFriend(int index) const;//// prints 10 last statuses of each friend of the member located in the 'index' index in system members
 	void linkFriends(int index1,int index2) throw(const char*);//add the member in 'index1' in system members to the friends of the member in 'index2' and vice versa
 	void unLinkFriends(int index1, int index2);//remove the member in 'index1' in system members from the friends of the member in 'index2' and vice versa
@@ -60,7 +60,11 @@ public:
 	int getFansSizeofAPage(int index) const;//return the size of the fans array of the fan page located in the 'index' index in the system pages
 	bool areFriendsCheck(int index1, int index2);//checks if the members located in 'index1' and 'index2' in system members ara friends
 	bool isFanCheck(int index1, int index2);//checks if the member located in the 'index2' index in system members is a fan of the page located in 'index1' index in system pages
-};
+	vector<Member*>::const_iterator findMember(const string& name) const;
+	vector<Fan_page*>::const_iterator findPage(const string& name) const;
+};  
+
+
 
 
 

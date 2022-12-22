@@ -21,7 +21,7 @@ System::~System()
 		delete (*itr);
 }
 
-void System::addNewUser(Member new_user) throw(const char*)
+void System::addNewUser(const Member& new_user) throw(const char*)
 {
 	if(checkIfExistNameUser(new_user.getName()))
 	{
@@ -124,12 +124,11 @@ void System::printAllSystemPages() const
 	int i = 1;
 	auto itrEnd = system_pages.end();
     cout << "The fan pages:" << endl;
-	for(auto itr=system_pages.begin(); itr!=itrEnd;++itr)
+	for(auto itr=system_pages.begin(); itr!=itrEnd; ++itr,i++)
 	{
 		cout << i << ". ";
 		(*itr)->showName();
 		cout << endl;
-		i++;
 	}
 
 	/*
@@ -154,27 +153,44 @@ void System::addNewStatusToFanPage(Status& new_status, int index)
 }
 
 
-void System::showAllStatusesOfAMember(int index) const
+void System::showAllStatusesOfAMember(const string& name) const
 {
+	auto itr = findMember(name);
+	if (itr != system_members.end())
+	{
+		(*itr)->showName();
+		cout << "'s statuses are:" << endl;
+		(*itr)->showAllStatuses();
+	}
+	else
+		cout << "the user not found!"<<endl;
+	/**
 	auto itr = system_members.begin();
 	advance(itr, index);
 
 	(*itr)->showName();
 	cout << "'s statuses are:" << endl;
 	(*itr)->showAllStatuses();
+	*/
+
 	/*system_members[index].showName();
 	cout << "'s statuses are:" << endl;
 	system_members[index].showAllStatuses();*/
 }
 
 
-void System::showAllStatusesOfAFanPage(int index) const
+void System::showAllStatusesOfAFanPage(const string& name) const
 {
-    auto itr = system_pages.begin();
-	advance(itr, index);
-	(*itr)->showName();
-	cout << "'s statuses are:" << endl;
-	(*itr)->showAllStatuses(); 
+    auto itr = findPage(name);
+	//advance(itr, index);
+	if (itr != system_pages.end())
+	{
+		(*itr)->showName();
+		cout << "'s statuses are:" << endl;
+		(*itr)->showAllStatuses();
+	}
+	else
+		cout << "the page was not found!"<<endl;
 	
 	/*
 	system_pages[index].showName();
@@ -183,6 +199,28 @@ void System::showAllStatusesOfAFanPage(int index) const
 	*/
 }
 
+vector<Member*>::const_iterator System::findMember(const string& name) const
+{
+	auto itrEnd = system_members.end();
+	for (auto itr = system_members.begin(); itr != itrEnd; ++itr)
+	{
+		if (strcmp(name.c_str(), (*itr)->getName()) == 0)
+			return itr;
+	}
+	return itrEnd;
+}
+
+
+vector<Fan_page*>::const_iterator System::findPage(const string& name) const
+{
+	auto itrEnd = system_pages.end();
+	for (auto itr = system_pages.begin(); itr != itrEnd; ++itr)
+	{
+		if (strcmp(name.c_str(), (*itr)->getName()) == 0)
+			return itr;
+	}
+	return itrEnd;
+}
 
 void System::ShowTenLatestStatusesOfEachFriend(int index) const
 {

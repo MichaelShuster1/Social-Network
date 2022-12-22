@@ -24,9 +24,9 @@ const int EXIT = 12;
 void addNewUserToSystem(System& system); //creates new user and adds him to the system
 void addNewPageToSystem(System& system); //creates new page and adds him to the system
 void printAllRegisteredEntitiesInSystem(System& system); //prints all the registered entities in system
-int chooseOneMember(System& system); //chooses one member from the already existing members in system
+void chooseOneMember(string& name); //chooses one member from the already existing members in system
 int chooseOneFriendOfAMember(System& system,int index);//chooses one friend of the given member in system
-int chooseOnePage(System& system); //chooses one page from the already existing pages in system
+void chooseOnePage(string& name); //chooses one page from the already existing pages in system
 int chooseOneFanOfAPage(System& system, int index); //chooses one fan of the given page in system
 void printAllFriendsOrFansEntity(System& system); //prints all friends or fans of the system
 void createNewStatus(Status** newStatus); //creates new status and returns it by pointer
@@ -39,7 +39,7 @@ void addFanToPageInSystem(System& system); //adds a fan to a given page in syste
 void removeFanFromPageInSystem(System& system);  //remvoes a fan from a given page in system
 void printMenu();// prints the menu
 bool processChoice(System& system, int choice); //process the given choice of the user of the system
-void choosePagesOrMembers(System& system, int& index, int& choice);
+void choosePagesOrMembers(int& choice);
 
 #endif // !HELPER
 
