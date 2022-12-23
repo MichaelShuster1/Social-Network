@@ -52,22 +52,33 @@ void Fan_page::operator+=(Member& member)
 		member.addPage(*this);
 }
 
-
-
-
-void Fan_page::deleteFan(Member& member,int index)
+bool Fan_page::operator==(const string& name) const
 {
-	auto itrEnd = fans.end();
-	auto itr = fans.begin();
-	advance(itrEnd, -1);
-	advance(itr, index);
-	swap(*itr, *itrEnd);
+	return (this->name == name);
+}
+
+
+void Fan_page::deleteFan(const string& name_member)
+{
+	Member* fan;
+	auto itr = find(fans.begin(), fans.end(), name_member);
+
+	if (itr == fans.end())
+		throw "the given member is not a fan of the given page";
+
+	swap(*itr, *fans.rbegin());
+	fan = fans.back();
 	fans.pop_back();
 
+	if(fan->isPageFollower(name))
+		fan->removePage(name);
+
+
+	/*
 	if (member.getPageIndexFromPages(*this) != NOT_FOUND)
 	{
 		member.removePage(*this);
-	}
+	}*/
 }
 
 
@@ -164,13 +175,11 @@ bool Fan_page::operator>(const Member& member) const
 }
 
 
-bool Fan_page::isFanCheck(const Member& member) const
+bool Fan_page::isFanCheck(const string& name_member) const
 {
-	auto itrEnd = fans.end();
-	for (auto itr = fans.begin(); itr != itrEnd; ++itr)
-	{
-		if (&member == (*itr))
-			return true;
-	}
-	return false;
+	auto itr = find(fans.begin(), fans.end(), name_member);
+	if (itr == fans.end())
+		return false;
+	else
+		return true;
 }

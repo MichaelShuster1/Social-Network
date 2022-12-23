@@ -192,17 +192,18 @@ void choosePagesOrMembers(int& choice)
 void printAllFriendsOrFansEntity(System& system)
 {
 	int choice;
-	int index;
-
+	string name;
 
 	choosePagesOrMembers(choice);
 	switch (choice)
 	{
 	case MEMBER:
-		system.printAllFriendsOfMember(index - 1);
+		chooseOneMember(name);
+		system.printAllFriendsOfMember(name);
 		break;
 	case FAN_PAGE:
-		system.printAllFandsOfPage(index - 1);
+		chooseOnePage(name);
+		system.printAllFandsOfPage(name);
 		break;
 	default:
 		break;
@@ -213,18 +214,22 @@ void printAllFriendsOrFansEntity(System& system)
 
 void addNewStatusToFanPageOrMember(System& system)
 {
-	int choice, index;
+	int choice;
+	string name;
 	Status* newStatus;
+
 	choosePagesOrMembers(choice);
 	createNewStatus(&newStatus);
+
 	switch (choice)
 	{
 	case MEMBER:
-		
-		system.addNewStatusToMember(*newStatus, index - 1);
+		chooseOneMember(name);
+		system.addNewStatusToMember(*newStatus, name);
 		break;
 	case FAN_PAGE:
-		system.addNewStatusToFanPage(*newStatus, index - 1);
+		chooseOnePage(name);
+		system.addNewStatusToFanPage(*newStatus, name);
 		break;
 	default:
 		break;
@@ -262,19 +267,41 @@ void ShowTenStatusesOfEachFriend(System& system)
 	string name;
 	cout << "choose a member by entering their index number: " << endl;
 	chooseOneMember(name);
-	system.ShowTenLatestStatusesOfEachFriend(index - 1);
+	system.ShowTenLatestStatusesOfEachFriend(name);
 }
 
 
 
 void linkFriendshipInSystem(System& system)
 {
-	int index1, index2;
 	char choice;
-	bool validInput = false;
-	bool exit = false;
-	int size = system.getMembersSize();
+	bool validInput = false, exit = false;
+	string name1, name2;
+	chooseOneMember(name1);
+	cout << "second member:" << endl;
+	chooseOneMember(name2);
+	while (!validInput && !exit)
+	{
+		try
+		{
+			system.linkFriends(name1, name2);
+			validInput = true;
+		}
+		catch (const char* msg)
+		{
+			cout << msg << endl;
+			do {
+				cout << "do you wish to try again?[y/n]: ";
+				cin >> choice;
 
+				if (choice == NO)
+					exit = true;
+				else if (choice != YES)
+					cout << "Invalid input, please enter y or n" << endl;
+			} while (choice != NO && choice != YES);
+		}
+	}
+	/*
 	do
 	{
 		cout << "please choose the two members you want to link by entering their index number with following formant: index1 index2" << endl;
@@ -311,7 +338,10 @@ void linkFriendshipInSystem(System& system)
 
 
 	} while (!validInput && !exit);
+	*/
+
 }
+
 
 //bool checkValidInput(System& system,int index1, int index2)
 //{
@@ -346,12 +376,20 @@ void unLinkFriendshipInSystem(System& system)
 {
 	int index1, index2;
 	Member* selected_friend;
-	
-	cout << "choose a user from which you want to unlink a friend: " << endl;
-	index1 = chooseOneMember(system);
-	index2 = chooseOneFriendOfAMember(system,index1 - 1);
-	if(index2 != NOT_FOUND)
-		system.unLinkFriends(index1 - 1, index2 - 1);
+	string name1,name2;
+
+	cout << "user from which you want to unlink a friend: " << endl;
+	chooseOneMember(name1);
+	cout << "friend you want to delete: " << endl;
+	chooseOneMember(name2);
+	try
+	{
+		system.unLinkFriends(name1, name2);
+	}
+	catch (const char* msg)
+	{
+		cout << msg << endl;
+	}
 }
 
 
@@ -391,19 +429,19 @@ void addFanToPageInSystem(System& system)
 {
 	bool isValidData=false , exit = false;
 	char choice;
-	int index1, index2;
+	string name_page, name_member;
   
 
 	while (!isValidData&&!exit)
 	{
-		cout << "choose the fan page you want to add a member as a fan to : " << endl;
-		index1 = chooseOnePage(system);
-		cout << "choose the memeber you wish to add to a fan page: " << endl;
-		index2 = chooseOneMember(system);
+		cout << "the fan page you want to add a member as a fan to : " << endl;
+		chooseOnePage(name_page);
+		cout << "the memeber you wish to add to a fan page: " << endl;
+		chooseOneMember(name_member);
 
 		try
 		{
-			system.addFanToAPage(index2 - 1, index1 - 1);
+			system.addFanToAPage(name_page, name_member);
 			isValidData = true;
 		}
 		catch (const char* msg)
@@ -426,14 +464,18 @@ void addFanToPageInSystem(System& system)
 
 void removeFanFromPageInSystem(System& system)
 {
-	int index1, index2;
-	Member* selected_friend;
-
+	string name_page, name_fan;
 	cout << "choose a fan page from which you want to unlink a fan: " << endl;
-	index1 = chooseOnePage(system);
-	index2 = chooseOneFanOfAPage(system, index1 - 1);
-	if(index2!= NOT_FOUND)
-		system.removeFanFromAFanPage(index1 - 1, index2 - 1);
+	chooseOnePage(name_page);
+	chooseOneMember(name_fan);
+	try
+	{
+		system.removeFanFromAFanPage(name_page, name_fan);
+	}
+	catch (const char* msg)
+	{
+		cout << msg << endl;
+	}
 }
 
 

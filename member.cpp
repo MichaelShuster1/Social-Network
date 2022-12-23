@@ -66,38 +66,41 @@ void Member::removeFriend(Member& _member)
 }
 
 
-void Member::removePage(Fan_page& page)
+void Member::removePage(const string& name_page)
 {
+	Fan_page* page;
+	auto itr = find(pages.begin(), pages.end(), name_page);
 
-	bool found = false;
-	auto itr = pages.begin();
-	auto itrEnd = pages.rbegin();
-	while (found == false)
-	{
-		if (*itr == &page)
-			found = true;
-		else
-			++itr;
-	}
-	swap(*itr, *itrEnd);
+	if (itr == pages.end() )
+		throw "the given page is not followed by the given member";
+
+	swap(*itr, *pages.rbegin());
+	page = pages.back();
 	pages.pop_back();
+
+	if(page->isFanCheck(name))
+		page->deleteFan(name);
+
 	/*while (found == false)
 	{
 		if (pages[i] == &page) 
 			found = true;
 		else
 			i++;
-	}*/
-
-
-	/*shiftBackPagesArr(i);
-	numOfPages--;*/
-
-	int index = page.getfanIndexFromFans(*this);
-	if (index != NOT_FOUND);
-	{
-		page.deleteFan(*this, index);
 	}
+
+	shiftBackPagesArr(i);
+	numOfPages--;*/	
+}
+
+
+bool Member::isPageFollower(const string& name_page) const
+{
+	auto itr = find(pages.begin(), pages.end(), name_page);
+	if (itr == pages.end())
+		return false;
+	else
+		return true;
 }
 
 void Member::addStatus(Status& status)
