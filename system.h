@@ -28,8 +28,8 @@ class System
 
 private:
 
-	vector<Fan_page*> system_pages;
-	vector<Member*> system_members;
+	list<Fan_page> system_pages;
+	list<Member> system_members;
 
 	void createHardcodedEntities();//adds hardcoded members, fan pages, statuses and friendship/fans connections to the system
 
