@@ -26,37 +26,28 @@ private:
 	vector<Member*> friends;
 
 public:
-	Member(const string _name,const Date& date)throw(const char*);
-	Member(const Member& other);
-	Member(Member&& other) noexcept(true);
-	void operator+=(Member& _member); //adds a user to the members friends array
-	void addStatus(Status& status);//adds a status to the members status array
-	void addPage(Fan_page& page);//adds a fan page to the members fan pages array
-	void removePage(Fan_page& page);//removes a page from the users fan page array
-	void removeFriend(Member& member);//removes a user from the members friends array
+	Member(const string _name,const Date& date) throw(const char*); //c'tor
+	Member(const Member& other);// copy c'tor
+	Member(Member&& other) noexcept(true); // move c'tor
+	void operator+=(Member& _member) throw (const char*); //adds a user to the member's friends
+	void addStatus(Status& status);//adds a status to the member's statuses 
+	void addPage(Fan_page& page) throw(const char*); //adds a fan page to the member's fan pages 
+	void removePage(Fan_page& page) throw (const char*);//removes a page from the user's fan page 
+	void removeFriend(Member& member) throw (const char*);//removes a user from the member's friends
 	void showAllFriends() const ;//prints all friends of a member
 	void showAllStatuses() const;//prints all statuses of a member
-	void showName() const ;//prints members name
+	void showName() const ;//prints member's name
 	void showTenRecentStatuses() const ;// prints the last 10 statuses of the member
 	void showAllFriendsTenStatuses()const ;// prints 10 last statuses of each friend of the member
-	Member* getMemberFromFriends(int i);//return the 'i' friend from the friends array
-	const char* getName() const;// returns the members name
+	const string getName() const;// returns the members name
 	int getFriendsSize() const;//return the friends array size
 	int getPagesSize() const;//return the pages array size
-	Fan_page* getPageFromPages(int i);//return the 'i' page from the pages array
-	int getPageIndexFromPages(Fan_page& page) const;// return the index of the given page in the pages array of the member
-	int getFriendIndexFromFriends(Member& member) const ;// return the index of the given member from the friends array of the member
 	bool operator>(const Member& member) const; // return true if this member have more friends than given member
 	bool operator>(const Fan_page& page) const; // return true if this member have more friends than the number of fans of the given page
-	bool areFriendsCheck(const Member& member) const;
-	bool isPageFollower(const Fan_page& page) const;
-	bool operator==(const string& name) const;
+	bool areFriendsCheck(const Member& member) const; //checks if a member is a friend of the given member
+	bool isPageFollower(const Fan_page& page) const; //checks if a member is a fan of the given page
+	bool operator==(const string& name) const; //checks if the member have the given name
 };
-
-
-
-
-
 
 
 

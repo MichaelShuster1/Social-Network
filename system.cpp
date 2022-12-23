@@ -11,67 +11,26 @@ System::System()
 
 void System::addNewUser(const Member& new_user) throw(const char*)
 {
-	if(checkIfExistNameUser(new_user.getName()))
+	auto itr = find(system_members.begin(), system_members.end(), new_user.getName());
+	if(itr!=system_members.end())
 	{
 		throw "the name is already taken!";
 	}
-	/*if (system_members.size() == system_members.capacity())
-	{
-		system_members.reserve(system_members.capacity() * INCREASE_RATE);
-	}*/
-
+	
 	system_members.push_back(Member(new_user));	
-}
-
-
-bool System::checkIfExistNameUser(const char* name)
-{
-	auto itr = system_members.begin();
-	auto itrEnd = system_members.end();
-	for (; itr != itrEnd; ++itr)
-	{
-		if (strcmp(name, (*itr).getName()) == 0)
-			return true;
-	}
-	return false;
-	/*int members_size = system_members.size();
-	for (int i = 0; i < members_size; i++)
-	{
-		if (strcmp(name,system_members[i].getName()) == 0)
-			return true;
-	}
-	return false;*/
 }
 
 
 void System::addNewPage(const Fan_page& new_page) throw(const char*)
 {
-	if ( checkIfExistNamePage(new_page.getName()))
+	auto itr = find(system_pages.begin(), system_pages.end(), new_page.getName());
+	if (itr!=system_pages.end())
 	{
 		throw "the name is already taken!";
 	}
 	system_pages.push_back(Fan_page(new_page));
 }
 
-
-bool System::checkIfExistNamePage(const char* name)
-{
-	auto itrEnd = system_pages.end();
-	for(auto itr = system_pages.begin(); itr!=itrEnd; ++itr )
-	{
-		if(strcmp(name,(*itr).getName())==0)
-			return true;
-	}
-	return false;
-    /*
-	int pages_size = system_pages.size();
-	for (int i = 0; i < pages_size; i++)
-	{
-		if (strcmp(name, system_pages[i].getName()) == 0)
-			return true;
-	}
-	*/
-}
 
 void System::addNewStatusToMember(Status& new_status,const string& name) throw (const char*)
 {
@@ -94,15 +53,6 @@ void System::printAllSystemMembers() const
 		(*itr).showName();
 		cout << endl;
 	}
-
-	/*int members_size = system_members.size();
-	cout << "The members:" << endl;
-	for (int i = 0; i < members_size; i++)
-	{
-		cout << (i + 1) << ". ";
-		system_members[i].showName();
-		cout << endl;
-	}*/
 }
 
 
@@ -117,17 +67,6 @@ void System::printAllSystemPages() const
 		(*itr).showName();
 		cout << endl;
 	}
-
-	/*
-	int pages_size = system_pages.size();
-	cout << "The fan pages:" << endl;
-	for (int i = 0; i < pages_size; i++)
-	{
-		cout << (i + 1) << ". ";
-		system_pages[i].showName();
-		cout << endl;
-	}
-	*/
 }
 
 
@@ -143,7 +82,6 @@ void System::addNewStatusToFanPage(Status& new_status,const string& name) throw 
 void System::showAllStatusesOfAMember(const string& name) const
 {
 	auto itr = find(system_members.begin(),system_members.end(),name);
-	//auto itr = findMember(name);
 	if (itr != system_members.end())
 	{
 		(*itr).showName();
@@ -152,18 +90,6 @@ void System::showAllStatusesOfAMember(const string& name) const
 	}
 	else
 		cout << "the user not found!"<<endl;
-	/**
-	auto itr = system_members.begin();
-	advance(itr, index);
-
-	(*itr)->showName();
-	cout << "'s statuses are:" << endl;
-	(*itr)->showAllStatuses();
-	*/
-
-	/*system_members[index].showName();
-	cout << "'s statuses are:" << endl;
-	system_members[index].showAllStatuses();*/
 }
 
 
@@ -178,8 +104,6 @@ void System::showAllStatusesOfAFanPage(const string& name) const
 	}
 	else
 		cout << "the page was not found!"<<endl;
-	
-	
 }
 
 
@@ -196,28 +120,30 @@ void System::ShowTenLatestStatusesOfEachFriend(const string& name) const throw(c
 
 void System::linkFriends(const string& name1, const string& name2) throw(const char*)
 {
-	if (name1 == name2)
-		throw "error: you cant link a member with himself!";
 
 	auto itr1 = find(system_members.begin(), system_members.end(), name1);
 	auto itr2 = find(system_members.begin(), system_members.end(), name2);
-    
-	if (itr1 == system_members.end())
+
+    if (itr1 == system_members.end())
 		throw "error: the first user doesn't exist!";
 
 	if (itr2 == system_members.end()) 
 		throw "error: the second user doesn't exist!";
 	
+	if (name1 == name2)
+		throw "error: you cant link a member with himself!";
 
-	if ((*itr1).areFriendsCheck((*itr2)))
-		throw "error: the members you chose are already linked!";
 
-	/*if (areFriendsCheck(index1, index2))
-		throw "error: the members you chose are already linked!";*/
-	
-	*itr1 += *itr2;
+	try
+	{
+		*itr1 += *itr2;
+	}
+	catch(const char* msg)
+	{
+		throw(msg);
+	}
 
-	//system_members[index1]+=system_members[index2];
+
 }
 
 
@@ -233,6 +159,12 @@ void System::unLinkFriends(const string& name1, const string& name2) throw (cons
 	if (itr2 == system_members.end())
 		throw "error: the second user doesn't exist!";
 
+	if ((*itr1).getFriendsSize() == 0)
+		throw "error: the first user you entered doesn't have friends to delete!";
+
+	if ((*itr2).getFriendsSize() == 0)
+		throw "error: the second user you entered doesn't have friends to delete!";
+
 	try
 	{
 		(*itr1).removeFriend(*itr2);
@@ -241,13 +173,6 @@ void System::unLinkFriends(const string& name1, const string& name2) throw (cons
 	{
 		throw(msg);
 	}
-
-	/*Member selected_friend = (*itr1).getMemberFromFriends(name2);
-	selected_friend->removeFriend((*(*itr2)));*/
-
-
-	/*selected_friend = system_members[index1].getMemberFromFriends(index2);
-	selected_friend->removeFriend(system_members[index1]);*/
 }
 
 
@@ -262,12 +187,14 @@ void System::addFanToAPage(const string& name_page, const string& name_member) t
 	if (itr_page == system_pages.end())
 		throw "error:the name of page you entered not exist in the system!";
 
-	if ((*itr_page).isFanCheck(*itr_fan))
+	try
 	{
-		throw "error:The user you chose is already a fan of this page!";
+		(*itr_page) += (*itr_fan);
 	}
-	(*itr_page) += (*itr_fan);
-	//system_pages[index2]+=system_members[index1];
+	catch(const char* msg)
+	{
+		throw(msg);
+	}
 }
 
 
@@ -282,6 +209,9 @@ void System::removeFanFromAFanPage(const string& name_page, const string& name_m
 
 	if (itr_member == system_members.end())
 		throw "error: member not found in system!";
+
+	if ((*itr_page).getFansSize() == 0)
+		throw "error: the given page doesn't have any fans to delete!";
 
 	try
 	{
@@ -301,11 +231,7 @@ void System::printAllFriendsOfMember(const string& name) const throw (const char
 	if (itr == system_members.end())
 		throw "error: the user doesn't exist!";
 
-	//auto itr = system_members.begin();
-	//advance(itr, index);
 	(*itr).showAllFriends();
-
-	//system_members[index].showAllFriends();
 }
 
 
@@ -364,24 +290,6 @@ void System::createHardcodedEntities()
 }
 
 
-int System::getFriendsSizeOfAMember(const string& name) const
-{
-	auto itr = find(system_members.begin(), system_members.end(), name);
-	/*auto itr = system_members.begin();
-	advance(itr, index);*/
-	return (*itr).getFriendsSize();
-
-	//return system_members[index].getFriendsSize();
-}
-
-int System::getFansSizeofAPage(const string& name) const throw(const char*)
-{
-	auto itr = find(system_pages.begin(), system_pages.end(), name);
-	if (itr == system_pages.end())
-		throw "error: page not found!";
-	return (*itr).getFansSize();
-}
-
 
 int System::getMembersSize() const
 {
@@ -392,34 +300,3 @@ int System::getPagesSize() const
 {
 	return system_pages.size();
 }
-
-
-
-//
-//bool System::areFriendsCheck(int index1, int index2)
-//{
-//	int friends_size = system_members[index1].getFriendsSize();
-//	for (int i = 0; i <friends_size; i++)
-//	{
-//		if (&system_members[index2] == (system_members[index1].getMemberFromFriends(i)))
-//			return true;
-//	}
-//
-//	return false;
-//}
-
-/*
-bool System::isFanCheck(int index1, int index2)
-{
-	int fans_size = system_pages[index1].getFansSize();
-	for (int i = 0; i < fans_size; i++)
-	{
-		if (&system_members[index2] == system_pages[index1].getfanFromFans(i))
-			return true;
-		system_pages[index1].isFanCheck(&system_members[index2]);
-	}
-
-	return false;
-}
-*/
-

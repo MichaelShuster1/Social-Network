@@ -30,7 +30,7 @@ Member::Member(Member&& other) noexcept(true) :birth_date(other.birth_date)
 
 
 
-void Member::removeFriend(Member& member)
+void Member::removeFriend(Member& member) throw(const char*)
 {
 
 	auto itr = find(friends.begin(), friends.end(), &member);
@@ -38,24 +38,19 @@ void Member::removeFriend(Member& member)
 	if(itr == friends.end())
 		throw "error: the members you chose are already not linked!";
 	
-	swap(*itr, *friends.rend());
+	swap(*itr, *friends.rbegin());
 	friends.pop_back();
 
 
-	if (find(member.friends.begin(), member.friends.end(), &member) != member.friends.end())
+	if (member.areFriendsCheck(*this))
 	{
 		member.removeFriend(*this);
 	}
 
-	/*if (_member.getFriendIndexFromFriends(*this) != NOT_FOUND)
-	{
-		_member.removeFriend(*this);
-	}*/
-
 }
 
 
-void Member::removePage(Fan_page& page)
+void Member::removePage(Fan_page& page) throw(const char*)
 {
 	Fan_page* fan_page;
 	auto itr = find(pages.begin(), pages.end(), &page);
@@ -70,16 +65,6 @@ void Member::removePage(Fan_page& page)
 	if(fan_page->isFanCheck(*this))
 		fan_page->deleteFan(*this);
 
-	/*while (found == false)
-	{
-		if (pages[i] == &page) 
-			found = true;
-		else
-			i++;
-	}
-
-	shiftBackPagesArr(i);
-	numOfPages--;*/	
 }
 
 
@@ -94,16 +79,16 @@ bool Member::isPageFollower(const Fan_page& page) const
 
 void Member::addStatus(Status& status)
 {
-	/*if (statuses.size() == statuses.capacity())
-	{
-		statuses.reserve(statuses.capacity() * INCREASE_RATE);
-	}*/
 	statuses.push_back(Status(status));
 }
 
 
-void Member::operator+=(Member& _member)
+void Member::operator+=(Member& _member) throw (const char*)
 {
+
+	if (areFriendsCheck((_member)))
+		throw "error: the members you chose are already linked!";
+
 	if (friends.size() == friends.capacity())
 	{
 		friends.reserve(friends.capacity() * INCREASE_RATE);
@@ -111,24 +96,20 @@ void Member::operator+=(Member& _member)
 	
 	friends.push_back(&_member);
 
-
-	int index = _member.getFriendsSize();
-	if (index != 0)
+	if (!_member.areFriendsCheck(*this))
 	{
-		if (this != _member.getMemberFromFriends(index - 1))
-		{
-			_member+=(*this);
-		}
-	}
-	else
 		_member+=(*this);
-
+	}
 
 }
 
 
-void Member::addPage(Fan_page& page)
+void Member::addPage(Fan_page& page) throw(const char*)
 {
+	if(isPageFollower(page))
+	{
+		throw "the given page is already followed by the given member";
+	}
 	if (pages.size() == pages.capacity())
 	{
 		pages.reserve(pages.capacity() * INCREASE_RATE);
@@ -136,18 +117,11 @@ void Member::addPage(Fan_page& page)
 
 	pages.push_back(&page);
 
-	int index = page.getFansSize();
-	if (index != EMPTY)
-	{
-		if (this != page.getfanFromFans(index - 1))
-		{
-			page+=(*this);
-		}
-	}
-	else
+    if (!page.isFanCheck(*this))
 	{
 		page+=(*this);
 	}
+	
 
 }
 
@@ -195,17 +169,6 @@ void Member::showAllStatuses() const
 			cout << endl;
 		}
 	}
-
-	
-	//int numOfStatuses = statuses.size();
-	/*for (int i = 0; i < numOfStatuses; i++)
-	{
-		statuses[i]->showStatus();
-		cout << endl;
-	}
-	
-	if (numOfStatuses == EMPTY)
-		cout <<name << " has no statuses" << endl;*/
 }
 
 
@@ -219,15 +182,7 @@ void Member::showTenRecentStatuses() const
 	{
 		(*itr).showStatus();
 		cout << endl;
-
 	}
-	/*int numOfStatuses = statuses.size();
-	for (int i = numOfStatuses - 1; (i >= numOfStatuses - RANGE) && (i >= 0); i--)
-	{
-		statuses[i]->showStatus();
-		cout << endl;
-	}*/
-
 }
 
 
@@ -252,86 +207,26 @@ void Member::showAllFriendsTenStatuses() const
 	{
 		cout << name << " has no friends"<<endl;
 	}
-
 }
 
 
-Member* Member::getMemberFromFriends(int i)
+const string Member::getName() const
 {
-	auto itr = friends.begin();
-	advance(itr, i);
-	return *itr;
+	return name;
 }
 
-
-const char* Member::getName() const
-{
-	return name.c_str();
-}
 
 int Member::getFriendsSize() const
 {
 	return friends.size();
 }
 
+
 int Member::getPagesSize() const
 {
 	return pages.size();
 }
 
-
-Fan_page* Member::getPageFromPages(int i)
-{
-	auto itr = pages.begin();
-	advance(itr, i);
-	return *itr;
-}
-
-
-int Member::getPageIndexFromPages(Fan_page& page) const
-{
-	auto itr = pages.begin();
-	auto itrEnd = pages.end();
-	int i = 0;
-	bool found = false;
-	while (itr != itrEnd && found == false)
-	{
-		if ((*itr) == &page)
-			found = true;
-
-		++itr;
-		i++;
-	}
-
-	if (found == true)
-		return i - 1;
-	else
-		return NOT_FOUND;
-}
-
-
-
-int Member::getFriendIndexFromFriends(Member& member) const
-{
-	auto itr = friends.begin();
-	auto itrEnd = friends.end();
-	int i = 0;
-	bool found = false;
-
-	while (itr != itrEnd && found == false)
-	{
-		if ((*itr) == &member)
-			found = true;
-
-		++itr;
-		i++;
-	}
-
-	if (found == true)
-		return i - 1;
-	else
-		return NOT_FOUND;
-}
 
 bool Member::operator>(const Member& member) const
 {
@@ -351,26 +246,15 @@ bool Member::operator>(const Fan_page& page) const
 
 bool Member::areFriendsCheck(const Member& member) const
 {
-	auto itr = friends.begin();
-	auto itrEnd = friends.end();
+	auto itr = find(friends.begin(), friends.end(), &member);
+	
+	if(itr==friends.end())
+		return false;
 
-	for (; itr != itrEnd; ++itr)
-	{
-		if (&member == (*itr))
-			return true;
-	}
+	return true;
 
-	return false;
-
-	/*int friends_size = system_members[index1].getFriendsSize();
-	for (int i = 0; i < friends_size; i++)
-	{
-		if (&system_members[index2] == (system_members[index1].getMemberFromFriends(i)))
-			return true;
-	}
-
-	return false;*/
 }
+
 
 bool Member::operator==(const string& name) const
 {

@@ -115,60 +115,14 @@ void printAllRegisteredEntitiesInSystem(System& system)
 void chooseOneMember(string& name)
 {
 	cout << "please enter the name of the member: ";
-	cin.ignore();
 	getline(cin, name);
-	/*
-	int choice;
-	int size = system.getMembersSize();
-	bool validInput;
-
-	do
-	{
-		cout << "please choose the index of the member: " << endl;
-		system.printAllSystemMembers();
-		cout << "Enter your choice here: ";
-		cin >> choice;
-		if (1 <= choice && choice <= size)
-			validInput = true;
-		else
-		{
-			cout << "error: your choice needs to be a number between 1 and " << size << endl;
-			validInput = false;
-		}
-	} while (validInput == false);
-	
-	return choice;
-	*/
 }
 
 
 void chooseOnePage(string& name)
 {
 	cout << "please enter the name of the page: ";
-	cin.ignore();
 	getline(cin, name);
-	/*
-	int choice;
-	int size = system.getPagesSize();
-	bool validInput;
-
-	do
-	{
-		cout << "Enter the index of the fan page: " << endl;
-		system.printAllSystemPages();
-		cout << "Enter your choice here: ";
-		cin >> choice;
-		if (1 <= choice && choice <= size)
-			validInput = true;
-		else
-		{
-			cout << "error: your choice needs to be a number between 1 and " << size << endl;
-			validInput = false;
-		}
-	} while (validInput == false);
-
-	return choice;
-	*/
 }
 
 
@@ -197,7 +151,7 @@ void printAllFriendsOrFansEntity(System& system)
 
 	choosePagesOrMembers(choice);
 
-
+	cin.ignore();
 	while (!isValidInput)
 	{
 		try {
@@ -273,6 +227,7 @@ void showAllStatusesOfAFanPageOrMember(System& system)
 		try
 		{
 			choosePagesOrMembers(choice);
+			cin.ignore();
 			switch (choice)
 			{
 			case MEMBER:
@@ -286,6 +241,8 @@ void showAllStatusesOfAFanPageOrMember(System& system)
 			default:
 				break;
 			}
+
+			isValidInput = true;
 		}
 		catch (const char* msg)
 		{
@@ -302,9 +259,9 @@ void ShowTenStatusesOfEachFriend(System& system)
 	bool isValidInput = false;
 	string name;
 
+	cin.ignore();
 	while (!isValidInput)
 	{
-		cout << "choose a member by entering their index number: " << endl;
 		chooseOneMember(name);
 		try
 		{
@@ -322,17 +279,34 @@ void ShowTenStatusesOfEachFriend(System& system)
 void removeFanFromPageInSystem(System& system)
 {
 	string name_page, name_fan;
-	cout << "choose a fan page from which you want to unlink a fan: " << endl;
-	chooseOnePage(name_page);
-	chooseOneMember(name_fan);
-	try
+	bool isValidInput = false, exit = false;
+	char choice;
+
+	do
 	{
-		system.removeFanFromAFanPage(name_page, name_fan);
-	}
-	catch (const char* msg)
-	{
-		cout << msg << endl;
-	}
+		cin.ignore();
+		cout << "choose a fan page from which you want to unlink a fan: " << endl;
+		chooseOnePage(name_page);
+		chooseOneMember(name_fan);
+		try
+		{
+			system.removeFanFromAFanPage(name_page, name_fan);
+			isValidInput = true;
+		}
+		catch (const char* msg)
+		{
+			cout << msg << endl;
+			do {
+				cout << "do you wish to try again?[y/n]: ";
+				cin >> choice;
+
+				if (choice == NO)
+					exit = true;
+				else if (choice != YES)
+					cout << "Invalid input, please enter y or n" << endl;
+			} while (choice != NO && choice != YES);
+		}
+	} while (!isValidInput && !exit);
 }
 
 
@@ -341,11 +315,14 @@ void linkFriendshipInSystem(System& system)
 	char choice;
 	bool validInput = false, exit = false;
 	string name1, name2;
-	chooseOneMember(name1);
-	cout << "second member:" << endl;
-	chooseOneMember(name2);
-	while (!validInput && !exit)
+	
+	do 
 	{
+		cin.ignore();
+		cout << "first member:" << endl;
+		chooseOneMember(name1);
+		cout << "second member:" << endl;
+		chooseOneMember(name2);
 		try
 		{
 			system.linkFriends(name1, name2);
@@ -364,7 +341,7 @@ void linkFriendshipInSystem(System& system)
 					cout << "Invalid input, please enter y or n" << endl;
 			} while (choice != NO && choice != YES);
 		}
-	}
+	} while (!validInput && !exit);
 
 }
 
@@ -374,19 +351,35 @@ void unLinkFriendshipInSystem(System& system)
 {
 	Member* selected_friend;
 	string name1,name2;
+	bool isValidInput = false, exit = false;
+	char choice;
 
-	cout << "user from which you want to unlink a friend: " << endl;
-	chooseOneMember(name1);
-	cout << "friend you want to delete: " << endl;
-	chooseOneMember(name2);
-	try
+	do
 	{
-		system.unLinkFriends(name1, name2);
-	}
-	catch (const char* msg)
-	{
-		cout << msg << endl;
-	}
+		cin.ignore();
+		cout << "user from which you want to unlink a friend: " << endl;
+		chooseOneMember(name1);
+		cout << "friend you want to delete: " << endl;
+		chooseOneMember(name2);
+		try
+		{
+			system.unLinkFriends(name1, name2);
+			isValidInput = true;
+		}
+		catch (const char* msg)
+		{
+			cout << msg << endl;
+			do {
+				cout << "do you wish to try again?[y/n]: ";
+				cin >> choice;
+
+				if (choice == NO)
+					exit = true;
+				else if (choice != YES)
+					cout << "Invalid input, please enter y or n" << endl;
+			} while (choice != NO && choice != YES);
+		}
+	} while (!isValidInput && !exit);
 }
 
 
@@ -397,9 +390,9 @@ void addFanToPageInSystem(System& system)
 	char choice;
 	string name_page, name_member;
 
-
-	while (!isValidData && !exit)
+	do
 	{
+		cin.ignore();
 		cout << "the fan page you want to add a member as a fan to : " << endl;
 		chooseOnePage(name_page);
 		cout << "the memeber you wish to add to a fan page: " << endl;
@@ -413,8 +406,17 @@ void addFanToPageInSystem(System& system)
 		catch (const char* msg)
 		{
 			cout << msg << endl;
+			do {
+				cout << "do you wish to try again?[y/n]: ";
+				cin >> choice;
+
+				if (choice == NO)
+					exit = true;
+				else if (choice != YES)
+					cout << "Invalid input, please enter y or n" << endl;
+			} while (choice != NO && choice != YES);
 		}
-	}
+	} while (!isValidData && !exit);
 }
 
 

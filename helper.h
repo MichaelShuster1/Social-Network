@@ -37,7 +37,7 @@ void addFanToPageInSystem(System& system); //adds a fan to a given page in syste
 void removeFanFromPageInSystem(System& system);  //remvoes a fan from a given page in system
 void printMenu();// prints the menu
 bool processChoice(System& system, int choice); //process the given choice of the user of the system
-void choosePagesOrMembers(int& choice);
+void choosePagesOrMembers(int& choice); //chooses if the user want to make an action on members or users
 
 #endif // !HELPER
 

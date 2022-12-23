@@ -34,23 +34,23 @@ void Fan_page::addStatus(Status& status)
 }
 
 
-void Fan_page::operator+=(Member& member)
+void Fan_page::operator+=(Member& member)  throw(const char*)
 {
+    if (isFanCheck(member))
+	{
+		throw "error:The user you chose is already a fan of this page!";
+	}
+	
 	if (fans.size() == fans.capacity())
 		fans.reserve(fans.capacity() * INCREASE_RATE);
 	fans.push_back(&member);
 
-	int index = member.getPagesSize();
-	if (index != 0)
+	if (!member.isPageFollower(*this))
 	{
-		if (this != member.getPageFromPages(index - 1))
-		{
-			member.addPage(*this);
-		}
-	}
-	else
 		member.addPage(*this);
+	}
 }
+
 
 bool Fan_page::operator==(const string& name) const
 {
@@ -58,7 +58,7 @@ bool Fan_page::operator==(const string& name) const
 }
 
 
-void Fan_page::deleteFan(Member& member)
+void Fan_page::deleteFan(Member& member) throw (const char*)
 {
 	auto itr = find(fans.begin(), fans.end(), &member);
 
@@ -112,42 +112,16 @@ void Fan_page::showName() const
 	cout << name;
 }
 
-Member* Fan_page::getfanFromFans(int i) 
-{
-	auto itr= fans.begin();
-	advance(itr, i);
-	return *itr;
-}
 
 
-const char* Fan_page::getName() const
+const string Fan_page::getName() const
 {
-	return name.c_str();
+	return name;
 }
 
 int Fan_page::getFansSize() const
 {
 	return fans.size();
-}
-
-int Fan_page::getfanIndexFromFans(Member& member) const
-{
-	auto itr = fans.begin();
-	auto itrEnd = fans.end();
-	bool found = false;
-	int i=0;
-	while (itr!=itrEnd && found == false)
-	{
-		if ( (*itr) == &member)
-			found = true;
-
-		++itr;
-		i++;
-	}
-	if (found)
-		return i - 1;
-	else
-		return NOT_FOUND;
 }
 
 
