@@ -1,26 +1,10 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#define new DBG_NEW
-
-#ifdef _DEBUG
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-#else
-#define DBG_NEW new
-#endif
-
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
 #include "member.h"
 #include "page.h"
 #include <string.h>
 #include <ctime>
-
-const int NAME_LEN = 100;
-const int STATUS_LEN = 254;
-const int FIRST_SIZE = 3;
-
 
 
 class System

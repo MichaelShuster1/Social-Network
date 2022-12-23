@@ -9,7 +9,7 @@ using namespace std;
 
 
 
-const int NOT_FOUND = -1;
+
 const int RANGE = 10;
 const int INCREASE_RATE = 2;
 
