@@ -38,7 +38,7 @@ public:
 	int getfanIndexFromFans(Member& member) const; //returns the index of the given member in the fans arr of this page
 	bool operator>(const Fan_page& page) const;// checks if the number of fans of this page is bigger then the number of fans of the given page
 	bool operator>(const Member& member) const; // checks if the number of fans of this page is bigger the number of friends of the given member
-	bool isFanCheck(const string& name_member) const;//checks if the given member is a fan of this page
+	bool isFanCheck(Member& member) const;//checks if the given member is a fan of this page
 
 };
 

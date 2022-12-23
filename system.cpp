@@ -73,10 +73,13 @@ bool System::checkIfExistNamePage(const char* name)
 	*/
 }
 
-void System::addNewStatusToMember(Status& new_status,const string& name)
+void System::addNewStatusToMember(Status& new_status,const string& name) throw (const char*)
 {
-	auto itr = findMember(name);
-	(*itr).addStatus(new_status);
+	auto itr = find(system_members.begin(), system_members.end(), name);
+	if (itr != system_members.end())
+		(*itr).addStatus(new_status);
+	else
+		throw "error: the user doesn't exist!";
 }
 
 
@@ -128,11 +131,14 @@ void System::printAllSystemPages() const
 }
 
 
-void System::addNewStatusToFanPage(Status& new_status,const string& name)
+void System::addNewStatusToFanPage(Status& new_status,const string& name) throw (const char*)
 {
-	auto itr = system_pages.begin();
-	advance(itr, index);
-	(*itr).addStatus(new_status);
+	auto itr = find(system_pages.begin(), system_pages.end(), name);
+	if (itr != system_pages.end())
+		(*itr).addStatus(new_status);
+	else
+		throw "error: user doesn't exist!";
+
 	//system_pages[index].addStatus(new_status);
 }
 
@@ -246,7 +252,10 @@ void System::unLinkFriends(const string& name1, const string& name2) throw (cons
 	{
 		(*itr1).removeFriend(name2);
 	}
-	catch (const char*)
+	catch (const char* msg)
+	{
+		cout << msg << endl;
+	}
 
 	/*Member selected_friend = (*itr1).getMemberFromFriends(name2);
 	selected_friend->removeFriend((*(*itr2)));*/

@@ -175,9 +175,9 @@ bool Fan_page::operator>(const Member& member) const
 }
 
 
-bool Fan_page::isFanCheck(const string& name_member) const
+bool Fan_page::isFanCheck(Member& member) const
 {
-	auto itr = find(fans.begin(), fans.end(), name_member);
+	auto itr = find(fans.begin(), fans.end(), &member);
 	if (itr == fans.end())
 		return false;
 	else

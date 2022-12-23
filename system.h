@@ -38,10 +38,10 @@ public:
 	System(const System& other) = delete;//system class copy c'tor disable
 	void addNewUser(const Member& new_user) throw(const char*);//adds the given member to the system
 	void addNewPage(const Fan_page& new_page) throw(const char*);// adds the given fan page to the system
-	void addNewStatusToFanPage(Status& new_status,int index);//adds the given status to a fan page located in the 'index' index in system pages
+	void addNewStatusToFanPage(Status& new_status,int index) throw (const char*);//adds the given status to a fan page located in the 'index' index in system pages
 	void addNewStatusToMember(Status& new_status, const string& name);//adds the given status to a member located in the 'index' index in system members
 	void addNewStatusToFanPage(Status& new_status,const string& name);//adds the given status to a fan page located in the 'index' index in system pages
-	void addNewStatusToMember(Status& new_status, int index);//adds the given status to a member located in the 'index' index in system members
+	void addNewStatusToMember(Status& new_status, int index) throw (const char*);//adds the given status to a member located in the 'index' index in system members
 	void showAllStatusesOfAFanPage(const string& name) const;//prints all statuses of a fan page
 	void showAllStatusesOfAMember(const string& name) const;//prints all statuses of a member
 	void addFanToAPage(const string& name_page, const string& name_member) throw(const char*);//add the member in 'index2' in system members to the fans array of the fan page in 'index1'
