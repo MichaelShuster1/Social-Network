@@ -439,37 +439,37 @@ void unLinkFriendshipInSystem(System& system)
 	}
 }
 
-//
-//int chooseOneFriendOfAMember(System& system,int index)
-//{
-//	int choice, size = system.getFriendsSizeOfAMember(index);
-//	bool validInput;
-//	if (size != EMPTY)
-//	{
-//		do
-//		{
-//			cout << "choose the friend you want to unlink: " << endl;
-//			system.printAllFriendsOfMember(index);
-//			cout << "Enter your choice here: ";
-//			cin >> choice;
-//			if (1 <= choice && choice <= size)
-//				validInput = true;
-//			else
-//			{
-//				cout << "error: your choice needs to be a number between 1 and " << size << endl;
-//				validInput = false;
-//			}
-//		} while (validInput == false);
-//
-//		return choice;
-//	}
-//	else
-//	{
-//		cout << "the user you chose has no friends to unlink from" << endl;
-//		return NOT_FOUND;
-//	}
-//
-//}
+
+
+{
+	int choice, size = system.getFriendsSizeOfAMember(index);
+	bool validInput;
+	if (size != EMPTY)
+	{
+		do
+		{
+			cout << "choose the friend you want to unlink: " << endl;
+			system.printAllFriendsOfMember(index);
+			cout << "Enter your choice here: ";
+			cin >> choice;
+			if (1 <= choice && choice <= size)
+				validInput = true;
+			else
+			{
+				cout << "error: your choice needs to be a number between 1 and " << size << endl;
+				validInput = false;
+			}
+		} while (validInput == false);
+
+		return choice;
+	}
+	else
+	{
+		cout << "the user you chose has no friends to unlink from" << endl;
+		return NOT_FOUND;
+	}
+
+}
 
 
 void addFanToPageInSystem(System& system)
@@ -494,67 +494,37 @@ void addFanToPageInSystem(System& system)
 		catch (const char* msg)
 		{
 			cout << msg << endl;
-			do {
-				cout << "do you wish to try again [y/n]:";
-				cin >> choice;
-				if (choice == NO)
-					exit = true;
-				else if (choice != YES)
-					cout << "Invalid input, please enter y or n" << endl;
-			} while (choice != NO && choice != YES);
-		}
-
-	}
-
-}
 
 
-void removeFanFromPageInSystem(System& system)
+int chooseOneFanOfAPage(System& system,int index)
 {
-	string name_page, name_fan;
-	cout << "choose a fan page from which you want to unlink a fan: " << endl;
-	chooseOnePage(name_page);
-	chooseOneMember(name_fan);
-	try
+	int choice, size = system.getFansSizeofAPage(index);
+	bool validInput;
+	if (size != EMPTY)
 	{
-		system.removeFanFromAFanPage(name_page, name_fan);
+		do
+		{
+			cout << "choose the fan you want to unlink:  " << endl;
+			system.printAllFandsOfPage(index);
+			cout << "Enter your choice here: ";
+			cin >> choice;
+			if (1 <= choice && choice <= size)
+				validInput = true;
+			else
+			{
+				cout << "error: your choice needs to be a number between 1 and " << size << endl;
+				validInput = false;
+			}
+		} while (validInput == false);
+		return choice;
 	}
-	catch (const char* msg)
+	else
 	{
-		cout << msg << endl;
+		cout << "the page you chose dont have fans to delete" << endl;
+		return NOT_FOUND;
 	}
-}
 
-//
-//int chooseOneFanOfAPage(System& system,int index)
-//{
-//	int choice, size = system.getFansSizeofAPage(index);
-//	bool validInput;
-//	if (size != EMPTY)
-//	{
-//		do
-//		{
-//			cout << "choose the fan you want to unlink:  " << endl;
-//			system.printAllFandsOfPage(index);
-//			cout << "Enter your choice here: ";
-//			cin >> choice;
-//			if (1 <= choice && choice <= size)
-//				validInput = true;
-//			else
-//			{
-//				cout << "error: your choice needs to be a number between 1 and " << size << endl;
-//				validInput = false;
-//			}
-//		} while (validInput == false);
-//		return choice;
-//	}
-//	else
-//	{
-//		cout << "the page you chose dont have fans to delete" << endl;
-//		return NOT_FOUND;
-//	}
-//
-//}
+}
 
 void printMenu()
 {

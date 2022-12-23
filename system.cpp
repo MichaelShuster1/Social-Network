@@ -133,13 +133,10 @@ void System::printAllSystemPages() const
 
 void System::addNewStatusToFanPage(Status& new_status,const string& name) throw (const char*)
 {
-	auto itr = find(system_pages.begin(), system_pages.end(), name);
-	if (itr != system_pages.end())
-		(*itr).addStatus(new_status);
-	else
-		throw "error: user doesn't exist!";
-
-	//system_pages[index].addStatus(new_status);
+	auto itr = find(system_pages.begin(),system_pages.end(),name);
+	if (itr == system_pages.end())
+		throw("page not found!");
+	(*itr).addStatus(new_status);
 }
 
 
@@ -182,27 +179,18 @@ void System::showAllStatusesOfAFanPage(const string& name) const
 	else
 		cout << "the page was not found!"<<endl;
 	
-	/*
-	system_pages[index].showName();
-	cout << "'s statuses are:" << endl;
-	system_pages[index].showAllStatuses(); 
-	*/
+	
 }
 
 
 
 void System::ShowTenLatestStatusesOfEachFriend(const string& name) const throw(const char*)
 {
-	/*auto itr = system_members.begin();
-	advance(itr, index);*/
 	auto itr = find(system_members.begin(), system_members.end(), name);
 	if (itr != system_members.end())
 		(*itr).showAllFriendsTenStatuses();
 	else
 		throw "This user doesn't exist!";
-
-
-	//system_members[index].showAllFriendsTenStatuses();
 }
 
 
@@ -210,10 +198,7 @@ void System::linkFriends(const string& name1, const string& name2) throw(const c
 {
 	if (name1 == name2)
 		throw "error: you cant link a member with himself!";
-	/*auto itr1 = system_members.begin();
-	auto itr2 = itr1;
-	advance(itr1, index1);
-	advance(itr2, index2);*/
+
 	auto itr1 = find(system_members.begin(), system_members.end(), name1);
 	auto itr2 = find(system_members.begin(), system_members.end(), name2);
     
@@ -250,11 +235,11 @@ void System::unLinkFriends(const string& name1, const string& name2) throw (cons
 
 	try
 	{
-		(*itr1).removeFriend(name2);
+		(*itr1).removeFriend(*itr2);
 	}
 	catch (const char* msg)
 	{
-		cout << msg << endl;
+		throw(msg);
 	}
 
 	/*Member selected_friend = (*itr1).getMemberFromFriends(name2);
@@ -289,27 +274,23 @@ void System::addFanToAPage(const string& name_page, const string& name_member) t
 void System::removeFanFromAFanPage(const string& name_page, const string& name_member) throw(const char*)
 {
 	auto itr_page = find(system_pages.begin(), system_pages.end(), name_page);
+	auto itr_member = find(system_members.begin(), system_members.end(), name_member);
+
 
 	if (itr_page == system_pages.end())
-		throw "error: page not found!";
+		throw "error: page not found in sytem!";
+
+	if (itr_member == system_members.end())
+		throw "error: member not found in system!";
 
 	try
 	{
-		(*itr_page).deleteFan(name_member);
+		(*itr_page).deleteFan(*itr_member);
 	}
 	catch (const char* msg)
 	{
 		throw(msg);
 	}
-	
-
-
-
-
-	/*
-	selected_friend = system_pages[index1].getfanFromFans(index2);
-	selected_friend->removePage(system_pages[index1]);
-	*/
 }
 
 

@@ -30,23 +30,21 @@ Member::Member(Member&& other) noexcept(true) :birth_date(other.birth_date)
 
 
 
-void Member::removeFriend(const string& name)
+void Member::removeFriend(Member& member)
 {
 
-	auto itr = find(friends.begin(), friends.end(), name);
-	Member* member;
+	auto itr = find(friends.begin(), friends.end(), &member);
 
 	if(itr == friends.end())
 		throw "error: the members you chose are already not linked!";
 	
 	swap(*itr, *friends.rend());
-	member = friends.back();
 	friends.pop_back();
 
 
-	if (find(member->friends.begin(), member->friends.end(), name) != member->friends.end())
+	if (find(member.friends.begin(), member.friends.end(), &member) != member.friends.end())
 	{
-		member->removeFriend(name);
+		member.removeFriend(*this);
 	}
 
 	/*if (_member.getFriendIndexFromFriends(*this) != NOT_FOUND)
@@ -57,20 +55,20 @@ void Member::removeFriend(const string& name)
 }
 
 
-void Member::removePage(const string& name_page)
+void Member::removePage(Fan_page& page)
 {
-	Fan_page* page;
-	auto itr = find(pages.begin(), pages.end(), name_page);
+	Fan_page* fan_page;
+	auto itr = find(pages.begin(), pages.end(), &page);
 
 	if (itr == pages.end() )
 		throw "the given page is not followed by the given member";
 
 	swap(*itr, *pages.rbegin());
-	page = pages.back();
+	fan_page = pages.back();
 	pages.pop_back();
 
-	if(page->isFanCheck(name))
-		page->deleteFan(name);
+	if(fan_page->isFanCheck(*this))
+		fan_page->deleteFan(*this);
 
 	/*while (found == false)
 	{
@@ -85,9 +83,9 @@ void Member::removePage(const string& name_page)
 }
 
 
-bool Member::isPageFollower(const string& name_page) const
+bool Member::isPageFollower(const Fan_page& page) const
 {
-	auto itr = find(pages.begin(), pages.end(), name_page);
+	auto itr = find(pages.begin(), pages.end(), &page);
 	if (itr == pages.end())
 		return false;
 	else
