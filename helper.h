@@ -25,9 +25,7 @@ void addNewUserToSystem(System& system); //creates new user and adds him to the 
 void addNewPageToSystem(System& system); //creates new page and adds him to the system
 void printAllRegisteredEntitiesInSystem(System& system); //prints all the registered entities in system
 void chooseOneMember(string& name); //chooses one member from the already existing members in system
-int chooseOneFriendOfAMember(System& system,int index);//chooses one friend of the given member in system
 void chooseOnePage(string& name); //chooses one page from the already existing pages in system
-int chooseOneFanOfAPage(System& system, int index); //chooses one fan of the given page in system
 void printAllFriendsOrFansEntity(System& system); //prints all friends or fans of the system
 void createNewStatus(Status** newStatus); //creates new status and returns it by pointer
 void addNewStatusToFanPageOrMember(System& system);//adds new status to a given fan or member in system
