@@ -35,6 +35,8 @@ public:
 	void addPage(Fan_page& page);//adds a fan page to the members fan pages array
 	void removeFriend(Member& _member);//removes a user from the members friends array
 	void removePage(const string& name_page);//removes a page fom the users fan page array
+	void removeFriend(const string& name);//removes a user from the members friends array
+	void removePage(Fan_page& page);//removes a page fom the users fan page array
 	void showAllFriends() const ;//prints all friends of a member
 	void showAllStatuses() const;//prints all statuses of a member
 	void showName() const ;//prints members name
@@ -51,6 +53,7 @@ public:
 	bool operator>(const Fan_page& page) const; // return true if this member have more friends than the number of fans of the given page
 	bool areFriendsCheck(const Member& member) const;
 	bool isPageFollower(const string& name_page) const;
+	bool operator==(const string& name) const;
 };
 
 

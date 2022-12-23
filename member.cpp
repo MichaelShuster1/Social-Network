@@ -30,38 +30,29 @@ Member::Member(Member&& other) noexcept(true) :birth_date(other.birth_date)
 
 
 
-void Member::removeFriend(Member& _member)
+void Member::removeFriend(const string& name)
 {
-	//int i = 0;
-	bool found = false;
-	auto itr = friends.begin();
-	auto itrEnd = friends.rbegin();
-	while (found == false)
-	{
-		if (*itr == &_member)
-			found = true;
-		else
-			++itr;
-	}
-	swap(*itr, *itrEnd);
+
+	auto itr = find(friends.begin(), friends.end(), name);
+	Member* member;
+
+	if(itr == friends.end())
+		throw "error: the members you chose are already not linked!";
+	
+	swap(*itr, *friends.rend());
+	member = friends.back();
 	friends.pop_back();
 
-	//while (found == false)
-	//{
-	//	if (friends[i] == &_member) 
-	//		found = true;
-	//	else
-	//		i++;
-	//}
 
-	/*shiftBackMemberArr(i);
-	numOfFriends--;*/
+	if (find(member->friends.begin(), member->friends.end(), name) != member->friends.end())
+	{
+		member->removeFriend(name);
+	}
 
-
-	if (_member.getFriendIndexFromFriends(*this) != NOT_FOUND)
+	/*if (_member.getFriendIndexFromFriends(*this) != NOT_FOUND)
 	{
 		_member.removeFriend(*this);
-	}
+	}*/
 
 }
 
@@ -381,4 +372,12 @@ bool Member::areFriendsCheck(const Member& member) const
 	}
 
 	return false;*/
+}
+
+bool Member::operator==(const string& name) const
+{
+	if (this->name == name)
+		return true;
+	else
+		return false;
 }
