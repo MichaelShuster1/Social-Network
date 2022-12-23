@@ -199,6 +199,7 @@ void System::showAllStatusesOfAFanPage(const string& name) const
 	*/
 }
 
+
 vector<Member*>::const_iterator System::findMember(const string& name) const
 {
 	auto itrEnd = system_members.end();
