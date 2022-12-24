@@ -174,15 +174,22 @@ void Member::showAllStatuses() const
 
 void Member::showTenRecentStatuses() const
 {
+	int i = 0;
 	auto itr = statuses.rbegin();
 	auto itrEnd = statuses.rend();
-	int size = statuses.size();
-	int i = 0;
-	for (; itr != itrEnd && i < RANGE; ++itr, i++)
+
+	if(statuses.size()==EMPTY)
+		cout << name << " has no statuses" << endl;
+	else
 	{
-		(*itr).showStatus();
-		cout << endl;
+		cout <<name<<"'s ten recent statuses: " << endl;
+		for (; itr != itrEnd && i < RANGE; ++itr, i++)
+		{
+			(*itr).showStatus();
+			cout << endl;
+		}
 	}
+	
 }
 
 
@@ -197,8 +204,6 @@ void Member::showAllFriendsTenStatuses() const
 		cout << endl;
 		for (; itr != itrEnd; ++itr)
 		{
-			(*itr)->showName();
-			cout << "'s ten recent statuses: " << endl;
 			(*itr)->showTenRecentStatuses();
 			cout << endl;
 		}
