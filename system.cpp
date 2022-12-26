@@ -164,6 +164,9 @@ void System::unLinkFriends(const string& name1, const string& name2) throw (cons
 
 	if ((*itr2).getFriendsSize() == 0)
 		throw "error: the second user you entered doesn't have friends to delete!";
+	
+	if (itr1 == itr2)
+		throw "error: you cant unlink yourself!";
 
 	try
 	{
