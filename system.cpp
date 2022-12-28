@@ -9,36 +9,36 @@ System::System()
 
 
 
-void System::addNewUser(const Member& new_user) throw(const char*)
+void System::addNewUser(const Member& new_user) noexcept(false)
 {
 	auto itr = find(system_members.begin(), system_members.end(), new_user.getName());
 	if(itr!=system_members.end())
 	{
-		throw "the name is already taken!";
+		throw UserNameTakenException();
 	}
 	
 	system_members.push_back(Member(new_user));	
 }
 
 
-void System::addNewPage(const Fan_page& new_page) throw(const char*)
+void System::addNewPage(const Fan_page& new_page) noexcept(false)
 {
 	auto itr = find(system_pages.begin(), system_pages.end(), new_page.getName());
 	if (itr!=system_pages.end())
 	{
-		throw "the name is already taken!";
+		throw UserNameTakenException();
 	}
 	system_pages.push_back(Fan_page(new_page));
 }
 
 
-void System::addNewStatusToMember(Status& new_status,const string& name) throw (const char*)
+void System::addNewStatusToMember(Status& new_status,const string& name) noexcept(false)
 {
 	auto itr = find(system_members.begin(), system_members.end(), name);
 	if (itr != system_members.end())
 		(*itr).addStatus(new_status);
 	else
-		throw "error: the user doesn't exist!";
+		throw UserNotFoundException();
 }
 
 
@@ -70,11 +70,11 @@ void System::printAllSystemPages() const
 }
 
 
-void System::addNewStatusToFanPage(Status& new_status,const string& name) throw (const char*)
+void System::addNewStatusToFanPage(Status& new_status,const string& name) noexcept(false)
 {
 	auto itr = find(system_pages.begin(),system_pages.end(),name);
 	if (itr == system_pages.end())
-		throw("page not found!");
+		throw PageNotFoundException();
 	(*itr).addStatus(new_status);
 }
 
@@ -108,13 +108,13 @@ void System::showAllStatusesOfAFanPage(const string& name) const
 
 
 
-void System::ShowTenLatestStatusesOfEachFriend(const string& name) const throw(const char*)
+void System::ShowTenLatestStatusesOfEachFriend(const string& name) const noexcept(false)
 {
 	auto itr = find(system_members.begin(), system_members.end(), name);
 	if (itr != system_members.end())
 		(*itr).showAllFriendsTenStatuses();
 	else
-		throw "This user doesn't exist!";
+		throw UserNotFoundException();
 }
 
 
@@ -179,7 +179,7 @@ void System::unLinkFriends(const string& name1, const string& name2) throw (cons
 }
 
 
-void System::addFanToAPage(const string& name_page, const string& name_member) throw(const char*)
+void System::addFanToAPage(const string& name_page, const string& name_member) noexcept(false)
 {
 	auto itr_fan = find(system_members.begin(), system_members.end(), name_member);
 	auto itr_page = find(system_pages.begin(), system_pages.end(), name_page);
@@ -194,55 +194,55 @@ void System::addFanToAPage(const string& name_page, const string& name_member) t
 	{
 		(*itr_page) += (*itr_fan);
 	}
-	catch(const char* msg)
+	catch(AddFanException& e)
 	{
-		throw(msg);
+		throw(e);
 	}
 }
 
 
-void System::removeFanFromAFanPage(const string& name_page, const string& name_member) throw(const char*)
+void System::removeFanFromAFanPage(const string& name_page, const string& name_member) noexcept(false)
 {
 	auto itr_page = find(system_pages.begin(), system_pages.end(), name_page);
 	auto itr_member = find(system_members.begin(), system_members.end(), name_member);
 
 
 	if (itr_page == system_pages.end())
-		throw "error: page not found in sytem!";
+		throw PageNotFoundException();
 
 	if (itr_member == system_members.end())
-		throw "error: member not found in system!";
+		throw UserNotFoundException();
 
 	if ((*itr_page).getFansSize() == 0)
-		throw "error: the given page doesn't have any fans to delete!";
+		throw NoFansException();
 
 	try
 	{
 		(*itr_page).deleteFan(*itr_member);
 	}
-	catch (const char* msg)
+	catch (DelteFanException& e)
 	{
-		throw(msg);
+		throw(e);
 	}
 }
 
 
-void System::printAllFriendsOfMember(const string& name) const throw (const char*)
+void System::printAllFriendsOfMember(const string& name) const noexcept(false)
 {
 	auto itr = find(system_members.begin(), system_members.end(), name);
 
 	if (itr == system_members.end())
-		throw "error: the user doesn't exist!";
+		throw UserNotFoundException();
 
 	(*itr).showAllFriends();
 }
 
 
-void System::printAllFandsOfPage(const string& name) const throw(const char*) 
+void System::printAllFandsOfPage(const string& name) const noexcept(false)
 {
 	auto itr = find(system_pages.begin(), system_pages.end(), name);
 	if (itr == system_pages.end())
-		throw "error: page not found!";
+		throw PageNotFoundException();
 	(*itr).showAllFans();
 }
 

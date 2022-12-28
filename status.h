@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <string>
+#include "exceptions.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ private:
 
 
 public:
-	Status(string text, string time) throw(const char*); //default c'tor
+	Status(string text, string time) noexcept(false); //default c'tor
 	Status(const Status& other); //copy c'tor
 	void showStatus() const; //shows the text and time of this status
 	bool operator==(const Status& status) const; //checks if the text of 2 statuses is the same

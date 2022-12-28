@@ -1,10 +1,9 @@
 #include "date.h"
 
-
-Date::Date(int y, int m, int d) throw (const char*)
+Date::Date(int y, int m, int d) throw (DateFormatException)
 {
 	if (d > LAST_DAY_OF_MONTH ||d < FIRST_DAY_OF_MONTH ||m > DECEMBER || m < JANUARY || y > CURRENT_YEAR || y < EARLIEST_YEAR)
-		throw "Incorrect birth date";
+		throw DateFormatException();
 	year = y;
 	month = m;
 	day = d;

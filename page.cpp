@@ -3,10 +3,10 @@
 
 
 
-Fan_page::Fan_page(const string& name) throw(const char*)
+Fan_page::Fan_page(const string& name) noexcept(false)
 {
 	if (name.size() == EMPTY)
-		throw "error: the name of the new page is empty!";
+		throw EmptyPageNameException();
 	this->name = name;
 }
 
@@ -34,11 +34,11 @@ void Fan_page::addStatus(Status& status)
 }
 
 
-void Fan_page::operator+=(Member& member)  throw(const char*)
+void Fan_page::operator+=(Member& member)  noexcept(false)
 {
     if (isFanCheck(member))
 	{
-		throw "error:The user you chose is already a fan of this page!";
+		throw AddFanException();
 	}
 	
 	if (fans.size() == fans.capacity())
@@ -58,12 +58,12 @@ bool Fan_page::operator==(const string& name) const
 }
 
 
-void Fan_page::deleteFan(Member& member) throw (const char*)
+void Fan_page::deleteFan(Member& member) noexcept(false)
 {
 	auto itr = find(fans.begin(), fans.end(), &member);
 
 	if (itr == fans.end())
-		throw "the given member is not a fan of the given page";
+		throw DelteFanException();
 
 	swap(*itr, *fans.rbegin());
 	fans.pop_back();

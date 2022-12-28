@@ -22,7 +22,7 @@ private:
 	list<Status>statuses;
 
 public:
-	Fan_page(const string& name) throw(const char*); //c'tor
+	Fan_page(const string& name) noexcept(false); //c'tor
 	Fan_page(const Fan_page& other); //copy c'tor
 	Fan_page(Fan_page&& other) noexcept(true); //move c'tor
 	void operator+=(Member& member) throw(const char*);//adds the given member as a fan to this page

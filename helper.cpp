@@ -48,6 +48,7 @@ void addNewUserToSystem(System& system)
 			}
 		}
 
+
 	}
 }
 
@@ -195,12 +196,12 @@ void addNewStatusToFanPageOrMember(System& system)
 			switch (choice)
 			{
 			case MEMBER:
-				cout << "the member you want to add the given status to"<<endl;
+				cout << "choose the member you want to add the given status to"<<endl;
 				chooseOneMember(name);
 				system.addNewStatusToMember(*newStatus, name);
 				break;
 			case FAN_PAGE:
-				cout << "the page you want to add the given status to" << endl;
+				cout << "choose the page you want to add the given status to" << endl;
 				chooseOnePage(name);
 				system.addNewStatusToFanPage(*newStatus, name);
 				break;
@@ -209,9 +210,9 @@ void addNewStatusToFanPageOrMember(System& system)
 			}
 			isValidInput = true;
 		}
-		catch (const char* msg)
+		catch (UserNotFound& e)
 		{
-			cout << msg << endl;
+			cout << e.what();
 		}
 	}
 	delete newStatus;

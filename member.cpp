@@ -3,10 +3,10 @@
 using namespace std;
 
 
-Member::Member(const string _name, const Date& date) throw(const char*):birth_date(date)
+Member::Member(const string _name, const Date& date) throw( EmptyUserNameException):birth_date(date)
 {
 	if (_name.size() == EMPTY)
-		throw "Your name cant be empty!";
+		throw  EmptyUserNameException();
 	name = _name;
 }
 
@@ -30,13 +30,13 @@ Member::Member(Member&& other) noexcept(true) :birth_date(other.birth_date)
 
 
 
-void Member::removeFriend(Member& member) throw(const char*)
+void Member::removeFriend(Member& member) throw(UnLinkingException)
 {
 
 	auto itr = find(friends.begin(), friends.end(), &member);
 
 	if(itr == friends.end())
-		throw "error: the members you chose are already not linked!";
+		throw UnLinkingException();
 	
 	swap(*itr, *friends.rbegin());
 	friends.pop_back();
@@ -50,13 +50,13 @@ void Member::removeFriend(Member& member) throw(const char*)
 }
 
 
-void Member::removePage(Fan_page& page) throw(const char*)
+void Member::removePage(Fan_page& page) throw(RemovePageException)
 {
 	Fan_page* fan_page;
 	auto itr = find(pages.begin(), pages.end(), &page);
 
-	if (itr == pages.end() )
-		throw "the given page is not followed by the given member";
+	if (itr == pages.end())
+		throw RemovePageException();
 
 	swap(*itr, *pages.rbegin());
 	fan_page = pages.back();
@@ -83,11 +83,11 @@ void Member::addStatus(Status& status)
 }
 
 
-void Member::operator+=(Member& _member) throw (const char*)
+void Member::operator+=(Member& _member) throw (UserLinkingException)
 {
 
 	if (areFriendsCheck((_member)))
-		throw "error: the members you chose are already linked!";
+		throw UserLinkingException();
 
 	if (friends.size() == friends.capacity())
 	{
@@ -104,11 +104,11 @@ void Member::operator+=(Member& _member) throw (const char*)
 }
 
 
-void Member::addPage(Fan_page& page) throw(const char*)
+void Member::addPage(Fan_page& page) throw(UserLinkingPageException)
 {
 	if(isPageFollower(page))
 	{
-		throw "the given page is already followed by the given member";
+		throw UserLinkingPageException();
 	}
 	if (pages.size() == pages.capacity())
 	{

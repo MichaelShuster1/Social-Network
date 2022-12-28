@@ -26,14 +26,14 @@ private:
 	vector<Member*> friends;
 
 public:
-	Member(const string _name,const Date& date) throw(const char*); //c'tor
+	Member(const string _name,const Date& date) throw(EmptyUserNameException); //c'tor
 	Member(const Member& other);// copy c'tor
 	Member(Member&& other) noexcept(true); // move c'tor
-	void operator+=(Member& _member) throw (const char*); //adds a user to the member's friends
+	void operator+=(Member& _member) throw (UserLinkingException); //adds a user to the member's friends
 	void addStatus(Status& status);//adds a status to the member's statuses 
-	void addPage(Fan_page& page) throw(const char*); //adds a fan page to the member's fan pages 
-	void removePage(Fan_page& page) throw (const char*);//removes a page from the user's fan page 
-	void removeFriend(Member& member) throw (const char*);//removes a user from the member's friends
+	void addPage(Fan_page& page) throw(UserLinkingPageException); //adds a fan page to the member's fan pages 
+	void removePage(Fan_page& page) throw (RemovePageException);//removes a page from the user's fan page 
+	void removeFriend(Member& member) throw (UnLinkingException);//removes a user from the member's friends
 	void showAllFriends() const ;//prints all friends of a member
 	void showAllStatuses() const;//prints all statuses of a member
 	void showName() const ;//prints member's name
