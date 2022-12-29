@@ -25,9 +25,9 @@ public:
 	Fan_page(const string& name) noexcept(false); //c'tor
 	Fan_page(const Fan_page& other); //copy c'tor
 	Fan_page(Fan_page&& other) noexcept(true); //move c'tor
-	void operator+=(Member& member) throw(const char*);//adds the given member as a fan to this page
+	void operator+=(Member& member) noexcept(false);//adds the given member as a fan to this page
 	bool operator==(const string& name) const; //checks if the page have the given name
-	void deleteFan(Member& member) throw (const char*); //delete the given member from the this page and vice versa
+	void deleteFan(Member& member) noexcept(false); //delete the given member from the this page and vice versa
 	void addStatus(Status& status); //adds the given status to this page
 	void showAllFans() const; //shows all the fans of this page
 	void showAllStatuses() const; //shows all the statuses of this page

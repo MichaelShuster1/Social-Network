@@ -118,7 +118,7 @@ void System::ShowTenLatestStatusesOfEachFriend(const string& name) const noexcep
 }
 
 
-void System::linkFriends(const string& name1, const string& name2) throw(const char*)
+void System::linkFriends(const string& name1, const string& name2) noexcept(false)
 {
 
 	auto itr1 = find(system_members.begin(), system_members.end(), name1);
@@ -147,7 +147,7 @@ void System::linkFriends(const string& name1, const string& name2) throw(const c
 }
 
 
-void System::unLinkFriends(const string& name1, const string& name2) throw (const char*)
+void System::unLinkFriends(const string& name1, const string& name2) noexcept(false)
 {
 
 	auto itr1 = find(system_members.begin(), system_members.end(), name1);

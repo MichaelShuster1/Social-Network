@@ -210,7 +210,7 @@ void addNewStatusToFanPageOrMember(System& system)
 			}
 			isValidInput = true;
 		}
-		catch (UserNotFound& e)
+		catch (UserNotFoundException& e)
 		{
 			cout << e.what();
 		}
@@ -296,9 +296,9 @@ void removeFanFromPageInSystem(System& system)
 			system.removeFanFromAFanPage(name_page, name_fan);
 			isValidInput = true;
 		}
-		catch (const char* msg)
+		catch (exception& e)
 		{
-			cout << msg << endl;
+			cout << e.what() << endl;
 			do {
 				cout << "do you wish to try again?[y/n]: ";
 				cin >> choice;
