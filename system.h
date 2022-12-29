@@ -25,8 +25,8 @@ public:
 	void addNewPage(const Fan_page& new_page) noexcept(false);// adds the given fan page to the system
 	void addNewStatusToMember(Status& new_status, const string& name) noexcept(false);//adds the given status to a member 
 	void addNewStatusToFanPage(Status& new_status,const string& name) noexcept(false);//adds the given status to a fan page
-	void showAllStatusesOfAMember(const string& name) const;//prints all statuses of a member
-	void showAllStatusesOfAFanPage(const string& name) const; //prints all statuses of a fan page
+	void showAllStatusesOfAMember(const string& name) const noexcept(false);//prints all statuses of a member
+	void showAllStatusesOfAFanPage(const string& name) const noexcept(false); //prints all statuses of a fan page
 	void addFanToAPage(const string& name_page, const string& name_member) noexcept(false);//adds a fan to a page and vice versa
 	void removeFanFromAFanPage(const string& name_page, const string& name_member) noexcept(false); //remove the member in 'index2' in system members from the fans array of the fan page in 'index1'
 	void printAllFandsOfPage(const string& name) const noexcept(false);//prints all the fans of the page located in the 'index' index in system pages

@@ -33,9 +33,26 @@ void addNewUserToSystem(System& system)
 			valid_date = true;
 			valid_name = true;
 		}
-		catch (const char* msg)
+		catch (DateException& e1)
 		{
-			cout << msg << endl;
+			cout << e1.what() << endl;
+			if (!valid_date)
+			{
+				name_pending = true;
+			}
+		}
+		catch (SystemException& e2)
+		{
+			cout << e2.what() << endl;
+			if (!valid_date)
+			{
+				valid_date = true;
+				name_pending = false;
+			}
+		}
+		/*catch (exception& e)
+		{
+			cout << e.what() << endl;
 			if (!valid_date)
 			{
 				if (strcmp(msg, "Incorrect birth date") == 0)
@@ -46,7 +63,7 @@ void addNewUserToSystem(System& system)
 					name_pending = false;
 				}
 			}
-		}
+		}*/
 
 
 	}
@@ -70,9 +87,9 @@ void addNewPageToSystem(System& system)
 			system.addNewPage(Fan_page(name));
 			isValidData = true;
 		}
-		catch (const char* msg)
+		catch (exception& e)
 		{
-			cout << msg << endl;
+			 cout << e.what() <<endl;
 		}
 	}	
 }
@@ -97,9 +114,9 @@ void createNewStatus(Status** newStatus)
 			*newStatus = new Status(text, tm);
 			isValidData = true;
 		}
-		catch (const char* msg)
+		catch (exception& e)
 		{
-			cout << msg << endl;
+			cout << e.what() << endl;
 		}
 	}
 }
@@ -171,9 +188,9 @@ void printAllFriendsOrFansEntity(System& system)
 			}
 			isValidInput = true;
 		}
-		catch (const char* msg)
+		catch (exception& e)
 		{
-			cout << msg <<endl;
+			cout << e.what() <<endl;
 		}
 	}
 
@@ -210,9 +227,9 @@ void addNewStatusToFanPageOrMember(System& system)
 			}
 			isValidInput = true;
 		}
-		catch (UserNotFoundException& e)
+		catch (exception& e)
 		{
-			cout << e.what();
+			cout << e.what() << endl;
 		}
 	}
 	delete newStatus;
@@ -247,9 +264,9 @@ void showAllStatusesOfAFanPageOrMember(System& system)
 
 			isValidInput = true;
 		}
-		catch (const char* msg)
+		catch (exception& e)
 		{
-			cout << msg << endl;
+			cout << e.what() << endl;
 		}
 
 	}
@@ -271,9 +288,9 @@ void ShowTenStatusesOfEachFriend(System& system)
 			system.ShowTenLatestStatusesOfEachFriend(name);
 			isValidInput = true;
 		}
-		catch (const char* msg)
+		catch (exception& e)
 		{
-			cout << msg << endl;
+			cout << e.what() << endl;
 		}
 	}
 }
@@ -331,9 +348,9 @@ void linkFriendshipInSystem(System& system)
 			system.linkFriends(name1, name2);
 			validInput = true;
 		}
-		catch (const char* msg)
+		catch (exception& e)
 		{
-			cout << msg << endl;
+			cout << e.what() << endl;
 			do {
 				cout << "do you wish to try again?[y/n]: ";
 				cin >> choice;
@@ -369,9 +386,9 @@ void unLinkFriendshipInSystem(System& system)
 			system.unLinkFriends(name1, name2);
 			isValidInput = true;
 		}
-		catch (const char* msg)
+		catch (exception& e)
 		{
-			cout << msg << endl;
+			cout << e.what() << endl;
 			do {
 				cout << "do you wish to try again?[y/n]: ";
 				cin >> choice;
@@ -406,9 +423,9 @@ void addFanToPageInSystem(System& system)
 			system.addFanToAPage(name_page, name_member);
 			isValidData = true;
 		}
-		catch (const char* msg)
+		catch (exception& e)
 		{
-			cout << msg << endl;
+			cout << e.what() << endl;
 			do {
 				cout << "do you wish to try again?[y/n]: ";
 				cin >> choice;

@@ -79,7 +79,7 @@ void System::addNewStatusToFanPage(Status& new_status,const string& name) noexce
 }
 
 
-void System::showAllStatusesOfAMember(const string& name) const
+void System::showAllStatusesOfAMember(const string& name) const noexcept(false)
 {
 	auto itr = find(system_members.begin(),system_members.end(),name);
 	if (itr != system_members.end())
@@ -89,11 +89,12 @@ void System::showAllStatusesOfAMember(const string& name) const
 		(*itr).showAllStatuses();
 	}
 	else
-		cout << "the user not found!"<<endl;
+		throw UserNotFoundException();
+		//cout << "the user not found!"<<endl;
 }
 
 
-void System::showAllStatusesOfAFanPage(const string& name) const
+void System::showAllStatusesOfAFanPage(const string& name) const noexcept(false)
 {
 	auto itr = find(system_pages.begin(), system_pages.end(),name);
 	if (itr != system_pages.end())
@@ -103,7 +104,8 @@ void System::showAllStatusesOfAFanPage(const string& name) const
 		(*itr).showAllStatuses();
 	}
 	else
-		cout << "the page was not found!"<<endl;
+		throw PageNotFoundException();
+		//cout << "the page was not found!"<<endl;
 }
 
 
@@ -185,10 +187,10 @@ void System::addFanToAPage(const string& name_page, const string& name_member) n
 	auto itr_page = find(system_pages.begin(), system_pages.end(), name_page);
 
 	if (itr_fan == system_members.end())
-		throw "error:the name of fan you entered not exist in the system!";
+		throw UserNotFoundException();
 
 	if (itr_page == system_pages.end())
-		throw "error:the name of page you entered not exist in the system!";
+		throw PageNotFoundException();
 
 	try
 	{
