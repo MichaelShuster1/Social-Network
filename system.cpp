@@ -11,13 +11,17 @@ System::System()
 
 void System::addNewUser(const Member& new_user) noexcept(false)
 {
-	auto itr = find(system_members.begin(), system_members.end(), new_user.getName());
-	if(itr!=system_members.end())
-	{
-		throw UserNameTakenException();
-	}
-	
+	if(checkUserNameTaken(new_user.getName()))
+		throw UserNameTakenException();	
 	system_members.push_back(Member(new_user));	
+}
+
+bool System::checkUserNameTaken(const string& name) const
+{
+	auto itr = find(system_members.begin(), system_members.end(),name);
+	if (itr != system_members.end())
+		return true;
+	return false;
 }
 
 
@@ -90,7 +94,6 @@ void System::showAllStatusesOfAMember(const string& name) const noexcept(false)
 	}
 	else
 		throw UserNotFoundException();
-		//cout << "the user not found!"<<endl;
 }
 
 
@@ -105,7 +108,6 @@ void System::showAllStatusesOfAFanPage(const string& name) const noexcept(false)
 	}
 	else
 		throw PageNotFoundException();
-		//cout << "the page was not found!"<<endl;
 }
 
 
@@ -126,23 +128,23 @@ void System::linkFriends(const string& name1, const string& name2) noexcept(fals
 	auto itr1 = find(system_members.begin(), system_members.end(), name1);
 	auto itr2 = find(system_members.begin(), system_members.end(), name2);
 
-    if (itr1 == system_members.end())
-		throw "error: the first user doesn't exist!";
+	if (itr1 == system_members.end())
+		throw FirstUserNotFoundException();
 
-	if (itr2 == system_members.end()) 
-		throw "error: the second user doesn't exist!";
+	if (itr2 == system_members.end())
+		throw SecondUserNotFoundException();
 	
 	if (name1 == name2)
-		throw "error: you cant link a member with himself!";
+		throw SameUsersException();
 
 
 	try
 	{
 		*itr1 += *itr2;
 	}
-	catch(const char* msg)
+	catch(UserLinkingException& e)
 	{
-		throw(msg);
+		throw(e);
 	}
 
 
@@ -156,27 +158,27 @@ void System::unLinkFriends(const string& name1, const string& name2) noexcept(fa
 	auto itr2 = find(system_members.begin(), system_members.end(), name2);
 
 	if (itr1 == system_members.end())
-		throw "error: the first user doesn't exist!";
+		throw FirstUserNotFoundException();
 
 	if (itr2 == system_members.end())
-		throw "error: the second user doesn't exist!";
+		throw SecondUserNotFoundException();
 
 	if ((*itr1).getFriendsSize() == 0)
-		throw "error: the first user you entered doesn't have friends to delete!";
+		throw NoFriendsFirstException();
 
 	if ((*itr2).getFriendsSize() == 0)
-		throw "error: the second user you entered doesn't have friends to delete!";
+		throw NoFriendsSecondException();
 	
 	if (itr1 == itr2)
-		throw "error: you cant unlink yourself!";
+		throw SameUsersException();
 
 	try
 	{
 		(*itr1).removeFriend(*itr2);
 	}
-	catch (const char* msg)
+	catch (UnLinkingException& e)
 	{
-		throw(msg);
+		throw(e);
 	}
 }
 
@@ -215,16 +217,17 @@ void System::removeFanFromAFanPage(const string& name_page, const string& name_m
 	if (itr_member == system_members.end())
 		throw UserNotFoundException();
 
-	if ((*itr_page).getFansSize() == 0)
-		throw NoFansException();
-
 	try
 	{
 		(*itr_page).deleteFan(*itr_member);
 	}
-	catch (DelteFanException& e)
+	catch (NotFanException& e1)
 	{
-		throw(e);
+		throw(e1);
+	}
+	catch (NoFansException& e2)
+	{
+		throw(e2);
 	}
 }
 

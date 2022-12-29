@@ -38,6 +38,7 @@ public:
 	void printAllSystemPages() const;//prints all the pages in the system
 	int getMembersSize() const;//returs the size of the members array
 	int getPagesSize() const;//return the size of the fan pages array
+	bool checkUserNameTaken(const string& name) const; //checks if the name is taken
 };  
 
 

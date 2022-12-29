@@ -10,62 +10,35 @@ void addNewUserToSystem(System& system)
 	bool name_pending = false;
 
 	cin.ignore();
-	while (!valid_date || !valid_name)
+
+	while (!valid_name)
 	{
-		if (!valid_name && !name_pending)
-		{
-			cout << "Please enter the name of the new user: ";
-			getline(cin, name);
-		}
-		if (!valid_date)
-		{
-			cout << "Please enter the user's birth date in the following format : dd/mm/yyyy" << endl;
-			cin >> day;
-			cin.ignore();
-			cin >> month;
-			cin.ignore();
-			cin >> year;
-			cin.ignore();
-		}
+		cout << "Please enter the name of the new user: ";
+		getline(cin, name);
+		if (!system.checkUserNameTaken(name))
+			valid_name = true;
+		else
+			cout << "the name is already taken" << endl;
+	}
+
+	while (!valid_date)
+	{
+		cout << "Please enter the user's birth date in the following format : dd/mm/yyyy" << endl;
+		cin >> day;
+		cin.ignore();
+		cin >> month;
+		cin.ignore();
+		cin >> year;
+		cin.ignore();
 		try
 		{
 			system.addNewUser(Member(name, Date(year, month, day)));
 			valid_date = true;
-			valid_name = true;
 		}
-		catch (DateException& e1)
-		{
-			cout << e1.what() << endl;
-			if (!valid_date)
-			{
-				name_pending = true;
-			}
-		}
-		catch (SystemException& e2)
-		{
-			cout << e2.what() << endl;
-			if (!valid_date)
-			{
-				valid_date = true;
-				name_pending = false;
-			}
-		}
-		/*catch (exception& e)
+		catch (exception& e)
 		{
 			cout << e.what() << endl;
-			if (!valid_date)
-			{
-				if (strcmp(msg, "Incorrect birth date") == 0)
-					name_pending = true;
-				else
-				{
-					valid_date = true;
-					name_pending = false;
-				}
-			}
-		}*/
-
-
+		}
 	}
 }
 
@@ -242,12 +215,14 @@ void showAllStatusesOfAFanPageOrMember(System& system)
 	string name;
 	bool isValidInput = false;
 
+
+	choosePagesOrMembers(choice);
+	cin.ignore();
+
 	while (!isValidInput)
 	{
 		try
 		{
-			choosePagesOrMembers(choice);
-			cin.ignore();
 			switch (choice)
 			{
 			case MEMBER:

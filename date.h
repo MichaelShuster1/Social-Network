@@ -17,7 +17,7 @@ private:
 	int day;
 
 public:
-	Date(int y, int m, int d) throw(DateFormatException); //default c'tor
+	Date(int y, int m, int d) noexcept(false); //default c'tor
 	Date(const Date& other); //copy c'tor
 	friend class Member;
 };

@@ -3,12 +3,13 @@
 using namespace std;
 
 
-Member::Member(const string _name, const Date& date) throw( EmptyUserNameException):birth_date(date)
+Member::Member(const string _name, const Date& date) noexcept(false):birth_date(date)
 {
 	if (_name.size() == EMPTY)
 		throw  EmptyUserNameException();
 	name = _name;
 }
+
 
 
 Member::Member(const Member& other):birth_date(other.birth_date)
@@ -28,9 +29,7 @@ Member::Member(Member&& other) noexcept(true) :birth_date(other.birth_date)
 }
 
 
-
-
-void Member::removeFriend(Member& member) throw(UnLinkingException)
+void Member::removeFriend(Member& member) noexcept(false)
 {
 
 	auto itr = find(friends.begin(), friends.end(), &member);
@@ -50,7 +49,7 @@ void Member::removeFriend(Member& member) throw(UnLinkingException)
 }
 
 
-void Member::removePage(Fan_page& page) throw(RemovePageException)
+void Member::removePage(Fan_page& page) noexcept(false)
 {
 	Fan_page* fan_page;
 	auto itr = find(pages.begin(), pages.end(), &page);
@@ -83,7 +82,7 @@ void Member::addStatus(Status& status)
 }
 
 
-void Member::operator+=(Member& _member) throw (UserLinkingException)
+void Member::operator+=(Member& _member) noexcept(false)
 {
 
 	if (areFriendsCheck((_member)))
@@ -104,7 +103,7 @@ void Member::operator+=(Member& _member) throw (UserLinkingException)
 }
 
 
-void Member::addPage(Fan_page& page) throw(UserLinkingPageException)
+void Member::addPage(Fan_page& page) noexcept(false)
 {
 	if(isPageFollower(page))
 	{

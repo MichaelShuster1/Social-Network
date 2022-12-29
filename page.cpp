@@ -34,7 +34,7 @@ void Fan_page::addStatus(Status& status)
 }
 
 
-void Fan_page::operator+=(Member& member)  noexcept(false)
+void Fan_page::operator+=(Member& member) noexcept(false)
 {
     if (isFanCheck(member))
 	{
@@ -62,8 +62,13 @@ void Fan_page::deleteFan(Member& member) noexcept(false)
 {
 	auto itr = find(fans.begin(), fans.end(), &member);
 
+
+	if (fans.size() == 0)
+		throw NoFansException();
+
 	if (itr == fans.end())
-		throw DelteFanException();
+		throw NotFanException();
+
 
 	swap(*itr, *fans.rbegin());
 	fans.pop_back();
