@@ -7,6 +7,8 @@ Member::Member(const string _name, const Date& date) noexcept(false):birth_date(
 {
 	if (_name.size() == EMPTY)
 		throw  EmptyUserNameException();
+	if(!isChar(*(_name.begin())))
+		throw invalidUserNameException();
 	name = _name;
 }
 
@@ -266,4 +268,12 @@ bool Member::operator==(const string& name) const
 		return true;
 	else
 		return false;
+}
+
+
+bool Member::isChar(const char c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return true;
+	return false;
 }

@@ -7,19 +7,18 @@
 #include <string>
 #include "exceptions.h"
 
-using namespace std;
 
 const int EMPTY = 0;
 
 class Status
 {
 private:
-	string time;
-	string text;
+	std::string time;
+	std::string text;
 
 
 public:
-	Status(string text, string time) noexcept(false); //default c'tor
+	Status(std::string text, std::string time) noexcept(false); //default c'tor
 	Status(const Status& other); //copy c'tor
 	void showStatus() const; //shows the text and time of this status
 	bool operator==(const Status& status) const; //checks if the text of 2 statuses is the same

@@ -3,7 +3,6 @@
 #include <vector>
 #include <list>
 #include <string>
-using namespace std;
 #include "status.h"
 #include "date.h"
 
@@ -19,14 +18,14 @@ class Member
 {
 
 private:
-	string name;
+	std::string name;
 	Date birth_date;
-	list<Status> statuses;
-	vector<Fan_page*> pages;
-	vector<Member*> friends;
+	std::list<Status> statuses;
+	std::vector<Fan_page*> pages;
+	std::vector<Member*> friends;
 
 public:
-	Member(const string _name,const Date& date) noexcept(false); //c'tor
+	Member(const std::string _name,const Date& date) noexcept(false); //c'tor
 	Member(const Member& other);// copy c'tor
 	Member(Member&& other) noexcept(true); // move c'tor
 	void operator+=(Member& _member) noexcept(false); //adds a user to the member's friends
@@ -39,14 +38,15 @@ public:
 	void showName() const ;//prints member's name
 	void showTenRecentStatuses() const ;// prints the last 10 statuses of the member
 	void showAllFriendsTenStatuses()const ;// prints 10 last statuses of each friend of the member
-	const string getName() const;// returns the members name
+	const std::string getName() const;// returns the members name
 	int getFriendsSize() const;//return the friends array size
 	int getPagesSize() const;//return the pages array size
 	bool operator>(const Member& member) const; // return true if this member have more friends than given member
 	bool operator>(const Fan_page& page) const; // return true if this member have more friends than the number of fans of the given page
 	bool areFriendsCheck(const Member& member) const; //checks if a member is a friend of the given member
 	bool isPageFollower(const Fan_page& page) const; //checks if a member is a fan of the given page
-	bool operator==(const string& name) const; //checks if the member have the given name
+	bool operator==(const std::string& name) const; //checks if the member have the given name
+	static bool isChar(const char c);
 };
 
 
