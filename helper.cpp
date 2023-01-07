@@ -237,7 +237,7 @@ void addNewStatusToFanPageOrMember(System& system)
 			case FAN_PAGE:
 				cout << "choose the page you want to add the given status to" << endl;
 				chooseOnePage(name);
-				system.addNewStatusToFanPage(*newStatus, name);
+				system.addNewStatusToFanPage(newStatus, name);
 				break;
 			default:
 				break;

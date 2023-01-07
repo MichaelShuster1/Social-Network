@@ -74,7 +74,7 @@ void System::printAllSystemPages() const
 }
 
 
-void System::addNewStatusToFanPage(Status& new_status,const string& name) noexcept(false)
+void System::addNewStatusToFanPage(Status* new_status,const string& name) noexcept(false)
 {
 	auto itr = find(system_pages.begin(),system_pages.end(),name);
 	if (itr == system_pages.end())
@@ -254,6 +254,10 @@ void System::printAllFandsOfPage(const string& name) const noexcept(false)
 
 void System::createHardcodedEntities()
 {
+	Member m1("michael", Date(1998, 12, 26));
+	Status s("hello", "23:59");
+	m1.addStatus(&s);
+	system_members.push_back(move(m1));
 	system_members.push_back(Member("Avi Cohen", Date(1990, 10, 22)));
 	system_members.push_back(Member("Yossi Levi", Date(1995, 1, 10)));
 	system_members.push_back(Member("Israel Israeli", Date(2000, 2, 28)));
@@ -267,14 +271,14 @@ void System::createHardcodedEntities()
 	Status status5("status5", "Mon Jul 20 02:03:55 2022");
 	Status status6("status6", "Mon Jul 21 02:03:55 2022");
 	auto itrMember = system_members.begin();
-	(*itrMember).addStatus(status1);
-	(*itrMember).addStatus(status2);
+	(*itrMember).addStatus(&status1);
+	(*itrMember).addStatus(&status2);
 	++itrMember;
-	(*itrMember).addStatus(status3);
-	(*itrMember).addStatus(status4);
+	(*itrMember).addStatus(&status3);
+	(*itrMember).addStatus(&status4);
 	++itrMember;
-	(*itrMember).addStatus(status5);
-	(*itrMember).addStatus(status6);
+	(*itrMember).addStatus(&status5);
+	(*itrMember).addStatus(&status6);
 	Status status7("status7", "Mon Jul 16 02:03:55 2019");
 	Status status8("status8", "Mon Jul 17 02:03:55 2019");
 	Status status9("status9", "Mon Jul 18 02:03:55 2020");
@@ -282,14 +286,14 @@ void System::createHardcodedEntities()
 	Status status11("status11", "Mon Jul 20 02:03:55 2021");
 	Status status12("status12", "Mon Jul 21 02:03:55 2022");
 	auto itrPage = system_pages.begin();
-	(*itrPage).addStatus(status7);
-	(*itrPage).addStatus(status8);
+	(*itrPage).addStatus(&status7);
+	(*itrPage).addStatus(&status8);
 	itrPage++;
-	(*itrPage).addStatus(status9);
-	(*itrPage).addStatus(status10);
+	(*itrPage).addStatus(&status9);
+	(*itrPage).addStatus(&status10);
 	itrPage++;
-	(*itrPage).addStatus(status11);
-	(*itrPage).addStatus(status12);
+	(*itrPage).addStatus(&status11);
+	(*itrPage).addStatus(&status12);
 
 	addFanToAPage("Music fans", "Avi Cohen");
 	addFanToAPage("Gaming fans", "Yossi Levi");

@@ -8,7 +8,7 @@ Member::Member(const string _name, const Date& date) noexcept(false):birth_date(
 	if (_name.size() == EMPTY)
 		throw  EmptyUserNameException();
 	if(!isChar(*(_name.begin())))
-		throw invalidUserNameException();
+		throw  invalidUserNameException();
 	name = _name;
 }
 
@@ -16,11 +16,20 @@ Member::Member(const string _name, const Date& date) noexcept(false):birth_date(
 
 Member::Member(const Member& other):birth_date(other.birth_date)
 {
+	auto enditr = other.statuses.end();
+
+	for (auto itr = other.statuses.begin(); itr != enditr; ++itr)
+	{
+		this->statuses.push_back(new Status(**itr));
+	}
+
 	this->name = other.name;
 	this->friends = other.friends;
 	this->pages = other.pages;
 	this->statuses = other.statuses;
+
 }
+
 
 Member::Member(Member&& other) noexcept(true) :birth_date(other.birth_date)
 {
@@ -30,6 +39,15 @@ Member::Member(Member&& other) noexcept(true) :birth_date(other.birth_date)
 	this->statuses = move(other.statuses);
 }
 
+
+Member::~Member()
+{
+	auto enditr = statuses.end();
+	for (auto itr = statuses.begin(); itr != enditr; ++itr)
+	{
+		delete *itr;
+	}
+}
 
 void Member::removeFriend(Member& member) noexcept(false)
 {
@@ -167,7 +185,7 @@ void Member::showAllStatuses() const
 	{
 		for (; itr != enditr; ++itr)
 		{
-			cout << (*itr);
+			cout << (**itr);
 			cout << endl;
 		}
 	}
@@ -274,7 +292,7 @@ bool Member::operator==(const string& name) const
 
 bool Member::isChar(const char c)
 {
-	if ((BIGA >= 65 && c <= BIGZ) || (c >= LITTLEA && c <= LITTLEZ))
+	if (( c>= BIGA && c <= BIGZ) || (c >= LITTLEA && c <= LITTLEZ))
 		return true;
 	return false;
 }

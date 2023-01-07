@@ -31,9 +31,9 @@ Fan_page::Fan_page(Fan_page&& other) noexcept(true)
 }
 
 
-void Fan_page::addStatus(Status& status)
+void Fan_page::addStatus(Status* status)
 {
-	statuses.push_back(Status(status));
+	statuses.push_back(status->clone());
 }
 
 

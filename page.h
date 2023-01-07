@@ -27,7 +27,7 @@ public:
 	void operator+=(Member& member) noexcept(false);//adds the given member as a fan to this page
 	bool operator==(const std::string& name) const; //checks if the page have the given name
 	void deleteFan(Member& member) noexcept(false); //delete the given member from the this page and vice versa
-	void addStatus(Status& status); //adds the given status to this page
+	void addStatus(Status* status); //adds the given status to this page
 	void showAllFans() const; //shows all the fans of this page
 	void showAllStatuses() const; //shows all the statuses of this page
 	void showName() const; //shows the name of this page
