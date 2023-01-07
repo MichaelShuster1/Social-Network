@@ -72,13 +72,29 @@ void addNewPageToSystem(System& system)
 	}	
 }
 
+void chooseStatusType(int& choose)
+{
+	bool isValid = false;
+	while (!isValid)
+	{
+		cout << "Please choose the status type" << endl
+			<< "1 - text" << endl << "2 - text and picture" << endl
+			<< "3 - text and video" << endl;
+		if (choose <= 3 && choose >= 1)
+			isValid = true;
+		else
+			cout << "Please choose a number between 1 and 3!" << endl;
+	}
+}
 
 void createNewStatus(Status** newStatus)
 {
 	string text;
 	string tm;
+	string attachment;
 	time_t curr_time;
 	bool isValidData = false;
+	int choose;
 
 	cin.ignore();
 	while (!isValidData)
@@ -87,10 +103,21 @@ void createNewStatus(Status** newStatus)
 		getline(cin, text);
 		curr_time = time(NULL);
 		tm = ctime(&curr_time);
+		if (choose == 2 || choose == 3)
+			getline(cin, attachment);
 		try
 		{
-			*newStatus = new Status(text, tm);
-			isValidData = true;
+			switch (choose)
+			{
+			case 1:
+				*newStatus = new Status(text, tm);
+				isValidData = true;
+				break;
+			case 2:
+				*newStatus = new StatusPicture(text, tm, attachment);
+				isValidData = true;
+				break;
+			}
 		}
 		catch (exception& e)
 		{
