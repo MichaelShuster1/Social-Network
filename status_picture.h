@@ -9,12 +9,12 @@ private:
 	std::string picture;
 
 public:
-	StatusPicture(const std::string text,const std::string time,const std::string picture);
-	StatusPicture(const StatusPicture& other);
-	virtual void attached(std::ostream& os) const;
-	virtual bool operator==(const Status& other) const override; //checks if the text of 2 statuses is the same
-	virtual bool operator!=(const Status& other) const override; //checks if the text of 2 statuses isnt the same
-	virtual Status* clone() const override; 
+	StatusPicture(const std::string text,const std::string time,const std::string picture); //c'tor
+	StatusPicture(const StatusPicture& other);//copy c'tor
+	virtual void attached(std::ostream& os) const; //adds to the given ostream the relevant concatenation
+	virtual bool operator==(const Status& other) const override; //checks if this status is equal to the given status
+	virtual bool operator!=(const Status& other) const override; //checks if this status is not equal to the given status
+	virtual Status* clone() const override;  //duplicates a new status with this status and returns it 
 };
 
 

@@ -33,6 +33,7 @@ public:
 	Member(const std::string _name,const Date& date) noexcept(false); //c'tor
 	Member(const Member& other);// copy c'tor
 	Member(Member&& other) noexcept(true); // move c'tor
+	~Member();//d'tor
 	void operator+=(Member& _member) noexcept(false); //adds a user to the member's friends
 	void addStatus(Status* status);//adds a status to the member's statuses 
 	void addPage(Fan_page& page) noexcept(false); //adds a fan page to the member's fan pages 
