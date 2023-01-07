@@ -17,8 +17,14 @@ Fan_page::Fan_page(const string& name) noexcept(false)
 
 Fan_page::Fan_page(const Fan_page& other)
 {
+	auto itr = statuses.begin();
+	auto itrend = statuses.end();
+	for (; itr != itrend; ++itr)
+	{
+		statuses.push_back(new Status(**itr))
+	}
 	fans = other.fans;
-	statuses = other.statuses;
+	//statuses = other.statuses;
 	name = other.name;
 }
 
@@ -30,10 +36,21 @@ Fan_page::Fan_page(Fan_page&& other) noexcept(true)
 	name = move(other.name);
 }
 
-
-void Fan_page::addStatus(Status& status)
+Fan_page::~Fan_page()
 {
-	statuses.push_back(Status(status));
+	auto itr = statuses.begin();
+	auto itrend = statuses.end();
+	for (; itr != itrend; ++itr)
+	{
+		delete *itr;
+	}
+}
+
+
+void Fan_page::addStatus(Status* status)
+{
+
+	statuses.push_back(status->clone());
 }
 
 
@@ -107,7 +124,7 @@ void Fan_page::showAllStatuses() const
 	auto itrEnd = statuses.end();
 	for (auto itr = statuses.begin(); itr!=itrEnd ;++itr)
 	{
-		cout << (*itr);
+		cout << **itr;
 		cout << endl;
 	}
 
@@ -160,7 +177,7 @@ bool Fan_page::isFanCheck(const Member& member) const
 
 bool Fan_page::isChar(const char c)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+	if ((c >= BIGA && c <= BIGZ) || (c >= LITTLEA && c <= LITTLEZ))
 		return true;
 	return false;
 }

@@ -9,12 +9,12 @@ private:
 	std::string video;
 
 public:
-	StatusVideo(const std::string text,const std::string time,const std::string video);
-	StatusVideo(const StatusVideo& other);
-	virtual void attached(std::ostream& os) const;
-	virtual bool operator==(const Status& other) const override; //checks if the text of 2 statuses is the same
-	virtual bool operator!=(const Status& other) const override; //checks if the text of 2 statuses isnt the same
-	virtual Status* clone() const override;
+	StatusVideo(const std::string text,const std::string time,const std::string video);// c'tor
+	StatusVideo(const StatusVideo& other); //copy c'tor
+	virtual void attached(std::ostream& os) const; // Starts the video specified in the `video` member variable.
+	virtual bool operator==(const Status& other) const override; //checks if the 2 objects are the same
+	virtual bool operator!=(const Status& other) const override; //checks if the 2 objects are not the same
+	virtual Status* clone() const override; //make a clone (allocates new memory) of the object as a StatusVideo object
 };
 
 
