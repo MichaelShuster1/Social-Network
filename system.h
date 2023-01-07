@@ -23,7 +23,7 @@ public:
 	System(const System& other) = delete;//system class copy c'tor disable
 	void addNewUser(const Member& new_user) noexcept(false);//adds the given member to the system
 	void addNewPage(const Fan_page& new_page) noexcept(false);// adds the given fan page to the system
-	void addNewStatusToMember(Status& new_status, const std::string& name) noexcept(false);//adds the given status to a member 
+	void addNewStatusToMember(Status* new_status, const std::string& name) noexcept(false);//adds the given status to a member 
 	void addNewStatusToFanPage(Status& new_status,const std::string& name) noexcept(false);//adds the given status to a fan page
 	void showAllStatusesOfAMember(const std::string& name) const noexcept(false);//prints all statuses of a member
 	void showAllStatusesOfAFanPage(const std::string& name) const noexcept(false); //prints all statuses of a fan page

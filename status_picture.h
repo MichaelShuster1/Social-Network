@@ -9,11 +9,12 @@ private:
 	std::string picture;
 
 public:
-	StatusPicture(std::string text,std::string time,std::string picture);
-	StatusPicture(StatusPicture& other);
+	StatusPicture(const std::string text,const std::string time,const std::string picture);
+	StatusPicture(const StatusPicture& other);
 	virtual void attached(std::ostream& os) const;
-	virtual bool operator==(const Status& other) const; //checks if the text of 2 statuses is the same
-	virtual bool operator!=(const Status& other) const; //checks if the text of 2 statuses isnt the same
+	virtual bool operator==(const Status& other) const override; //checks if the text of 2 statuses is the same
+	virtual bool operator!=(const Status& other) const override; //checks if the text of 2 statuses isnt the same
+	virtual Status* clone() const override; 
 };
 
 

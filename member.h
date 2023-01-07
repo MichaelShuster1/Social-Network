@@ -25,7 +25,7 @@ class Member
 private:
 	std::string name;
 	Date birth_date;
-	std::list<Status> statuses;
+	std::list<Status*> statuses;
 	std::vector<Fan_page*> pages;
 	std::vector<Member*> friends;
 
@@ -34,7 +34,7 @@ public:
 	Member(const Member& other);// copy c'tor
 	Member(Member&& other) noexcept(true); // move c'tor
 	void operator+=(Member& _member) noexcept(false); //adds a user to the member's friends
-	void addStatus(Status& status);//adds a status to the member's statuses 
+	void addStatus(Status* status);//adds a status to the member's statuses 
 	void addPage(Fan_page& page) noexcept(false); //adds a fan page to the member's fan pages 
 	void removePage(Fan_page& page) noexcept(false);//removes a page from the user's fan page 
 	void removeFriend(Member& member) noexcept(false);//removes a user from the member's friends

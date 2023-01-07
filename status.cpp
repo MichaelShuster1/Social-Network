@@ -2,7 +2,7 @@
 using namespace std;
 
 
-Status::Status(string text, string time) noexcept(false)
+Status::Status(const string text,const string time) noexcept(false)
 {
 	if (text.size() == EMPTY)
 		throw EmptyTextException();
@@ -19,13 +19,7 @@ Status::Status(const Status& other)
 }
 
 
-/*
-void Status::showStatus() const
-{
-	cout << text << endl;
-	cout <<"Status publish time: " << time << endl;
-}
-*/
+
 
 ostream& operator<<(ostream& os, const Status& status)
 {
@@ -49,3 +43,8 @@ bool Status::operator!=(const Status& status) const
 {
 	return !(*this == status);
 }
+
+Status* Status::clone() const 
+{ 
+	return new Status(*this); 
+};
