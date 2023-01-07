@@ -15,10 +15,15 @@ void addNewUserToSystem(System& system)
 	{
 		cout << "Please enter the name of the new user: ";
 		getline(cin, name);
-		if (!system.checkUserNameTaken(name))
+		if (name.size() == 0)
+			cout << "the name is empty!" << endl;
+		else if (!(Member::isChar(*(name.begin()))))
+			cout << "the name must start with a latter!" <<endl;
+		else if (!system.checkUserNameTaken(name))
 			valid_name = true;
 		else
 			cout << "the name is already taken" << endl;
+		
 	}
 
 	while (!valid_date)

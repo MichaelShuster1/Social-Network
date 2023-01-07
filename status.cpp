@@ -1,4 +1,5 @@
 #include "status.h"
+using namespace std;
 
 
 Status::Status(string text, string time) noexcept(false)

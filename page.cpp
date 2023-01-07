@@ -1,5 +1,6 @@
 #include "page.h"
 #include "member.h"
+using namespace std;
 
 
 
@@ -7,6 +8,8 @@ Fan_page::Fan_page(const string& name) noexcept(false)
 {
 	if (name.size() == EMPTY)
 		throw EmptyPageNameException();
+	if (!isChar(*(name.begin())))
+		throw invalidPageNameException();
 	this->name = name;
 }
 
@@ -152,4 +155,11 @@ bool Fan_page::isFanCheck(const Member& member) const
 		return false;
 	else
 		return true;
+}
+
+bool Fan_page::isChar(const char c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return true;
+	return false;
 }

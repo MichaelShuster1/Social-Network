@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-/*-------------------------------------------------------------------------*/
+/*----------------------------------User Exceptions---------------------------------------*/
 
 class UserException : public std::exception
 {
@@ -14,34 +14,40 @@ public:
 class EmptyUserNameException : public UserException
 {
 public:
-	virtual const char* what() const override { return "the given name for the new page is empty"; }
+	virtual const char* what() const override { return "the given name for the new user is empty\n"; }
 };
 
 class UserLinkingException : public UserException
 {
 public:
-	virtual const char* what() const override { return "the given two users are already linked in the system"; }
+	virtual const char* what() const override { return "the given two users are already linked in the system\n"; }
 };
 
 class UserLinkingPageException : public UserException
 {
 public:
-	virtual const char* what() const override { return "the given page is already followed by the given member"; }
+	virtual const char* what() const override { return "the given page is already followed by the given member\n"; }
 };
 
 class UnLinkingException : public UserException
 {
 public:
-	virtual const char* what() const override { return "those users are already not linked"; }
+	virtual const char* what() const override { return "those users are already not linked\n"; }
 };
 
 class RemovePageException : public UserException
 {
 public:
-	virtual const char* what() const override { return "the given page is not followed by the given member"; }
+	virtual const char* what() const override { return "the given page is not followed by the given member\n"; }
 };
 
-/*---------------------------------User Exceptions----------------------------------------*/
+class invalidUserNameException : public UserException
+{
+public:
+	virtual const char* what() const override { return "the name must start with a latter\n"; }
+};
+
+/*---------------------------------System Exceptions----------------------------------------*/
 
 class SystemException : public std::exception
 {
@@ -92,17 +98,17 @@ public:
 class NoFriendsFirstException : public SystemException
 {
 public:
-	virtual const char* what() const override { return "the first user entered doesn't have friends to delete"; }
+	virtual const char* what() const override { return "the first user entered doesn't have friends to delete\n"; }
 };
 
 
 class NoFriendsSecondException : public SystemException
 {
 public:
-	virtual const char* what() const override { return "the second user entered doesn't have friends to delete"; }
+	virtual const char* what() const override { return "the second user entered doesn't have friends to delete\n"; }
 };
 
-/*----------------------------------System Exceptions-------------------------------------*/
+/*----------------------------------Date Exceptions-------------------------------------*/
 
 class DateException : public std::exception
 {
@@ -113,10 +119,10 @@ public:
 class DateFormatException : public DateException
 {
 public:
-	virtual const char* what() const override { return "Incorrect birth date"; }
+	virtual const char* what() const override { return "Incorrect birth date\n"; }
 };
 
-/*---------------------------------Date Exceptions---------------------------------------*/
+/*---------------------------------Fan Page Exceptions---------------------------------------*/
 
 class FanPageException : public std::exception
 {
@@ -151,7 +157,13 @@ public:
 	virtual const char* what() const override { return "the given member is already a fan of the given page\n"; }
 };
 
-/*----------------------------------Fan Page Exceptions---------------------------------------*/
+class invalidPageNameException : public FanPageException
+{
+public:
+	virtual const char* what() const override { return "the name must start with a latter\n"; }
+};
+
+/*----------------------------------Status Exceptions---------------------------------------*/
 
 class StatusException : public std::exception
 {
@@ -174,7 +186,7 @@ public:
 };
 
 
-/*-----------------------------------Status Exceptions-----------------------------------*/
+
 
 
 
