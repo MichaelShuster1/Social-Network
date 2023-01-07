@@ -3,7 +3,7 @@ using namespace std;
 
 
 
-StatusPicture::StatusPicture(string text, string time, string picture) : Status(text, time)
+StatusPicture::StatusPicture(const string text,const string time,const string picture) : Status(text, time)
 {
 	if (picture.size() == EMPTY)
 		throw EmptyPictureException();
@@ -11,7 +11,7 @@ StatusPicture::StatusPicture(string text, string time, string picture) : Status(
 }
 
 
-StatusPicture::StatusPicture(StatusPicture& other) : Status(other)
+StatusPicture::StatusPicture(const StatusPicture& other) : Status(other)
 {
 	this->picture = other.picture;
 }
@@ -41,4 +41,10 @@ bool StatusPicture::operator==(const Status& other)  const
 bool StatusPicture::operator!=(const Status& other) const
 {
 	return !((*this) == other);
+}
+
+
+Status* StatusPicture::clone() const
+{
+	 return new StatusPicture(*this);
 }

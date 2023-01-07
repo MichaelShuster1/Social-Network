@@ -36,7 +36,7 @@ void System::addNewPage(const Fan_page& new_page) noexcept(false)
 }
 
 
-void System::addNewStatusToMember(Status& new_status,const string& name) noexcept(false)
+void System::addNewStatusToMember(Status* new_status,const string& name) noexcept(false)
 {
 	auto itr = find(system_members.begin(), system_members.end(), name);
 	if (itr != system_members.end())

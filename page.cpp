@@ -157,6 +157,7 @@ bool Fan_page::isFanCheck(const Member& member) const
 		return true;
 }
 
+
 bool Fan_page::isChar(const char c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))

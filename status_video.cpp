@@ -3,7 +3,7 @@ using namespace std;
 
 
 
-StatusVideo::StatusVideo(string text, string time, string video) : Status(text, time)
+StatusVideo::StatusVideo(const string text,const string time,const string video) : Status(text, time)
 {
 	if (video.size() == EMPTY)
 		throw EmptyVideoException();
@@ -11,7 +11,7 @@ StatusVideo::StatusVideo(string text, string time, string video) : Status(text, 
 }
 
 
-StatusVideo::StatusVideo(StatusVideo& other) : Status(other)
+StatusVideo::StatusVideo(const StatusVideo& other) : Status(other)
 {
 	this->video = other.video;
 }
@@ -41,4 +41,10 @@ bool StatusVideo::operator==(const Status& other)  const
 bool StatusVideo::operator!=(const Status& other) const
 {
 	return !((*this) == other);
+}
+
+
+Status* StatusVideo::clone() const
+{
+	return new StatusVideo(*this);
 }

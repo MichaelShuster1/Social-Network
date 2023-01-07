@@ -78,9 +78,10 @@ bool Member::isPageFollower(const Fan_page& page) const
 		return true;
 }
 
-void Member::addStatus(Status& status)
+
+void Member::addStatus(Status* status)
 {
-	statuses.push_back(Status(status));
+	statuses.push_back(status->clone());
 }
 
 

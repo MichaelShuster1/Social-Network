@@ -232,7 +232,7 @@ void addNewStatusToFanPageOrMember(System& system)
 			case MEMBER:
 				cout << "choose the member you want to add the given status to"<<endl;
 				chooseOneMember(name);
-				system.addNewStatusToMember(*newStatus, name);
+				system.addNewStatusToMember(newStatus, name);
 				break;
 			case FAN_PAGE:
 				cout << "choose the page you want to add the given status to" << endl;

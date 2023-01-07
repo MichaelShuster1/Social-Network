@@ -9,11 +9,12 @@ private:
 	std::string video;
 
 public:
-	StatusVideo(std::string text, std::string time, std::string video);
-	StatusVideo(StatusVideo& other);
+	StatusVideo(const std::string text,const std::string time,const std::string video);
+	StatusVideo(const StatusVideo& other);
 	virtual void attached(std::ostream& os) const;
-	virtual bool operator==(const Status& other) const; //checks if the text of 2 statuses is the same
-	virtual bool operator!=(const Status& other) const; //checks if the text of 2 statuses isnt the same
+	virtual bool operator==(const Status& other) const override; //checks if the text of 2 statuses is the same
+	virtual bool operator!=(const Status& other) const override; //checks if the text of 2 statuses isnt the same
+	virtual Status* clone() const override;
 };
 
 
