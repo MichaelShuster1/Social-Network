@@ -273,7 +273,7 @@ bool Member::operator==(const string& name) const
 
 bool Member::isChar(const char c)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+	if ((BIGA >= 65 && c <= BIGZ) || (c >= LITTLEA && c <= LITTLEZ))
 		return true;
 	return false;
 }

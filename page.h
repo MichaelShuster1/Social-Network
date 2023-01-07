@@ -18,7 +18,7 @@ class Fan_page
 private:
 	std::string name;
 	std::vector<Member*>fans;
-	std::list<Status>statuses;
+	std::list<Status*>statuses;
 
 public:
 	Fan_page(const std::string& name) noexcept(false); //c'tor

@@ -12,6 +12,10 @@
 
 const int RANGE = 10;
 const int INCREASE_RATE = 2;
+const int BIGZ = 90;
+const int BIGA = 65;
+const int LITTLEZ = 122;
+const int LITTLEA = 97;
 
 class Fan_page;
 
