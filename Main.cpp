@@ -16,7 +16,5 @@ void main()
 		exit = processChoice(system, choice);
 		cout << endl;
 	}
-	
-
 }
 
