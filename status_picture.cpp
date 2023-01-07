@@ -19,7 +19,6 @@ StatusPicture::StatusPicture(const StatusPicture& other) : Status(other)
 
 void StatusPicture::attached(std::ostream& os) const
 {
-	os << picture;
 	string command = "start " + picture;
 	system(command.c_str());
 }
