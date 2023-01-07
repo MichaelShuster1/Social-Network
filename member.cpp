@@ -166,7 +166,7 @@ void Member::showAllStatuses() const
 	{
 		for (; itr != enditr; ++itr)
 		{
-			(*itr).showStatus();
+			cout << (*itr);
 			cout << endl;
 		}
 	}
@@ -186,7 +186,7 @@ void Member::showTenRecentStatuses() const
 		cout <<name<<"'s ten recent statuses: " << endl;
 		for (; itr != itrEnd && i < RANGE; ++itr, i++)
 		{
-			(*itr).showStatus();
+			cout << (*itr);
 			cout << endl;
 		}
 	}

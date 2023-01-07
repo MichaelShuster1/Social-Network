@@ -72,7 +72,7 @@ void addNewPageToSystem(System& system)
 	}	
 }
 
-void chooseStatusType(int& choose)
+void chooseStatusType(int& choice)
 {
 	bool isValid = false;
 	while (!isValid)
@@ -80,7 +80,8 @@ void chooseStatusType(int& choose)
 		cout << "Please choose the status type" << endl
 			<< "1 - text" << endl << "2 - text and picture" << endl
 			<< "3 - text and video" << endl;
-		if (choose <= 3 && choose >= 1)
+		cin >> choice;
+		if (choice <= VIDEO_STATUS && choice >= TEXT_STATUS)
 			isValid = true;
 		else
 			cout << "Please choose a number between 1 and 3!" << endl;
@@ -94,28 +95,39 @@ void createNewStatus(Status** newStatus)
 	string attachment;
 	time_t curr_time;
 	bool isValidData = false;
-	int choose;
+	int choice;
 
+	cin.ignore();
+	chooseStatusType(choice);
 	cin.ignore();
 	while (!isValidData)
 	{
-		cout << "Please enter your status: ";
+		cout << "Please enter the status: ";
 		getline(cin, text);
 		curr_time = time(NULL);
 		tm = ctime(&curr_time);
-		if (choose == 2 || choose == 3)
+		if (choice == PICTURE_STATUS || choice == VIDEO_STATUS)
+		{
+			cout << "Please enter the name of the file (with extension): ";
 			getline(cin, attachment);
+		}
 		try
 		{
-			switch (choose)
+			switch (choice)
 			{
-			case 1:
+			case TEXT_STATUS:
 				*newStatus = new Status(text, tm);
 				isValidData = true;
 				break;
-			case 2:
+			case PICTURE_STATUS:
 				*newStatus = new StatusPicture(text, tm, attachment);
 				isValidData = true;
+				break;
+			case VIDEO_STATUS:
+				*newStatus = new StatusVideo(text, tm, attachment);
+				isValidData = true;
+				break;
+			default:
 				break;
 			}
 		}

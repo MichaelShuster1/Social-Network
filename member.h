@@ -3,7 +3,8 @@
 #include <vector>
 #include <list>
 #include <string>
-#include "status_picture"
+#include "status_picture.h"
+#include "status_video.h"
 #include "date.h"
 
 

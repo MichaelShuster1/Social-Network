@@ -175,7 +175,7 @@ public:
 class EmptyTextException : public StatusException
 {
 public:
-	virtual const char* what() const override { return "the given text is empty\n"; };
+	virtual const char* what() const override { return "the given status text is empty\n"; };
 };
 
 
@@ -185,7 +185,17 @@ public:
 	virtual const char* what() const override { return "the given time is empty\n"; };
 };
 
+class EmptyPictureException : public StatusException
+{
+public:
+	virtual const char* what() const override { return "the given picture name is empty\n"; };
+};
 
+class EmptyVideoException : public StatusException
+{
+public:
+	virtual const char* what() const override { return "the given video name is empty\n"; };
+};
 
 
 

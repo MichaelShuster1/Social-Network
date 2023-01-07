@@ -20,6 +20,9 @@ const int REMOVE_FAN = 9;
 const int PRINT_ALL_ENTITIES = 10;
 const int PRINT_ALL_FANS_FRIENDS = 11;
 const int EXIT = 12;
+const int TEXT_STATUS = 1;
+const int PICTURE_STATUS = 2;
+const int VIDEO_STATUS = 3;
 
 void addNewUserToSystem(System& system); //creates new user and adds him to the system
 void addNewPageToSystem(System& system); //creates new page and adds him to the system

@@ -5,6 +5,8 @@ using namespace std;
 
 StatusPicture::StatusPicture(string text, string time, string picture) : Status(text, time)
 {
+	if (picture.size() == EMPTY)
+		throw EmptyPictureException();
 	this->picture = picture;
 }
 

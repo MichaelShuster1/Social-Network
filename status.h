@@ -20,7 +20,7 @@ private:
 public:
 	Status(std::string text, std::string time) noexcept(false); //default c'tor
 	Status(const Status& other); //copy c'tor
-	virtual ~Status();
+	virtual ~Status() {};
 	//virtual void showStatus() const; //shows the text and time of this status
 	friend std::ostream& operator<<(std::ostream& os, const Status& status);
 	virtual void attached(std::ostream& os) const {};

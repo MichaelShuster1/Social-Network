@@ -107,7 +107,7 @@ void Fan_page::showAllStatuses() const
 	auto itrEnd = statuses.end();
 	for (auto itr = statuses.begin(); itr!=itrEnd ;++itr)
 	{
-		(*itr).showStatus();
+		cout << (*itr);
 		cout << endl;
 	}
 

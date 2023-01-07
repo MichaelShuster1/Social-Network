@@ -5,6 +5,8 @@ using namespace std;
 
 StatusVideo::StatusVideo(string text, string time, string video) : Status(text, time)
 {
+	if (video.size() == EMPTY)
+		throw EmptyVideoException();
 	this->video = video;
 }
 
