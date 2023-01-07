@@ -19,11 +19,20 @@ Status::Status(const Status& other)
 }
 
 
-
+/*
 void Status::showStatus() const
 {
 	cout << text << endl;
 	cout <<"Status publish time: " << time << endl;
+}
+*/
+
+ostream& operator<<(ostream& os, const Status& status)
+{
+	os << status.text << endl;
+	status.attached(os);
+	os << "Status publish time: " << status.time << endl;
+	return os;
 }
 
 
