@@ -12,6 +12,12 @@ Status::Status(const string text,const string time) noexcept(false)
 	this->time = time;
 }
 
+
+Status::Status(ifstream& in)
+{
+	in >> *this;
+}
+
 Status::Status(const Status& other)
 {
 	text = other.text;
@@ -39,6 +45,21 @@ ostream& operator<<(ostream& os, const Status& status)
 	return os;
 }
 
+
+istream& operator>>(istream& in, Status& status)
+{
+	if (typeid(in) == typeid(ifstream))
+	{
+		in >> status.text;
+		in >> status.time;
+	}
+	else
+	{
+		//
+	}
+	status.fromOs(in);
+	return in;
+}
 
 
 bool Status::operator==(const Status& status) const

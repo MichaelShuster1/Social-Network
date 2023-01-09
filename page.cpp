@@ -14,6 +14,11 @@ Fan_page::Fan_page(const string& name) noexcept(false)
 }
 
 
+Fan_page::Fan_page(ifstream& in)
+{
+	in >> *this;
+}
+
 
 Fan_page::Fan_page(const Fan_page& other)
 {
@@ -179,4 +184,59 @@ bool Fan_page::isChar(const char c)
 	if ((c >= BIGA && c <= BIGZ) || (c >= LITTLEA && c <= LITTLEZ))
 		return true;
 	return false;
+}
+
+
+ostream& operator<<(ostream& os, const Fan_page& page)
+{
+	if (typeid(os) == typeid(ofstream))
+	{
+		os << page.name << endl << page.statuses.size();
+		auto itr = page.statuses.begin();
+		auto itrEnd = page.statuses.end();
+		for (; itr != itrEnd; ++itr)
+		{
+			os << **itr;
+		}
+	}
+	else
+	{
+		os << page.name << endl;
+	}
+	return os;
+}
+
+istream& operator>>(istream& in, Fan_page& page)
+{
+	if (typeid(in) == typeid(ifstream))
+	{
+		int i, numOfStatuses;
+		in >> page.name;
+		in >> numOfStatuses;
+		for (i=0;i<numOfStatuses; i++)
+		{
+			string type;
+			in >> type;
+			if (strcmp(type.c_str(), typeid(Status).name() + 6) == 0)
+				page.statuses.push_back(new Status((ifstream&)in));
+			else if (strcmp(type.c_str(), typeid(StatusPicture).name() + 6) == 0)
+				page.statuses.push_back(new StatusPicture((ifstream&)in));
+			else
+				page.statuses.push_back(new StatusVideo((ifstream&)in));
+		}
+	}
+	else
+	{
+		in >> page.name;
+	}
+	return in;
+}
+
+void Fan_page::saveFansToFile(ofstream& os)
+{
+	auto itr = statuses.begin();
+	auto itrEnd = statuses.end();
+	for (; itr != itrEnd; ++itr)
+		os << **itr;
+
 }

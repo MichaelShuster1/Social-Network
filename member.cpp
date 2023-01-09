@@ -17,6 +17,8 @@ Member::Member(ifstream& in) : birth_date(in)
 	in >> *this;
 }
 
+
+
 Member::Member(const Member& other):birth_date(other.birth_date)
 {
 	auto enditr = other.statuses.end();

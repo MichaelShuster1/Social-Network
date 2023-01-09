@@ -11,6 +11,12 @@ StatusPicture::StatusPicture(const string text,const string time,const string pi
 }
 
 
+StatusPicture::StatusPicture(ifstream& in) :Status(in)
+{
+	fromOs(in);
+}
+
+
 StatusPicture::StatusPicture(const StatusPicture& other) : Status(other)
 {
 	this->picture = other.picture;
@@ -27,6 +33,16 @@ void StatusPicture::attached(std::ostream& os) const
 	{
 		string command = "start " + picture;
 		system(command.c_str());
+	}
+}
+
+void StatusPicture::fromOs(std::istream& in)
+{
+	if (typeid(in) == typeid(ifstream))
+		in >> picture;
+	else
+	{
+		//
 	}
 }
 
