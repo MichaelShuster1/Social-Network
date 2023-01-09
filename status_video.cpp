@@ -19,8 +19,15 @@ StatusVideo::StatusVideo(const StatusVideo& other) : Status(other)
 
 void StatusVideo::attached(std::ostream& os) const
 {
-	string command = "start " + video;
-	system(command.c_str());
+	if (typeid(os) == typeid(ofstream))
+	{
+		os << video << endl;
+	}
+	else
+	{
+		string command = "start " + video;
+		system(command.c_str());
+	}
 }
 
 

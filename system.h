@@ -21,6 +21,7 @@ private:
 public:
 	System();//system class c'tor
 	System(const System& other) = delete;//system class copy c'tor disable
+	~System();//d'tor
 	void addNewUser(const Member& new_user) noexcept(false);//adds the given member to the system
 	void addNewPage(const Fan_page& new_page) noexcept(false);// adds the given fan page to the system
 	void addNewStatusToMember(Status* new_status, const std::string& name) noexcept(false);//adds the given status to a member 

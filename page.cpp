@@ -24,7 +24,6 @@ Fan_page::Fan_page(const Fan_page& other)
 		statuses.push_back(new Status(**itr));
 	}
 	fans = other.fans;
-	//statuses = other.statuses;
 	name = other.name;
 }
 
