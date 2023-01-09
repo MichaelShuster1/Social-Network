@@ -14,6 +14,8 @@ Member::Member(const string _name, const Date& date) noexcept(false):birth_date(
 
 
 
+
+
 Member::Member(const Member& other):birth_date(other.birth_date)
 {
 	auto enditr = other.statuses.end();

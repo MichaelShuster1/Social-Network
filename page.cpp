@@ -180,3 +180,42 @@ bool Fan_page::isChar(const char c)
 		return true;
 	return false;
 }
+
+
+ostream& operator<<(ostream& os, const Fan_page& page)
+{
+	if (typeid(os) == typeid(ofstream))
+	{
+		os << page.name << endl << page.statuses.size();
+		auto itr = page.statuses.begin();
+		auto itrEnd = page.statuses.end();
+		for (; itr != itrEnd; ++itr)
+		{
+			os << **itr;
+		}
+	}
+	else
+	{
+		os << page.name << endl;
+	}
+	return os;
+}
+
+istream& operator>>(istream& in, Fan_page& page)
+{
+	if (typeid(in) == typeid(ifstream))
+	{
+		in >> page.name;
+		auto itr = page.statuses.begin();
+		auto itrEnd = page.statuses.end();
+		for (; itr != itrEnd; ++itr)
+		{
+			in >> **itr;
+		}
+	}
+	else
+	{
+		os << page.name << endl;
+	}
+	return os;
+}
