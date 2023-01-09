@@ -31,6 +31,7 @@ private:
 
 public:
 	Member(const std::string _name,const Date& date) noexcept(false); //c'tor
+	Member(std::ifstream& in); //c'tor for file 
 	Member(const Member& other);// copy c'tor
 	Member(Member&& other) noexcept(true); // move c'tor
 	~Member();//d'tor
@@ -52,7 +53,11 @@ public:
 	bool areFriendsCheck(const Member& member) const; //checks if a member is a friend of the given member
 	bool isPageFollower(const Fan_page& page) const; //checks if a member is a fan of the given page
 	bool operator==(const std::string& name) const; //checks if the member have the given name
-	static bool isChar(const char c);
+	static bool isChar(const char c);// checks if a char is a-z or A-Z
+	friend std::ostream& operator<<(std::ostream& os, const Member& member);//overloads operator << for output to console/file
+	friend std::istream& operator>>(std::istream& os, Member& member);//overloads operator >> for input from user/file
+	void friendsNPagesToFile(std::ofstream& os);//print friends and pages of a member to a file
+
 };
 
 

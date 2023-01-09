@@ -1,4 +1,5 @@
 #include "date.h"
+using namespace std;
 
 Date::Date(int y, int m, int d) noexcept(false)
 {
@@ -9,10 +10,37 @@ Date::Date(int y, int m, int d) noexcept(false)
 	day = d;
 }
 
+Date::Date(ifstream& in)
+{
+	in >> *this;
+}
 
 Date::Date(const Date& other)
 {
 	year = other.year;
 	month = other.month;
 	day = other.day;
+}
+
+ostream& operator<<(ostream& os, const Date& date)
+{
+	if (typeid(os) == typeid(ostream))
+		os << date.day << date.month << date.year << endl;
+	else
+		os << date.day << "/" << date.month << "/" << date.year << endl;
+	return os;
+}
+
+istream& operator>>(istream& in, Date& date)
+{
+	if (typeid(in) == typeid(istream))
+		in >> date.day >> date.month >> date.year;
+	else
+	{
+		char slash;
+		in >> date.day >> slash >> date.month >> slash >> date.year;
+	}
+	return in;
+
+
 }

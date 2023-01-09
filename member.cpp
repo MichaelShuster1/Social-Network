@@ -12,7 +12,10 @@ Member::Member(const string _name, const Date& date) noexcept(false):birth_date(
 	name = _name;
 }
 
-
+Member::Member(ifstream& in) : birth_date(in)
+{
+	in >> *this;
+}
 
 Member::Member(const Member& other):birth_date(other.birth_date)
 {
@@ -296,3 +299,59 @@ bool Member::isChar(const char c)
 		return true;
 	return false;
 }
+
+ostream& operator<<(ostream& os, const Member& member)
+{
+	auto itr = member.statuses.begin();
+	auto itrEnd = member.statuses.end();
+	if (typeid(os) == typeid(ofstream))
+	{
+		os << member.name << endl << member.birth_date << endl << member.statuses.size() << endl;
+		for (; itr != itrEnd; ++itr)
+			os << *(*itr);
+	}
+	else
+		cout << "name:" << member.name;
+
+	return os;
+}
+
+istream& operator>>(istream& in, Member& member)
+{
+	if (typeid(in) == typeid(ifstream))
+	{
+		int numOfStatuses;
+		string statusType;
+		in >> member.name >> member.birth_date >> numOfStatuses;
+		for (int i = 0; i < numOfStatuses; i++)
+		{
+			in >> statusType;
+			if (strcmp(statusType.c_str(), typeid(Status).name() + 6))
+				member.statuses.push_back(new Status((ifstream&)in));
+			else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6))
+				member.statuses.push_back(new StatusPicture((ifstream&)in));
+			else
+				member.statuses.push_back(new StatusVideo((ifstream&)in));
+		}
+
+	}
+	else
+	{
+		in >> member.name >> member.birth_date;
+	}
+}
+
+void Member::friendsNPagesToFile(ofstream& os)
+{
+	auto itrF = friends.begin();
+	auto itrFEnd = friends.end();
+	auto itrP = pages.begin();
+	auto itrPEnd = pages.end();
+	os << friends.size() << endl;
+	for (; itrF != itrFEnd; ++itrF)
+		os << (*itrF)->name << endl;
+	os << pages.size() << endl;
+	for (; itrP != itrPEnd; ++itrP)
+		os << (*itrF)->name << endl;
+}
+

@@ -1,6 +1,7 @@
 #ifndef DATE_H
 #define DATE_H
 #include "exceptions.h"
+#include <fstream>
 
 const int CURRENT_YEAR = 2022;
 const int EARLIEST_YEAR = 1990;
@@ -18,8 +19,11 @@ private:
 
 public:
 	Date(int y, int m, int d) noexcept(false); //default c'tor
+	Date(std::ifstream& in);//c'tor for file
 	Date(const Date& other); //copy c'tor
 	friend class Member;
+	friend std::ostream& operator<<(std::ostream& os, const Date& date);
+	friend std::istream& operator>>(std::istream& os, Date& date);
 };
 
 
