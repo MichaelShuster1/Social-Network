@@ -341,6 +341,7 @@ istream& operator>>(istream& in, Member& member)
 	{
 		in >> member.name >> member.birth_date;
 	}
+	return in;
 }
 
 void Member::friendsNPagesToFile(ofstream& os)
