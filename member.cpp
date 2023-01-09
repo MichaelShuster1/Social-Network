@@ -308,7 +308,7 @@ ostream& operator<<(ostream& os, const Member& member)
 	auto itrEnd = member.statuses.end();
 	if (typeid(os) == typeid(ofstream))
 	{
-		os << member.name << endl << member.birth_date << endl << member.statuses.size() << endl;
+		os << member.birth_date << member.name << endl << member.statuses.size() << endl;
 		for (; itr != itrEnd; ++itr)
 			os << *(*itr);
 	}
@@ -324,7 +324,7 @@ istream& operator>>(istream& in, Member& member)
 	{
 		int numOfStatuses;
 		string statusType;
-		in >> member.name >> member.birth_date >> numOfStatuses;
+		in >> member.name >> numOfStatuses;
 		for (int i = 0; i < numOfStatuses; i++)
 		{
 			in >> statusType;

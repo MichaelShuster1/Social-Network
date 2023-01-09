@@ -24,8 +24,8 @@ Date::Date(const Date& other)
 
 ostream& operator<<(ostream& os, const Date& date)
 {
-	if (typeid(os) == typeid(ostream))
-		os << date.day << date.month << date.year << endl;
+	if (typeid(os) == typeid(ofstream))
+		os << date.day << " " << date.month << " " << date.year << endl;
 	else
 		os << date.day << "/" << date.month << "/" << date.year << endl;
 	return os;
@@ -33,7 +33,7 @@ ostream& operator<<(ostream& os, const Date& date)
 
 istream& operator>>(istream& in, Date& date)
 {
-	if (typeid(in) == typeid(istream))
+	if (typeid(in) == typeid(ifstream))
 		in >> date.day >> date.month >> date.year;
 	else
 	{

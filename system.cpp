@@ -7,7 +7,10 @@ System::System()
 	ifstream inFile("data.txt");
 	if (!inFile)
 		cout << "not good";
-
+	Member m1(inFile);
+	Member m2(inFile);
+	Member m3(inFile);
+	
 	createHardcodedEntities();;
 
 	inFile.close();
@@ -16,6 +19,12 @@ System::System()
 System::~System()
 {
 	ofstream outFile("data.txt", ios::trunc);
+	auto itr = system_members.begin();
+	outFile << *itr;
+	++itr;
+	outFile << *itr;
+	++itr;
+	outFile << *itr;
 	outFile.close();
 }
 
@@ -266,10 +275,6 @@ void System::printAllFandsOfPage(const string& name) const noexcept(false)
 
 void System::createHardcodedEntities()
 {
-	Member m1("michael", Date(1998, 12, 26));
-	Status s("hello", "23:59");
-	m1.addStatus(&s);
-	system_members.push_back(move(m1));
 	system_members.push_back(Member("Avi Cohen", Date(1990, 10, 22)));
 	system_members.push_back(Member("Yossi Levi", Date(1995, 1, 10)));
 	system_members.push_back(Member("Israel Israeli", Date(2000, 2, 28)));
