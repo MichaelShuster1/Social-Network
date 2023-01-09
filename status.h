@@ -3,7 +3,7 @@
 
 #pragma warning(disable: 4996)
 
-#include <iostream>
+#include <fstream>
 #include <string>
 #include "exceptions.h"
 

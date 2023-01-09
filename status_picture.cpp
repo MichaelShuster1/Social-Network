@@ -19,8 +19,15 @@ StatusPicture::StatusPicture(const StatusPicture& other) : Status(other)
 
 void StatusPicture::attached(std::ostream& os) const
 {
-	string command = "start " + picture;
-	system(command.c_str());
+	if (typeid(os) == typeid(ofstream))
+	{
+		os << picture << endl;
+	}
+	else
+	{
+		string command = "start " + picture;
+		system(command.c_str());
+	}
 }
 
 

@@ -23,9 +23,19 @@ Status::Status(const Status& other)
 
 ostream& operator<<(ostream& os, const Status& status)
 {
-	os << status.text << endl;
-	status.attached(os);
-	os << "Status publish time: " << status.time << endl;
+	if (typeid(os) == typeid(ofstream))
+	{
+		os << typeid(status).name() + 6 <<endl;
+		os << status.text << endl << status.time << endl;
+		status.attached(os);
+	}
+		
+	else
+	{
+		os << status.text << endl;
+		status.attached(os);
+		os << "Status publish time: " << status.time << endl;
+	}
 	return os;
 }
 

@@ -4,7 +4,19 @@ using namespace std;
 
 System::System()
 {
-	createHardcodedEntities();
+	ifstream inFile("data.txt");
+	if (!inFile)
+		cout << "not good";
+
+	createHardcodedEntities();;
+
+	inFile.close();
+}
+
+System::~System()
+{
+	ofstream outFile("data.txt", ios::trunc);
+	outFile.close();
 }
 
 
