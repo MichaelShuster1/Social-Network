@@ -21,7 +21,8 @@ private:
 	std::list<Status*>statuses;
 
 public:
-	Fan_page(const std::string& name) noexcept(false); //c'tor
+	Fan_page(const std::string& name) noexcept(false); //c'tor 1
+	Fan_page(std::ifstream& in); //c'tor 2
 	Fan_page(const Fan_page& other); //copy c'tor
 	Fan_page(Fan_page&& other) noexcept(true); //move c'tor
 	~Fan_page(); //d'tor
@@ -40,6 +41,7 @@ public:
 	int getFansSize() const ; //returns the number of fans of this page
 	bool isFanCheck(const Member& member) const;//checks if the given member is a fan of this page
 	static bool isChar(const char c); //checks if the input is char
+	void saveFansToFile(std::ofstream& os); //writes the data of the page's fans to the file
 
 };
 

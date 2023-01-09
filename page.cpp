@@ -14,6 +14,11 @@ Fan_page::Fan_page(const string& name) noexcept(false)
 }
 
 
+Fan_page::Fan_page(ifstream& in)
+{
+	in >> *this;
+}
+
 
 Fan_page::Fan_page(const Fan_page& other)
 {
@@ -205,17 +210,33 @@ istream& operator>>(istream& in, Fan_page& page)
 {
 	if (typeid(in) == typeid(ifstream))
 	{
+		int i, numOfStatuses;
 		in >> page.name;
-		auto itr = page.statuses.begin();
-		auto itrEnd = page.statuses.end();
-		for (; itr != itrEnd; ++itr)
+		in >> numOfStatuses;
+		for (i=0;i<numOfStatuses; i++)
 		{
-			in >> **itr;
+			string type;
+			in >> type;
+			if (strcmp(type.c_str(), typeid(Status).name() + 6) == 0)
+				page.statuses.push_back(new Status((ifstream&)in));
+			else if (strcmp(type.c_str(), typeid(StatusPicture).name() + 6) == 0)
+				page.statuses.push_back(new StatusPicture((ifstream&)in));
+			else
+				page.statuses.push_back(new StatusVideo((ifstream&)in));
 		}
 	}
 	else
 	{
-		os << page.name << endl;
+		in >> page.name;
 	}
-	return os;
+	return in;
+}
+
+void Fan_page::saveFansToFile(ofstream& os)
+{
+	auto itr = statuses.begin();
+	auto itrEnd = statuses.end();
+	for (; itr != itrEnd; ++itr)
+		os << **itr;
+
 }
