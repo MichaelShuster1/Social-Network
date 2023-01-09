@@ -21,7 +21,7 @@ Fan_page::Fan_page(const Fan_page& other)
 	auto itrend = statuses.end();
 	for (; itr != itrend; ++itr)
 	{
-		statuses.push_back(new Status(**itr))
+		statuses.push_back(new Status(**itr));
 	}
 	fans = other.fans;
 	//statuses = other.statuses;
