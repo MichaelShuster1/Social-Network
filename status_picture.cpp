@@ -39,7 +39,7 @@ void StatusPicture::attached(std::ostream& os) const
 void StatusPicture::fromOs(std::istream& in)
 {
 	if (typeid(in) == typeid(ifstream))
-		in >> picture;
+		getline(in, picture);
 	else
 	{
 		//

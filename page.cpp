@@ -211,12 +211,12 @@ istream& operator>>(istream& in, Fan_page& page)
 	if (typeid(in) == typeid(ifstream))
 	{
 		int i, numOfStatuses;
-		in >> page.name;
+		getline(in,page.name);
 		in >> numOfStatuses;
 		for (i=0;i<numOfStatuses; i++)
 		{
 			string type;
-			in >> type;
+			getline(in, type);
 			if (strcmp(type.c_str(), typeid(Status).name() + 6) == 0)
 				page.statuses.push_back(new Status((ifstream&)in));
 			else if (strcmp(type.c_str(), typeid(StatusPicture).name() + 6) == 0)
