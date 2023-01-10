@@ -353,7 +353,6 @@ void Member::friendsNPagesToFile(ofstream& os) const
 	os << friends.size() << endl;
 	for (; itrF != itrFEnd; ++itrF)
 		os << (*itrF)->name << endl;
-	os << pages.size() << endl;
 }
 
 void Member::oneSidedLink(Member& member)

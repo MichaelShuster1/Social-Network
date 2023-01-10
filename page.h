@@ -41,7 +41,7 @@ public:
 	int getFansSize() const ; //returns the number of fans of this page
 	bool isFanCheck(const Member& member) const;//checks if the given member is a fan of this page
 	static bool isChar(const char c); //checks if the input is char
-	void saveFansToFile(std::ofstream& os); //writes the data of the page's fans to the file
+	void saveFansToFile(std::ofstream& os) const;//writes the data of the page's fans to the file
 
 };
 

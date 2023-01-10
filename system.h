@@ -40,7 +40,8 @@ public:
 	int getMembersSize() const;//returs the size of the members array
 	int getPagesSize() const;//return the size of the fan pages array
 	bool checkUserNameTaken(const std::string& name) const; //checks if the name is taken
-	void LoadUserFriendsFromFile(ifstream& in);
+	void loadFansFromFile(std::ifstream& in);//loads the data of the pages's fans from the file
+	void LoadUserFriendsFromFile(std::ifstream& in);
 };  
 
 
