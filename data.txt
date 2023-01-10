@@ -1,12 +1,18 @@
+3
 22 10 1990
 Avi Cohen
-2
+3
 Status
 status1
 Mon Jul 16 02:03:55 2021
 Status
 status2
 Mon Jul 17 02:03:55 2021
+StatusPicture
+hello
+Tue Jan 10 16:52:30 2023
+
+picture.jpg
 10 1 1995
 Yossi Levi
 2
@@ -25,22 +31,26 @@ Mon Jul 20 02:03:55 2022
 Status
 status6
 Mon Jul 21 02:03:55 2022
+3
 Music fans
-2Status
+2
+Status
 status7
 Mon Jul 16 02:03:55 2019
 Status
 status8
 Mon Jul 17 02:03:55 2019
 Gaming fans
-2Status
+2
+Status
 status9
 Mon Jul 18 02:03:55 2020
 Status
 status10
 Mon Jul 19 02:03:55 2020
 Movies fans
-2Status
+2
+Status
 status11
 Mon Jul 20 02:03:55 2021
 Status
@@ -53,21 +63,8 @@ Avi Cohen
 Israel Israeli
 1
 Yossi Levi
-Status
-status7
-Mon Jul 16 02:03:55 2019
-Status
-status8
-Mon Jul 17 02:03:55 2019
-Status
-status9
-Mon Jul 18 02:03:55 2020
-Status
-status10
-Mon Jul 19 02:03:55 2020
-Status
-status11
-Mon Jul 20 02:03:55 2021
-Status
-status12
-Mon Jul 21 02:03:55 2022
+1
+Avi Cohen
+1
+Yossi Levi
+0

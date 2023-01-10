@@ -191,7 +191,7 @@ ostream& operator<<(ostream& os, const Fan_page& page)
 {
 	if (typeid(os) == typeid(ofstream))
 	{
-		os << page.name << endl << page.statuses.size();
+		os << page.name << endl << page.statuses.size() << endl;
 		auto itr = page.statuses.begin();
 		auto itrEnd = page.statuses.end();
 		for (; itr != itrEnd; ++itr)
@@ -211,13 +211,14 @@ istream& operator>>(istream& in, Fan_page& page)
 	if (typeid(in) == typeid(ifstream))
 	{
 		int i, numOfStatuses;
-		in.ignore();
 		getline(in,page.name);
 		in >> numOfStatuses;
+		if (numOfStatuses == 0)
+			in.ignore();
 		for (i=0;i<numOfStatuses; i++)
 		{
 			string type;
-			getline(in, type);
+			in>> type;
 			if (strcmp(type.c_str(), typeid(Status).name() + 6) == 0)
 				page.statuses.push_back(new Status((ifstream&)in));
 			else if (strcmp(type.c_str(), typeid(StatusPicture).name() + 6) == 0)
@@ -236,10 +237,11 @@ istream& operator>>(istream& in, Fan_page& page)
 
 void Fan_page::saveFansToFile(ofstream& os) const
 {
-	auto itr = statuses.begin();
-	auto itrEnd = statuses.end();
-	for (; itr != itrEnd; ++itr)
-		os << **itr;
+	auto itr = fans.begin();
+	auto itrEnd = fans.end();
+	os << fans.size()<<endl;
+	for(; itr != itrEnd; ++itr)
+		os << (*itr)->getName()<<endl;
 
 }
 
