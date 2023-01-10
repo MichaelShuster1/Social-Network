@@ -50,8 +50,8 @@ istream& operator>>(istream& in, Status& status)
 {
 	if (typeid(in) == typeid(ifstream))
 	{
-		in >> status.text;
-		in >> status.time;
+		getline(in, status.text);
+		getline(in, status.time);
 	}
 	else
 	{
