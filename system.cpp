@@ -10,17 +10,57 @@ System::System()
 
 System::~System()
 {
+	saveDataToFile();
+}
+
+void System::saveDataToFile() const
+{
 	ofstream outFile("data.txt", ios::trunc);
-	auto itr = system_members.begin();
-	outFile << *itr;
-	(*itr).friendsNPagesToFile(outFile);
-	++itr;
-	outFile << *itr;
-	(*itr).friendsNPagesToFile(outFile);
-	++itr;
-	outFile << *itr;
-	(*itr).friendsNPagesToFile(outFile);
+	saveMembersToFile(outFile);
+	savePagesToFile(outFile);
+	saveFriendsOfMembersToFile(outFile);
+	saveFansOfPagesToFile(outFile);
 	outFile.close();
+}
+
+void System::saveMembersToFile(ofstream& os) const
+{
+	auto itr = system_members.begin();
+	auto itrEnd = system_members.end();
+	for (; itr != itrEnd; ++itr)
+	{
+		os<< *itr;
+	}
+}
+
+void System::savePagesToFile(std::ofstream& os) const
+{
+	auto itr = system_pages.begin();
+	auto itrEnd = system_pages.end();
+	for (; itr != itrEnd; ++itr)
+	{
+		os << *itr;
+	}
+}
+
+void System::saveFriendsOfMembersToFile(std::ofstream& os) const
+{
+	auto itr = system_members.begin();
+	auto itrEnd = system_members.end();
+	for (; itr != itrEnd; ++itr)
+	{
+		(*itr).saveFriendsToFile(os);
+	}
+}
+
+void System::saveFansOfPagesToFile(std::ofstream& os) const
+{
+	auto itr = system_pages.begin();
+	auto itrEnd = system_pages.end();
+	for (; itr != itrEnd; ++itr)
+	{
+		(*itr).saveFansToFile(os);
+	}
 }
 
 
