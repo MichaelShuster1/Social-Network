@@ -346,7 +346,7 @@ istream& operator>>(istream& in, Member& member)
 	return in;
 }
 
-void Member::friendsNPagesToFile(ofstream& os) const
+void Member::saveFriendsToFile(ofstream& os) const
 {
 	auto itrF = friends.begin();
 	auto itrFEnd = friends.end();

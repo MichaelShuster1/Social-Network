@@ -42,6 +42,11 @@ public:
 	bool checkUserNameTaken(const std::string& name) const; //checks if the name is taken
 	void loadFansFromFile(std::ifstream& in);//loads the data of the pages's fans from the file
 	void LoadUserFriendsFromFile(std::ifstream& in);
+	void saveDataToFile() const; //saves the entire system's data to file
+	void saveMembersToFile(std::ofstream& os) const ; //saves the data of the system's members to file
+	void savePagesToFile(std::ofstream& os) const; //saves the data of the system's pages to file
+	void saveFriendsOfMembersToFile(std::ofstream& os) const; //saves the data of the system's of members's friends to file
+	void saveFansOfPagesToFile(std::ofstream& os) const; //saves the data of the system's of pages's fans to file
 };  
 
 

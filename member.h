@@ -56,7 +56,7 @@ public:
 	static bool isChar(const char c);// checks if a char is a-z or A-Z
 	friend std::ostream& operator<<(std::ostream& os, const Member& member);//overloads operator << for output to console/file
 	friend std::istream& operator>>(std::istream& os, Member& member);//overloads operator >> for input from user/file
-	void friendsNPagesToFile(std::ofstream& os) const;//print friends and pages of a member to a file
+	void saveFriendsToFile(std::ofstream& os) const;//print friends and pages of a member to a file
 	void oneSidedLink(Member& member); //adds the given member to the friends of the activating object (one sided link)
 
 };
