@@ -8,8 +8,8 @@ System::System()
 	if (!inFile)
 		cout << "not good";
 	Member m1(inFile);
-	//Member m2(inFile);
-	//Member m3(inFile);
+	Member m2(inFile);
+	Member m3(inFile);
 	
 	createHardcodedEntities();;
 
@@ -21,10 +21,13 @@ System::~System()
 	ofstream outFile("data.txt", ios::trunc);
 	auto itr = system_members.begin();
 	outFile << *itr;
+	(*itr).friendsNPagesToFile(outFile);
 	++itr;
 	outFile << *itr;
+	(*itr).friendsNPagesToFile(outFile);
 	++itr;
 	outFile << *itr;
+	(*itr).friendsNPagesToFile(outFile);
 	outFile.close();
 }
 
@@ -328,4 +331,26 @@ int System::getMembersSize() const
 int System::getPagesSize() const
 {
 	return system_pages.size();
+}
+
+void System::LoadUserFriendsFromFile(ifstream& in)
+{
+	auto itr = system_members.begin();
+	auto itrEnd = system_members.end();
+	string name;
+	int numOfFriends, numOfPages;
+	for (; itr != itrEnd; ++itr)
+	{
+		in >> numOfFriends;
+		in.ignore();
+		for (int i = 0; i < numOfFriends; i++)
+		{
+			getline(in, name);
+			auto itrUser = find(system_members.begin(), system_members.end(), name);
+			(*itr).oneSidedLink(*itrUser);
+
+		}
+
+	}
+
 }

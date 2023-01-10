@@ -324,14 +324,15 @@ istream& operator>>(istream& in, Member& member)
 	{
 		int numOfStatuses;
 		string statusType;
+		in.ignore();
 		getline(in, member.name);
 		in >> numOfStatuses;
 		for (int i = 0; i < numOfStatuses; i++)
 		{
 			in >> statusType;
-			if (strcmp(statusType.c_str(), typeid(Status).name() + 6))
+			if (strcmp(statusType.c_str(), typeid(Status).name() + 6) == 0)
 				member.statuses.push_back(new Status((ifstream&)in));
-			else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6))
+			else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6) == 0)
 				member.statuses.push_back(new StatusPicture((ifstream&)in));
 			else
 				member.statuses.push_back(new StatusVideo((ifstream&)in));
@@ -345,17 +346,17 @@ istream& operator>>(istream& in, Member& member)
 	return in;
 }
 
-void Member::friendsNPagesToFile(ofstream& os)
+void Member::friendsNPagesToFile(ofstream& os) const
 {
 	auto itrF = friends.begin();
 	auto itrFEnd = friends.end();
-	auto itrP = pages.begin();
-	auto itrPEnd = pages.end();
 	os << friends.size() << endl;
 	for (; itrF != itrFEnd; ++itrF)
 		os << (*itrF)->name << endl;
 	os << pages.size() << endl;
-	for (; itrP != itrPEnd; ++itrP)
-		os << (*itrF)->name << endl;
 }
 
+void Member::oneSidedLink(Member& member)
+{
+	friends.push_back(&member);
+}
