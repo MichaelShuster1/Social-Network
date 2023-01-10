@@ -25,6 +25,7 @@ System::~System()
 	outFile << *itr;
 	++itr;
 	outFile << *itr;
+
 	outFile.close();
 }
 
@@ -56,6 +57,27 @@ void System::addNewPage(const Fan_page& new_page) noexcept(false)
 	system_pages.push_back(Fan_page(new_page));
 }
 
+
+void System::loadFansFromFile(ifstream& in)
+{
+	string name;
+	int numOfFans,i;
+	in >> numOfFans;
+	in.ignore();
+
+	auto itrPage = system_pages.begin();
+	auto itrEnd = system_pages.end();
+
+	for (; itrPage != itrEnd; ++itrPage)
+	{
+		for (i = 0; i < numOfFans; i++)
+		{
+			getline(in, name);
+			auto itrUser = find(system_members.begin(), system_members.end(), name);
+			(*itrPage) += (*itrUser);
+		}
+	}
+}
 
 void System::addNewStatusToMember(Status* new_status,const string& name) noexcept(false)
 {

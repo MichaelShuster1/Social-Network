@@ -324,14 +324,15 @@ istream& operator>>(istream& in, Member& member)
 	{
 		int numOfStatuses;
 		string statusType;
+		in.ignore();
 		getline(in, member.name);
 		in >> numOfStatuses;
 		for (int i = 0; i < numOfStatuses; i++)
 		{
 			in >> statusType;
-			if (strcmp(statusType.c_str(), typeid(Status).name() + 6))
+			if (strcmp(statusType.c_str(), typeid(Status).name() + 6)==0)
 				member.statuses.push_back(new Status((ifstream&)in));
-			else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6))
+			else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6)==0)
 				member.statuses.push_back(new StatusPicture((ifstream&)in));
 			else
 				member.statuses.push_back(new StatusVideo((ifstream&)in));

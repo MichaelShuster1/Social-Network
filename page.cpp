@@ -211,6 +211,7 @@ istream& operator>>(istream& in, Fan_page& page)
 	if (typeid(in) == typeid(ifstream))
 	{
 		int i, numOfStatuses;
+		in.ignore();
 		getline(in,page.name);
 		in >> numOfStatuses;
 		for (i=0;i<numOfStatuses; i++)
@@ -232,7 +233,8 @@ istream& operator>>(istream& in, Fan_page& page)
 	return in;
 }
 
-void Fan_page::saveFansToFile(ofstream& os)
+
+void Fan_page::saveFansToFile(ofstream& os) const
 {
 	auto itr = statuses.begin();
 	auto itrEnd = statuses.end();
@@ -240,3 +242,5 @@ void Fan_page::saveFansToFile(ofstream& os)
 		os << **itr;
 
 }
+
+
