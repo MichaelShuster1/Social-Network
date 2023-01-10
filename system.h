@@ -45,7 +45,6 @@ public:
 	void loadDataFromFile();
 	void loadUsersFromFile(std::ifstream& in);
 	void loadPagesFromFile(std::ifstream& in);
-	void LoadUserFriendsFromFile(std::ifstream& in);
 	void saveDataToFile() const; //saves the entire system's data to file
 	void saveMembersToFile(std::ofstream& os) const ; //saves the data of the system's members to file
 	void savePagesToFile(std::ofstream& os) const; //saves the data of the system's pages to file
