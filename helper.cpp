@@ -106,6 +106,7 @@ void createNewStatus(Status** newStatus)
 		getline(cin, text);
 		curr_time = time(NULL);
 		tm = ctime(&curr_time);
+		tm.pop_back();
 		if (choice == PICTURE_STATUS || choice == VIDEO_STATUS)
 		{
 			cout << "Please enter the name of the file (with extension): ";
