@@ -16,6 +16,7 @@ System::System()
 	inFile.close();
 }
 
+
 System::~System()
 {
 	ofstream outFile("data.txt", ios::trunc);
@@ -30,13 +31,13 @@ System::~System()
 }
 
 
-
 void System::addNewUser(const Member& new_user) noexcept(false)
 {
 	if(checkUserNameTaken(new_user.getName()))
 		throw UserNameTakenException();	
 	system_members.push_back(Member(new_user));	
 }
+
 
 bool System::checkUserNameTaken(const string& name) const
 {
@@ -62,14 +63,14 @@ void System::loadFansFromFile(ifstream& in)
 {
 	string name;
 	int numOfFans,i;
-	in >> numOfFans;
-	in.ignore();
 
 	auto itrPage = system_pages.begin();
 	auto itrEnd = system_pages.end();
 
 	for (; itrPage != itrEnd; ++itrPage)
 	{
+		in >> numOfFans;
+		in.ignore();
 		for (i = 0; i < numOfFans; i++)
 		{
 			getline(in, name);
@@ -341,11 +342,11 @@ void System::createHardcodedEntities()
 }
 
 
-
 int System::getMembersSize() const
 {
 	return system_members.size();
 }
+
 
 int System::getPagesSize() const
 {
