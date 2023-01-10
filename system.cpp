@@ -4,16 +4,7 @@ using namespace std;
 
 System::System()
 {
-	ifstream inFile("data.txt");
-	if (!inFile)
-		cout << "not good";
-	Member m1(inFile);
-	Member m2(inFile);
-	Member m3(inFile);
-	
-	createHardcodedEntities();;
-
-	inFile.close();
+	loadDataFromFile();
 }
 
 
@@ -355,7 +346,7 @@ int System::getPagesSize() const
 	return system_pages.size();
 }
 
-void System::LoadUserFriendsFromFile(ifstream& in)
+void System::loadUserFriendsFromFile(ifstream& in)
 {
 	auto itr = system_members.begin();
 	auto itrEnd = system_members.end();
@@ -373,6 +364,44 @@ void System::LoadUserFriendsFromFile(ifstream& in)
 
 		}
 
+	}
+
+}
+
+void System::loadDataFromFile()
+{
+	ifstream inFile("data.txt");
+	if (!inFile)
+		createHardcodedEntities();
+	else
+	{
+		loadUsersFromFile(inFile);
+		loadPagesFromFile(inFile);
+		loadUserFriendsFromFile(inFile);
+		loadFansFromFile(inFile);
+	}
+	inFile.close();
+}
+
+void System::loadUsersFromFile(ifstream& in)
+{
+	int numOfUsers;
+
+	in >> numOfUsers;
+	for (int i = 0; i < numOfUsers; i++)
+	{
+		system_members.push_back(Member(in));
+	}
+}
+
+void System::loadPagesFromFile(ifstream& in)
+{
+	int numOfPages;
+
+	in >> numOfPages;
+	for (int i = 0; i < numOfPages; i++)
+	{
+		system_pages.push_back(Fan_page(in));
 	}
 
 }
