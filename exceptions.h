@@ -191,6 +191,12 @@ public:
 	virtual const char* what() const override { return "the given picture name is empty\n"; };
 };
 
+class PictureExtensionException : public StatusException
+{
+public:
+	virtual const char* what() const override { return "the only permitted extensions for pictures are jpg and png\n"; };
+};
+
 class EmptyVideoException : public StatusException
 {
 public:

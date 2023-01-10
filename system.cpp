@@ -27,6 +27,7 @@ void System::saveMembersToFile(ofstream& os) const
 {
 	auto itr = system_members.begin();
 	auto itrEnd = system_members.end();
+	os << system_members.size() << endl;
 	for (; itr != itrEnd; ++itr)
 	{
 		os<< *itr;
@@ -37,6 +38,8 @@ void System::savePagesToFile(std::ofstream& os) const
 {
 	auto itr = system_pages.begin();
 	auto itrEnd = system_pages.end();
+	os << system_pages.size() << endl;
+
 	for (; itr != itrEnd; ++itr)
 	{
 		os << *itr;
@@ -91,27 +94,6 @@ void System::addNewPage(const Fan_page& new_page) noexcept(false)
 	system_pages.push_back(Fan_page(new_page));
 }
 
-
-void System::loadFansFromFile(ifstream& in)
-{
-	string name;
-	int numOfFans,i;
-
-	auto itrPage = system_pages.begin();
-	auto itrEnd = system_pages.end();
-
-	for (; itrPage != itrEnd; ++itrPage)
-	{
-		in >> numOfFans;
-		in.ignore();
-		for (i = 0; i < numOfFans; i++)
-		{
-			getline(in, name);
-			auto itrUser = find(system_members.begin(), system_members.end(), name);
-			(*itrPage) += (*itrUser);
-		}
-	}
-}
 
 void System::addNewStatusToMember(Status* new_status,const string& name) noexcept(false)
 {
@@ -408,6 +390,28 @@ void System::loadUserFriendsFromFile(ifstream& in)
 
 }
 
+
+void System::loadFansFromFile(ifstream& in)
+{
+	string name;
+	int numOfFans, i;
+
+	auto itrPage = system_pages.begin();
+	auto itrEnd = system_pages.end();
+
+	for (; itrPage != itrEnd; ++itrPage)
+	{
+		in >> numOfFans;
+		in.ignore();
+		for (i = 0; i < numOfFans; i++)
+		{
+			getline(in, name);
+			auto itrUser = find(system_members.begin(), system_members.end(), name);
+			(*itrPage) += (*itrUser);
+		}
+	}
+}
+
 void System::loadDataFromFile()
 {
 	ifstream inFile("data.txt");
@@ -439,6 +443,7 @@ void System::loadPagesFromFile(ifstream& in)
 	int numOfPages;
 
 	in >> numOfPages;
+	in.ignore();
 	for (int i = 0; i < numOfPages; i++)
 	{
 		system_pages.push_back(Fan_page(in));

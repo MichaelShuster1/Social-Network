@@ -40,6 +40,7 @@ void StatusPicture::fromOs(std::istream& in)
 {
 	if (typeid(in) == typeid(ifstream))
 		getline(in, picture);
+
 	else
 	{
 		//
