@@ -8,8 +8,8 @@ System::System()
 	if (!inFile)
 		cout << "not good";
 	Member m1(inFile);
-	Member m2(inFile);
-	Member m3(inFile);
+	//Member m2(inFile);
+	//Member m3(inFile);
 	
 	createHardcodedEntities();;
 

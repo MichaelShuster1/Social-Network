@@ -324,7 +324,8 @@ istream& operator>>(istream& in, Member& member)
 	{
 		int numOfStatuses;
 		string statusType;
-		in >> member.name >> numOfStatuses;
+		getline(in, member.name);
+		in >> numOfStatuses;
 		for (int i = 0; i < numOfStatuses; i++)
 		{
 			in >> statusType;
