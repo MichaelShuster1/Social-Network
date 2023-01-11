@@ -432,6 +432,7 @@ void System::loadUsersFromFile(ifstream& in)
 	int numOfUsers;
 
 	in >> numOfUsers;
+	in.ignore();
 	for (int i = 0; i < numOfUsers; i++)
 	{
 		system_members.push_back(Member(in));

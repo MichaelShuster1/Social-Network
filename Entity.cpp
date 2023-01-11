@@ -115,9 +115,9 @@ istream& operator>>(istream& in, Entity& entity)
 	{
 		int numOfStatuses;
 		string statusType;
-		in.ignore();
 		getline(in, entity.name);
 		in >> numOfStatuses;
+		in.ignore();
 		entity.loadStatusesFromFile(numOfStatuses, (ifstream&)in);
 	}
 	else
@@ -131,14 +131,18 @@ istream& operator>>(istream& in, Entity& entity)
 
 ostream& operator<<(ostream& os, const Entity& entity)
 {
-	entity.toOs(os);
+	
 	if (typeid(os) == typeid(ofstream))
 	{
-		os << entity.name << endl << entity.statuses.size() << endl;
+		os << entity.name << endl;
+		os << entity.statuses.size() << endl;
 		entity.saveStatusesToFile((ofstream&)os);
 	}
 	else
+	{
 		cout << "name:" << entity.name;
+	}
 
+	entity.toOs(os);
 	return os;
 }

@@ -34,7 +34,10 @@ ostream& operator<<(ostream& os, const Date& date)
 istream& operator>>(istream& in, Date& date)
 {
 	if (typeid(in) == typeid(ifstream))
+	{
 		in >> date.day >> date.month >> date.year;
+		in.ignore();
+	}
 	else
 	{
 		char slash;

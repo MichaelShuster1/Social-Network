@@ -21,9 +21,7 @@ class Member : public Entity
 {
 
 private:
-	std::string name;
 	Date birth_date;
-	std::list<Status*> statuses;
 	std::vector<Fan_page*> pages;
 	std::vector<Member*> friends;
 
