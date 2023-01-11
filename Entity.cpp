@@ -11,10 +11,12 @@ Entity::Entity(const string name) noexcept(false)
 	this->name = name;
 }
 
+
 Entity::Entity(ifstream& inFile)
 {
 	inFile >> *this;
 }
+
 
 Entity::Entity(const Entity& other)
 {

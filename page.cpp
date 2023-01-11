@@ -4,57 +4,15 @@ using namespace std;
 
 
 
-Fan_page::Fan_page(const string& name) noexcept(false)
+Fan_page::Fan_page(const Fan_page& other):Entity(other)
 {
-	if (name.size() == EMPTY)
-		throw EmptyPageNameException();
-	if (!isChar(*(name.begin())))
-		throw invalidPageNameException();
-	this->name = name;
-}
-
-
-Fan_page::Fan_page(ifstream& in)
-{
-	in >> *this;
-}
-
-
-Fan_page::Fan_page(const Fan_page& other)
-{
-	auto itr = statuses.begin();
-	auto itrend = statuses.end();
-	for (; itr != itrend; ++itr)
-	{
-		statuses.push_back(new Status(**itr));
-	}
 	fans = other.fans;
-	name = other.name;
 }
 
 
-Fan_page::Fan_page(Fan_page&& other) noexcept(true)
+Fan_page::Fan_page(Fan_page&& other) noexcept(true):Entity(other)
 {
 	fans = move(other.fans);
-	statuses = move(other.statuses);
-	name = move(other.name);
-}
-
-Fan_page::~Fan_page()
-{
-	auto itr = statuses.begin();
-	auto itrend = statuses.end();
-	for (; itr != itrend; ++itr)
-	{
-		delete *itr;
-	}
-}
-
-
-void Fan_page::addStatus(Status* status)
-{
-
-	statuses.push_back(status->clone());
 }
 
 
@@ -73,12 +31,6 @@ void Fan_page::operator+=(Member& member) noexcept(false)
 	{
 		member.addPage(*this);
 	}
-}
-
-
-bool Fan_page::operator==(const string& name) const
-{
-	return (this->name == name);
 }
 
 
@@ -124,29 +76,18 @@ void Fan_page::showAllFans() const
 
 void Fan_page::showAllStatuses() const
 { 
-	int numOfStatuses = statuses.size();
-	auto itrEnd = statuses.end();
-	for (auto itr = statuses.begin(); itr!=itrEnd ;++itr)
-	{
-		cout << **itr;
-		cout << endl;
-	}
+	Entity::showAllStatuses();
 
-	if (numOfStatuses == EMPTY)
+	if (statuses.size() == EMPTY)
 		cout << "the page " << name << " has no statuses" << endl;
 }
+
 
 void Fan_page::showName() const
 {
 	cout << name;
 }
 
-
-
-const string Fan_page::getName() const
-{
-	return name;
-}
 
 int Fan_page::getFansSize() const
 {
@@ -160,6 +101,7 @@ bool Fan_page::operator>(const Fan_page& page) const
 		return true;
 	return false;
 }
+
 
 bool Fan_page::operator>(const Member& member) const
 {
@@ -176,62 +118,6 @@ bool Fan_page::isFanCheck(const Member& member) const
 		return false;
 	else
 		return true;
-}
-
-
-bool Fan_page::isChar(const char c)
-{
-	if ((c >= BIGA && c <= BIGZ) || (c >= LITTLEA && c <= LITTLEZ))
-		return true;
-	return false;
-}
-
-
-ostream& operator<<(ostream& os, const Fan_page& page)
-{
-	if (typeid(os) == typeid(ofstream))
-	{
-		os << page.name << endl << page.statuses.size() << endl;
-		auto itr = page.statuses.begin();
-		auto itrEnd = page.statuses.end();
-		for (; itr != itrEnd; ++itr)
-		{
-			os << **itr;
-		}
-	}
-	else
-	{
-		os << page.name << endl;
-	}
-	return os;
-}
-
-istream& operator>>(istream& in, Fan_page& page)
-{
-	if (typeid(in) == typeid(ifstream))
-	{
-		int i, numOfStatuses;
-		getline(in,page.name);
-		in >> numOfStatuses;
-		if (numOfStatuses == 0)
-			in.ignore();
-		for (i=0;i<numOfStatuses; i++)
-		{
-			string type;
-			in>> type;
-			if (strcmp(type.c_str(), typeid(Status).name() + 6) == 0)
-				page.statuses.push_back(new Status((ifstream&)in));
-			else if (strcmp(type.c_str(), typeid(StatusPicture).name() + 6) == 0)
-				page.statuses.push_back(new StatusPicture((ifstream&)in));
-			else
-				page.statuses.push_back(new StatusVideo((ifstream&)in));
-		}
-	}
-	else
-	{
-		in >> page.name;
-	}
-	return in;
 }
 
 
