@@ -1,15 +1,16 @@
 #include "member.h"
 #include "page.h"
+#include "Entity.h"
 using namespace std;
 
 
-Member::Member(const string _name, const Date& date) noexcept(false):birth_date(date)
+Member::Member(const string _name, const Date& date) noexcept(false): Entity(_name),birth_date(date)
 {
-	if (_name.size() == EMPTY)
+	/*if (_name.size() == EMPTY)
 		throw  EmptyUserNameException();
 	if(!isChar(*(_name.begin())))
 		throw  invalidUserNameException();
-	name = _name;
+	name = _name;*/
 }
 
 Member::Member(ifstream& in) : birth_date(in)

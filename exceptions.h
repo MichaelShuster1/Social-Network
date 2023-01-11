@@ -3,6 +3,24 @@
 
 #include <iostream>
 
+/*----------------------------------Entity Exceptions---------------------------------------*/
+class EntityException : public std::exception
+{
+public:
+	virtual const char* what() const override { return "general error"; }
+};
+
+class EmptyEntityNameException : public EntityException
+{
+public:
+	virtual const char* what() const override { return "the given name is empty\n"; }
+};
+
+class invalidEntityNameException : public EntityException
+{
+public:
+	virtual const char* what() const override { return "the name must start with a latter\n"; }
+};
 /*----------------------------------User Exceptions---------------------------------------*/
 
 class UserException : public std::exception

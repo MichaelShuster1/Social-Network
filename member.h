@@ -19,7 +19,7 @@ const int LITTLEA = 97;
 
 class Fan_page;
 
-class Member
+class Member 
 {
 
 private:
