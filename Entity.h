@@ -24,12 +24,12 @@ protected:
 	Entity(const Entity& other);
 public:
 	virtual ~Entity();
-	void addStatus(Status* status);
-	virtual void showAllStatuses() const = 0;
-	static bool isChar(const char c);
-	const std::string getName() const;
-	bool operator==(const std::string& name) const;
-	void loadStatusesFromFile(int numOfStatuses, std::ifstream& in);
+	void addStatus(Status* status); //adds the given status to this page
+	virtual void showAllStatuses() const = 0; //shows all the of the entity's statuses 
+	static bool isChar(const char c); //checks if the input is char
+	const std::string getName() const; //returns the name of this entity
+	bool operator==(const std::string& name) const; //checks if the entity's name have the given name
+	void loadStatusesFromFile(int numOfStatuses, std::ifstream& in); 
 	void saveStatusesToFile(std::ofstream& os) const;
 
 };
