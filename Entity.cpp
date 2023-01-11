@@ -11,6 +11,11 @@ Entity::Entity(const string name) noexcept(false)
 	this->name = name;
 }
 
+Entity::Entity(ifstream& inFile)
+{
+	inFile >> *this;
+}
+
 Entity::Entity(const Entity& other)
 {
 	auto enditr = other.statuses.end();
@@ -21,6 +26,12 @@ Entity::Entity(const Entity& other)
 	}
 
 	this->name = other.name;
+}
+
+Entity::Entity(Entity&& other)
+{
+	this->name = move(other.name);
+	this->statuses = move(other.statuses);
 }
 
 void Entity::addStatus(Status* status)
@@ -93,4 +104,40 @@ void Entity::saveStatusesToFile(std::ofstream& os) const
 	auto itrEnd = statuses.end();
 	for (; itr != itrEnd; ++itr)
 		os << *(*itr);
+}
+
+
+istream& operator>>(istream& in, Entity& entity)
+{
+	if (typeid(in) == typeid(ifstream))
+	{
+		int numOfStatuses;
+		string statusType;
+		in.ignore();
+		getline(in, entity.name);
+		in >> numOfStatuses;
+		entity.loadStatusesFromFile(numOfStatuses, (ifstream&)in);
+
+	}
+	else
+	{
+		in >> entity.name;
+	}
+
+	entity.fromOs(in);
+	return in;
+}
+
+ostream& operator<<(ostream& os, const Entity& entity)
+{
+	entity.toOs(os);
+	if (typeid(os) == typeid(ofstream))
+	{
+		os << entity.name << endl << entity.statuses.size() << endl;
+		entity.saveStatusesToFile((ofstream&)os);
+	}
+	else
+		cout << "name:" << entity.name;
+
+	return os;
 }
