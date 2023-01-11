@@ -3,57 +3,20 @@
 using namespace std;
 
 
-Member::Member(const string _name, const Date& date) noexcept(false) : Entity(_name), birth_date(date)
-{
-	/*if (_name.size() == EMPTY)
-		throw  EmptyUserNameException();
-	if(!isChar(*(_name.begin())))
-		throw  invalidUserNameException();
-	name = _name;*/
-	
-}
-
-Member::Member(ifstream& in) : birth_date(in)
-{
-	in >> *this;
-}
-
-
-
 Member::Member(const Member& other):Entity(other),birth_date(other.birth_date)
 {
-	/*auto enditr = other.statuses.end();
-
-	for (auto itr = other.statuses.begin(); itr != enditr; ++itr)
-	{
-		this->statuses.push_back(new Status(**itr));
-	}
-
-	this->name = other.name;*/
 	this->friends = other.friends;
 	this->pages = other.pages;
 	this->statuses = other.statuses;
-
 }
 
 
 Member::Member(Member&& other) noexcept(true) :Entity(other), birth_date(other.birth_date)
 {
-	/*this->name = move(other.name);
-	this->statuses = move(other.statuses);*/
 	this->pages = move(other.pages);
 	this->friends = move(other.friends);
 }
 
-
-//Member::~Member()
-//{
-//	auto enditr = statuses.end();
-//	for (auto itr = statuses.begin(); itr != enditr; ++itr)
-//	{
-//		delete *itr;
-//	}
-//}
 
 void Member::removeFriend(Member& member) noexcept(false)
 {
@@ -305,52 +268,52 @@ bool Member::areFriendsCheck(const Member& member) const
 //		return true;
 //	return false;
 //}
-
-ostream& operator<<(ostream& os, const Member& member)
-{
-	/*auto itr = member.statuses.begin();
-	auto itrEnd = member.statuses.end();*/
-	if (typeid(os) == typeid(ofstream))
-	{
-		os << member.birth_date << member.name << endl << member.statuses.size() << endl;
-		/*for (; itr != itrEnd; ++itr)
-			os << *(*itr);*/
-		member.saveStatusesToFile((ofstream&)os);
-	}
-	else
-		cout << "name:" << member.name;
-
-	return os;
-}
-
-istream& operator>>(istream& in, Member& member)
-{
-	if (typeid(in) == typeid(ifstream))
-	{
-		int numOfStatuses;
-		string statusType;
-		in.ignore();
-		getline(in, member.name);
-		in >> numOfStatuses;
-		member.loadStatusesFromFile(numOfStatuses, (ifstream&)in);
-		/*for (int i = 0; i < numOfStatuses; i++)
-		{
-			in >> statusType;
-			if (strcmp(statusType.c_str(), typeid(Status).name() + 6) == 0)
-				member.statuses.push_back(new Status((ifstream&)in));
-			else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6) == 0)
-				member.statuses.push_back(new StatusPicture((ifstream&)in));
-			else
-				member.statuses.push_back(new StatusVideo((ifstream&)in));
-		}*/
-
-	}
-	else
-	{
-		in >> member.name >> member.birth_date;
-	}
-	return in;
-}
+//
+//ostream& operator<<(ostream& os, const Member& member)
+//{
+//	/*auto itr = member.statuses.begin();
+//	auto itrEnd = member.statuses.end();*/
+//	if (typeid(os) == typeid(ofstream))
+//	{
+//		os << member.birth_date << member.name << endl << member.statuses.size() << endl;
+//		/*for (; itr != itrEnd; ++itr)
+//			os << *(*itr);*/
+//		member.saveStatusesToFile((ofstream&)os);
+//	}
+//	else
+//		cout << "name:" << member.name;
+//
+//	return os;
+//}
+//
+//istream& operator>>(istream& in, Member& member)
+//{
+//	if (typeid(in) == typeid(ifstream))
+//	{
+//		int numOfStatuses;
+//		string statusType;
+//		in.ignore();
+//		getline(in, member.name);
+//		in >> numOfStatuses;
+//		member.loadStatusesFromFile(numOfStatuses, (ifstream&)in);
+//		/*for (int i = 0; i < numOfStatuses; i++)
+//		{
+//			in >> statusType;
+//			if (strcmp(statusType.c_str(), typeid(Status).name() + 6) == 0)
+//				member.statuses.push_back(new Status((ifstream&)in));
+//			else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6) == 0)
+//				member.statuses.push_back(new StatusPicture((ifstream&)in));
+//			else
+//				member.statuses.push_back(new StatusVideo((ifstream&)in));
+//		}*/
+//
+//	}
+//	else
+//	{
+//		in >> member.name >> member.birth_date;
+//	}
+//	return in;
+//}
 
 void Member::saveFriendsToFile(ofstream& os) const
 {
@@ -364,4 +327,15 @@ void Member::saveFriendsToFile(ofstream& os) const
 void Member::oneSidedLink(Member& member)
 {
 	friends.push_back(&member);
+}
+
+void Member::fromOs(std::istream& in)
+{
+	if (typeid(in) != typeid(ifstream))
+		in >> birth_date;
+}
+
+void Member::toOs(std::ostream & os) const
+{
+	os << birth_date;
 }

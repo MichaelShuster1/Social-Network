@@ -28,7 +28,7 @@ Entity::Entity(const Entity& other)
 	this->name = other.name;
 }
 
-Entity::Entity(Entity&& other)
+Entity::Entity(Entity&& other) noexcept(true)
 {
 	this->name = move(other.name);
 	this->statuses = move(other.statuses);
@@ -117,7 +117,6 @@ istream& operator>>(istream& in, Entity& entity)
 		getline(in, entity.name);
 		in >> numOfStatuses;
 		entity.loadStatusesFromFile(numOfStatuses, (ifstream&)in);
-
 	}
 	else
 	{
