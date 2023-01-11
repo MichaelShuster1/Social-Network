@@ -31,8 +31,8 @@ public:
 	bool operator==(const std::string& name) const; //checks if the entity's name have the given name
 	void loadStatusesFromFile(int numOfStatuses, std::ifstream& in); 
 	void saveStatusesToFile(std::ofstream& os) const;
-	friend std::istream& operator>>(std::istream& in, Entity& entity);
-	friend std::ostream& operator<<(std::ostream& os, const Entity& entity);
+	friend std::istream& operator>>(std::istream& in, Entity& entity); //prints the entity to the console/file
+	friend std::ostream& operator<<(std::ostream& os, const Entity& entity); //gets as input the entity from console/file
 	virtual void fromOs(std::istream& in) {};
 	virtual void toOs(std::ostream& os) const {};
 
