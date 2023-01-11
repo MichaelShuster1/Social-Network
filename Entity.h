@@ -1,6 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
-#include <iostream>
+#include <fstream>
 #include <string>
 #include <list>
 #include "status_video.h"
@@ -13,14 +13,14 @@ const int BIGA = 65;
 const int LITTLEZ = 122;
 const int LITTLEA = 97;
 
-class Member;
-
 class Entity
 {
 protected:
 	std::string name;
 	std::list<Status*> statuses;
 	Entity(const std::string name) noexcept(false);
+	Entity(std::ifstream & inFile);
+	Entity(Entity&& other) noexcept(true);
 	Entity(const Entity& other);
 public:
 	virtual ~Entity();
@@ -31,6 +31,10 @@ public:
 	bool operator==(const std::string& name) const; //checks if the entity's name have the given name
 	void loadStatusesFromFile(int numOfStatuses, std::ifstream& in); 
 	void saveStatusesToFile(std::ofstream& os) const;
+	friend std::istream& operator>>(std::istream& in, Entity& entity);
+	friend std::ostream& operator<<(std::ostream& os, const Entity& entity);
+	virtual void fromOs(std::istream& in) {};
+	virtual void toOs(std::ostream& os) const {};
 
 };
 

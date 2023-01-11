@@ -1,16 +1,16 @@
 #include "member.h"
 #include "page.h"
-#include "Entity.h"
 using namespace std;
 
 
-Member::Member(const string _name, const Date& date) noexcept(false): Entity(_name),birth_date(date)
+Member::Member(const string _name, const Date& date) noexcept(false) : Entity(_name), birth_date(date)
 {
 	/*if (_name.size() == EMPTY)
 		throw  EmptyUserNameException();
 	if(!isChar(*(_name.begin())))
 		throw  invalidUserNameException();
 	name = _name;*/
+	
 }
 
 Member::Member(ifstream& in) : birth_date(in)
@@ -20,16 +20,16 @@ Member::Member(ifstream& in) : birth_date(in)
 
 
 
-Member::Member(const Member& other):birth_date(other.birth_date)
+Member::Member(const Member& other):Entity(other),birth_date(other.birth_date)
 {
-	auto enditr = other.statuses.end();
+	/*auto enditr = other.statuses.end();
 
 	for (auto itr = other.statuses.begin(); itr != enditr; ++itr)
 	{
 		this->statuses.push_back(new Status(**itr));
 	}
 
-	this->name = other.name;
+	this->name = other.name;*/
 	this->friends = other.friends;
 	this->pages = other.pages;
 	this->statuses = other.statuses;
@@ -37,23 +37,23 @@ Member::Member(const Member& other):birth_date(other.birth_date)
 }
 
 
-Member::Member(Member&& other) noexcept(true) :birth_date(other.birth_date)
+Member::Member(Member&& other) noexcept(true) :Entity(other), birth_date(other.birth_date)
 {
-	this->name = move(other.name);
-	this->friends = move(other.friends);
+	/*this->name = move(other.name);
+	this->statuses = move(other.statuses);*/
 	this->pages = move(other.pages);
-	this->statuses = move(other.statuses);
+	this->friends = move(other.friends);
 }
 
 
-Member::~Member()
-{
-	auto enditr = statuses.end();
-	for (auto itr = statuses.begin(); itr != enditr; ++itr)
-	{
-		delete *itr;
-	}
-}
+//Member::~Member()
+//{
+//	auto enditr = statuses.end();
+//	for (auto itr = statuses.begin(); itr != enditr; ++itr)
+//	{
+//		delete *itr;
+//	}
+//}
 
 void Member::removeFriend(Member& member) noexcept(false)
 {
@@ -102,11 +102,11 @@ bool Member::isPageFollower(const Fan_page& page) const
 		return true;
 }
 
-
-void Member::addStatus(Status* status)
-{
-	statuses.push_back(status->clone());
-}
+//
+//void Member::addStatus(Status* status)
+//{
+//	Entity::addStatus(status);
+//}
 
 
 void Member::operator+=(Member& _member) noexcept(false)
@@ -182,18 +182,19 @@ void Member::showAllFriends() const
 
 void Member::showAllStatuses() const
 {
-	auto itr = statuses.begin();
-	auto enditr = statuses.end();
+	/*auto itr = statuses.begin();
+	auto enditr = statuses.end();*/
 
 	if (statuses.size() == EMPTY)
 		cout << name << " has no statuses" << endl;
 	else
 	{
-		for (; itr != enditr; ++itr)
+		Entity::showAllStatuses();
+		/*for (; itr != enditr; ++itr)
 		{
 			cout << (**itr);
 			cout << endl;
-		}
+		}*/
 	}
 }
 
@@ -241,10 +242,11 @@ void Member::showAllFriendsTenStatuses() const
 }
 
 
-const string Member::getName() const
-{
-	return name;
-}
+//const string Member::getName() const
+//{
+//	return Entity::getName();
+//	/*return name;*/
+//}
 
 
 int Member::getFriendsSize() const
@@ -286,32 +288,34 @@ bool Member::areFriendsCheck(const Member& member) const
 
 }
 
+//
+//bool Member::operator==(const string& name) const
+//{
+//	return Entity::operator==(name);
+//	/*if (this->name == name)
+//		return true;
+//	else
+//		return false;*/
+//}
 
-bool Member::operator==(const string& name) const
-{
-	if (this->name == name)
-		return true;
-	else
-		return false;
-}
 
-
-bool Member::isChar(const char c)
-{
-	if (( c>= BIGA && c <= BIGZ) || (c >= LITTLEA && c <= LITTLEZ))
-		return true;
-	return false;
-}
+//bool Member::isChar(const char c)
+//{
+//	if (( c>= BIGA && c <= BIGZ) || (c >= LITTLEA && c <= LITTLEZ))
+//		return true;
+//	return false;
+//}
 
 ostream& operator<<(ostream& os, const Member& member)
 {
-	auto itr = member.statuses.begin();
-	auto itrEnd = member.statuses.end();
+	/*auto itr = member.statuses.begin();
+	auto itrEnd = member.statuses.end();*/
 	if (typeid(os) == typeid(ofstream))
 	{
 		os << member.birth_date << member.name << endl << member.statuses.size() << endl;
-		for (; itr != itrEnd; ++itr)
-			os << *(*itr);
+		/*for (; itr != itrEnd; ++itr)
+			os << *(*itr);*/
+		member.saveStatusesToFile((ofstream&)os);
 	}
 	else
 		cout << "name:" << member.name;
@@ -328,7 +332,8 @@ istream& operator>>(istream& in, Member& member)
 		in.ignore();
 		getline(in, member.name);
 		in >> numOfStatuses;
-		for (int i = 0; i < numOfStatuses; i++)
+		member.loadStatusesFromFile(numOfStatuses, (ifstream&)in);
+		/*for (int i = 0; i < numOfStatuses; i++)
 		{
 			in >> statusType;
 			if (strcmp(statusType.c_str(), typeid(Status).name() + 6) == 0)
@@ -337,7 +342,7 @@ istream& operator>>(istream& in, Member& member)
 				member.statuses.push_back(new StatusPicture((ifstream&)in));
 			else
 				member.statuses.push_back(new StatusVideo((ifstream&)in));
-		}
+		}*/
 
 	}
 	else
