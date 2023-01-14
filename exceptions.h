@@ -29,11 +29,6 @@ public:
 	virtual const char* what() const override { return "user error"; }
 };
 
-class EmptyUserNameException : public UserException
-{
-public:
-	virtual const char* what() const override { return "the given name for the new user is empty\n"; }
-};
 
 class UserLinkingException : public UserException
 {
@@ -57,12 +52,6 @@ class RemovePageException : public UserException
 {
 public:
 	virtual const char* what() const override { return "the given page is not followed by the given member\n"; }
-};
-
-class invalidUserNameException : public UserException
-{
-public:
-	virtual const char* what() const override { return "the name must start with a latter\n"; }
 };
 
 /*---------------------------------System Exceptions----------------------------------------*/
@@ -149,18 +138,12 @@ public:
 };
 
 
-class EmptyPageNameException : public FanPageException
-{
-public:
-	virtual const char* what() const override { return "the given name for the new page is empty\n"; }
-};
-
-
 class NotFanException : public FanPageException
 {
 public:
 	virtual const char* what() const override { return "the given member is not a fan of the given page\n"; }
 };
+
 
 class NoFansException : public SystemException
 {
@@ -173,12 +156,6 @@ class AddFanException : public FanPageException
 {
 public:
 	virtual const char* what() const override { return "the given member is already a fan of the given page\n"; }
-};
-
-class invalidPageNameException : public FanPageException
-{
-public:
-	virtual const char* what() const override { return "the name must start with a latter\n"; }
 };
 
 /*----------------------------------Status Exceptions---------------------------------------*/

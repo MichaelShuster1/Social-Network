@@ -5,7 +5,6 @@
 #include <list>
 #include "status_video.h"
 #include "status_picture.h"
-#include <vector>
 
 
 const int BIGZ = 90;
@@ -13,8 +12,8 @@ const int BIGA = 65;
 const int LITTLEZ = 122;
 const int LITTLEA = 97;
 
-class Entity
-{
+class Entity //An abstract class intended to be a common basis for its inheritors
+{ 
 protected:
 	std::string name;
 	std::list<Status*> statuses;
