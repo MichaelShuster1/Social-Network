@@ -109,7 +109,7 @@ void createNewStatus(Status** newStatus)
 		tm.pop_back();
 		if (choice == PICTURE_STATUS || choice == VIDEO_STATUS)
 		{
-			cout << "Please enter the name of the file (with extension): ";
+			cout << "Please enter the name of the file with extension (must be located in the program's directory): ";
 			getline(cin, attachment);
 		}
 		try

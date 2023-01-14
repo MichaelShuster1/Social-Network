@@ -3,10 +3,12 @@ using namespace std;
 
 
 
-StatusVideo::StatusVideo(const string text,const string time,const string video) : Status(text, time)
+StatusVideo::StatusVideo(const string& text,const string& time,const string& video) : Status(text, time)
 {
 	if (video.size() == EMPTY)
 		throw EmptyVideoException();
+	if(!(checkExtension(video,".mov")))
+		throw VideoExtensionException();
 	this->video = video;
 }
 
@@ -69,4 +71,13 @@ bool StatusVideo::operator!=(const Status& other) const
 Status* StatusVideo::clone() const
 {
 	return new StatusVideo(*this);
+}
+
+
+bool StatusVideo::checkExtension(const string& video, const string& extension)
+{
+	if (video.size() < 5)
+		return false;
+	else
+		return ((video.compare(video.size() - 4, 4, extension) == 0));
 }

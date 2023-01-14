@@ -212,7 +212,13 @@ public:
 class PictureExtensionException : public StatusException
 {
 public:
-	virtual const char* what() const override { return "the only permitted extensions for pictures are jpg and png\n"; };
+	virtual const char* what() const override { return "the only permitted extensions for pictures are .jpg and .png\n"; };
+};
+
+class VideoExtensionException : public StatusException
+{
+public:
+	virtual const char* what() const override { return "the only permitted extensions for videos is .mov\n"; };
 };
 
 class EmptyVideoException : public StatusException
@@ -220,6 +226,7 @@ class EmptyVideoException : public StatusException
 public:
 	virtual const char* what() const override { return "the given video name is empty\n"; };
 };
+
 
 
 
