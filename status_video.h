@@ -2,6 +2,11 @@
 #define STATUS_VIDEO_H
 #include "status.h"
 
+//****************************************comment to examiner***********************************************
+//This class and the StatusPicture class are very similar and use almost the same methods
+//the classes are seperated for the purpose of polymorphism and we were instructed by Keren that it is ok
+//**********************************************************************************************************
+
 class StatusVideo : public Status
 {
 private:
