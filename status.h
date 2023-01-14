@@ -28,7 +28,7 @@ public:
 	virtual void fromOs(std::istream& in) {}; //used in case the inheriting son doesn't overload the funcion
 	virtual bool operator==(const Status& status) const; //checks if the text of 2 statuses is the same
 	virtual bool operator!=(const Status& status) const; //checks if the text of 2 statuses isnt the same
-	virtual Status* clone() const;
+	virtual Status* clone() const; //returns a allocted clone of this status object
 
 };
 
