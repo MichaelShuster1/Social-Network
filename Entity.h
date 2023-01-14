@@ -27,7 +27,7 @@ public:
 	void addStatus(Status* status); //adds the given status to this page
 	virtual void showAllStatuses() const = 0; //shows all the of the entity's statuses 
 	static bool isChar(const char c); //checks if the input is char
-	const std::string getName() const; //returns the name of this entity
+	const std::string& getName() const; //returns the name of this entity
 	bool operator==(const std::string& name) const; //checks if the entity's name have the given name
 	void loadStatusesFromFile(int numOfStatuses,std::ifstream& in);  //loads the entity's statuses from the file
 	void saveStatusesToFile(std::ofstream& os) const; //saves the entity's statuses to the file
