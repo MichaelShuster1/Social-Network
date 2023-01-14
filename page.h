@@ -28,7 +28,6 @@ public:
 	void deleteFan(Member& member) noexcept(false); //delete the given member from the this page and vice versa
 	void showAllFans() const; //shows all the fans of this page
 	void showAllStatuses() const; //shows all the statuses of this page
-	void showName() const; //shows the name of this page
 	int getFansSize() const ; //returns the number of fans of this page
 	bool isFanCheck(const Member& member) const;//checks if the given member is a fan of this page
 	void saveFansToFile(std::ofstream& os) const;//writes the data of the page's fans to the file

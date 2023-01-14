@@ -41,7 +41,7 @@ void removeFanFromPageInSystem(System& system);  //remvoes a fan from a given pa
 void printMenu();// prints the menu
 bool processChoice(System& system, int choice); //process the given choice of the user of the system
 void choosePagesOrMembers(int& choice); //chooses if the user want to make an action on members or users
-void chooseStatusType(int& choice);
+void chooseStatusType(int& choice); // choose the type of the status (text, picture or video)
 
 #endif // !HELPER
 

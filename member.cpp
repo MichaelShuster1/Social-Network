@@ -251,69 +251,6 @@ bool Member::areFriendsCheck(const Member& member) const
 
 }
 
-//
-//bool Member::operator==(const string& name) const
-//{
-//	return Entity::operator==(name);
-//	/*if (this->name == name)
-//		return true;
-//	else
-//		return false;*/
-//}
-
-
-//bool Member::isChar(const char c)
-//{
-//	if (( c>= BIGA && c <= BIGZ) || (c >= LITTLEA && c <= LITTLEZ))
-//		return true;
-//	return false;
-//}
-//
-//ostream& operator<<(ostream& os, const Member& member)
-//{
-//	/*auto itr = member.statuses.begin();
-//	auto itrEnd = member.statuses.end();*/
-//	if (typeid(os) == typeid(ofstream))
-//	{
-//		os << member.birth_date << member.name << endl << member.statuses.size() << endl;
-//		/*for (; itr != itrEnd; ++itr)
-//			os << *(*itr);*/
-//		member.saveStatusesToFile((ofstream&)os);
-//	}
-//	else
-//		cout << "name:" << member.name;
-//
-//	return os;
-//}
-//
-//istream& operator>>(istream& in, Member& member)
-//{
-//	if (typeid(in) == typeid(ifstream))
-//	{
-//		int numOfStatuses;
-//		string statusType;
-//		in.ignore();
-//		getline(in, member.name);
-//		in >> numOfStatuses;
-//		member.loadStatusesFromFile(numOfStatuses, (ifstream&)in);
-//		/*for (int i = 0; i < numOfStatuses; i++)
-//		{
-//			in >> statusType;
-//			if (strcmp(statusType.c_str(), typeid(Status).name() + 6) == 0)
-//				member.statuses.push_back(new Status((ifstream&)in));
-//			else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6) == 0)
-//				member.statuses.push_back(new StatusPicture((ifstream&)in));
-//			else
-//				member.statuses.push_back(new StatusVideo((ifstream&)in));
-//		}*/
-//
-//	}
-//	else
-//	{
-//		in >> member.name >> member.birth_date;
-//	}
-//	return in;
-//}
 
 void Member::saveFriendsToFile(ofstream& os) const
 {

@@ -22,8 +22,8 @@ public:
 	Date(std::ifstream& in);//c'tor for file
 	Date(const Date& other); //copy c'tor
 	friend class Member;
-	friend std::ostream& operator<<(std::ostream& os, const Date& date);
-	friend std::istream& operator>>(std::istream& os, Date& date);
+	friend std::ostream& operator<<(std::ostream& os, const Date& date); // << operator overload for date
+	friend std::istream& operator>>(std::istream& os, Date& date); // >> operator overload for date
 };
 
 

@@ -18,12 +18,12 @@ class Entity
 protected:
 	std::string name;
 	std::list<Status*> statuses;
-	Entity(const std::string& name) noexcept(false);
-	Entity(std::ifstream & inFile);
-	Entity(Entity&& other) noexcept(true);
-	Entity(const Entity& other);
+	Entity(const std::string& name) noexcept(false); // c'tor 1
+	Entity(std::ifstream & inFile); // c'tor 2
+	Entity(Entity&& other) noexcept(true); // move c'tor
+	Entity(const Entity& other); // copy c'tor
 public:
-	virtual ~Entity();
+	virtual ~Entity(); // d'tor
 	void addStatus(Status* status); //adds the given status to this page
 	virtual void showAllStatuses() const = 0; //shows all the of the entity's statuses 
 	static bool isChar(const char c); //checks if the input is char
