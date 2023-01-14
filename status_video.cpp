@@ -18,6 +18,7 @@ StatusVideo::StatusVideo(ifstream& in): Status(in)
 	fromOs(in);
 }
 
+
 StatusVideo::StatusVideo(const StatusVideo& other) : Status(other)
 {
 	this->video = other.video;
@@ -36,6 +37,7 @@ void StatusVideo::attached(std::ostream& os) const
 		system(command.c_str());
 	}
 }
+
 
 void StatusVideo::fromOs(std::istream& in)
 {
