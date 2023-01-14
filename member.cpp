@@ -121,7 +121,7 @@ void Member::showAllFriends() const
 		for (; itr != enditr; ++itr, i++)
 		{
 			cout << i << ". ";
-			cout << (*itr) << endl;;
+			cout << (**itr) << endl;;
 		}
 	}	
 	else
