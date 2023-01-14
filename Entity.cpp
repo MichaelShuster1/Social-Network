@@ -62,7 +62,7 @@ bool Entity::isChar(const char c)
 	return false;
 }
 
-const string Entity::getName() const
+const string& Entity::getName() const
 {
 	return name;
 }

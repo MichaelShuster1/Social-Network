@@ -2,10 +2,7 @@
 #define PAGE_H
 
 #include <fstream>
-#include <string>
 #include <vector>
-#include <list>
-#include "date.h"
 #include "Entity.h"
 
 

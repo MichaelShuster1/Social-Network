@@ -2,13 +2,9 @@
 #define MEMBER_H
 #include "Entity.h"
 #include <vector>
-#include <list>
-#include <string>
 #include "status_picture.h"
 #include "status_video.h"
 #include "date.h"
-
-
 
 
 const int RANGE = 10;

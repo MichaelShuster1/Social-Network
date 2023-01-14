@@ -4,7 +4,6 @@
 #include "member.h"
 #include "page.h"
 #include "exceptions.h"
-#include <string.h>
 #include <ctime>
 
 
