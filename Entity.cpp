@@ -140,7 +140,7 @@ ostream& operator<<(ostream& os, const Entity& entity)
 	}
 	else
 	{
-		cout << "name: " << entity.name;
+		cout <<entity.name;
 	}
 
 	entity.toOs(os);

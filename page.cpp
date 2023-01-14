@@ -63,7 +63,7 @@ void Fan_page::showAllFans() const
 		auto itrEnd = fans.end();
 		for (auto itr=fans.begin(); itr!=itrEnd; ++itr)
 		{
-			cout << i << ". " << (*itr) << endl;
+			cout << i << ". " << (**itr) << endl;
 			i++;
 		}
 	}

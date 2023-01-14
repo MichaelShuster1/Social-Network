@@ -11,7 +11,6 @@ StatusPicture
 hello
 Sat Jan 14 15:52:49 2023
 a.jpg
-22 10 1990
 Yossi Levi
 2
 Status
@@ -20,7 +19,6 @@ Mon Jul 18 02:03:55 2022
 Status
 status4
 Mon Jul 19 02:03:55 2022
-10 1 1995
 Israel Israeli
 2
 Status
@@ -29,14 +27,12 @@ Mon Jul 20 02:03:55 2022
 Status
 status6
 Mon Jul 21 02:03:55 2022
-28 2 2000
 michael
 1
 StatusPicture
 hello today i am going to talk about chat gpt ,as we can see the chat gpt is taking over the world ,so be carful there guys
 Sat Jan 14 15:47:19 2023
 chat.jpg
-10 10 2010
 4
 Music fans
 2
