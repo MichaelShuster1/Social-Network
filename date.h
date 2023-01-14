@@ -4,7 +4,7 @@
 #include <fstream>
 
 const int CURRENT_YEAR = 2022;
-const int EARLIEST_YEAR = 1990;
+const int EARLIEST_YEAR = 1900;
 const int DECEMBER = 12;
 const int JANUARY = 1;
 const int FIRST_DAY_OF_MONTH = 1;
