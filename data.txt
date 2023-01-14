@@ -1,4 +1,4 @@
-3
+4
 Avi Cohen
 2
 StatusPicture
@@ -27,9 +27,23 @@ Status
 status6
 Mon Jul 21 02:03:55 2022
 28 2 2000
+michael
 3
+Status
+hello
+Sat Jan 14 18:53:10 2023
+StatusPicture
+status picture
+Sat Jan 14 18:53:30 2023
+sea.jpg
+StatusVideo
+video
+Sat Jan 14 18:55:36 2023
+vid.mov
+25 12 2000
+5
 Music fans
-2
+3
 StatusPicture
 Awesome tree!
 Mon Jul 16 02:03:55 2019
@@ -37,6 +51,9 @@ tree.jpg
 Status
 status8
 Mon Jul 17 02:03:55 2019
+Status
+hello fans
+Sat Jan 14 18:56:07 2023
 Gaming fans
 2
 Status
@@ -53,8 +70,13 @@ Mon Jul 20 02:03:55 2021
 Status
 status12
 Mon Jul 21 02:03:55 2022
-1
+barca
+0
+madrid
+0
+2
 Yossi Levi
+michael
 2
 Avi Cohen
 Israel Israeli
@@ -63,5 +85,10 @@ Yossi Levi
 1
 Avi Cohen
 1
+Avi Cohen
+1
 Yossi Levi
+0
+1
+michael
 0

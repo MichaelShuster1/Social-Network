@@ -218,10 +218,10 @@ void System::unLinkFriends(const string& name1, const string& name2) noexcept(fa
 	if (itr2 == system_members.end())
 		throw SecondUserNotFoundException();
 
-	if ((*itr1).getFriendsSize() == 0)
+	if ((*itr1).getFriendsSize() == EMPTY)
 		throw NoFriendsFirstException();
 
-	if ((*itr2).getFriendsSize() == 0)
+	if ((*itr2).getFriendsSize() == EMPTY)
 		throw NoFriendsSecondException();
 	
 	if (itr1 == itr2)

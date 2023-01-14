@@ -9,6 +9,7 @@ const int DECEMBER = 12;
 const int JANUARY = 1;
 const int FIRST_DAY_OF_MONTH = 1;
 const int LAST_DAY_OF_MONTH = 31;
+const char SLASH = '/';
 
 class Date
 {

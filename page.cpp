@@ -39,7 +39,7 @@ void Fan_page::deleteFan(Member& member) noexcept(false)
 	auto itr = find(fans.begin(), fans.end(), &member);
 
 
-	if (fans.size() == 0)
+	if (fans.size() == EMPTY)
 		throw NoFansException();
 
 	if (itr == fans.end())

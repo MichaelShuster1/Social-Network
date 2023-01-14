@@ -27,7 +27,7 @@ ostream& operator<<(ostream& os, const Date& date)
 	if (typeid(os) == typeid(ofstream))
 		os << date.day << " " << date.month << " " << date.year << endl;
 	else
-		os << date.day << "/" << date.month << "/" << date.year << endl;
+		os << date.day << SLASH << date.month << SLASH << date.year << endl;
 	return os;
 }
 
