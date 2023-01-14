@@ -1,4 +1,4 @@
-3
+4
 Avi Cohen
 2
 Status
@@ -7,6 +7,7 @@ Mon Jul 16 02:03:55 2021
 Status
 status2
 Mon Jul 17 02:03:55 2021
+22 10 1990
 Yossi Levi
 2
 Status
@@ -15,6 +16,7 @@ Mon Jul 18 02:03:55 2022
 Status
 status4
 Mon Jul 19 02:03:55 2022
+10 1 1995
 Israel Israeli
 2
 Status
@@ -23,6 +25,14 @@ Mon Jul 20 02:03:55 2022
 Status
 status6
 Mon Jul 21 02:03:55 2022
+28 2 2000
+michael
+1
+StatusPicture
+chatgpt
+Sat Jan 14 17:09:41 2023
+chat.jpg
+12 12 2000
 3
 Music fans
 2
@@ -55,6 +65,7 @@ Avi Cohen
 Israel Israeli
 1
 Yossi Levi
+0
 1
 Avi Cohen
 1

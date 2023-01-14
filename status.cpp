@@ -50,13 +50,16 @@ istream& operator>>(istream& in, Status& status)
 {
 	if (typeid(in) == typeid(ifstream))
 	{
-		in.ignore();
 		getline(in, status.text);
 		getline(in, status.time);
 	}
 	else
 	{
-		//
+		getline(in, status.text);
+		time_t curr_time;
+		curr_time = time(NULL);
+		status.time= ctime(&curr_time);
+		status.time.pop_back();
 	}
 	status.fromOs(in);
 	return in;
