@@ -65,12 +65,6 @@ bool Member::isPageFollower(const Fan_page& page) const
 		return true;
 }
 
-//
-//void Member::addStatus(Status* status)
-//{
-//	Entity::addStatus(status);
-//}
-
 
 void Member::operator+=(Member& _member) noexcept(false)
 {
@@ -115,12 +109,6 @@ void Member::addPage(Fan_page& page) noexcept(false)
 }
 
 
-void Member::showName() const
-{
-	cout << name;
-}
-
-
 void Member::showAllFriends() const
 {
 	int numOfFriends = getFriendsSize();
@@ -133,8 +121,7 @@ void Member::showAllFriends() const
 		for (; itr != enditr; ++itr, i++)
 		{
 			cout << i << ". ";
-			(*itr)->showName();
-			cout << endl;
+			cout << (*itr) << endl;;
 		}
 	}	
 	else
@@ -145,19 +132,11 @@ void Member::showAllFriends() const
 
 void Member::showAllStatuses() const
 {
-	/*auto itr = statuses.begin();
-	auto enditr = statuses.end();*/
-
 	if (statuses.size() == EMPTY)
 		cout << name << " has no statuses" << endl;
 	else
 	{
 		Entity::showAllStatuses();
-		/*for (; itr != enditr; ++itr)
-		{
-			cout << (**itr);
-			cout << endl;
-		}*/
 	}
 }
 
@@ -175,7 +154,7 @@ void Member::showTenRecentStatuses() const
 		cout <<name<<"'s ten recent statuses: " << endl;
 		for (; itr != itrEnd && i < RANGE; ++itr, i++)
 		{
-			cout << (*itr);
+			cout << (**itr);
 			cout << endl;
 		}
 	}
@@ -203,13 +182,6 @@ void Member::showAllFriendsTenStatuses() const
 		cout << name << " has no friends"<<endl;
 	}
 }
-
-
-//const string Member::getName() const
-//{
-//	return Entity::getName();
-//	/*return name;*/
-//}
 
 
 int Member::getFriendsSize() const
@@ -261,10 +233,12 @@ void Member::saveFriendsToFile(ofstream& os) const
 		os << (*itrF)->name << endl;
 }
 
+
 void Member::oneSidedLink(Member& member)
 {
 	friends.push_back(&member);
 }
+
 
 void Member::fromOs(std::istream& in)
 {
@@ -272,7 +246,5 @@ void Member::fromOs(std::istream& in)
 		in >> birth_date;
 }
 
-void Member::toOs(std::ostream & os) const
-{
-	os << birth_date;
-}
+
+

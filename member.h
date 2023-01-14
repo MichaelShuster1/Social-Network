@@ -36,7 +36,6 @@ public:
 	void removeFriend(Member& member) noexcept(false);//removes a user from the member's friends
 	void showAllFriends() const ;//prints all friends of a member
 	void showAllStatuses() const;//prints all statuses of a member
-	void showName() const ;//prints member's name
 	void showTenRecentStatuses() const ;// prints the last 10 statuses of the member
 	void showAllFriendsTenStatuses()const ;// prints 10 last statuses of each friend of the member
 	int getFriendsSize() const;//return the friends array size
@@ -47,9 +46,7 @@ public:
 	bool isPageFollower(const Fan_page& page) const; //checks if a member is a fan of the given page
 	void saveFriendsToFile(std::ofstream& os) const;//print friends and pages of a member to a file
 	void oneSidedLink(Member& member); //adds the given member to the friends of the activating object (one sided link)
-	virtual void fromOs(std::istream& in) override; //reads birthday from console
-	virtual void toOs(std::ostream& os) const override; //adds birthday to the ostream
-
+	virtual void fromOs(std::istream& in) override;
 };
 
 
