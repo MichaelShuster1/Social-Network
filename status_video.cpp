@@ -39,12 +39,8 @@ void StatusVideo::attached(std::ostream& os) const
 
 void StatusVideo::fromOs(std::istream& in)
 {
-	if (typeid(in) == typeid(ifstream))
+	if (typeid(in) == typeid(ifstream)|| typeid(in) == typeid(istream))
 		getline(in, video);
-	else
-	{
-		//
-	}
 }
 
 

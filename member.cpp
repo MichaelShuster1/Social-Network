@@ -246,6 +246,7 @@ void Member::fromOs(istream& in)
 		in >> birth_date;
 }
 
+
 void Member::toOs(ostream& os) const
 {
 	if (typeid(os) == typeid(ofstream))

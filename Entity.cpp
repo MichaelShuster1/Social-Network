@@ -91,6 +91,7 @@ void Entity::loadStatusesFromFile(int numOfStatuses,ifstream& in)
 	for (int i = 0; i < numOfStatuses; i++)
 	{
 		in >> statusType;
+		in.ignore();
 		if (strcmp(statusType.c_str(), typeid(Status).name() + 6) == 0)
 			statuses.push_back(new Status(in));
 		else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6) == 0)
