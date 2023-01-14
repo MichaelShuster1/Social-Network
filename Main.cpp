@@ -9,6 +9,13 @@ void main()
 	int choice;
 	System system;
 
+	string test = "picture.png";
+
+	if (StatusPicture::checkExtension(test, ".jpg"))
+		cout << "yes\n";
+	else
+		cout << "no\n";
+
 	
 	while (exit == false)
 	{

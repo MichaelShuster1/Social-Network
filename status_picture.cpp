@@ -7,6 +7,8 @@ StatusPicture::StatusPicture(const string text,const string time,const string pi
 {
 	if (picture.size() == EMPTY)
 		throw EmptyPictureException();
+	if (!checkExtension(picture, ".jpg") && !checkExtension(picture, ".png"))
+		throw PictureExtensionException();
 	this->picture = picture;
 }
 
@@ -22,6 +24,15 @@ StatusPicture::StatusPicture(const StatusPicture& other) : Status(other)
 	this->picture = other.picture;
 }
 
+
+
+bool StatusPicture::checkExtension(const string& file_name,const string& extension)
+{
+	if (file_name.size() <= 4)
+		return false;
+	else
+		return (file_name.compare(file_name.size() - 4, 4, extension) == 0);
+}
 
 void StatusPicture::attached(std::ostream& os) const
 {

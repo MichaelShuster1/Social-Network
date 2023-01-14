@@ -17,6 +17,7 @@ public:
 	virtual bool operator==(const Status& other) const override; //checks if this status is equal to the given status
 	virtual bool operator!=(const Status& other) const override; //checks if this status is not equal to the given status
 	virtual Status* clone() const override;  //returns a allocted clone of this statusPicture object
+	static bool checkExtension(const std::string& file_name, const std::string& extension);//checks if the name of the file has the given extension
 };
 
 

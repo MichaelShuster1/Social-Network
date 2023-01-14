@@ -24,7 +24,7 @@ Entity::Entity(const Entity& other)
 
 	for (auto itr = other.statuses.begin(); itr != enditr; ++itr)
 	{
-		this->statuses.push_back(new Status(**itr));
+		this->statuses.push_back((*itr)->clone());
 	}
 
 	this->name = other.name;
