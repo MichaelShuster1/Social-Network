@@ -1,9 +1,10 @@
-4
+3
 Avi Cohen
 2
-Status
-status1
+StatusPicture
+What an amazing beach!
 Mon Jul 16 02:03:55 2021
+sea.jpg
 Status
 status2
 Mon Jul 17 02:03:55 2021
@@ -26,27 +27,13 @@ Status
 status6
 Mon Jul 21 02:03:55 2022
 28 2 2000
-dani
 3
-StatusPicture
-This is chatGPT, i use it to do all my homework instead of doing it myself, including this project
-Sat Jan 14 17:19:02 2023
-chat.jpg
-StatusPicture
-This is an amazing tree, WOW!
-Sat Jan 14 17:20:16 2023
-png.jpg
-StatusPicture
-hello
-Sat Jan 14 17:53:06 2023
-pic.jpg
-12 12 1990
-4
 Music fans
 2
-Status
-status7
+StatusPicture
+Awesome tree!
 Mon Jul 16 02:03:55 2019
+tree.jpg
 Status
 status8
 Mon Jul 17 02:03:55 2019
@@ -66,19 +53,13 @@ Mon Jul 20 02:03:55 2021
 Status
 status12
 Mon Jul 21 02:03:55 2022
-dani fans
-0
 1
 Yossi Levi
-3
+2
 Avi Cohen
 Israel Israeli
-dani
 1
 Yossi Levi
-1
-Yossi Levi
-0
 1
 Avi Cohen
 1

@@ -315,7 +315,7 @@ void System::createHardcodedEntities()
 	system_pages.push_back(Fan_page("Music fans"));
 	system_pages.push_back(Fan_page("Gaming fans"));
 	system_pages.push_back(Fan_page("Movies fans"));
-	Status status1("status1", "Mon Jul 16 02:03:55 2021");
+	StatusPicture status1("What an amazing beach!", "Mon Jul 16 02:03:55 2021", "sea.jpg");
 	Status status2("status2", "Mon Jul 17 02:03:55 2021");
 	Status status3("status3", "Mon Jul 18 02:03:55 2022");
 	Status status4("status4", "Mon Jul 19 02:03:55 2022");
@@ -330,7 +330,7 @@ void System::createHardcodedEntities()
 	++itrMember;
 	(*itrMember).addStatus(&status5);
 	(*itrMember).addStatus(&status6);
-	Status status7("status7", "Mon Jul 16 02:03:55 2019");
+	StatusPicture status7("Awesome tree!", "Mon Jul 16 02:03:55 2019", "tree.jpg");
 	Status status8("status8", "Mon Jul 17 02:03:55 2019");
 	Status status9("status9", "Mon Jul 18 02:03:55 2020");
 	Status status10("status10", "Mon Jul 19 02:03:55 2020");
