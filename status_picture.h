@@ -9,7 +9,7 @@ private:
 	std::string picture;
 
 public:
-	StatusPicture(const std::string text,const std::string time,const std::string picture); //c'tor 1
+	StatusPicture(const std::string& text,const std::string& time,const std::string& picture); //c'tor 1
 	StatusPicture(std::ifstream& in); //c'tor 2
 	StatusPicture(const StatusPicture& other);//copy c'tor
 	virtual void attached(std::ostream& os) const; //adds to the given ostream the relevant concatenation
@@ -17,7 +17,7 @@ public:
 	virtual bool operator==(const Status& other) const override; //checks if this status is equal to the given status
 	virtual bool operator!=(const Status& other) const override; //checks if this status is not equal to the given status
 	virtual Status* clone() const override;  //returns a allocted clone of this statusPicture object
-	static bool checkExtension(const std::string& file_name, const std::string& extension);//checks if the name of the file has the given extension
+	static bool checkExtension(const std::string& picture, const std::string& extension);//checks if the name of the picture has the given extension
 };
 
 

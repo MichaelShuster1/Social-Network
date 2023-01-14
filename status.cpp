@@ -2,7 +2,7 @@
 using namespace std;
 
 
-Status::Status(const string text,const string time) noexcept(false)
+Status::Status(const string& text,const string& time) noexcept(false)
 {
 	if (text.size() == EMPTY)
 		throw EmptyTextException();

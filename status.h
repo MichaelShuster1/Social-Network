@@ -18,7 +18,7 @@ private:
 
 
 public:
-	Status(const std::string text,const std::string time) noexcept(false); //c'tor 1
+	Status(const std::string& text,const std::string& time) noexcept(false); //c'tor 1
 	Status(std::ifstream& in);// c'tor 2
 	Status(const Status& other); //copy c'tor
 	virtual ~Status() {}; //d'tor

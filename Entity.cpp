@@ -2,7 +2,7 @@
 using namespace std;
 
 
-Entity::Entity(const string name) noexcept(false)
+Entity::Entity(const string& name) noexcept(false)
 {
 	if (name.size() == EMPTY)
 		throw EmptyEntityNameException();

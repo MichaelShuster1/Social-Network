@@ -3,7 +3,7 @@ using namespace std;
 
 
 
-StatusPicture::StatusPicture(const string text,const string time,const string picture) : Status(text, time)
+StatusPicture::StatusPicture(const string& text,const string& time,const string& picture) : Status(text, time)
 {
 	if (picture.size() == EMPTY)
 		throw EmptyPictureException();
