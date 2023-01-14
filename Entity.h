@@ -18,7 +18,7 @@ class Entity
 protected:
 	std::string name;
 	std::list<Status*> statuses;
-	Entity(const std::string name) noexcept(false);
+	Entity(const std::string& name) noexcept(false);
 	Entity(std::ifstream & inFile);
 	Entity(Entity&& other) noexcept(true);
 	Entity(const Entity& other);
