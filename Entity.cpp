@@ -92,11 +92,11 @@ void Entity::loadStatusesFromFile(int numOfStatuses,ifstream& in)
 	{
 		in >> statusType;
 		if (strcmp(statusType.c_str(), typeid(Status).name() + 6) == 0)
-			statuses.push_back(new Status((ifstream&)in));
+			statuses.push_back(new Status(in));
 		else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6) == 0)
-			statuses.push_back(new StatusPicture((ifstream&)in));
+			statuses.push_back(new StatusPicture(in));
 		else
-			statuses.push_back(new StatusVideo((ifstream&)in));
+			statuses.push_back(new StatusVideo(in));
 	}
 }
 
@@ -118,7 +118,7 @@ istream& operator>>(istream& in, Entity& entity)
 		getline(in, entity.name);
 		in >> numOfStatuses;
 		in.ignore();
-		entity.loadStatusesFromFile(numOfStatuses, (ifstream&)in);
+		entity.loadStatusesFromFile(numOfStatuses,(ifstream&)in);
 	}
 	else
 	{
@@ -140,7 +140,7 @@ ostream& operator<<(ostream& os, const Entity& entity)
 	}
 	else
 	{
-		cout << "name:" << entity.name;
+		cout << "name: " << entity.name;
 	}
 
 	entity.toOs(os);

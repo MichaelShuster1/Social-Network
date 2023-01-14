@@ -112,9 +112,7 @@ void System::printAllSystemMembers() const
 	int i = 1;
 	for (; itr != itrEnd; ++itr, i++)
 	{
-		cout << i << ". ";
-		(*itr).showName();
-		cout << endl;
+		cout << i << ". " <<(*itr) << endl;
 	}
 }
 
@@ -127,8 +125,7 @@ void System::printAllSystemPages() const
 	for(auto itr=system_pages.begin(); itr!=itrEnd; ++itr,i++)
 	{
 		cout << i << ". ";
-		(*itr).showName();
-		cout << endl;
+		cout<<(*itr)<<endl;
 	}
 }
 
@@ -147,8 +144,7 @@ void System::showAllStatusesOfAMember(const string& name) const noexcept(false)
 	auto itr = find(system_members.begin(),system_members.end(),name);
 	if (itr != system_members.end())
 	{
-		(*itr).showName();
-		cout << "'s statuses are:" << endl;
+		cout<<(*itr) << "'s statuses are:" << endl;
 		(*itr).showAllStatuses();
 	}
 	else
@@ -161,7 +157,7 @@ void System::showAllStatusesOfAFanPage(const string& name) const noexcept(false)
 	auto itr = find(system_pages.begin(), system_pages.end(),name);
 	if (itr != system_pages.end())
 	{
-		(*itr).showName();
+		cout<<(*itr);
 		cout << "'s statuses are:" << endl;
 		(*itr).showAllStatuses();
 	}

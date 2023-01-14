@@ -63,9 +63,7 @@ void Fan_page::showAllFans() const
 		auto itrEnd = fans.end();
 		for (auto itr=fans.begin(); itr!=itrEnd; ++itr)
 		{
-			cout << i << ". ";
-			(*itr)->showName();
-			cout << endl;
+			cout << i << ". " << (*itr) << endl;
 			i++;
 		}
 	}
@@ -83,10 +81,7 @@ void Fan_page::showAllStatuses() const
 }
 
 
-void Fan_page::showName() const
-{
-	cout << name;
-}
+
 
 
 int Fan_page::getFansSize() const

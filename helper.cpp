@@ -18,7 +18,7 @@ void addNewUserToSystem(System& system)
 		if (name.size() == 0)
 			cout << "the name is empty!" << endl;
 		else if (!(Member::isChar(*(name.begin()))))
-			cout << "the name must start with a latter!" <<endl;
+			cout << "the name must start with a letter!" <<endl;
 		else if (!system.checkUserNameTaken(name))
 			valid_name = true;
 		else

@@ -65,12 +65,6 @@ bool Member::isPageFollower(const Fan_page& page) const
 		return true;
 }
 
-//
-//void Member::addStatus(Status* status)
-//{
-//	Entity::addStatus(status);
-//}
-
 
 void Member::operator+=(Member& _member) noexcept(false)
 {
@@ -115,12 +109,6 @@ void Member::addPage(Fan_page& page) noexcept(false)
 }
 
 
-void Member::showName() const
-{
-	cout << name;
-}
-
-
 void Member::showAllFriends() const
 {
 	int numOfFriends = getFriendsSize();
@@ -133,8 +121,7 @@ void Member::showAllFriends() const
 		for (; itr != enditr; ++itr, i++)
 		{
 			cout << i << ". ";
-			(*itr)->showName();
-			cout << endl;
+			cout << (*itr) << endl;;
 		}
 	}	
 	else
@@ -145,19 +132,11 @@ void Member::showAllFriends() const
 
 void Member::showAllStatuses() const
 {
-	/*auto itr = statuses.begin();
-	auto enditr = statuses.end();*/
-
 	if (statuses.size() == EMPTY)
 		cout << name << " has no statuses" << endl;
 	else
 	{
 		Entity::showAllStatuses();
-		/*for (; itr != enditr; ++itr)
-		{
-			cout << (**itr);
-			cout << endl;
-		}*/
 	}
 }
 
@@ -175,7 +154,7 @@ void Member::showTenRecentStatuses() const
 		cout <<name<<"'s ten recent statuses: " << endl;
 		for (; itr != itrEnd && i < RANGE; ++itr, i++)
 		{
-			cout << (*itr);
+			cout << (**itr);
 			cout << endl;
 		}
 	}
@@ -203,13 +182,6 @@ void Member::showAllFriendsTenStatuses() const
 		cout << name << " has no friends"<<endl;
 	}
 }
-
-
-//const string Member::getName() const
-//{
-//	return Entity::getName();
-//	/*return name;*/
-//}
 
 
 int Member::getFriendsSize() const
@@ -251,69 +223,6 @@ bool Member::areFriendsCheck(const Member& member) const
 
 }
 
-//
-//bool Member::operator==(const string& name) const
-//{
-//	return Entity::operator==(name);
-//	/*if (this->name == name)
-//		return true;
-//	else
-//		return false;*/
-//}
-
-
-//bool Member::isChar(const char c)
-//{
-//	if (( c>= BIGA && c <= BIGZ) || (c >= LITTLEA && c <= LITTLEZ))
-//		return true;
-//	return false;
-//}
-//
-//ostream& operator<<(ostream& os, const Member& member)
-//{
-//	/*auto itr = member.statuses.begin();
-//	auto itrEnd = member.statuses.end();*/
-//	if (typeid(os) == typeid(ofstream))
-//	{
-//		os << member.birth_date << member.name << endl << member.statuses.size() << endl;
-//		/*for (; itr != itrEnd; ++itr)
-//			os << *(*itr);*/
-//		member.saveStatusesToFile((ofstream&)os);
-//	}
-//	else
-//		cout << "name:" << member.name;
-//
-//	return os;
-//}
-//
-//istream& operator>>(istream& in, Member& member)
-//{
-//	if (typeid(in) == typeid(ifstream))
-//	{
-//		int numOfStatuses;
-//		string statusType;
-//		in.ignore();
-//		getline(in, member.name);
-//		in >> numOfStatuses;
-//		member.loadStatusesFromFile(numOfStatuses, (ifstream&)in);
-//		/*for (int i = 0; i < numOfStatuses; i++)
-//		{
-//			in >> statusType;
-//			if (strcmp(statusType.c_str(), typeid(Status).name() + 6) == 0)
-//				member.statuses.push_back(new Status((ifstream&)in));
-//			else if (strcmp(statusType.c_str(), typeid(StatusPicture).name() + 6) == 0)
-//				member.statuses.push_back(new StatusPicture((ifstream&)in));
-//			else
-//				member.statuses.push_back(new StatusVideo((ifstream&)in));
-//		}*/
-//
-//	}
-//	else
-//	{
-//		in >> member.name >> member.birth_date;
-//	}
-//	return in;
-//}
 
 void Member::saveFriendsToFile(ofstream& os) const
 {
@@ -324,10 +233,12 @@ void Member::saveFriendsToFile(ofstream& os) const
 		os << (*itrF)->name << endl;
 }
 
+
 void Member::oneSidedLink(Member& member)
 {
 	friends.push_back(&member);
 }
+
 
 void Member::fromOs(std::istream& in)
 {
@@ -335,7 +246,5 @@ void Member::fromOs(std::istream& in)
 		in >> birth_date;
 }
 
-void Member::toOs(std::ostream & os) const
-{
-	os << birth_date;
-}
+
+

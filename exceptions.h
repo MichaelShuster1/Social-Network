@@ -19,7 +19,7 @@ public:
 class invalidEntityNameException : public EntityException
 {
 public:
-	virtual const char* what() const override { return "the name must start with a latter\n"; }
+	virtual const char* what() const override { return "the name must start with a letter\n"; }
 };
 /*----------------------------------User Exceptions---------------------------------------*/
 
