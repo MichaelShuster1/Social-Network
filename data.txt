@@ -27,7 +27,7 @@ status6
 Mon Jul 21 02:03:55 2022
 28 2 2000
 dani
-2
+3
 StatusPicture
 This is chatGPT, i use it to do all my homework instead of doing it myself, including this project
 Sat Jan 14 17:19:02 2023
@@ -36,6 +36,10 @@ StatusPicture
 This is an amazing tree, WOW!
 Sat Jan 14 17:20:16 2023
 png.jpg
+StatusPicture
+hello
+Sat Jan 14 17:53:06 2023
+pic.jpg
 12 12 1990
 4
 Music fans
@@ -80,5 +84,3 @@ Avi Cohen
 1
 Yossi Levi
 0
-1
-dani
