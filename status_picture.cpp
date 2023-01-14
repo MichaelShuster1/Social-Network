@@ -42,6 +42,7 @@ void StatusPicture::attached(std::ostream& os) const
 	}
 	else
 	{
+		cout << "*picture is opening with operating system's default photo viewer..." << endl;
 		string command = "start " + picture;
 		system(command.c_str());
 	}

@@ -33,6 +33,7 @@ void StatusVideo::attached(std::ostream& os) const
 	}
 	else
 	{
+		cout << "*video is opening with operating system's default media player..." << endl;
 		string command = "start " + video;
 		system(command.c_str());
 	}
