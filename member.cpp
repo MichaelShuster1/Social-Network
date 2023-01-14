@@ -240,10 +240,16 @@ void Member::oneSidedLink(Member& member)
 }
 
 
-void Member::fromOs(std::istream& in)
+void Member::fromOs(istream& in)
 {
 	if (typeid(in) != typeid(ifstream))
 		in >> birth_date;
+}
+
+void Member::toOs(ostream& os) const
+{
+	if (typeid(os) == typeid(ifstream))
+		os << birth_date;
 }
 
 

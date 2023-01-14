@@ -1,16 +1,12 @@
-4
-Avi Cohen
 3
+Avi Cohen
+2
 Status
 status1
 Mon Jul 16 02:03:55 2021
 Status
 status2
 Mon Jul 17 02:03:55 2021
-StatusPicture
-hello
-Sat Jan 14 15:52:49 2023
-a.jpg
 Yossi Levi
 2
 Status
@@ -27,13 +23,7 @@ Mon Jul 20 02:03:55 2022
 Status
 status6
 Mon Jul 21 02:03:55 2022
-michael
-1
-StatusPicture
-hello today i am going to talk about chat gpt ,as we can see the chat gpt is taking over the world ,so be carful there guys
-Sat Jan 14 15:47:19 2023
-chat.jpg
-4
+3
 Music fans
 2
 Status
@@ -58,19 +48,15 @@ Mon Jul 20 02:03:55 2021
 Status
 status12
 Mon Jul 21 02:03:55 2022
-barca
-0
 1
-michael
-1
+Yossi Levi
+2
+Avi Cohen
 Israel Israeli
 1
 Yossi Levi
 1
 Avi Cohen
-0
 1
 Yossi Levi
 0
-1
-michael

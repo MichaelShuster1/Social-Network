@@ -114,7 +114,6 @@ istream& operator>>(istream& in, Entity& entity)
 	if (typeid(in) == typeid(ifstream))
 	{
 		int numOfStatuses;
-		string statusType;
 		getline(in, entity.name);
 		in >> numOfStatuses;
 		in.ignore();

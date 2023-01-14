@@ -47,6 +47,7 @@ public:
 	void saveFriendsToFile(std::ofstream& os) const;//print friends and pages of a member to a file
 	void oneSidedLink(Member& member); //adds the given member to the friends of the activating object (one sided link)
 	virtual void fromOs(std::istream& in) override;
+	virtual void toOs(std::ostream& os) const override;
 };
 
 
