@@ -26,7 +26,7 @@ public:
 	Member(std::ifstream& in) : birth_date(in), Entity(in) {}; //c'tor for file 
 	Member(const Member& other);// copy c'tor
 	Member(Member&& other) noexcept(true); // move c'tor
-	void operator+=(Member& _member) noexcept(false); //adds a user to the member's friends
+	Member& operator+=(Member& _member) noexcept(false); //adds a user to the member's friends
 	void addPage(Fan_page& page) noexcept(false); //adds a fan page to the member's fan pages 
 	void removePage(Fan_page& page) noexcept(false);//removes a page from the user's fan page 
 	void removeFriend(Member& member) noexcept(false);//removes a user from the member's friends

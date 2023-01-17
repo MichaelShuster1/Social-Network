@@ -66,7 +66,7 @@ bool Member::isPageFollower(const Fan_page& page) const
 }
 
 
-void Member::operator+=(Member& _member) noexcept(false)
+Member& Member::operator+=(Member& _member) noexcept(false)
 {
 
 	if (areFriendsCheck((_member)))
@@ -83,7 +83,8 @@ void Member::operator+=(Member& _member) noexcept(false)
 	{
 		_member+=(*this);
 	}
-
+	
+	return *this;
 }
 
 

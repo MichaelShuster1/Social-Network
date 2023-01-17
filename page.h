@@ -19,7 +19,7 @@ public:
 	Fan_page(std::ifstream& in) :Entity(in) {}; //c'tor 2
 	Fan_page(const Fan_page& other); //copy c'tor
 	Fan_page(Fan_page&& other) noexcept(true); //move c'tor
-	void operator+=(Member& member) noexcept(false);//adds the given member as a fan to this page
+	Fan_page& operator+=(Member& member) noexcept(false);//adds the given member as a fan to this page
 	bool operator>(const Fan_page& page) const;// checks if the number of fans of this page is bigger then the number of fans of the given page
 	bool operator>(const Member& member) const; // checks if the number of fans of this page is bigger the number of friends of the given member 
 	void deleteFan(Member& member) noexcept(false); //delete the given member from the this page and vice versa

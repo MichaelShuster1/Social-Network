@@ -1,4 +1,4 @@
-4
+6
 Avi Cohen
 2
 StatusPicture
@@ -41,6 +41,12 @@ video
 Sat Jan 14 18:55:36 2023
 vid.mov
 25 12 2000
+dani
+0
+12 12 1990
+dudi
+0
+12 12 1990
 5
 Music fans
 3
@@ -84,6 +90,8 @@ Israel Israeli
 Yossi Levi
 1
 Avi Cohen
+0
+0
 1
 Avi Cohen
 1

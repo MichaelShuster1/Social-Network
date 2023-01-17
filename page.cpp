@@ -16,7 +16,7 @@ Fan_page::Fan_page(Fan_page&& other) noexcept(true):Entity(other)
 }
 
 
-void Fan_page::operator+=(Member& member) noexcept(false)
+Fan_page& Fan_page::operator+=(Member& member) noexcept(false)
 {
     if (isFanCheck(member))
 	{
@@ -31,6 +31,8 @@ void Fan_page::operator+=(Member& member) noexcept(false)
 	{
 		member.addPage(*this);
 	}
+
+	return *this;
 }
 
 
