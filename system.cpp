@@ -4,7 +4,7 @@ using namespace std;
 
 System::System()
 {
-	loadDataFromFile();
+	loadDataFromFile();	
 }
 
 
@@ -192,17 +192,7 @@ void System::linkFriends(const string& name1, const string& name2) noexcept(fals
 	if (name1 == name2)
 		throw SameUsersException();
 
-
-	try
-	{
-		*itr1 += *itr2;
-	}
-	catch(UserLinkingException& e)
-	{
-		throw(e);
-	}
-
-
+	*itr1 += *itr2;
 }
 
 
@@ -227,14 +217,7 @@ void System::unLinkFriends(const string& name1, const string& name2) noexcept(fa
 	if (itr1 == itr2)
 		throw SameUsersException();
 
-	try
-	{
-		(*itr1).removeFriend(*itr2);
-	}
-	catch (UnLinkingException& e)
-	{
-		throw(e);
-	}
+	(*itr1).removeFriend(*itr2);
 }
 
 
@@ -249,14 +232,7 @@ void System::addFanToAPage(const string& name_page, const string& name_member) n
 	if (itr_page == system_pages.end())
 		throw PageNotFoundException();
 
-	try
-	{
-		(*itr_page) += (*itr_fan);
-	}
-	catch(AddFanException& e)
-	{
-		throw(e);
-	}
+	(*itr_page) += (*itr_fan);
 }
 
 
@@ -272,18 +248,7 @@ void System::removeFanFromAFanPage(const string& name_page, const string& name_m
 	if (itr_member == system_members.end())
 		throw UserNotFoundException();
 
-	try
-	{
-		(*itr_page).deleteFan(*itr_member);
-	}
-	catch (NotFanException& e1)
-	{
-		throw(e1);
-	}
-	catch (NoFansException& e2)
-	{
-		throw(e2);
-	}
+	(*itr_page).deleteFan(*itr_member);
 }
 
 

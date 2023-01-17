@@ -71,11 +71,6 @@ Member& Member::operator+=(Member& _member) noexcept(false)
 
 	if (areFriendsCheck((_member)))
 		throw UserLinkingException();
-
-	if (friends.size() == friends.capacity())
-	{
-		friends.reserve(friends.capacity() * INCREASE_RATE);
-	}
 	
 	friends.push_back(&_member);
 
@@ -94,11 +89,7 @@ void Member::addPage(Fan_page& page) noexcept(false)
 	{
 		throw UserLinkingPageException();
 	}
-	if (pages.size() == pages.capacity())
-	{
-		pages.reserve(pages.capacity() * INCREASE_RATE);
-	}
-
+	
 	pages.push_back(&page);
 
     if (!page.isFanCheck(*this))

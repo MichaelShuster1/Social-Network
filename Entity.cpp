@@ -20,20 +20,24 @@ Entity::Entity(ifstream& inFile)
 
 Entity::Entity(const Entity& other)
 {
+	/*
 	auto enditr = other.statuses.end();
-
 	for (auto itr = other.statuses.begin(); itr != enditr; ++itr)
 	{
 		this->statuses.push_back((*itr)->clone());
 	}
-
 	this->name = other.name;
+	*/
+	*this = other;
 }
 
 Entity::Entity(Entity&& other) noexcept(true)
 {
+	/*
 	this->name = move(other.name);
 	this->statuses = move(other.statuses);
+	*/
+	*this = move(other);
 }
 
 void Entity::addStatus(Status* status)
@@ -69,13 +73,48 @@ const string& Entity::getName() const
 
 Entity::~Entity()
 {
+	DeleteStatuses();
+}
+
+void Entity::DeleteStatuses()
+{
 	auto enditr = statuses.end();
 	for (auto itr = statuses.begin(); itr != enditr; ++itr)
 	{
-		delete* itr;
+		delete *itr;
 	}
 }
 
+const Entity& Entity::operator=(const Entity& other)
+{
+	if (this != &other)
+	{
+		DeleteStatuses();
+
+		auto enditr = other.statuses.end();
+
+		for (auto itr = other.statuses.begin(); itr != enditr; ++itr)
+		{
+			this->statuses.push_back((*itr)->clone());
+		}
+
+		this->name = other.name;
+	}
+	return *this;
+}
+
+
+const Entity& Entity::operator=(Entity&& other)
+{
+	if (this != &other)
+	{
+		DeleteStatuses();
+		statuses = move(other.statuses);
+		name = other.name;
+	}
+	return *this;
+}
+	
 
 bool Entity::operator==(const string& name) const
 {
@@ -84,6 +123,7 @@ bool Entity::operator==(const string& name) const
 	else
 		return false;
 }
+
 
 void Entity::loadStatusesFromFile(int numOfStatuses,ifstream& in)
 {
