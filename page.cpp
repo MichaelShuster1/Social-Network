@@ -23,8 +23,6 @@ void Fan_page::operator+=(Member& member) noexcept(false)
 		throw AddFanException();
 	}
 	
-	if (fans.size() == fans.capacity())
-		fans.reserve(fans.capacity() * INCREASE_RATE);
 	fans.push_back(&member);
 
 	if (!member.isPageFollower(*this))

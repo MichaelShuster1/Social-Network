@@ -21,6 +21,8 @@ protected:
 	Entity(std::ifstream & inFile); // c'tor 2
 	Entity(Entity&& other) noexcept(true); // move c'tor
 	Entity(const Entity& other); // copy c'tor
+	const Entity& operator=(const Entity& other);
+	const Entity& operator=(Entity&& other);
 public:
 	virtual ~Entity(); // d'tor
 	void addStatus(Status* status); //adds the given status to this page
@@ -34,6 +36,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const Entity& entity); //gets as input the entity from console/file
 	virtual void fromOs(std::istream& in) {};  //used in case the inheriting son doesn't overload the funcion
 	virtual void toOs(std::ostream& os) const {}; //used in case the inheriting son doesn't overload the funcion
+	void DeleteStatuses();
 
 };
 
