@@ -8,8 +8,6 @@
 
 
 const int RANGE = 10;
-const int INCREASE_RATE = 2;
-
 
 class Fan_page;
 

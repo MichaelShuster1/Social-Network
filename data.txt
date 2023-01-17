@@ -1,4 +1,4 @@
-6
+5
 Avi Cohen
 2
 StatusPicture
@@ -27,29 +27,18 @@ Status
 status6
 Mon Jul 21 02:03:55 2022
 28 2 2000
-michael
-3
-Status
-hello
-Sat Jan 14 18:53:10 2023
-StatusPicture
-status picture
-Sat Jan 14 18:53:30 2023
-sea.jpg
-StatusVideo
-video
-Sat Jan 14 18:55:36 2023
-vid.mov
-25 12 2000
 dani
-0
+1
+Status
+status for dani
+Tue Jan 17 17:39:04 2023
 12 12 1990
 dudi
 0
-12 12 1990
-5
+10 10 1995
+4
 Music fans
-3
+2
 StatusPicture
 Awesome tree!
 Mon Jul 16 02:03:55 2019
@@ -57,9 +46,6 @@ tree.jpg
 Status
 status8
 Mon Jul 17 02:03:55 2019
-Status
-hello fans
-Sat Jan 14 18:56:07 2023
 Gaming fans
 2
 Status
@@ -77,26 +63,24 @@ Status
 status12
 Mon Jul 21 02:03:55 2022
 barca
-0
-madrid
-0
-2
+1
+Status
+fuck madrid
+Tue Jan 17 17:39:31 2023
+1
 Yossi Levi
-michael
-2
+3
 Avi Cohen
 Israel Israeli
+dani
 1
 Yossi Levi
-1
-Avi Cohen
-0
-0
-1
-Avi Cohen
 1
 Yossi Levi
 0
 1
-michael
+Avi Cohen
+1
+Yossi Levi
+0
 0

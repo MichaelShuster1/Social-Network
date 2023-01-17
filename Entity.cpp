@@ -20,23 +20,12 @@ Entity::Entity(ifstream& inFile)
 
 Entity::Entity(const Entity& other)
 {
-	/*
-	auto enditr = other.statuses.end();
-	for (auto itr = other.statuses.begin(); itr != enditr; ++itr)
-	{
-		this->statuses.push_back((*itr)->clone());
-	}
-	this->name = other.name;
-	*/
+	
 	*this = other;
 }
 
 Entity::Entity(Entity&& other) noexcept(true)
 {
-	/*
-	this->name = move(other.name);
-	this->statuses = move(other.statuses);
-	*/
 	*this = move(other);
 }
 
@@ -85,7 +74,7 @@ void Entity::DeleteStatuses()
 	}
 }
 
-const Entity& Entity::operator=(const Entity& other)
+const Entity& Entity::operator=(const Entity& other) noexcept(true)
 {
 	if (this != &other)
 	{
@@ -104,7 +93,7 @@ const Entity& Entity::operator=(const Entity& other)
 }
 
 
-const Entity& Entity::operator=(Entity&& other)
+const Entity& Entity::operator=(Entity&& other) noexcept(true)
 {
 	if (this != &other)
 	{
