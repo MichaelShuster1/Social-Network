@@ -1,5 +1,5 @@
 # Social-Network-Management-System
-The Social Network Administration System project is a powerful application designed to facilitate the administration and management of a social network platform. The system provides robust functionalities for administrators to perform various actions related to member profiles, fan pages, and their activities. It empowers administrators to add new members and fan pages, manage statuses, establish connections between members, manage fan associations, and retrieve comprehensive information from the system.
+The Social Network Management System project is a powerful application designed to facilitate the administration and management of a social network platform. The system provides robust functionalities for administrators to perform various actions related to member profiles, fan pages, and their activities. It empowers administrators to add new members and fan pages, manage statuses, establish connections between members, manage fan associations, and retrieve comprehensive information from the system.
 
 1)Add a New Member:
 Administrators can add new members to the social network by capturing essential member details such as name and age. This functionality allows administrators to expand the user base of the social network.
@@ -34,4 +34,4 @@ The system provides administrators with an overview of all registered entities, 
 11)Show All Friends of a Member/Show All Fans of a Fan Page:
 Administrators can view the list of friends associated with a specific member or the list of fans linked to a particular fan page. This feature offers administrators a comprehensive understanding of member connections and the fan base of various fan pages within the social network.
 
-The Social Network Administration System project empowers administrators to effectively manage member profiles, fan pages, and their activities within the social network platform. It provides robust functionality for administrators to control and monitor the network's dynamics, ensuring a smooth and engaging experience for all users.
+The Social Network Management System project empowers administrators to effectively manage member profiles, fan pages, and their activities within the social network platform. It provides robust functionality for administrators to control and monitor the network's dynamics, ensuring a smooth and engaging experience for all users.
